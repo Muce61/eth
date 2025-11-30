@@ -1,0 +1,1 @@
+trade_id,symbol,side,entry_time,entry_price,entry_quantity,entry_value,leverage,stop_loss,exit_time,exit_price,exit_reason,holding_time,pnl,pnl_pct,roe,fees,balance_before,balance_after,tags

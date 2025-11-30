@@ -1,0 +1,600 @@
+
+
+##################################################
+STARTING 30-DAY BACKTEST
+##################################################
+Loading data...
+Loaded 50 symbols.
+Filtered to last 30 days: 2881 candles
+Backtesting over 2881 timestamps...
+Start: 2025-10-25 07:45:00, End: 2025-11-24 07:45:00
+Processing 2025-10-25 07:45:00... Balance: $100.00
+仓位计算: 余额=100.00, 保证金(10.0%)=10.00, 杠杆=50x, 仓位价值=500.00, 数量=0.968358
+[2025-10-26 07:15:00] OPEN LONG BCHUSDTUSDT @ 516.3380 | SL: 511.8765 (-0.75%/-15%ROE) | Size: 0.97
+[2025-10-26 07:30:00] CLOSE BCHUSDTUSDT @ 517.8871 | PnL: $1.00 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=100.75, 保证金(10.0%)=10.07, 杠杆=50x, 仓位价值=503.74, 数量=25.105560
+[2025-10-26 08:00:00] OPEN LONG AVAXUSDTUSDT @ 20.0650 | SL: 19.8531 (-0.75%/-15%ROE) | Size: 25.11
+Processing 2025-10-26 08:45:00... Balance: $100.50
+仓位计算: 余额=100.50, 保证金(10.0%)=10.05, 杠杆=50x, 仓位价值=502.49, 数量=27.599819
+[2025-10-26 09:15:00] OPEN LONG LINKUSDTUSDT @ 18.2061 | SL: 18.0465 (-0.75%/-15%ROE) | Size: 27.60
+仓位计算: 余额=100.25, 保证金(10.0%)=10.02, 杠杆=50x, 仓位价值=501.23, 数量=2830.229633
+[2025-10-26 09:15:00] OPEN LONG HBARUSDTUSDT @ 0.1771 | SL: 0.1754 (-0.75%/-15%ROE) | Size: 2830.23
+仓位计算: 余额=100.00, 保证金(10.0%)=10.00, 杠杆=50x, 仓位价值=499.98, 数量=2.549238
+[2025-10-26 09:15:00] OPEN LONG SOLUSDTUSDT @ 196.1280 | SL: 194.7335 (-0.75%/-15%ROE) | Size: 2.55
+仓位计算: 余额=99.75, 保证金(10.0%)=9.97, 杠杆=50x, 仓位价值=498.73, 数量=158.751093
+[2025-10-26 09:15:00] OPEN LONG DOTUSDTUSDT @ 3.1416 | SL: 3.1143 (-0.75%/-15%ROE) | Size: 158.75
+仓位计算: 余额=99.50, 保证金(10.0%)=9.95, 杠杆=50x, 仓位价值=497.48, 数量=68210.332262
+[2025-10-26 09:15:00] OPEN LONG 1000PEPEUSDTUSDT @ 0.0073 | SL: 0.0072 (-0.75%/-15%ROE) | Size: 68210.33
+仓位计算: 余额=99.25, 保证金(10.0%)=9.92, 杠杆=50x, 仓位价值=496.24, 数量=2478.712635
+[2025-10-26 09:15:00] OPEN LONG DOGEUSDTUSDT @ 0.2002 | SL: 0.1986 (-0.75%/-15%ROE) | Size: 2478.71
+仓位计算: 余额=99.00, 保证金(10.0%)=9.90, 杠杆=50x, 仓位价值=495.00, 数量=0.437837
+[2025-10-26 09:15:00] OPEN LONG BNBUSDTUSDT @ 1130.5550 | SL: 1123.8248 (-0.75%/-15%ROE) | Size: 0.44
+仓位计算: 余额=98.75, 保证金(10.0%)=9.88, 杠杆=50x, 仓位价值=493.76, 数量=191.477761
+[2025-10-26 09:15:00] OPEN LONG SUIUSDTUSDT @ 2.5787 | SL: 2.5525 (-0.75%/-15%ROE) | Size: 191.48
+仓位计算: 余额=98.51, 保证金(10.0%)=9.85, 杠杆=50x, 仓位价值=492.53, 数量=741.834858
+[2025-10-26 09:15:00] OPEN LONG ADAUSDTUSDT @ 0.6639 | SL: 0.6582 (-0.75%/-15%ROE) | Size: 741.83
+[2025-10-26 09:30:00] CLOSE LINKUSDTUSDT @ 18.0465 | PnL: $-4.90 | Reason: Stop Loss
+[2025-10-26 09:45:00] CLOSE BNBUSDTUSDT @ 1123.8248 | PnL: $-3.44 | Reason: Stop Loss
+[2025-10-26 10:30:00] CLOSE SOLUSDTUSDT @ 194.7335 | PnL: $-4.05 | Reason: Stop Loss
+[2025-10-26 10:30:00] CLOSE DOTUSDTUSDT @ 3.1143 | PnL: $-4.82 | Reason: Stop Loss
+[2025-10-26 10:30:00] CLOSE 1000PEPEUSDTUSDT @ 0.0072 | PnL: $-5.70 | Reason: Stop Loss
+[2025-10-26 10:30:00] CLOSE DOGEUSDTUSDT @ 0.1986 | PnL: $-4.50 | Reason: Stop Loss
+[2025-10-26 10:30:00] CLOSE SUIUSDTUSDT @ 2.5525 | PnL: $-5.51 | Reason: Stop Loss
+[2025-10-26 11:30:00] CLOSE AVAXUSDTUSDT @ 20.1252 | PnL: $1.01 | Reason: Trailing Stop (Stepped)
+[2025-10-26 11:30:00] CLOSE HBARUSDTUSDT @ 0.1776 | PnL: $1.00 | Reason: Trailing Stop (Stepped)
+[2025-10-26 11:30:00] CLOSE ADAUSDTUSDT @ 0.6712 | PnL: $4.92 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=72.27, 保证金(10.0%)=7.23, 杠杆=50x, 仓位价值=361.36, 数量=0.678201
+[2025-10-26 11:30:00] OPEN LONG BCHUSDTUSDT @ 532.8263 | SL: 526.0056 (-0.75%/-15%ROE) | Size: 0.68
+仓位计算: 余额=72.09, 保证金(10.0%)=7.21, 杠杆=50x, 仓位价值=360.46, 数量=0.863629
+[2025-10-26 11:30:00] OPEN LONG TAOUSDTUSDT @ 417.3786 | SL: 411.5353 (-0.75%/-15%ROE) | Size: 0.86
+仓位计算: 余额=71.91, 保证金(10.0%)=7.19, 杠杆=50x, 仓位价值=359.56, 数量=0.003173
+[2025-10-26 11:30:00] OPEN LONG BTCUSDTUSDT @ 113330.1367 | SL: 112717.6863 (-0.75%/-15%ROE) | Size: 0.00
+[2025-10-26 11:45:00] CLOSE BCHUSDTUSDT @ 538.6874 | PnL: $3.61 | Reason: Trailing Stop (Stepped)
+[2025-10-26 11:45:00] CLOSE TAOUSDTUSDT @ 418.6307 | PnL: $0.72 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=76.06, 保证金(10.0%)=7.61, 杠杆=50x, 仓位价值=380.31, 数量=1.922806
+[2025-10-26 11:45:00] OPEN LONG SOLUSDTUSDT @ 197.7888 | SL: 195.8830 (-0.75%/-15%ROE) | Size: 1.92
+仓位计算: 余额=75.87, 保证金(10.0%)=7.59, 杠杆=50x, 仓位价值=379.36, 数量=0.703756
+[2025-10-26 11:45:00] OPEN LONG BCHUSDTUSDT @ 539.0494 | SL: 531.5027 (-0.75%/-15%ROE) | Size: 0.70
+仓位计算: 余额=75.68, 保证金(10.0%)=7.57, 杠杆=50x, 仓位价值=378.41, 数量=0.901947
+[2025-10-26 11:45:00] OPEN LONG TAOUSDTUSDT @ 419.5497 | SL: 413.6760 (-0.75%/-15%ROE) | Size: 0.90
+[2025-10-26 12:00:00] CLOSE BTCUSDTUSDT @ 113670.1272 | PnL: $0.72 | Reason: Trailing Stop (Stepped)
+[2025-10-26 12:00:00] CLOSE BCHUSDTUSDT @ 555.7599 | PnL: $11.37 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=87.58, 保证金(10.0%)=8.76, 杠杆=50x, 仓位价值=437.90, 数量=0.786126
+[2025-10-26 12:00:00] OPEN LONG BCHUSDTUSDT @ 557.0384 | SL: 549.2398 (-0.75%/-15%ROE) | Size: 0.79
+仓位计算: 余额=87.36, 保证金(10.0%)=8.74, 杠杆=50x, 仓位价值=436.81, 数量=0.003840
+[2025-10-26 12:00:00] OPEN LONG BTCUSDTUSDT @ 113752.4478 | SL: 113041.8748 (-0.75%/-15%ROE) | Size: 0.00
+[2025-10-26 12:15:00] CLOSE BCHUSDTUSDT @ 563.1658 | PnL: $4.37 | Reason: Trailing Stop (Stepped)
+[2025-10-26 12:30:00] CLOSE TAOUSDTUSDT @ 422.4865 | PnL: $2.27 | Reason: Trailing Stop (Stepped)
+[2025-10-26 13:15:00] CLOSE SOLUSDTUSDT @ 198.3822 | PnL: $0.76 | Reason: Trailing Stop (Stepped)
+[2025-10-26 21:15:00] CLOSE BTCUSDTUSDT @ 113041.8748 | PnL: $-3.16 | Reason: Stop Loss
+仓位计算: 余额=91.38, 保证金(10.0%)=9.14, 杠杆=50x, 仓位价值=456.91, 数量=2530.107027
+[2025-10-26 22:00:00] OPEN LONG HBARUSDTUSDT @ 0.1806 | SL: 0.1784 (-0.75%/-15%ROE) | Size: 2530.11
+[2025-10-27 00:30:00] CLOSE HBARUSDTUSDT @ 0.1811 | PnL: $0.91 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=92.07, 保证金(10.0%)=9.21, 杠杆=50x, 仓位价值=460.33, 数量=0.003966
+[2025-10-27 06:45:00] OPEN LONG BTCUSDTUSDT @ 116066.8044 | SL: 115405.8158 (-0.75%/-15%ROE) | Size: 0.00
+[2025-10-27 08:00:00] CLOSE BTCUSDTUSDT @ 115405.8158 | PnL: $-3.08 | Reason: Stop Loss
+Processing 2025-10-27 09:45:00... Balance: $88.76
+仓位计算: 余额=88.76, 保证金(10.0%)=8.88, 杠杆=50x, 仓位价值=443.79, 数量=2465.899459
+[2025-10-27 15:00:00] OPEN LONG HBARUSDTUSDT @ 0.1800 | SL: 0.1775 (-0.75%/-15%ROE) | Size: 2465.90
+[2025-10-27 15:15:00] CLOSE HBARUSDTUSDT @ 0.1812 | PnL: $2.66 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=91.20, 保证金(10.0%)=9.12, 杠杆=50x, 仓位价值=455.98, 数量=2513.648708
+[2025-10-27 15:15:00] OPEN LONG HBARUSDTUSDT @ 0.1814 | SL: 0.1789 (-0.75%/-15%ROE) | Size: 2513.65
+[2025-10-27 15:30:00] CLOSE HBARUSDTUSDT @ 0.1819 | PnL: $0.91 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=91.88, 保证金(10.0%)=9.19, 杠杆=50x, 仓位价值=459.39, 数量=2144.014167
+[2025-10-28 06:30:00] OPEN LONG HBARUSDTUSDT @ 0.2143 | SL: 0.2113 (-0.75%/-15%ROE) | Size: 2144.01
+[2025-10-28 06:45:00] CLOSE HBARUSDTUSDT @ 0.2183 | PnL: $8.26 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=99.91, 保证金(10.0%)=9.99, 杠杆=50x, 仓位价值=499.55, 数量=4.733564
+[2025-10-28 06:45:00] OPEN LONG LTCUSDTUSDT @ 105.5327 | SL: 104.0553 (-0.75%/-15%ROE) | Size: 4.73
+[2025-10-28 07:00:00] CLOSE LTCUSDTUSDT @ 103.9497 | PnL: $-7.99 | Reason: LIQUIDATION
+Processing 2025-10-28 10:45:00... Balance: $91.67
+仓位计算: 余额=91.67, 保证金(10.0%)=9.17, 杠杆=50x, 仓位价值=458.37, 数量=0.003968
+[2025-10-28 13:45:00] OPEN LONG BTCUSDTUSDT @ 115527.6349 | SL: 114917.2350 (-0.75%/-15%ROE) | Size: 0.00
+仓位计算: 余额=91.45, 保证金(10.0%)=9.14, 杠杆=50x, 仓位价值=457.23, 数量=0.802667
+[2025-10-28 14:00:00] OPEN LONG BCHUSDTUSDT @ 569.6347 | SL: 562.2814 (-0.75%/-15%ROE) | Size: 0.80
+[2025-10-28 14:15:00] CLOSE BTCUSDTUSDT @ 115874.2179 | PnL: $0.92 | Reason: Trailing Stop (Stepped)
+[2025-10-28 14:30:00] CLOSE BCHUSDTUSDT @ 562.2814 | PnL: $-6.35 | Reason: Stop Loss
+仓位计算: 余额=85.78, 保证金(10.0%)=8.58, 杠杆=50x, 仓位价值=428.89, 数量=0.384118
+[2025-10-29 06:30:00] OPEN LONG BNBUSDTUSDT @ 1116.5680 | SL: 1106.5588 (-0.75%/-15%ROE) | Size: 0.38
+[2025-10-29 06:45:00] CLOSE BNBUSDTUSDT @ 1118.8011 | PnL: $0.43 | Reason: Trailing Stop (Stepped)
+Processing 2025-10-29 11:45:00... Balance: $85.99
+仓位计算: 余额=85.99, 保证金(10.0%)=8.60, 杠杆=50x, 仓位价值=429.96, 数量=0.108040
+[2025-10-30 04:30:00] OPEN LONG PAXGUSDTUSDT @ 3979.6588 | SL: 3946.0092 (-0.75%/-15%ROE) | Size: 0.11
+[2025-10-30 05:15:00] CLOSE PAXGUSDTUSDT @ 3946.0092 | PnL: $-4.06 | Reason: Stop Loss
+Processing 2025-10-30 12:45:00... Balance: $81.72
+仓位计算: 余额=81.72, 保证金(10.0%)=8.17, 杠杆=50x, 仓位价值=408.58, 数量=0.101928
+[2025-10-30 14:00:00] OPEN LONG PAXGUSDTUSDT @ 4008.5333 | SL: 3975.7603 (-0.75%/-15%ROE) | Size: 0.10
+[2025-10-30 20:45:00] CLOSE PAXGUSDTUSDT @ 4016.5503 | PnL: $0.41 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=81.92, 保证金(10.0%)=8.19, 杠杆=50x, 仓位价值=409.60, 数量=413.153638
+[2025-10-31 09:45:00] OPEN LONG ASTERUSDTUSDT @ 0.9914 | SL: 0.9775 (-0.75%/-15%ROE) | Size: 413.15
+[2025-10-31 10:00:00] CLOSE ASTERUSDTUSDT @ 0.9765 | PnL: $-6.55 | Reason: LIQUIDATION
+仓位计算: 余额=75.17, 保证金(10.0%)=7.52, 杠杆=50x, 仓位价值=375.84, 数量=1.989570
+[2025-10-31 11:45:00] OPEN LONG SOLUSDTUSDT @ 188.9044 | SL: 186.5438 (-0.75%/-15%ROE) | Size: 1.99
+仓位计算: 余额=74.98, 保证金(10.0%)=7.50, 杠杆=50x, 仓位价值=374.90, 数量=20.266753
+[2025-10-31 11:45:00] OPEN LONG AVAXUSDTUSDT @ 18.4982 | SL: 18.2781 (-0.75%/-15%ROE) | Size: 20.27
+仓位计算: 余额=74.79, 保证金(10.0%)=7.48, 杠杆=50x, 仓位价值=373.96, 数量=926.104287
+[2025-10-31 12:15:00] OPEN LONG ENAUSDTUSDT @ 0.4038 | SL: 0.3981 (-0.75%/-15%ROE) | Size: 926.10
+[2025-10-31 12:45:00] CLOSE SOLUSDTUSDT @ 186.5438 | PnL: $-5.07 | Reason: Stop Loss
+[2025-10-31 12:45:00] CLOSE ENAUSDTUSDT @ 0.3977 | PnL: $-5.98 | Reason: LIQUIDATION
+[2025-10-31 13:30:00] CLOSE AVAXUSDTUSDT @ 18.2781 | PnL: $-4.83 | Reason: Stop Loss
+仓位计算: 余额=58.73, 保证金(10.0%)=5.87, 杠杆=50x, 仓位价值=293.64, 数量=0.627010
+[2025-10-31 13:45:00] OPEN LONG TAOUSDTUSDT @ 468.3240 | SL: 461.7675 (-0.75%/-15%ROE) | Size: 0.63
+Processing 2025-10-31 13:45:00... Balance: $58.58
+[2025-10-31 14:00:00] CLOSE TAOUSDTUSDT @ 473.4756 | PnL: $2.93 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=61.52, 保证金(10.0%)=6.15, 杠杆=50x, 仓位价值=307.58, 数量=65409.129930
+[2025-10-31 19:45:00] OPEN LONG PUMPUSDTUSDT @ 0.0047 | SL: 0.0046 (-0.75%/-15%ROE) | Size: 65409.13
+[2025-10-31 20:00:00] CLOSE PUMPUSDTUSDT @ 0.0046 | PnL: $-4.92 | Reason: LIQUIDATION
+Processing 2025-11-01 14:45:00... Balance: $56.45
+仓位计算: 余额=56.45, 保证金(10.0%)=5.64, 杠杆=50x, 仓位价值=282.23, 数量=0.002555
+[2025-11-02 04:30:00] OPEN LONG BTCUSDTUSDT @ 110457.8013 | SL: 110094.3418 (-0.75%/-15%ROE) | Size: 0.00
+仓位计算: 余额=56.30, 保证金(10.0%)=5.63, 杠杆=50x, 仓位价值=281.52, 数量=16.207562
+[2025-11-02 04:45:00] OPEN LONG LINKUSDTUSDT @ 17.3697 | SL: 17.1881 (-0.75%/-15%ROE) | Size: 16.21
+仓位计算: 余额=56.16, 保证金(10.0%)=5.62, 杠杆=50x, 仓位价值=280.82, 数量=1.495266
+[2025-11-02 04:45:00] OPEN LONG SOLUSDTUSDT @ 187.8039 | SL: 186.2057 (-0.75%/-15%ROE) | Size: 1.50
+仓位计算: 余额=56.02, 保证金(10.0%)=5.60, 杠杆=50x, 仓位价值=280.12, 数量=1489.704395
+[2025-11-02 04:45:00] OPEN LONG DOGEUSDTUSDT @ 0.1880 | SL: 0.1866 (-0.75%/-15%ROE) | Size: 1489.70
+仓位计算: 余额=55.88, 保证金(10.0%)=5.59, 杠杆=50x, 仓位价值=279.42, 数量=707.026471
+[2025-11-02 04:45:00] OPEN LONG ENAUSDTUSDT @ 0.3952 | SL: 0.3897 (-0.75%/-15%ROE) | Size: 707.03
+[2025-11-02 05:15:00] CLOSE ENAUSDTUSDT @ 0.3893 | PnL: $-4.47 | Reason: LIQUIDATION
+[2025-11-02 05:45:00] CLOSE LINKUSDTUSDT @ 17.4913 | PnL: $1.69 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=52.96, 保证金(10.0%)=5.30, 杠杆=50x, 仓位价值=264.82, 数量=15.099188
+[2025-11-02 05:45:00] OPEN LONG LINKUSDTUSDT @ 17.5388 | SL: 17.3260 (-0.75%/-15%ROE) | Size: 15.10
+[2025-11-02 07:45:00] CLOSE BTCUSDTUSDT @ 110789.1747 | PnL: $0.56 | Reason: Trailing Stop (Stepped)
+[2025-11-02 09:30:00] CLOSE DOGEUSDTUSDT @ 0.1866 | PnL: $-2.35 | Reason: Stop Loss
+[2025-11-02 09:45:00] CLOSE SOLUSDTUSDT @ 186.2057 | PnL: $-2.67 | Reason: Stop Loss
+[2025-11-02 10:15:00] CLOSE LINKUSDTUSDT @ 17.3260 | PnL: $-3.47 | Reason: Stop Loss
+仓位计算: 余额=44.91, 保证金(10.0%)=4.49, 杠杆=50x, 仓位价值=224.54, 数量=0.056122
+[2025-11-02 12:00:00] OPEN LONG PAXGUSDTUSDT @ 4000.9795 | SL: 3993.2412 (-0.75%/-15%ROE) | Size: 0.06
+仓位计算: 余额=44.80, 保证金(10.0%)=4.48, 杠杆=50x, 仓位价值=223.98, 数量=193.376145
+[2025-11-02 14:30:00] OPEN LONG ASTERUSDTUSDT @ 1.1583 | SL: 1.1421 (-0.75%/-15%ROE) | Size: 193.38
+[2025-11-02 14:45:00] CLOSE ASTERUSDTUSDT @ 1.1421 | PnL: $-3.36 | Reason: Stop Loss
+Processing 2025-11-02 15:45:00... Balance: $41.33
+[2025-11-02 23:00:00] CLOSE PAXGUSDTUSDT @ 3993.2412 | PnL: $-0.66 | Reason: Stop Loss
+Processing 2025-11-03 16:45:00... Balance: $40.67
+仓位计算: 余额=40.67, 保证金(10.0%)=4.07, 杠杆=50x, 仓位价值=203.35, 数量=1164.476051
+[2025-11-04 14:30:00] OPEN LONG HBARUSDTUSDT @ 0.1746 | SL: 0.1722 (-0.75%/-15%ROE) | Size: 1164.48
+仓位计算: 余额=40.57, 保证金(10.0%)=4.06, 杠杆=50x, 仓位价值=202.84, 数量=1.245177
+[2025-11-04 14:30:00] OPEN LONG SOLUSDTUSDT @ 162.9014 | SL: 160.6208 (-0.75%/-15%ROE) | Size: 1.25
+仓位计算: 余额=40.47, 保证金(10.0%)=4.05, 杠杆=50x, 仓位价值=202.33, 数量=77.247207
+[2025-11-04 14:30:00] OPEN LONG DOTUSDTUSDT @ 2.6193 | SL: 2.5826 (-0.75%/-15%ROE) | Size: 77.25
+仓位计算: 余额=40.37, 保证金(10.0%)=4.04, 杠杆=50x, 仓位价值=201.83, 数量=35089.818635
+[2025-11-04 14:30:00] OPEN LONG 1000PEPEUSDTUSDT @ 0.0058 | SL: 0.0057 (-0.75%/-15%ROE) | Size: 35089.82
+仓位计算: 余额=40.26, 保证金(10.0%)=4.03, 杠杆=50x, 仓位价值=201.32, 数量=1216.588819
+[2025-11-04 14:30:00] OPEN LONG DOGEUSDTUSDT @ 0.1655 | SL: 0.1632 (-0.75%/-15%ROE) | Size: 1216.59
+仓位计算: 余额=40.16, 保证金(10.0%)=4.02, 杠杆=50x, 仓位价值=200.82, 数量=0.210115
+[2025-11-04 14:30:00] OPEN LONG BNBUSDTUSDT @ 955.7676 | SL: 942.3869 (-0.75%/-15%ROE) | Size: 0.21
+仓位计算: 余额=40.06, 保证金(10.0%)=4.01, 杠杆=50x, 仓位价值=200.32, 数量=0.400495
+[2025-11-04 14:30:00] OPEN LONG BCHUSDTUSDT @ 500.1800 | SL: 493.1774 (-0.75%/-15%ROE) | Size: 0.40
+仓位计算: 余额=39.96, 保证金(10.0%)=4.00, 杠杆=50x, 仓位价值=199.82, 数量=11.988663
+[2025-11-04 14:30:00] OPEN LONG AVAXUSDTUSDT @ 16.6673 | SL: 16.4340 (-0.75%/-15%ROE) | Size: 11.99
+仓位计算: 余额=39.86, 保证金(10.0%)=3.99, 杠杆=50x, 仓位价值=199.32, 数量=365.407345
+[2025-11-04 14:30:00] OPEN LONG ADAUSDTUSDT @ 0.5455 | SL: 0.5378 (-0.75%/-15%ROE) | Size: 365.41
+仓位计算: 余额=39.76, 保证金(10.0%)=3.98, 杠杆=50x, 仓位价值=198.82, 数量=2.257182
+[2025-11-04 14:30:00] OPEN LONG LTCUSDTUSDT @ 88.0840 | SL: 86.8508 (-0.75%/-15%ROE) | Size: 2.26
+[2025-11-04 14:45:00] CLOSE HBARUSDTUSDT @ 0.1758 | PnL: $1.22 | Reason: Trailing Stop (Stepped)
+[2025-11-04 14:45:00] CLOSE SOLUSDTUSDT @ 164.0417 | PnL: $1.22 | Reason: Trailing Stop (Stepped)
+[2025-11-04 14:45:00] CLOSE DOTUSDTUSDT @ 2.6376 | PnL: $1.21 | Reason: Trailing Stop (Stepped)
+[2025-11-04 14:45:00] CLOSE 1000PEPEUSDTUSDT @ 0.0058 | PnL: $2.02 | Reason: Trailing Stop (Stepped)
+[2025-11-04 14:45:00] CLOSE DOGEUSDTUSDT @ 0.1673 | PnL: $2.01 | Reason: Trailing Stop (Stepped)
+[2025-11-04 14:45:00] CLOSE BNBUSDTUSDT @ 962.4580 | PnL: $1.20 | Reason: Trailing Stop (Stepped)
+[2025-11-04 14:45:00] CLOSE BCHUSDTUSDT @ 503.6812 | PnL: $1.20 | Reason: Trailing Stop (Stepped)
+[2025-11-04 14:45:00] CLOSE AVAXUSDTUSDT @ 16.7840 | PnL: $1.20 | Reason: Trailing Stop (Stepped)
+[2025-11-04 14:45:00] CLOSE ADAUSDTUSDT @ 0.5515 | PnL: $1.99 | Reason: Trailing Stop (Stepped)
+[2025-11-04 14:45:00] CLOSE LTCUSDTUSDT @ 88.7006 | PnL: $1.19 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-04 17:45:00... Balance: $54.12
+仓位计算: 余额=54.12, 保证金(10.0%)=5.41, 杠杆=50x, 仓位价值=270.62, 数量=958.138622
+[2025-11-05 11:30:00] OPEN LONG XPLUSDTUSDT @ 0.2824 | SL: 0.2785 (-0.75%/-15%ROE) | Size: 958.14
+[2025-11-05 11:45:00] CLOSE XPLUSDTUSDT @ 0.2889 | PnL: $5.95 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-05 18:45:00... Balance: $59.94
+仓位计算: 余额=59.94, 保证金(10.0%)=5.99, 杠杆=50x, 仓位价值=299.68, 数量=0.586392
+[2025-11-06 06:00:00] OPEN LONG ZECUSDTUSDT @ 511.0554 | SL: 503.9006 (-0.75%/-15%ROE) | Size: 0.59
+[2025-11-06 06:15:00] CLOSE ZECUSDTUSDT @ 512.5886 | PnL: $0.60 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=60.38, 保证金(10.0%)=6.04, 杠杆=50x, 仓位价值=301.92, 数量=1.877040
+[2025-11-06 13:15:00] OPEN LONG SOLUSDTUSDT @ 160.8504 | SL: 158.5985 (-0.75%/-15%ROE) | Size: 1.88
+[2025-11-06 14:15:00] CLOSE SOLUSDTUSDT @ 158.4376 | PnL: $-4.83 | Reason: LIQUIDATION
+Processing 2025-11-06 19:45:00... Balance: $55.41
+仓位计算: 余额=55.41, 保证金(10.0%)=5.54, 杠杆=50x, 仓位价值=277.04, 数量=139.890332
+[2025-11-07 14:30:00] OPEN LONG SUIUSDTUSDT @ 1.9804 | SL: 1.9527 (-0.75%/-15%ROE) | Size: 139.89
+[2025-11-07 14:45:00] CLOSE SUIUSDTUSDT @ 2.0022 | PnL: $2.77 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=58.04, 保证金(10.0%)=5.80, 杠杆=50x, 仓位价值=290.18, 数量=71933.801768
+[2025-11-07 14:45:00] OPEN LONG PUMPUSDTUSDT @ 0.0040 | SL: 0.0040 (-0.75%/-15%ROE) | Size: 71933.80
+[2025-11-07 15:00:00] CLOSE PUMPUSDTUSDT @ 0.0040 | PnL: $-4.64 | Reason: LIQUIDATION
+仓位计算: 余额=53.25, 保证金(10.0%)=5.33, 杠杆=50x, 仓位价值=266.26, 数量=2.842982
+[2025-11-07 15:30:00] OPEN LONG LTCUSDTUSDT @ 93.6568 | SL: 92.3456 (-0.75%/-15%ROE) | Size: 2.84
+[2025-11-07 15:45:00] CLOSE LTCUSDTUSDT @ 94.3124 | PnL: $1.60 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=54.72, 保证金(10.0%)=5.47, 杠杆=50x, 仓位价值=273.58, 数量=2.734688
+[2025-11-07 16:15:00] OPEN LONG LTCUSDTUSDT @ 100.0400 | SL: 98.6394 (-0.75%/-15%ROE) | Size: 2.73
+[2025-11-07 16:30:00] CLOSE LTCUSDTUSDT @ 103.9416 | PnL: $10.39 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=64.96, 保证金(10.0%)=6.50, 杠杆=50x, 仓位价值=324.82, 数量=105.580202
+[2025-11-07 16:30:00] OPEN LONG DOTUSDTUSDT @ 3.0765 | SL: 3.0335 (-0.75%/-15%ROE) | Size: 105.58
+[2025-11-07 16:45:00] CLOSE DOTUSDTUSDT @ 3.1104 | PnL: $3.24 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-07 20:45:00... Balance: $68.05
+Processing 2025-11-08 21:45:00... Balance: $68.05
+仓位计算: 余额=68.05, 保证金(10.0%)=6.80, 杠杆=50x, 仓位价值=340.23, 数量=3.340177
+[2025-11-09 10:30:00] OPEN LONG LTCUSDTUSDT @ 101.8609 | SL: 100.4349 (-0.75%/-15%ROE) | Size: 3.34
+[2025-11-09 10:45:00] CLOSE LTCUSDTUSDT @ 105.8335 | PnL: $12.92 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=80.79, 保证金(10.0%)=8.08, 杠杆=50x, 仓位价值=403.96, 数量=3.828196
+[2025-11-09 10:45:00] OPEN LONG LTCUSDTUSDT @ 105.5227 | SL: 104.0454 (-0.75%/-15%ROE) | Size: 3.83
+[2025-11-09 11:00:00] CLOSE LTCUSDTUSDT @ 106.2614 | PnL: $2.42 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=83.01, 保证金(10.0%)=8.30, 杠杆=50x, 仓位价值=415.06, 数量=106208.424411
+[2025-11-09 13:15:00] OPEN LONG PUMPUSDTUSDT @ 0.0039 | SL: 0.0039 (-0.75%/-15%ROE) | Size: 106208.42
+[2025-11-09 13:30:00] CLOSE PUMPUSDTUSDT @ 0.0039 | PnL: $0.83 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=83.63, 保证金(10.0%)=8.36, 杠杆=50x, 仓位价值=418.17, 数量=2.575050
+[2025-11-09 14:15:00] OPEN LONG SOLUSDTUSDT @ 162.3912 | SL: 160.1177 (-0.75%/-15%ROE) | Size: 2.58
+仓位计算: 余额=83.42, 保证金(10.0%)=8.34, 杠杆=50x, 仓位价值=417.12, 数量=2329.377185
+[2025-11-09 14:15:00] OPEN LONG DOGEUSDTUSDT @ 0.1791 | SL: 0.1766 (-0.75%/-15%ROE) | Size: 2329.38
+仓位计算: 余额=83.22, 保证金(10.0%)=8.32, 杠杆=50x, 仓位价值=416.08, 数量=23.356932
+[2025-11-09 14:15:00] OPEN LONG AVAXUSDTUSDT @ 17.8139 | SL: 17.5645 (-0.75%/-15%ROE) | Size: 23.36
+仓位计算: 余额=83.01, 保证金(10.0%)=8.30, 杠杆=50x, 仓位价值=415.04, 数量=0.003995
+[2025-11-09 14:15:00] OPEN LONG BTCUSDTUSDT @ 103901.9250 | SL: 103161.2300 (-0.75%/-15%ROE) | Size: 0.00
+[2025-11-09 14:30:00] CLOSE SOLUSDTUSDT @ 162.8783 | PnL: $0.84 | Reason: Trailing Stop (Stepped)
+[2025-11-09 14:45:00] CLOSE DOGEUSDTUSDT @ 0.1766 | PnL: $-6.25 | Reason: Stop Loss
+[2025-11-09 14:45:00] CLOSE AVAXUSDTUSDT @ 17.5645 | PnL: $-6.24 | Reason: Stop Loss
+[2025-11-09 14:45:00] CLOSE BTCUSDTUSDT @ 103161.2300 | PnL: $-3.37 | Reason: Stop Loss
+Processing 2025-11-09 22:45:00... Balance: $67.78
+仓位计算: 余额=67.78, 保证金(10.0%)=6.78, 杠杆=50x, 仓位价值=338.89, 数量=0.665391
+[2025-11-10 07:30:00] OPEN LONG BCHUSDTUSDT @ 509.3145 | SL: 503.4984 (-0.75%/-15%ROE) | Size: 0.67
+[2025-11-10 09:15:00] CLOSE BCHUSDTUSDT @ 510.8425 | PnL: $0.68 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=68.29, 保证金(10.0%)=6.83, 杠杆=50x, 仓位价值=341.43, 数量=1860.538994
+[2025-11-10 09:30:00] OPEN LONG DOGEUSDTUSDT @ 0.1835 | SL: 0.1809 (-0.75%/-15%ROE) | Size: 1860.54
+[2025-11-10 09:45:00] CLOSE DOGEUSDTUSDT @ 0.1848 | PnL: $2.05 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-10 23:45:00... Balance: $70.16
+仓位计算: 余额=70.16, 保证金(10.0%)=7.02, 杠杆=50x, 仓位价值=350.81, 数量=3.413489
+[2025-11-11 14:45:00] OPEN LONG LTCUSDTUSDT @ 102.7714 | SL: 101.3326 (-0.75%/-15%ROE) | Size: 3.41
+[2025-11-11 15:30:00] CLOSE LTCUSDTUSDT @ 101.2298 | PnL: $-5.61 | Reason: LIQUIDATION
+Processing 2025-11-12 00:45:00... Balance: $64.38
+仓位计算: 余额=64.38, 保证金(10.0%)=6.44, 杠杆=50x, 仓位价值=321.89, 数量=1009.518415
+[2025-11-12 08:15:00] OPEN LONG ENAUSDTUSDT @ 0.3189 | SL: 0.3144 (-0.75%/-15%ROE) | Size: 1009.52
+仓位计算: 余额=64.22, 保证金(10.0%)=6.42, 杠杆=50x, 仓位价值=321.09, 数量=0.003092
+[2025-11-12 08:15:00] OPEN LONG BTCUSDTUSDT @ 103861.1046 | SL: 103244.2600 (-0.75%/-15%ROE) | Size: 0.00
+[2025-11-12 08:30:00] CLOSE ENAUSDTUSDT @ 0.3224 | PnL: $3.22 | Reason: Trailing Stop (Stepped)
+[2025-11-12 09:00:00] CLOSE BTCUSDTUSDT @ 104588.1323 | PnL: $1.92 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=69.20, 保证金(10.0%)=6.92, 杠杆=50x, 仓位价值=345.99, 数量=3.377421
+[2025-11-12 09:00:00] OPEN LONG LTCUSDTUSDT @ 102.4412 | SL: 101.0070 (-0.75%/-15%ROE) | Size: 3.38
+仓位计算: 余额=69.02, 保证金(10.0%)=6.90, 杠杆=50x, 仓位价值=345.12, 数量=0.003293
+[2025-11-12 09:00:00] OPEN LONG BTCUSDTUSDT @ 104805.9768 | SL: 104056.0169 (-0.75%/-15%ROE) | Size: 0.00
+[2025-11-12 12:15:00] CLOSE LTCUSDTUSDT @ 102.7485 | PnL: $0.69 | Reason: Trailing Stop (Stepped)
+[2025-11-12 12:15:00] CLOSE BTCUSDTUSDT @ 105120.3947 | PnL: $0.69 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=70.23, 保证金(10.0%)=7.02, 杠杆=50x, 仓位价值=351.16, 数量=0.084533
+[2025-11-12 15:00:00] OPEN LONG PAXGUSDTUSDT @ 4154.1460 | SL: 4133.4543 (-0.75%/-15%ROE) | Size: 0.08
+[2025-11-12 15:30:00] CLOSE PAXGUSDTUSDT @ 4162.4543 | PnL: $0.35 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-13 01:45:00... Balance: $70.41
+Processing 2025-11-14 02:45:00... Balance: $70.41
+仓位计算: 余额=70.41, 保证金(10.0%)=7.04, 杠杆=50x, 仓位价值=352.04, 数量=0.641906
+[2025-11-14 12:45:00] OPEN LONG ZECUSDTUSDT @ 548.4241 | SL: 540.7461 (-0.75%/-15%ROE) | Size: 0.64
+[2025-11-14 13:00:00] CLOSE ZECUSDTUSDT @ 572.0063 | PnL: $14.77 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=85.00, 保证金(10.0%)=8.50, 杠杆=50x, 仓位价值=425.01, 数量=2604.840920
+[2025-11-14 14:30:00] OPEN LONG DOGEUSDTUSDT @ 0.1632 | SL: 0.1609 (-0.75%/-15%ROE) | Size: 2604.84
+仓位计算: 余额=84.79, 保证金(10.0%)=8.48, 杠杆=50x, 仓位价值=423.95, 数量=821.990290
+[2025-11-14 14:30:00] OPEN LONG ADAUSDTUSDT @ 0.5158 | SL: 0.5085 (-0.75%/-15%ROE) | Size: 821.99
+仓位计算: 余额=84.58, 保证金(10.0%)=8.46, 杠杆=50x, 仓位价值=422.89, 数量=1464.070605
+[2025-11-14 14:30:00] OPEN LONG ENAUSDTUSDT @ 0.2888 | SL: 0.2848 (-0.75%/-15%ROE) | Size: 1464.07
+[2025-11-14 14:45:00] CLOSE DOGEUSDTUSDT @ 0.1637 | PnL: $0.85 | Reason: Trailing Stop (Stepped)
+[2025-11-14 14:45:00] CLOSE ENAUSDTUSDT @ 0.2897 | PnL: $0.84 | Reason: Trailing Stop (Stepped)
+[2025-11-14 15:15:00] CLOSE ADAUSDTUSDT @ 0.5085 | PnL: $-6.35 | Reason: Stop Loss
+Processing 2025-11-15 03:45:00... Balance: $79.71
+仓位计算: 余额=79.71, 保证金(10.0%)=7.97, 杠杆=50x, 仓位价值=398.53, 数量=2272.299486
+[2025-11-15 07:00:00] OPEN LONG PIEVERSEUSDTUSDT @ 0.1754 | SL: 0.1729 (-0.75%/-15%ROE) | Size: 2272.30
+[2025-11-15 07:15:00] CLOSE PIEVERSEUSDTUSDT @ 0.2096 | PnL: $77.24 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=156.75, 保证金(10.0%)=15.67, 杠杆=50x, 仓位价值=783.73, 数量=1.556583
+[2025-11-15 12:00:00] OPEN LONG BCHUSDTUSDT @ 503.4916 | SL: 496.4427 (-0.75%/-15%ROE) | Size: 1.56
+[2025-11-15 12:15:00] CLOSE BCHUSDTUSDT @ 505.0021 | PnL: $1.57 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=157.92, 保证金(10.0%)=15.79, 杠杆=50x, 仓位价值=789.59, 数量=0.193164
+[2025-11-15 14:30:00] OPEN LONG PAXGUSDTUSDT @ 4087.6828 | SL: 4079.7814 (-0.75%/-15%ROE) | Size: 0.19
+[2025-11-15 23:45:00] CLOSE PAXGUSDTUSDT @ 4095.8582 | PnL: $0.79 | Reason: Stop Loss
+Processing 2025-11-16 04:45:00... Balance: $158.31
+仓位计算: 余额=158.31, 保证金(10.0%)=15.83, 杠杆=50x, 仓位价值=791.56, 数量=5.525298
+[2025-11-16 09:45:00] OPEN LONG SOLUSDTUSDT @ 143.2616 | SL: 141.6108 (-0.75%/-15%ROE) | Size: 5.53
+仓位计算: 余额=157.92, 保证金(10.0%)=15.79, 杠杆=50x, 仓位价值=789.59, 数量=4771.405292
+[2025-11-16 09:45:00] OPEN LONG DOGEUSDTUSDT @ 0.1655 | SL: 0.1638 (-0.75%/-15%ROE) | Size: 4771.41
+仓位计算: 余额=157.52, 保证金(10.0%)=15.75, 杠杆=50x, 仓位价值=787.61, 数量=442.406679
+[2025-11-16 09:45:00] OPEN LONG SUIUSDTUSDT @ 1.7803 | SL: 1.7555 (-0.75%/-15%ROE) | Size: 442.41
+仓位计算: 余额=157.13, 保证金(10.0%)=15.71, 杠杆=50x, 仓位价值=785.64, 数量=0.008129
+[2025-11-16 09:45:00] OPEN LONG BTCUSDTUSDT @ 96645.6987 | SL: 96068.5646 (-0.75%/-15%ROE) | Size: 0.01
+[2025-11-16 11:00:00] CLOSE DOGEUSDTUSDT @ 0.1638 | PnL: $-8.64 | Reason: Stop Loss
+[2025-11-16 11:00:00] CLOSE SUIUSDTUSDT @ 1.7536 | PnL: $-12.59 | Reason: LIQUIDATION
+[2025-11-16 11:00:00] CLOSE BTCUSDTUSDT @ 96068.5646 | PnL: $-5.47 | Reason: Stop Loss
+[2025-11-16 11:15:00] CLOSE SOLUSDTUSDT @ 141.6108 | PnL: $-9.90 | Reason: Stop Loss
+仓位计算: 余额=120.13, 保证金(10.0%)=12.01, 杠杆=50x, 仓位价值=600.65, 数量=0.646376
+[2025-11-16 18:00:00] OPEN LONG BNBUSDTUSDT @ 929.2544 | SL: 916.2448 (-0.75%/-15%ROE) | Size: 0.65
+[2025-11-16 18:30:00] CLOSE BNBUSDTUSDT @ 915.3156 | PnL: $-9.60 | Reason: LIQUIDATION
+Processing 2025-11-17 05:45:00... Balance: $110.23
+仓位计算: 余额=110.23, 保证金(10.0%)=11.02, 杠杆=50x, 仓位价值=551.14, 数量=2353.119379
+[2025-11-17 14:30:00] OPEN LONG XPLUSDTUSDT @ 0.2342 | SL: 0.2309 (-0.75%/-15%ROE) | Size: 2353.12
+[2025-11-17 14:45:00] CLOSE XPLUSDTUSDT @ 0.2307 | PnL: $-8.81 | Reason: LIQUIDATION
+仓位计算: 余额=101.14, 保证金(10.0%)=10.11, 杠杆=50x, 仓位价值=505.71, 数量=2161.939885
+[2025-11-17 20:00:00] OPEN LONG XPLUSDTUSDT @ 0.2339 | SL: 0.2306 (-0.75%/-15%ROE) | Size: 2161.94
+[2025-11-17 20:15:00] CLOSE XPLUSDTUSDT @ 0.2393 | PnL: $11.11 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-18 06:45:00... Balance: $112.00
+仓位计算: 余额=112.00, 保证金(10.0%)=11.20, 杠杆=50x, 仓位价值=560.02, 数量=3.970927
+[2025-11-18 15:15:00] OPEN LONG SOLUSDTUSDT @ 141.0305 | SL: 139.0561 (-0.75%/-15%ROE) | Size: 3.97
+仓位计算: 余额=111.72, 保证金(10.0%)=11.17, 杠杆=50x, 仓位价值=558.62, 数量=1177.690689
+[2025-11-18 15:15:00] OPEN LONG ADAUSDTUSDT @ 0.4743 | SL: 0.4677 (-0.75%/-15%ROE) | Size: 1177.69
+仓位计算: 余额=111.45, 保证金(10.0%)=11.14, 杠杆=50x, 仓位价值=557.23, 数量=2006.296814
+[2025-11-18 15:15:00] OPEN LONG ENAUSDTUSDT @ 0.2777 | SL: 0.2739 (-0.75%/-15%ROE) | Size: 2006.30
+[2025-11-18 15:30:00] CLOSE SOLUSDTUSDT @ 141.4536 | PnL: $1.12 | Reason: Trailing Stop (Stepped)
+[2025-11-18 15:30:00] CLOSE ADAUSDTUSDT @ 0.4758 | PnL: $1.12 | Reason: Trailing Stop (Stepped)
+[2025-11-18 15:30:00] CLOSE ENAUSDTUSDT @ 0.2786 | PnL: $1.11 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=114.51, 保证金(10.0%)=11.45, 杠杆=50x, 仓位价值=572.57, 数量=2260.203892
+[2025-11-19 06:30:00] OPEN LONG PIEVERSEUSDTUSDT @ 0.2533 | SL: 0.2498 (-0.75%/-15%ROE) | Size: 2260.20
+[2025-11-19 06:45:00] CLOSE PIEVERSEUSDTUSDT @ 0.2495 | PnL: $-9.15 | Reason: LIQUIDATION
+Processing 2025-11-19 07:45:00... Balance: $105.08
+仓位计算: 余额=105.08, 保证金(10.0%)=10.51, 杠杆=50x, 仓位价值=525.38, 数量=1.040057
+[2025-11-20 04:45:00] OPEN LONG BCHUSDTUSDT @ 505.1424 | SL: 498.0705 (-0.75%/-15%ROE) | Size: 1.04
+[2025-11-20 05:00:00] CLOSE BCHUSDTUSDT @ 510.6990 | PnL: $5.25 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-20 08:45:00... Balance: $110.06
+仓位计算: 余额=110.06, 保证金(10.0%)=11.01, 杠杆=50x, 仓位价值=550.30, 数量=0.780616
+[2025-11-20 13:15:00] OPEN LONG ZECUSDTUSDT @ 704.9623 | SL: 695.0928 (-0.75%/-15%ROE) | Size: 0.78
+[2025-11-20 13:30:00] CLOSE ZECUSDTUSDT @ 712.7169 | PnL: $5.50 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=115.28, 保证金(10.0%)=11.53, 杠杆=50x, 仓位价值=576.42, 数量=1489.086329
+[2025-11-20 18:30:00] OPEN LONG PIEVERSEUSDTUSDT @ 0.3871 | SL: 0.3817 (-0.75%/-15%ROE) | Size: 1489.09
+[2025-11-20 18:45:00] CLOSE PIEVERSEUSDTUSDT @ 0.5725 | PnL: $275.25 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=390.25, 保证金(10.0%)=39.02, 杠杆=50x, 仓位价值=1951.23, 数量=2.871272
+[2025-11-21 07:30:00] OPEN LONG ZECUSDTUSDT @ 679.5696 | SL: 670.0556 (-0.75%/-15%ROE) | Size: 2.87
+[2025-11-21 07:45:00] CLOSE ZECUSDTUSDT @ 684.3266 | PnL: $11.69 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-21 09:45:00... Balance: $400.96
+仓位计算: 余额=400.96, 保证金(10.0%)=40.10, 杠杆=50x, 仓位价值=2004.82, 数量=6169.404195
+[2025-11-21 14:00:00] OPEN LONG MMTUSDTUSDT @ 0.3250 | SL: 0.3204 (-0.75%/-15%ROE) | Size: 6169.40
+[2025-11-21 14:15:00] CLOSE MMTUSDTUSDT @ 0.3792 | PnL: $332.47 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-22 10:45:00... Balance: $732.43
+Processing 2025-11-23 11:45:00... Balance: $732.43
+仓位计算: 余额=732.43, 保证金(10.0%)=73.24, 杠杆=50x, 仓位价值=3662.15, 数量=213106.533616
+[2025-11-23 18:45:00] OPEN LONG BOBUSDTUSDT @ 0.0172 | SL: 0.0169 (-0.75%/-15%ROE) | Size: 213106.53
+[2025-11-23 19:00:00] CLOSE BOBUSDTUSDT @ 0.0169 | PnL: $-58.54 | Reason: LIQUIDATION
+仓位计算: 余额=672.06, 保证金(10.0%)=67.21, 杠杆=50x, 仓位价值=3360.30, 数量=13570.202848
+[2025-11-24 05:00:00] OPEN LONG ENAUSDTUSDT @ 0.2476 | SL: 0.2442 (-0.75%/-15%ROE) | Size: 13570.20
+[2025-11-24 05:15:00] CLOSE ENAUSDTUSDT @ 0.2484 | PnL: $6.71 | Reason: Trailing Stop (Stepped)
+
+========================================
+REALISTIC BACKTEST RESULTS (30 Days)
+========================================
+Final Balance: $677.09
+Total Return: 577.09%
+Total Trades: 102
+Winning Trades: 64
+Losing Trades: 38
+Win Rate: 62.75%
+Avg Win: $13.51
+Avg Loss: $-6.89
+Profit Factor: 3.30
+Max Profit Trade: $332.47 (MMTUSDTUSDT)
+Max Loss Trade: $-58.54 (BOBUSDTUSDT)
+Max Holding Time: 0 days 11:00:00
+Min Holding Time: 0 days 00:15:00
+Trades saved to backtest_trades_30d.csv
+
+
+##################################################
+STARTING 15-DAY BACKTEST
+##################################################
+Loading data...
+Loaded 50 symbols.
+Filtered to last 15 days: 1441 candles
+Backtesting over 1441 timestamps...
+Start: 2025-11-09 07:45:00, End: 2025-11-24 07:45:00
+Processing 2025-11-09 07:45:00... Balance: $100.00
+仓位计算: 余额=100.00, 保证金(10.0%)=10.00, 杠杆=50x, 仓位价值=500.00, 数量=4.908655
+[2025-11-09 10:30:00] OPEN LONG LTCUSDTUSDT @ 101.8609 | SL: 100.4349 (-0.75%/-15%ROE) | Size: 4.91
+[2025-11-09 10:45:00] CLOSE LTCUSDTUSDT @ 105.8335 | PnL: $18.98 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=118.73, 保证金(10.0%)=11.87, 杠杆=50x, 仓位价值=593.65, 数量=5.625838
+[2025-11-09 10:45:00] OPEN LONG LTCUSDTUSDT @ 105.5227 | SL: 104.0454 (-0.75%/-15%ROE) | Size: 5.63
+[2025-11-09 11:00:00] CLOSE LTCUSDTUSDT @ 106.2614 | PnL: $3.56 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=121.99, 保证金(10.0%)=12.20, 杠杆=50x, 仓位价值=609.96, 数量=156081.704136
+[2025-11-09 13:15:00] OPEN LONG PUMPUSDTUSDT @ 0.0039 | SL: 0.0039 (-0.75%/-15%ROE) | Size: 156081.70
+[2025-11-09 13:30:00] CLOSE PUMPUSDTUSDT @ 0.0039 | PnL: $1.22 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=122.91, 保证金(10.0%)=12.29, 杠杆=50x, 仓位价值=614.53, 数量=3.784240
+[2025-11-09 14:15:00] OPEN LONG SOLUSDTUSDT @ 162.3912 | SL: 160.1177 (-0.75%/-15%ROE) | Size: 3.78
+仓位计算: 余额=122.60, 保证金(10.0%)=12.26, 杠杆=50x, 仓位价值=612.99, 数量=3423.204541
+[2025-11-09 14:15:00] OPEN LONG DOGEUSDTUSDT @ 0.1791 | SL: 0.1766 (-0.75%/-15%ROE) | Size: 3423.20
+仓位计算: 余额=122.29, 保证金(10.0%)=12.23, 杠杆=50x, 仓位价值=611.46, 数量=34.324864
+[2025-11-09 14:15:00] OPEN LONG AVAXUSDTUSDT @ 17.8139 | SL: 17.5645 (-0.75%/-15%ROE) | Size: 34.32
+仓位计算: 余额=121.99, 保证金(10.0%)=12.20, 杠杆=50x, 仓位价值=609.93, 数量=0.005870
+[2025-11-09 14:15:00] OPEN LONG BTCUSDTUSDT @ 103901.9250 | SL: 103161.2300 (-0.75%/-15%ROE) | Size: 0.01
+[2025-11-09 14:30:00] CLOSE SOLUSDTUSDT @ 162.8783 | PnL: $1.23 | Reason: Trailing Stop (Stepped)
+[2025-11-09 14:45:00] CLOSE DOGEUSDTUSDT @ 0.1766 | PnL: $-9.19 | Reason: Stop Loss
+[2025-11-09 14:45:00] CLOSE AVAXUSDTUSDT @ 17.5645 | PnL: $-9.16 | Reason: Stop Loss
+[2025-11-09 14:45:00] CLOSE BTCUSDTUSDT @ 103161.2300 | PnL: $-4.95 | Reason: Stop Loss
+仓位计算: 余额=99.61, 保证金(10.0%)=9.96, 杠杆=50x, 仓位价值=498.03, 数量=0.977845
+[2025-11-10 07:30:00] OPEN LONG BCHUSDTUSDT @ 509.3145 | SL: 503.4984 (-0.75%/-15%ROE) | Size: 0.98
+Processing 2025-11-10 08:45:00... Balance: $99.36
+[2025-11-10 09:15:00] CLOSE BCHUSDTUSDT @ 510.8425 | PnL: $0.99 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=100.35, 保证金(10.0%)=10.04, 杠杆=50x, 仓位价值=501.76, 数量=2734.209629
+[2025-11-10 09:30:00] OPEN LONG DOGEUSDTUSDT @ 0.1835 | SL: 0.1809 (-0.75%/-15%ROE) | Size: 2734.21
+[2025-11-10 09:45:00] CLOSE DOGEUSDTUSDT @ 0.1848 | PnL: $3.01 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-11 09:45:00... Balance: $103.11
+仓位计算: 余额=103.11, 保证金(10.0%)=10.31, 杠杆=50x, 仓位价值=515.54, 数量=5.016393
+[2025-11-11 14:45:00] OPEN LONG LTCUSDTUSDT @ 102.7714 | SL: 101.3326 (-0.75%/-15%ROE) | Size: 5.02
+[2025-11-11 15:30:00] CLOSE LTCUSDTUSDT @ 101.2298 | PnL: $-8.24 | Reason: LIQUIDATION
+仓位计算: 余额=94.61, 保证金(10.0%)=9.46, 杠杆=50x, 仓位价值=473.05, 数量=1483.567386
+[2025-11-12 08:15:00] OPEN LONG ENAUSDTUSDT @ 0.3189 | SL: 0.3144 (-0.75%/-15%ROE) | Size: 1483.57
+仓位计算: 余额=94.37, 保证金(10.0%)=9.44, 杠杆=50x, 仓位价值=471.87, 数量=0.004543
+[2025-11-12 08:15:00] OPEN LONG BTCUSDTUSDT @ 103861.1046 | SL: 103244.2600 (-0.75%/-15%ROE) | Size: 0.00
+[2025-11-12 08:30:00] CLOSE ENAUSDTUSDT @ 0.3224 | PnL: $4.73 | Reason: Trailing Stop (Stepped)
+[2025-11-12 09:00:00] CLOSE BTCUSDTUSDT @ 104588.1323 | PnL: $2.83 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=101.69, 保证金(10.0%)=10.17, 杠杆=50x, 仓位价值=508.46, 数量=4.963388
+[2025-11-12 09:00:00] OPEN LONG LTCUSDTUSDT @ 102.4412 | SL: 101.0070 (-0.75%/-15%ROE) | Size: 4.96
+仓位计算: 余额=101.44, 保证金(10.0%)=10.14, 杠杆=50x, 仓位价值=507.18, 数量=0.004839
+[2025-11-12 09:00:00] OPEN LONG BTCUSDTUSDT @ 104805.9768 | SL: 104056.0169 (-0.75%/-15%ROE) | Size: 0.00
+Processing 2025-11-12 10:45:00... Balance: $101.18
+[2025-11-12 12:15:00] CLOSE LTCUSDTUSDT @ 102.7485 | PnL: $1.02 | Reason: Trailing Stop (Stepped)
+[2025-11-12 12:15:00] CLOSE BTCUSDTUSDT @ 105120.3947 | PnL: $1.01 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=103.21, 保证金(10.0%)=10.32, 杠杆=50x, 仓位价值=516.06, 数量=0.124228
+[2025-11-12 15:00:00] OPEN LONG PAXGUSDTUSDT @ 4154.1460 | SL: 4133.4543 (-0.75%/-15%ROE) | Size: 0.12
+[2025-11-12 15:30:00] CLOSE PAXGUSDTUSDT @ 4162.4543 | PnL: $0.52 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-13 11:45:00... Balance: $103.47
+仓位计算: 余额=103.47, 保证金(10.0%)=10.35, 杠杆=50x, 仓位价值=517.35, 数量=0.943333
+[2025-11-14 12:45:00] OPEN LONG ZECUSDTUSDT @ 548.4241 | SL: 540.7461 (-0.75%/-15%ROE) | Size: 0.94
+Processing 2025-11-14 12:45:00... Balance: $103.21
+[2025-11-14 13:00:00] CLOSE ZECUSDTUSDT @ 572.0063 | PnL: $21.71 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=124.92, 保证金(10.0%)=12.49, 杠杆=50x, 仓位价值=624.59, 数量=3828.020348
+[2025-11-14 14:30:00] OPEN LONG DOGEUSDTUSDT @ 0.1632 | SL: 0.1609 (-0.75%/-15%ROE) | Size: 3828.02
+仓位计算: 余额=124.61, 保证金(10.0%)=12.46, 杠杆=50x, 仓位价值=623.03, 数量=1207.979931
+[2025-11-14 14:30:00] OPEN LONG ADAUSDTUSDT @ 0.5158 | SL: 0.5085 (-0.75%/-15%ROE) | Size: 1207.98
+仓位计算: 余额=124.29, 保证金(10.0%)=12.43, 杠杆=50x, 仓位价值=621.47, 数量=2151.567885
+[2025-11-14 14:30:00] OPEN LONG ENAUSDTUSDT @ 0.2888 | SL: 0.2848 (-0.75%/-15%ROE) | Size: 2151.57
+[2025-11-14 14:45:00] CLOSE DOGEUSDTUSDT @ 0.1637 | PnL: $1.25 | Reason: Trailing Stop (Stepped)
+[2025-11-14 14:45:00] CLOSE ENAUSDTUSDT @ 0.2897 | PnL: $1.24 | Reason: Trailing Stop (Stepped)
+[2025-11-14 15:15:00] CLOSE ADAUSDTUSDT @ 0.5085 | PnL: $-9.34 | Reason: Stop Loss
+仓位计算: 余额=117.14, 保证金(10.0%)=11.71, 杠杆=50x, 仓位价值=585.68, 数量=3339.324333
+[2025-11-15 07:00:00] OPEN LONG PIEVERSEUSDTUSDT @ 0.1754 | SL: 0.1729 (-0.75%/-15%ROE) | Size: 3339.32
+[2025-11-15 07:15:00] CLOSE PIEVERSEUSDTUSDT @ 0.2096 | PnL: $113.51 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=230.35, 保证金(10.0%)=23.03, 杠杆=50x, 仓位价值=1151.75, 数量=2.287523
+[2025-11-15 12:00:00] OPEN LONG BCHUSDTUSDT @ 503.4916 | SL: 496.4427 (-0.75%/-15%ROE) | Size: 2.29
+[2025-11-15 12:15:00] CLOSE BCHUSDTUSDT @ 505.0021 | PnL: $2.30 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-15 13:45:00... Balance: $232.07
+仓位计算: 余额=232.07, 保证金(10.0%)=23.21, 杠杆=50x, 仓位价值=1160.37, 数量=0.283870
+[2025-11-15 14:30:00] OPEN LONG PAXGUSDTUSDT @ 4087.6828 | SL: 4079.7814 (-0.75%/-15%ROE) | Size: 0.28
+[2025-11-15 23:45:00] CLOSE PAXGUSDTUSDT @ 4095.8582 | PnL: $1.16 | Reason: Stop Loss
+仓位计算: 余额=232.65, 保证金(10.0%)=23.27, 杠杆=50x, 仓位价值=1163.26, 数量=8.119863
+[2025-11-16 09:45:00] OPEN LONG SOLUSDTUSDT @ 143.2616 | SL: 141.6108 (-0.75%/-15%ROE) | Size: 8.12
+仓位计算: 余额=232.07, 保证金(10.0%)=23.21, 杠杆=50x, 仓位价值=1160.36, 数量=7011.958545
+[2025-11-16 09:45:00] OPEN LONG DOGEUSDTUSDT @ 0.1655 | SL: 0.1638 (-0.75%/-15%ROE) | Size: 7011.96
+仓位计算: 余额=231.49, 保证金(10.0%)=23.15, 杠杆=50x, 仓位价值=1157.46, 数量=650.151707
+[2025-11-16 09:45:00] OPEN LONG SUIUSDTUSDT @ 1.7803 | SL: 1.7555 (-0.75%/-15%ROE) | Size: 650.15
+仓位计算: 余额=230.91, 保证金(10.0%)=23.09, 杠杆=50x, 仓位价值=1154.57, 数量=0.011946
+[2025-11-16 09:45:00] OPEN LONG BTCUSDTUSDT @ 96645.6987 | SL: 96068.5646 (-0.75%/-15%ROE) | Size: 0.01
+[2025-11-16 11:00:00] CLOSE DOGEUSDTUSDT @ 0.1638 | PnL: $-12.70 | Reason: Stop Loss
+[2025-11-16 11:00:00] CLOSE SUIUSDTUSDT @ 1.7536 | PnL: $-18.50 | Reason: LIQUIDATION
+[2025-11-16 11:00:00] CLOSE BTCUSDTUSDT @ 96068.5646 | PnL: $-8.04 | Reason: Stop Loss
+[2025-11-16 11:15:00] CLOSE SOLUSDTUSDT @ 141.6108 | PnL: $-14.55 | Reason: Stop Loss
+Processing 2025-11-16 14:45:00... Balance: $176.54
+仓位计算: 余额=176.54, 保证金(10.0%)=17.65, 杠杆=50x, 仓位价值=882.70, 数量=0.949901
+[2025-11-16 18:00:00] OPEN LONG BNBUSDTUSDT @ 929.2544 | SL: 916.2448 (-0.75%/-15%ROE) | Size: 0.95
+[2025-11-16 18:30:00] CLOSE BNBUSDTUSDT @ 915.3156 | PnL: $-14.11 | Reason: LIQUIDATION
+仓位计算: 余额=161.99, 保证金(10.0%)=16.20, 杠杆=50x, 仓位价值=809.94, 数量=3458.095577
+[2025-11-17 14:30:00] OPEN LONG XPLUSDTUSDT @ 0.2342 | SL: 0.2309 (-0.75%/-15%ROE) | Size: 3458.10
+[2025-11-17 14:45:00] CLOSE XPLUSDTUSDT @ 0.2307 | PnL: $-12.95 | Reason: LIQUIDATION
+Processing 2025-11-17 15:45:00... Balance: $148.64
+仓位计算: 余额=148.64, 保证金(10.0%)=14.86, 杠杆=50x, 仓位价值=743.19, 数量=3177.142146
+[2025-11-17 20:00:00] OPEN LONG XPLUSDTUSDT @ 0.2339 | SL: 0.2306 (-0.75%/-15%ROE) | Size: 3177.14
+[2025-11-17 20:15:00] CLOSE XPLUSDTUSDT @ 0.2393 | PnL: $16.33 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=164.60, 保证金(10.0%)=16.46, 杠杆=50x, 仓位价值=823.00, 数量=5.835592
+[2025-11-18 15:15:00] OPEN LONG SOLUSDTUSDT @ 141.0305 | SL: 139.0561 (-0.75%/-15%ROE) | Size: 5.84
+仓位计算: 余额=164.19, 保证金(10.0%)=16.42, 杠杆=50x, 仓位价值=820.94, 数量=1730.709882
+[2025-11-18 15:15:00] OPEN LONG ADAUSDTUSDT @ 0.4743 | SL: 0.4677 (-0.75%/-15%ROE) | Size: 1730.71
+仓位计算: 余额=163.78, 保证金(10.0%)=16.38, 杠杆=50x, 仓位价值=818.89, 数量=2948.412307
+[2025-11-18 15:15:00] OPEN LONG ENAUSDTUSDT @ 0.2777 | SL: 0.2739 (-0.75%/-15%ROE) | Size: 2948.41
+[2025-11-18 15:30:00] CLOSE SOLUSDTUSDT @ 141.4536 | PnL: $1.64 | Reason: Trailing Stop (Stepped)
+[2025-11-18 15:30:00] CLOSE ADAUSDTUSDT @ 0.4758 | PnL: $1.64 | Reason: Trailing Stop (Stepped)
+[2025-11-18 15:30:00] CLOSE ENAUSDTUSDT @ 0.2786 | PnL: $1.64 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-18 16:45:00... Balance: $168.29
+仓位计算: 余额=168.29, 保证金(10.0%)=16.83, 杠杆=50x, 仓位价值=841.44, 数量=3321.548899
+[2025-11-19 06:30:00] OPEN LONG PIEVERSEUSDTUSDT @ 0.2533 | SL: 0.2498 (-0.75%/-15%ROE) | Size: 3321.55
+[2025-11-19 06:45:00] CLOSE PIEVERSEUSDTUSDT @ 0.2495 | PnL: $-13.45 | Reason: LIQUIDATION
+Processing 2025-11-19 17:45:00... Balance: $154.42
+仓位计算: 余额=154.42, 保证金(10.0%)=15.44, 杠杆=50x, 仓位价值=772.08, 数量=1.528447
+[2025-11-20 04:45:00] OPEN LONG BCHUSDTUSDT @ 505.1424 | SL: 498.0705 (-0.75%/-15%ROE) | Size: 1.53
+[2025-11-20 05:00:00] CLOSE BCHUSDTUSDT @ 510.6990 | PnL: $7.71 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=161.74, 保证金(10.0%)=16.17, 杠杆=50x, 仓位价值=808.72, 数量=1.147177
+[2025-11-20 13:15:00] OPEN LONG ZECUSDTUSDT @ 704.9623 | SL: 695.0928 (-0.75%/-15%ROE) | Size: 1.15
+[2025-11-20 13:30:00] CLOSE ZECUSDTUSDT @ 712.7169 | PnL: $8.08 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=169.42, 保证金(10.0%)=16.94, 杠杆=50x, 仓位价值=847.09, 数量=2188.330475
+[2025-11-20 18:30:00] OPEN LONG PIEVERSEUSDTUSDT @ 0.3871 | SL: 0.3817 (-0.75%/-15%ROE) | Size: 2188.33
+[2025-11-20 18:45:00] CLOSE PIEVERSEUSDTUSDT @ 0.5725 | PnL: $404.50 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-20 18:45:00... Balance: $573.50
+仓位计算: 余额=573.50, 保证金(10.0%)=57.35, 杠杆=50x, 仓位价值=2867.49, 数量=4.219561
+[2025-11-21 07:30:00] OPEN LONG ZECUSDTUSDT @ 679.5696 | SL: 670.0556 (-0.75%/-15%ROE) | Size: 4.22
+[2025-11-21 07:45:00] CLOSE ZECUSDTUSDT @ 684.3266 | PnL: $17.19 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=589.25, 保证金(10.0%)=58.92, 杠杆=50x, 仓位价值=2946.25, 数量=9066.428822
+[2025-11-21 14:00:00] OPEN LONG MMTUSDTUSDT @ 0.3250 | SL: 0.3204 (-0.75%/-15%ROE) | Size: 9066.43
+[2025-11-21 14:15:00] CLOSE MMTUSDTUSDT @ 0.3792 | PnL: $488.59 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-21 19:45:00... Balance: $1076.36
+Processing 2025-11-22 20:45:00... Balance: $1076.36
+仓位计算: 余额=1076.36, 保证金(10.0%)=107.64, 杠杆=50x, 仓位价值=5381.82, 数量=313176.954784
+[2025-11-23 18:45:00] OPEN LONG BOBUSDTUSDT @ 0.0172 | SL: 0.0169 (-0.75%/-15%ROE) | Size: 313176.95
+[2025-11-23 19:00:00] CLOSE BOBUSDTUSDT @ 0.0169 | PnL: $-86.03 | Reason: LIQUIDATION
+Processing 2025-11-23 21:45:00... Balance: $987.65
+仓位计算: 余额=987.65, 保证金(10.0%)=98.76, 杠杆=50x, 仓位价值=4938.23, 数量=19942.489475
+[2025-11-24 05:00:00] OPEN LONG ENAUSDTUSDT @ 0.2476 | SL: 0.2442 (-0.75%/-15%ROE) | Size: 19942.49
+[2025-11-24 05:15:00] CLOSE ENAUSDTUSDT @ 0.2484 | PnL: $9.86 | Reason: Trailing Stop (Stepped)
+
+========================================
+REALISTIC BACKTEST RESULTS (15 Days)
+========================================
+Final Balance: $995.04
+Total Return: 895.04%
+Total Trades: 40
+Winning Trades: 27
+Losing Trades: 13
+Win Rate: 67.50%
+Avg Win: $42.13
+Avg Loss: $-17.02
+Profit Factor: 5.14
+Max Profit Trade: $488.59 (MMTUSDTUSDT)
+Max Loss Trade: $-86.03 (BOBUSDTUSDT)
+Max Holding Time: 0 days 09:15:00
+Min Holding Time: 0 days 00:15:00
+Trades saved to backtest_trades_15d.csv
+
+
+##################################################
+STARTING 7-DAY BACKTEST
+##################################################
+Loading data...
+Loaded 50 symbols.
+Filtered to last 7 days: 673 candles
+Backtesting over 673 timestamps...
+Start: 2025-11-17 07:45:00, End: 2025-11-24 07:45:00
+Processing 2025-11-17 07:45:00... Balance: $100.00
+仓位计算: 余额=100.00, 保证金(10.0%)=10.00, 杠杆=50x, 仓位价值=500.00, 数量=2134.771999
+[2025-11-17 14:30:00] OPEN LONG XPLUSDTUSDT @ 0.2342 | SL: 0.2309 (-0.75%/-15%ROE) | Size: 2134.77
+[2025-11-17 14:45:00] CLOSE XPLUSDTUSDT @ 0.2307 | PnL: $-7.99 | Reason: LIQUIDATION
+仓位计算: 余额=91.76, 保证金(10.0%)=9.18, 杠杆=50x, 仓位价值=458.79, 数量=1961.332167
+[2025-11-17 20:00:00] OPEN LONG XPLUSDTUSDT @ 0.2339 | SL: 0.2306 (-0.75%/-15%ROE) | Size: 1961.33
+[2025-11-17 20:15:00] CLOSE XPLUSDTUSDT @ 0.2393 | PnL: $10.08 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-18 08:45:00... Balance: $101.61
+仓位计算: 余额=101.61, 保证金(10.0%)=10.16, 杠杆=50x, 仓位价值=508.06, 数量=3.602462
+[2025-11-18 15:15:00] OPEN LONG SOLUSDTUSDT @ 141.0305 | SL: 139.0561 (-0.75%/-15%ROE) | Size: 3.60
+仓位计算: 余额=101.36, 保证金(10.0%)=10.14, 杠杆=50x, 仓位价值=506.79, 数量=1068.412053
+[2025-11-18 15:15:00] OPEN LONG ADAUSDTUSDT @ 0.4743 | SL: 0.4677 (-0.75%/-15%ROE) | Size: 1068.41
+仓位计算: 余额=101.10, 保证金(10.0%)=10.11, 杠杆=50x, 仓位价值=505.52, 数量=1820.131311
+[2025-11-18 15:15:00] OPEN LONG ENAUSDTUSDT @ 0.2777 | SL: 0.2739 (-0.75%/-15%ROE) | Size: 1820.13
+[2025-11-18 15:30:00] CLOSE SOLUSDTUSDT @ 141.4536 | PnL: $1.01 | Reason: Trailing Stop (Stepped)
+[2025-11-18 15:30:00] CLOSE ADAUSDTUSDT @ 0.4758 | PnL: $1.01 | Reason: Trailing Stop (Stepped)
+[2025-11-18 15:30:00] CLOSE ENAUSDTUSDT @ 0.2786 | PnL: $1.01 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=103.89, 保证金(10.0%)=10.39, 杠杆=50x, 仓位价值=519.44, 数量=2050.478197
+[2025-11-19 06:30:00] OPEN LONG PIEVERSEUSDTUSDT @ 0.2533 | SL: 0.2498 (-0.75%/-15%ROE) | Size: 2050.48
+[2025-11-19 06:45:00] CLOSE PIEVERSEUSDTUSDT @ 0.2495 | PnL: $-8.30 | Reason: LIQUIDATION
+Processing 2025-11-19 09:45:00... Balance: $95.33
+仓位计算: 余额=95.33, 保证金(10.0%)=9.53, 杠杆=50x, 仓位价值=476.63, 数量=0.943550
+[2025-11-20 04:45:00] OPEN LONG BCHUSDTUSDT @ 505.1424 | SL: 498.0705 (-0.75%/-15%ROE) | Size: 0.94
+[2025-11-20 05:00:00] CLOSE BCHUSDTUSDT @ 510.6990 | PnL: $4.76 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-20 10:45:00... Balance: $99.85
+仓位计算: 余额=99.85, 保证金(10.0%)=9.98, 杠杆=50x, 仓位价值=499.24, 数量=0.708182
+[2025-11-20 13:15:00] OPEN LONG ZECUSDTUSDT @ 704.9623 | SL: 695.0928 (-0.75%/-15%ROE) | Size: 0.71
+[2025-11-20 13:30:00] CLOSE ZECUSDTUSDT @ 712.7169 | PnL: $4.99 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=104.59, 保证金(10.0%)=10.46, 杠杆=50x, 仓位价值=522.93, 数量=1350.913102
+[2025-11-20 18:30:00] OPEN LONG PIEVERSEUSDTUSDT @ 0.3871 | SL: 0.3817 (-0.75%/-15%ROE) | Size: 1350.91
+[2025-11-20 18:45:00] CLOSE PIEVERSEUSDTUSDT @ 0.5725 | PnL: $249.71 | Reason: Trailing Stop (Stepped)
+仓位计算: 余额=354.03, 保证金(10.0%)=35.40, 杠杆=50x, 仓位价值=1770.17, 数量=2.604845
+[2025-11-21 07:30:00] OPEN LONG ZECUSDTUSDT @ 679.5696 | SL: 670.0556 (-0.75%/-15%ROE) | Size: 2.60
+[2025-11-21 07:45:00] CLOSE ZECUSDTUSDT @ 684.3266 | PnL: $10.61 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-21 11:45:00... Balance: $363.76
+仓位计算: 余额=363.76, 保证金(10.0%)=36.38, 杠杆=50x, 仓位价值=1818.80, 数量=5596.941423
+[2025-11-21 14:00:00] OPEN LONG MMTUSDTUSDT @ 0.3250 | SL: 0.3204 (-0.75%/-15%ROE) | Size: 5596.94
+[2025-11-21 14:15:00] CLOSE MMTUSDTUSDT @ 0.3792 | PnL: $301.62 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-22 12:45:00... Balance: $664.47
+Processing 2025-11-23 13:45:00... Balance: $664.47
+仓位计算: 余额=664.47, 保证金(10.0%)=66.45, 杠杆=50x, 仓位价值=3322.34, 数量=193332.248624
+[2025-11-23 18:45:00] OPEN LONG BOBUSDTUSDT @ 0.0172 | SL: 0.0169 (-0.75%/-15%ROE) | Size: 193332.25
+[2025-11-23 19:00:00] CLOSE BOBUSDTUSDT @ 0.0169 | PnL: $-53.11 | Reason: LIQUIDATION
+仓位计算: 余额=609.70, 保证金(10.0%)=60.97, 杠杆=50x, 仓位价值=3048.50, 数量=12311.015464
+[2025-11-24 05:00:00] OPEN LONG ENAUSDTUSDT @ 0.2476 | SL: 0.2442 (-0.75%/-15%ROE) | Size: 12311.02
+[2025-11-24 05:15:00] CLOSE ENAUSDTUSDT @ 0.2484 | PnL: $6.09 | Reason: Trailing Stop (Stepped)
+
+========================================
+REALISTIC BACKTEST RESULTS (7 Days)
+========================================
+Final Balance: $614.27
+Total Return: 514.27%
+Total Trades: 13
+Winning Trades: 10
+Losing Trades: 3
+Win Rate: 76.92%
+Avg Win: $59.09
+Avg Loss: $-23.13
+Profit Factor: 8.51
+Max Profit Trade: $301.62 (MMTUSDTUSDT)
+Max Loss Trade: $-53.11 (BOBUSDTUSDT)
+Max Holding Time: 0 days 00:15:00
+Min Holding Time: 0 days 00:15:00
+Trades saved to backtest_trades_7d.csv

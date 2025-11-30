@@ -1,0 +1,292 @@
+/Users/muce/PycharmProjects/github/eth/strategy/enhanced_filter.py:27: FutureWarning: 'H' is deprecated and will be removed in a future version, please use 'h' instead.
+  df_1h = recent_data.resample('1H').agg({
+================================================================================
+30-DAY BACKTEST - IMMEDIATE ENTRY (MATCHING LIVE TRADING)
+================================================================================
+
+Loading data...
+Found 50 symbols total
+Selecting Top 100 by volume...
+Selected Top 100 symbols by volume
+Loaded 50 symbols (15m)
+Generating 30m data...
+Generated 50 symbols (30m)
+Loading 1m data...
+Loaded 514 symbols (1m)
+Filtering data: 2025-10-29 to 2025-11-28
+Symbols after filtering: 50
+
+Starting hybrid backtest (Multi-Timeframe)...
+Signal: 15m + 30m K-lines
+Risk Management: 1m K-lines
+Position Size: 30%
+Stop-Loss: ATR × 2.5
+Leverage: 20x
+
+Processing 2025-10-30 19:00:00... Balance: $100.00
+  ✗ PIPPINUSDTUSDT filtered: {'1h_trend': True, 'volume_persistence': True, 'volatility_safe': False, 'momentum_strength': False}
+仓位计算: 余额=100.00, 保证金(10.0%)=10.00, 杠杆=50x, 仓位价值=500.00, 数量=10.452837
+[2025-10-31 05:15:00] OPEN DASHUSDTUSDT @ 47.8339 | SL: 47.1642 | Size: 10.45
+[2025-10-31 05:15:00] CLOSE DASHUSDTUSDT @ 47.1406 | PnL: $-7.49 | Stop Loss
+仓位计算: 余额=92.50, 保证金(10.0%)=9.25, 杠杆=50x, 仓位价值=462.51, 数量=13697.169674
+[2025-10-31 10:00:00] OPEN 1000RATSUSDTUSDT @ 0.0338 | SL: 0.0333 | Size: 13697.17
+[2025-10-31 10:00:00] CLOSE 1000RATSUSDTUSDT @ 0.0333 | PnL: $-6.93 | Stop Loss
+仓位计算: 余额=85.57, 保证金(10.0%)=8.56, 杠杆=50x, 仓位价值=427.83, 数量=0.913539
+[2025-10-31 13:45:00] OPEN TAOUSDTUSDT @ 468.3240 | SL: 461.7675 | Size: 0.91
+[2025-10-31 13:45:00] CLOSE TAOUSDTUSDT @ 461.5366 | PnL: $-6.41 | Stop Loss
+仓位计算: 余额=79.15, 保证金(10.0%)=7.92, 杠杆=50x, 仓位价值=395.75, 数量=1.761158
+[2025-10-31 19:30:00] OPEN AAVEUSDTUSDT @ 224.7123 | SL: 221.5663 | Size: 1.76
+仓位计算: 余额=79.15, 保证金(10.0%)=7.91, 杠杆=50x, 仓位价值=395.73, 数量=1.693728
+[2025-10-31 19:45:00] OPEN AAVEUSDTUSDT @ 233.6468 | SL: 230.3757 | Size: 1.69
+Processing 2025-10-31 20:00:00... Balance: $79.14
+仓位计算: 余额=79.14, 保证金(10.0%)=7.91, 杠杆=50x, 仓位价值=395.71, 数量=11029.461268
+[2025-11-01 11:45:00] OPEN 1000RATSUSDTUSDT @ 0.0359 | SL: 0.0354 | Size: 11029.46
+[2025-11-01 11:45:00] CLOSE 1000RATSUSDTUSDT @ 0.0354 | PnL: $-5.93 | Stop Loss
+Processing 2025-11-01 21:00:00... Balance: $73.21
+仓位计算: 余额=73.21, 保证金(10.0%)=7.32, 杠杆=50x, 仓位价值=366.04, 数量=3.896700
+[2025-11-02 07:00:00] OPEN DASHUSDTUSDT @ 93.9369 | SL: 92.6218 | Size: 3.90
+[2025-11-02 07:00:00] CLOSE DASHUSDTUSDT @ 92.5755 | PnL: $-5.49 | Stop Loss
+仓位计算: 余额=67.72, 保证金(10.0%)=6.77, 杠杆=50x, 仓位价值=338.60, 数量=4919.745969
+[2025-11-02 07:15:00] OPEN PARTIUSDTUSDT @ 0.0688 | SL: 0.0679 | Size: 4919.75
+[2025-11-02 07:44:00] CLOSE PARTIUSDTUSDT @ 0.0690 | PnL: $0.68 | Trailing Stop
+仓位计算: 余额=68.39, 保证金(10.0%)=6.84, 杠杆=50x, 仓位价值=341.96, 数量=1007.641642
+[2025-11-02 08:00:00] OPEN FARTCOINUSDTUSDT @ 0.3394 | SL: 0.3346 | Size: 1007.64
+仓位计算: 余额=68.39, 保证金(10.0%)=6.84, 杠杆=50x, 仓位价值=341.95, 数量=191.792904
+[2025-11-02 09:15:00] OPEN FILUSDTUSDT @ 1.7829 | SL: 1.7579 | Size: 191.79
+[2025-11-02 09:15:00] CLOSE FILUSDTUSDT @ 1.7571 | PnL: $-5.12 | Stop Loss
+[2025-11-02 09:41:00] CLOSE FARTCOINUSDTUSDT @ 0.3345 | PnL: $-5.12 | Stop Loss
+仓位计算: 余额=58.14, 保证金(10.0%)=5.81, 杠杆=50x, 仓位价值=290.68, 数量=6205.447111
+[2025-11-02 12:30:00] OPEN PORT3USDTUSDT @ 0.0468 | SL: 0.0462 | Size: 6205.45
+[2025-11-02 12:30:00] CLOSE PORT3USDTUSDT @ 0.0462 | PnL: $-4.36 | Stop Loss
+Processing 2025-11-02 22:00:00... Balance: $53.78
+仓位计算: 余额=53.78, 保证金(10.0%)=5.38, 杠杆=50x, 仓位价值=268.89, 数量=7203.290674
+[2025-11-03 12:15:00] OPEN 1000RATSUSDTUSDT @ 0.0373 | SL: 0.0368 | Size: 7203.29
+[2025-11-03 12:15:00] CLOSE 1000RATSUSDTUSDT @ 0.0368 | PnL: $-4.03 | Stop Loss
+仓位计算: 余额=49.75, 保证金(10.0%)=4.97, 杠杆=50x, 仓位价值=248.73, 数量=2.364054
+[2025-11-03 17:30:00] OPEN DASHUSDTUSDT @ 105.2126 | SL: 103.7396 | Size: 2.36
+[2025-11-03 17:30:00] CLOSE DASHUSDTUSDT @ 103.6877 | PnL: $-3.73 | Stop Loss
+Processing 2025-11-03 23:00:00... Balance: $46.02
+Processing 2025-11-05 00:00:00... Balance: $46.02
+仓位计算: 余额=46.02, 保证金(10.0%)=4.60, 杠杆=50x, 仓位价值=230.08, 数量=814.608081
+[2025-11-05 11:30:00] OPEN XPLUSDTUSDT @ 0.2824 | SL: 0.2785 | Size: 814.61
+仓位计算: 余额=46.01, 保证金(10.0%)=4.60, 杠杆=50x, 仓位价值=230.07, 数量=5.534753
+[2025-11-05 11:45:00] OPEN HYPEUSDTUSDT @ 41.5678 | SL: 40.9858 | Size: 5.53
+[2025-11-05 11:45:00] CLOSE HYPEUSDTUSDT @ 40.9653 | PnL: $-3.45 | Stop Loss
+仓位计算: 余额=42.56, 保证金(10.0%)=4.26, 杠杆=50x, 仓位价值=212.82, 数量=759.139252
+[2025-11-05 13:45:00] OPEN FARTCOINUSDTUSDT @ 0.2803 | SL: 0.2764 | Size: 759.14
+[2025-11-05 13:45:00] CLOSE FARTCOINUSDTUSDT @ 0.2763 | PnL: $-3.19 | Stop Loss
+仓位计算: 余额=39.37, 保证金(10.0%)=3.94, 杠杆=50x, 仓位价值=196.86, 数量=5215.001943
+[2025-11-05 14:30:00] OPEN 1000RATSUSDTUSDT @ 0.0377 | SL: 0.0372 | Size: 5215.00
+[2025-11-05 14:30:00] CLOSE 1000RATSUSDTUSDT @ 0.0372 | PnL: $-2.95 | Stop Loss
+Processing 2025-11-06 01:00:00... Balance: $36.42
+仓位计算: 余额=36.42, 保证金(10.0%)=3.64, 杠杆=50x, 仓位价值=182.10, 数量=0.356322
+[2025-11-06 06:00:00] OPEN ZECUSDTUSDT @ 511.0554 | SL: 503.9006 | Size: 0.36
+[2025-11-06 06:00:00] CLOSE ZECUSDTUSDT @ 503.6487 | PnL: $-2.73 | Stop Loss
+仓位计算: 余额=33.69, 保证金(10.0%)=3.37, 杠杆=50x, 仓位价值=168.45, 数量=86.074762
+[2025-11-06 13:15:00] OPEN NEARUSDTUSDT @ 1.9570 | SL: 1.9296 | Size: 86.07
+[2025-11-06 13:15:00] CLOSE NEARUSDTUSDT @ 1.9286 | PnL: $-2.52 | Stop Loss
+仓位计算: 余额=31.16, 保证金(10.0%)=3.12, 杠杆=50x, 仓位价值=155.82, 数量=76.907971
+[2025-11-06 13:30:00] OPEN NEARUSDTUSDT @ 2.0260 | SL: 1.9976 | Size: 76.91
+[2025-11-06 13:30:00] CLOSE NEARUSDTUSDT @ 1.9966 | PnL: $-2.34 | Stop Loss
+Processing 2025-11-07 02:00:00... Balance: $28.83
+仓位计算: 余额=28.83, 保证金(10.0%)=2.88, 杠杆=50x, 仓位价值=144.13, 数量=1075.086200
+[2025-11-07 15:15:00] OPEN STRKUSDTUSDT @ 0.1341 | SL: 0.1322 | Size: 1075.09
+[2025-11-07 15:15:00] CLOSE STRKUSDTUSDT @ 0.1321 | PnL: $-2.16 | Stop Loss
+仓位计算: 余额=26.67, 保证金(10.0%)=2.67, 杠杆=50x, 仓位价值=133.33, 数量=1.423566
+[2025-11-07 15:30:00] OPEN LTCUSDTUSDT @ 93.6568 | SL: 92.3456 | Size: 1.42
+[2025-11-07 15:30:00] CLOSE LTCUSDTUSDT @ 92.2994 | PnL: $-2.00 | Stop Loss
+仓位计算: 余额=24.67, 保证金(10.0%)=2.47, 杠杆=50x, 仓位价值=123.33, 数量=1.232807
+[2025-11-07 16:15:00] OPEN LTCUSDTUSDT @ 100.0400 | SL: 98.6394 | Size: 1.23
+[2025-11-07 16:15:00] CLOSE LTCUSDTUSDT @ 98.5901 | PnL: $-1.85 | Stop Loss
+仓位计算: 余额=22.82, 保证金(10.0%)=2.28, 杠杆=50x, 仓位价值=114.08, 数量=37.081566
+[2025-11-07 16:30:00] OPEN DOTUSDTUSDT @ 3.0765 | SL: 3.0335 | Size: 37.08
+[2025-11-07 16:30:00] CLOSE DOTUSDTUSDT @ 3.0319 | PnL: $-1.71 | Stop Loss
+仓位计算: 余额=21.11, 保证金(10.0%)=2.11, 杠杆=50x, 仓位价值=105.53, 数量=1019.587251
+[2025-11-07 17:30:00] OPEN DYMUSDTUSDT @ 0.1035 | SL: 0.1021 | Size: 1019.59
+[2025-11-07 17:30:00] CLOSE DYMUSDTUSDT @ 0.1020 | PnL: $-1.58 | Stop Loss
+仓位计算: 余额=19.52, 保证金(10.0%)=1.95, 杠杆=50x, 仓位价值=97.62, 数量=926.569972
+[2025-11-07 18:00:00] OPEN DYMUSDTUSDT @ 0.1054 | SL: 0.1039 | Size: 926.57
+[2025-11-07 18:00:00] CLOSE DYMUSDTUSDT @ 0.1038 | PnL: $-1.46 | Stop Loss
+仓位计算: 余额=18.06, 保证金(10.0%)=1.81, 杠杆=50x, 仓位价值=90.30, 数量=811.037952
+[2025-11-07 19:00:00] OPEN DYMUSDTUSDT @ 0.1113 | SL: 0.1098 | Size: 811.04
+[2025-11-07 19:00:00] CLOSE DYMUSDTUSDT @ 0.1097 | PnL: $-1.35 | Stop Loss
+Processing 2025-11-08 03:00:00... Balance: $16.71
+仓位计算: 余额=16.71, 保证金(10.0%)=1.67, 杠杆=50x, 仓位价值=83.53, 数量=1170.245260
+[2025-11-08 10:30:00] OPEN PARTIUSDTUSDT @ 0.0714 | SL: 0.0704 | Size: 1170.25
+[2025-11-08 10:30:00] CLOSE PARTIUSDTUSDT @ 0.0703 | PnL: $-1.25 | Stop Loss
+仓位计算: 余额=15.45, 保证金(10.0%)=1.55, 杠杆=50x, 仓位价值=77.26, 数量=24.927589
+[2025-11-08 11:00:00] OPEN NEARUSDTUSDT @ 3.0995 | SL: 3.0562 | Size: 24.93
+[2025-11-08 11:00:00] CLOSE NEARUSDTUSDT @ 3.0546 | PnL: $-1.16 | Stop Loss
+仓位计算: 余额=14.29, 保证金(10.0%)=1.43, 杠杆=50x, 仓位价值=71.47, 数量=984.636615
+[2025-11-08 11:15:00] OPEN PARTIUSDTUSDT @ 0.0726 | SL: 0.0716 | Size: 984.64
+[2025-11-08 11:15:00] CLOSE PARTIUSDTUSDT @ 0.0715 | PnL: $-1.07 | Stop Loss
+仓位计算: 余额=13.22, 保证金(10.0%)=1.32, 杠杆=50x, 仓位价值=66.11, 数量=882.704371
+[2025-11-08 11:30:00] OPEN PARTIUSDTUSDT @ 0.0749 | SL: 0.0738 | Size: 882.70
+[2025-11-08 11:30:00] CLOSE PARTIUSDTUSDT @ 0.0738 | PnL: $-0.99 | Stop Loss
+Processing 2025-11-09 04:00:00... Balance: $12.23
+仓位计算: 余额=12.23, 保证金(10.0%)=1.22, 杠杆=50x, 仓位价值=61.16, 数量=197.303772
+[2025-11-09 08:00:00] OPEN FARTCOINUSDTUSDT @ 0.3100 | SL: 0.3056 | Size: 197.30
+[2025-11-09 08:00:00] CLOSE FARTCOINUSDTUSDT @ 0.3055 | PnL: $-0.92 | Stop Loss
+仓位计算: 余额=11.31, 保证金(10.0%)=1.13, 杠杆=50x, 仓位价值=56.57, 数量=0.536092
+[2025-11-09 10:45:00] OPEN LTCUSDTUSDT @ 105.5227 | SL: 104.0454 | Size: 0.54
+[2025-11-09 10:45:00] CLOSE LTCUSDTUSDT @ 103.9934 | PnL: $-0.85 | Stop Loss
+仓位计算: 余额=10.47, 保证金(10.0%)=1.05, 杠杆=50x, 仓位价值=52.33, 数量=0.014717
+[2025-11-09 14:15:00] OPEN ETHUSDTUSDT @ 3555.5269 | SL: 3506.6429 | Size: 0.01
+[2025-11-09 14:15:00] CLOSE ETHUSDTUSDT @ 3504.8896 | PnL: $-0.77 | Stop Loss
+仓位计算: 余额=9.69, 保证金(10.0%)=0.97, 杠杆=50x, 仓位价值=48.47, 数量=318.935619
+[2025-11-09 15:30:00] OPEN STRKUSDTUSDT @ 0.1520 | SL: 0.1498 | Size: 318.94
+[2025-11-09 15:30:00] CLOSE STRKUSDTUSDT @ 0.1498 | PnL: $-0.73 | Stop Loss
+仓位计算: 余额=8.97, 保证金(10.0%)=0.90, 杠杆=50x, 仓位价值=44.84, 数量=133.414335
+[2025-11-09 19:45:00] OPEN FARTCOINUSDTUSDT @ 0.3361 | SL: 0.3314 | Size: 133.41
+[2025-11-09 19:45:00] CLOSE FARTCOINUSDTUSDT @ 0.3312 | PnL: $-0.67 | Stop Loss
+仓位计算: 余额=8.29, 保证金(10.0%)=0.83, 杠杆=50x, 仓位价值=41.47, 数量=305.481105
+[2025-11-10 04:00:00] OPEN WLFIUSDTUSDT @ 0.1358 | SL: 0.1339 | Size: 305.48
+  ✗ WLFIUSDTUSDT filtered: {'1h_trend': True, 'volume_persistence': True, 'volatility_safe': True, 'momentum_strength': False}
+  ✗ WLFIUSDTUSDT filtered: {'1h_trend': True, 'volume_persistence': True, 'volatility_safe': False, 'momentum_strength': False}
+Processing 2025-11-10 05:00:00... Balance: $8.29
+仓位计算: 余额=8.29, 保证金(10.0%)=0.83, 杠杆=50x, 仓位价值=41.47, 数量=0.081428
+[2025-11-10 07:30:00] OPEN BCHUSDTUSDT @ 509.3145 | SL: 503.4984 | Size: 0.08
+[2025-11-10 08:05:00] CLOSE BCHUSDTUSDT @ 510.0780 | PnL: $0.04 | Stop Loss
+仓位计算: 余额=8.34, 保证金(10.0%)=0.83, 杠杆=50x, 仓位价值=41.68, 数量=540.222236
+[2025-11-10 08:30:00] OPEN BANKUSDTUSDT @ 0.0771 | SL: 0.0761 | Size: 540.22
+[2025-11-10 08:49:00] CLOSE BANKUSDTUSDT @ 0.0773 | PnL: $0.04 | Stop Loss
+仓位计算: 余额=8.38, 保证金(10.0%)=0.84, 杠杆=50x, 仓位价值=41.88, 数量=519.384269
+[2025-11-10 09:00:00] OPEN BANKUSDTUSDT @ 0.0806 | SL: 0.0795 | Size: 519.38
+[2025-11-10 09:00:00] CLOSE BANKUSDTUSDT @ 0.0795 | PnL: $-0.63 | Stop Loss
+仓位计算: 余额=7.75, 保证金(10.0%)=0.77, 杠杆=50x, 仓位价值=38.74, 数量=0.174643
+[2025-11-10 09:15:00] OPEN AAVEUSDTUSDT @ 221.8409 | SL: 218.7351 | Size: 0.17
+仓位计算: 余额=7.75, 保证金(10.0%)=0.77, 杠杆=50x, 仓位价值=38.74, 数量=189.626087
+[2025-11-10 09:30:00] OPEN STRKUSDTUSDT @ 0.2043 | SL: 0.2014 | Size: 189.63
+[2025-11-10 09:30:00] CLOSE STRKUSDTUSDT @ 0.2013 | PnL: $-0.58 | Stop Loss
+仓位计算: 余额=7.17, 保证金(10.0%)=0.72, 杠杆=50x, 仓位价值=35.84, 数量=12060.048993
+[2025-11-10 12:45:00] OPEN BANANAS31USDTUSDT @ 0.0030 | SL: 0.0029 | Size: 12060.05
+[2025-11-10 12:45:00] CLOSE BANANAS31USDTUSDT @ 0.0029 | PnL: $-0.54 | Stop Loss
+仓位计算: 余额=6.63, 保证金(10.0%)=0.66, 杠杆=50x, 仓位价值=33.15, 数量=792.649046
+[2025-11-10 17:30:00] OPEN PORT3USDTUSDT @ 0.0418 | SL: 0.0412 | Size: 792.65
+[2025-11-10 17:30:00] CLOSE PORT3USDTUSDT @ 0.0412 | PnL: $-0.50 | Stop Loss
+  ✗ UNIUSDTUSDT filtered: {'1h_trend': True, 'volume_persistence': True, 'volatility_safe': False, 'momentum_strength': True}
+仓位计算: 余额=6.13, 保证金(10.0%)=0.61, 杠杆=50x, 仓位价值=30.66, 数量=0.133930
+[2025-11-10 22:45:00] OPEN AAVEUSDTUSDT @ 228.9544 | SL: 225.7491 | Size: 0.13
+Processing 2025-11-11 06:00:00... Balance: $6.13
+仓位计算: 余额=6.13, 保证金(10.0%)=0.61, 杠杆=50x, 仓位价值=30.66, 数量=399.464891
+[2025-11-12 06:45:00] OPEN PARTIUSDTUSDT @ 0.0768 | SL: 0.0757 | Size: 399.46
+[2025-11-12 06:45:00] CLOSE PARTIUSDTUSDT @ 0.0756 | PnL: $-0.46 | Stop Loss
+Processing 2025-11-12 07:00:00... Balance: $5.67
+仓位计算: 余额=5.67, 保证金(10.0%)=0.57, 杠杆=50x, 仓位价值=28.36, 数量=331.684523
+[2025-11-12 19:15:00] OPEN PARTIUSDTUSDT @ 0.0855 | SL: 0.0843 | Size: 331.68
+[2025-11-12 19:15:00] CLOSE PARTIUSDTUSDT @ 0.0843 | PnL: $-0.43 | Stop Loss
+仓位计算: 余额=5.25, 保证金(10.0%)=0.52, 杠杆=50x, 仓位价值=26.24, 数量=283.681278
+[2025-11-12 19:30:00] OPEN PARTIUSDTUSDT @ 0.0925 | SL: 0.0912 | Size: 283.68
+[2025-11-12 19:30:00] CLOSE PARTIUSDTUSDT @ 0.0911 | PnL: $-0.39 | Stop Loss
+Processing 2025-11-13 08:00:00... Balance: $4.85
+Processing 2025-11-14 09:00:00... Balance: $4.85
+仓位计算: 余额=4.85, 保证金(10.0%)=0.49, 杠杆=50x, 仓位价值=24.27, 数量=0.044253
+[2025-11-14 12:45:00] OPEN ZECUSDTUSDT @ 548.4241 | SL: 540.7461 | Size: 0.04
+[2025-11-14 12:45:00] CLOSE ZECUSDTUSDT @ 540.4758 | PnL: $-0.36 | Stop Loss
+仓位计算: 余额=4.49, 保证金(10.0%)=0.45, 杠杆=50x, 仓位价值=22.45, 数量=0.306788
+[2025-11-14 13:15:00] OPEN DASHUSDTUSDT @ 73.1766 | SL: 72.1521 | Size: 0.31
+[2025-11-14 13:15:00] CLOSE DASHUSDTUSDT @ 72.1160 | PnL: $-0.34 | Stop Loss
+仓位计算: 余额=4.15, 保证金(10.0%)=0.42, 杠杆=50x, 仓位价值=20.77, 数量=122.022917
+[2025-11-14 14:30:00] OPEN STRKUSDTUSDT @ 0.1702 | SL: 0.1678 | Size: 122.02
+[2025-11-14 14:30:00] CLOSE STRKUSDTUSDT @ 0.1677 | PnL: $-0.31 | Stop Loss
+仓位计算: 余额=3.84, 保证金(10.0%)=0.38, 杠杆=50x, 仓位价值=19.21, 数量=8.751063
+[2025-11-15 06:30:00] OPEN FILUSDTUSDT @ 2.1951 | SL: 2.1644 | Size: 8.75
+[2025-11-15 06:30:00] CLOSE FILUSDTUSDT @ 2.1633 | PnL: $-0.29 | Stop Loss
+Processing 2025-11-15 10:00:00... Balance: $3.55
+仓位计算: 余额=3.55, 保证金(10.0%)=0.36, 杠杆=50x, 仓位价值=17.77, 数量=0.035292
+[2025-11-15 12:00:00] OPEN BCHUSDTUSDT @ 503.4916 | SL: 496.4427 | Size: 0.04
+[2025-11-15 12:00:00] CLOSE BCHUSDTUSDT @ 496.1945 | PnL: $-0.27 | Stop Loss
+仓位计算: 余额=3.29, 保证金(10.0%)=0.33, 杠杆=50x, 仓位价值=16.44, 数量=110.111327
+[2025-11-16 07:45:00] OPEN WLFIUSDTUSDT @ 0.1493 | SL: 0.1472 | Size: 110.11
+仓位计算: 余额=3.29, 保证金(10.0%)=0.33, 杠杆=50x, 仓位价值=16.44, 数量=0.005059
+[2025-11-16 09:45:00] OPEN ETHUSDTUSDT @ 3248.7536 | SL: 3217.2765 | Size: 0.01
+[2025-11-16 11:10:00] CLOSE ETHUSDTUSDT @ 3215.6679 | PnL: $-0.18 | Stop Loss
+Processing 2025-11-16 11:00:00... Balance: $3.11
+仓位计算: 余额=3.11, 保证金(10.0%)=0.31, 杠杆=50x, 仓位价值=15.56, 数量=0.153366
+[2025-11-16 16:30:00] OPEN DASHUSDTUSDT @ 101.4407 | SL: 100.0205 | Size: 0.15
+[2025-11-16 16:30:00] CLOSE DASHUSDTUSDT @ 99.9705 | PnL: $-0.23 | Stop Loss
+  ✗ BANANAS31USDTUSDT filtered: {'1h_trend': True, 'volume_persistence': True, 'volatility_safe': False, 'momentum_strength': True}
+Processing 2025-11-17 12:00:00... Balance: $2.88
+仓位计算: 余额=2.88, 保证金(10.0%)=0.29, 杠杆=50x, 仓位价值=14.39, 数量=6.918662
+[2025-11-17 16:45:00] OPEN FILUSDTUSDT @ 2.0800 | SL: 2.0509 | Size: 6.92
+[2025-11-17 16:45:00] CLOSE FILUSDTUSDT @ 2.0499 | PnL: $-0.22 | Stop Loss
+仓位计算: 余额=2.66, 保证金(10.0%)=0.27, 杠杆=50x, 仓位价值=13.31, 数量=56.909374
+[2025-11-17 20:00:00] OPEN XPLUSDTUSDT @ 0.2339 | SL: 0.2306 | Size: 56.91
+Processing 2025-11-18 13:00:00... Balance: $2.66
+仓位计算: 余额=2.66, 保证金(10.0%)=0.27, 杠杆=50x, 仓位价值=13.31, 数量=91.378752
+[2025-11-18 16:30:00] OPEN WLFIUSDTUSDT @ 0.1457 | SL: 0.1436 | Size: 91.38
+仓位计算: 余额=2.66, 保证金(10.0%)=0.27, 杠杆=50x, 仓位价值=13.31, 数量=257.781070
+[2025-11-19 12:30:00] OPEN TNSRUSDTUSDT @ 0.0516 | SL: 0.0509 | Size: 257.78
+[2025-11-19 12:30:00] CLOSE TNSRUSDTUSDT @ 0.0509 | PnL: $-0.20 | Stop Loss
+Processing 2025-11-19 14:00:00... Balance: $2.46
+  ✗ TNSRUSDTUSDT filtered: {'1h_trend': True, 'volume_persistence': True, 'volatility_safe': True, 'momentum_strength': False}
+仓位计算: 余额=2.46, 保证金(10.0%)=0.25, 杠杆=50x, 仓位价值=12.31, 数量=131.987961
+[2025-11-20 09:00:00] OPEN DYMUSDTUSDT @ 0.0933 | SL: 0.0920 | Size: 131.99
+[2025-11-20 09:00:00] CLOSE DYMUSDTUSDT @ 0.0919 | PnL: $-0.18 | Stop Loss
+  ✗ DYMUSDTUSDT filtered: {'1h_trend': True, 'volume_persistence': True, 'volatility_safe': False, 'momentum_strength': False}
+仓位计算: 余额=2.28, 保证金(10.0%)=0.23, 杠杆=50x, 仓位价值=11.39, 数量=19.714986
+[2025-11-20 12:00:00] OPEN BEATUSDTUSDT @ 0.5777 | SL: 0.5696 | Size: 19.71
+  ✗ DYMUSDTUSDT filtered: {'1h_trend': True, 'volume_persistence': True, 'volatility_safe': False, 'momentum_strength': True}
+  ✗ BEATUSDTUSDT filtered: {'1h_trend': True, 'volume_persistence': True, 'volatility_safe': False, 'momentum_strength': False}
+仓位计算: 余额=2.28, 保证金(10.0%)=0.23, 杠杆=50x, 仓位价值=11.39, 数量=0.016155
+[2025-11-20 13:15:00] OPEN ZECUSDTUSDT @ 704.9623 | SL: 695.0928 | Size: 0.02
+[2025-11-20 13:15:00] CLOSE ZECUSDTUSDT @ 694.7453 | PnL: $-0.17 | Stop Loss
+Processing 2025-11-20 15:00:00... Balance: $2.11
+  ✗ PIEVERSEUSDTUSDT filtered: {'1h_trend': True, 'volume_persistence': True, 'volatility_safe': True, 'momentum_strength': False}
+仓位计算: 余额=2.11, 保证金(10.0%)=0.21, 杠杆=50x, 仓位价值=10.54, 数量=260.122409
+[2025-11-21 05:00:00] OPEN PORT3USDTUSDT @ 0.0405 | SL: 0.0399 | Size: 260.12
+[2025-11-21 05:00:00] CLOSE PORT3USDTUSDT @ 0.0399 | PnL: $-0.16 | Stop Loss
+仓位计算: 余额=1.95, 保证金(10.0%)=0.19, 杠杆=50x, 仓位价值=9.75, 数量=59.160879
+[2025-11-21 06:15:00] OPEN DYMUSDTUSDT @ 0.1647 | SL: 0.1624 | Size: 59.16
+[2025-11-21 06:15:00] CLOSE DYMUSDTUSDT @ 0.1623 | PnL: $-0.15 | Stop Loss
+仓位计算: 余额=1.80, 保证金(10.0%)=0.18, 杠杆=50x, 仓位价值=9.01, 数量=46.522101
+[2025-11-21 06:30:00] OPEN DYMUSDTUSDT @ 0.1938 | SL: 0.1911 | Size: 46.52
+[2025-11-21 06:30:00] CLOSE DYMUSDTUSDT @ 0.1910 | PnL: $-0.14 | Stop Loss
+  ✗ TRUSTUSDTUSDT filtered: {'1h_trend': True, 'volume_persistence': True, 'volatility_safe': False, 'momentum_strength': True}
+  ✗ TRUSTUSDTUSDT filtered: {'1h_trend': True, 'volume_persistence': True, 'volatility_safe': False, 'momentum_strength': False}
+仓位计算: 余额=1.67, 保证金(10.0%)=0.17, 杠杆=50x, 仓位价值=8.34, 数量=25.660042
+[2025-11-21 14:00:00] OPEN MMTUSDTUSDT @ 0.3250 | SL: 0.3204 | Size: 25.66
+Processing 2025-11-21 16:00:00... Balance: $1.67
+  ✗ PARTIUSDTUSDT filtered: {'1h_trend': True, 'volume_persistence': True, 'volatility_safe': False, 'momentum_strength': True}
+仓位计算: 余额=1.67, 保证金(10.0%)=0.17, 杠杆=50x, 仓位价值=8.34, 数量=345.234663
+[2025-11-22 14:30:00] OPEN PIPPINUSDTUSDT @ 0.0242 | SL: 0.0238 | Size: 345.23
+[2025-11-22 14:30:00] CLOSE PIPPINUSDTUSDT @ 0.0238 | PnL: $-0.12 | Stop Loss
+  ✗ PIPPINUSDTUSDT filtered: {'1h_trend': True, 'volume_persistence': True, 'volatility_safe': True, 'momentum_strength': False}
+Processing 2025-11-22 17:00:00... Balance: $1.54
+仓位计算: 余额=1.54, 保证金(10.0%)=0.15, 杠杆=50x, 仓位价值=7.71, 数量=263.739116
+[2025-11-22 20:00:00] OPEN PIPPINUSDTUSDT @ 0.0292 | SL: 0.0288 | Size: 263.74
+[2025-11-22 20:00:00] CLOSE PIPPINUSDTUSDT @ 0.0288 | PnL: $-0.12 | Stop Loss
+仓位计算: 余额=1.43, 保证金(10.0%)=0.14, 杠杆=50x, 仓位价值=7.13, 数量=227.611745
+[2025-11-22 20:15:00] OPEN PIPPINUSDTUSDT @ 0.0313 | SL: 0.0309 | Size: 227.61
+[2025-11-22 20:15:00] CLOSE PIPPINUSDTUSDT @ 0.0309 | PnL: $-0.11 | Stop Loss
+仓位计算: 余额=1.32, 保证金(10.0%)=0.13, 杠杆=50x, 仓位价值=6.60, 数量=122.906590
+[2025-11-23 05:15:00] OPEN PIPPINUSDTUSDT @ 0.0537 | SL: 0.0529 | Size: 122.91
+[2025-11-23 05:15:00] CLOSE PIPPINUSDTUSDT @ 0.0529 | PnL: $-0.10 | Stop Loss
+仓位计算: 余额=1.22, 保证金(10.0%)=0.12, 杠杆=50x, 仓位价值=6.10, 数量=47.525563
+[2025-11-23 10:00:00] OPEN TNSRUSDTUSDT @ 0.1285 | SL: 0.1267 | Size: 47.53
+[2025-11-23 10:00:00] CLOSE TNSRUSDTUSDT @ 0.1266 | PnL: $-0.09 | Stop Loss
+  ✗ DYMUSDTUSDT filtered: {'1h_trend': True, 'volume_persistence': True, 'volatility_safe': False, 'momentum_strength': True}
+仓位计算: 余额=1.13, 保证金(10.0%)=0.11, 杠杆=50x, 仓位价值=5.65, 数量=143.401957
+[2025-11-23 13:45:00] OPEN 1000RATSUSDTUSDT @ 0.0394 | SL: 0.0388 | Size: 143.40
+[2025-11-23 13:45:00] CLOSE 1000RATSUSDTUSDT @ 0.0388 | PnL: $-0.08 | Stop Loss
+Processing 2025-11-23 18:00:00... Balance: $1.04
+仓位计算: 余额=1.04, 保证金(10.0%)=0.10, 杠杆=50x, 仓位价值=5.22, 数量=56.255773
+[2025-11-23 18:45:00] OPEN PARTIUSDTUSDT @ 0.0929 | SL: 0.0916 | Size: 56.26
+[2025-11-23 18:45:00] CLOSE PARTIUSDTUSDT @ 0.0915 | PnL: $-0.08 | Stop Loss
+仓位计算: 余额=0.97, 保证金(10.0%)=0.10, 杠杆=50x, 仓位价值=4.83, 数量=1269.284302
+[2025-11-24 06:15:00] OPEN BANANAS31USDTUSDT @ 0.0038 | SL: 0.0038 | Size: 1269.28
+[2025-11-24 06:15:00] CLOSE BANANAS31USDTUSDT @ 0.0038 | PnL: $-0.07 | Stop Loss
+
+============================================================
+HYBRID BACKTEST RESULTS (15m Signal + 1m Risk Management)
+============================================================
+Final Balance: $0.89
+Total Return: -99.11%
+Total Trades: 64
+Winning Trades: 3
+Losing Trades: 61
+Win Rate: 4.69%
+Avg Win: $0.25
+Avg Loss: $-1.64
+Profit Factor: 0.01
+Trades saved to backtest_trades_hybrid.csv

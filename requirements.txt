@@ -1,0 +1,7 @@
+ccxt
+pandas
+pandas_ta
+python-dotenv
+numpy
+requests
+websocket-client

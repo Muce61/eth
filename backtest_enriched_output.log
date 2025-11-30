@@ -1,0 +1,22 @@
+
+
+##################################################
+STARTING 30-DAY BACKTEST
+##################################################
+Loading data...
+Loaded 50 symbols.
+Filtered to last 30 days: 2881 candles
+Backtesting over 2881 timestamps...
+Start: 2025-10-25 07:45:00, End: 2025-11-24 07:45:00
+Processing 2025-10-25 07:45:00... Balance: $100.00
+Traceback (most recent call last):
+  File "/Users/muce/PycharmProjects/github/eth/backtest/run_multiple_backtests.py", line 28, in <module>
+    main()
+  File "/Users/muce/PycharmProjects/github/eth/backtest/run_multiple_backtests.py", line 19, in main
+    run_test(30)
+  File "/Users/muce/PycharmProjects/github/eth/backtest/run_multiple_backtests.py", line 15, in run_test
+    engine.run(days=days)
+  File "/Users/muce/PycharmProjects/github/eth/backtest/real_engine.py", line 90, in run
+    symbol = self.pending_signal['symbol']
+             ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+KeyError: 'symbol'
