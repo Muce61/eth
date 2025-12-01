@@ -11,6 +11,9 @@ from monitor.logger import setup_logger
 import logging
 import pandas as pd
 
+# 动态杠杆策略模块
+from leverage_strategies.signal_confidence import SignalConfidenceModule
+
 class TradingBot:
     def __init__(self):
         self.logger = setup_logger()
@@ -19,6 +22,10 @@ class TradingBot:
         self.client = BinanceClient()
         self.executor = Executor()
         self.strategy = MomentumStrategy()
+        
+        # 初始化信号置信度模块 (动态杠杆)
+        self.leverage_strategy = SignalConfidenceModule()
+        self.logger.info("📊 已启用: 信号置信度驱动动态杠杆策略")
         self.risk_manager = RiskManager()
         
         self.active_symbols = [] # Symbols we are monitoring/trading
@@ -29,7 +36,6 @@ class TradingBot:
             'kline': self.on_kline_update
         })
         
-        self.lock = threading.Lock() # Thread safety for shared resources
         self.lock = threading.Lock() # Thread safety for shared resources
         # self.trade_logger = setup_logger('trade_logger', 'trades.log') # Disabled per user request
         self.trade_logger = logging.getLogger('trade_logger_null')
@@ -216,7 +222,7 @@ class TradingBot:
                     
                 self.logger.info(f"发现信号: {symbol} 做多")
                 self.trade_logger.info(f"触发信号: {symbol} 做多 | 价格: {df['close'].iloc[-1]}")
-                self.execute_entry(symbol, df)
+                self.execute_entry(symbol, df, signal=signal)  # 传递signal对象用于动态杠杆计算
         
         # Check for Exit (Trailing Stop handled in manage_positions or here?)
         # Better here with real-time price, but we need current price.
@@ -224,7 +230,8 @@ class TradingBot:
         # For trailing stop, we might want real-time price from ticker.
         pass
 
-    def execute_entry(self, symbol, df):
+    def execute_entry(self, symbol, df, signal=None):
+        """执行开仓 (已集成信号置信度动态杠杆)"""
         self.logger.info(f"[开仓流程] 开始执行 {symbol} 开仓...")
         try:
             price = df['close'].iloc[-1]
@@ -236,12 +243,31 @@ class TradingBot:
             # 1. Set Margin Mode to ISOLATED (Safety First)
             self.executor.set_margin_mode(symbol, 'ISOLATED')
             
-            # 2. Determine Max Leverage
-            max_allowed_lev = self.client.get_max_leverage(symbol)
-            target_leverage = int(min(self.config.LEVERAGE, max_allowed_lev))
-            self.logger.info(f"[开仓流程] {symbol} 最大可用杠杆: {max_allowed_lev}x, 目标杠杆: {target_leverage}x")
+            # 2. 动态杠杆计算 (信号置信度驱动)
+            if signal and 'metrics' in signal:
+                # 使用信号置信度模块计算最优杠杆
+                calculated_leverage = self.leverage_strategy.calculate(
+                    symbol=symbol,
+                    signal=signal,
+                    current_price=price,
+                    df=df
+                )
+                confidence_score = self.leverage_strategy.get_confidence_score(signal)
+                self.logger.info(f"🎯 [动态杠杆] {symbol} 置信度评分: {confidence_score}/100 → 杠杆: {calculated_leverage}x")
+            else:
+                # Fallback: 使用固定杠杆
+                calculated_leverage = self.config.LEVERAGE
+                confidence_score = 0
+                self.logger.warning(f"⚠️  [动态杠杆] {symbol} 无有效信号metrics,使用固定杠杆 {calculated_leverage}x")
             
-            # 3. Set Leverage
+            # 3. 安全限制: 最大杠杆25x (留安全边际)
+            max_safe_leverage = 25
+            max_allowed_lev = self.client.get_max_leverage(symbol)
+            target_leverage = int(min(calculated_leverage, max_safe_leverage, max_allowed_lev))
+            
+            self.logger.info(f"[开仓流程] {symbol} 计算杠杆={calculated_leverage}x, 最大允许={max_allowed_lev}x, 最终使用={target_leverage}x")
+            
+            # 4. Set Leverage
             try:
                 self.executor.set_leverage(symbol, target_leverage)
             except Exception as e:
@@ -249,17 +275,24 @@ class TradingBot:
                 target_leverage = 10
                 self.executor.set_leverage(symbol, target_leverage)
 
-            # 4. Calculate Quantity
-            # Note: risk_manager might use Config.LEVERAGE by default, so we calculate manually to be safe
+            # 5. Calculate Quantity
             # Risk Amount = Balance * Margin% (e.g. 10%)
             risk_amount = balance * self.config.TRADE_MARGIN_PERCENT
             # Quantity = (Risk Amount * Leverage) / Price
             quantity = (risk_amount * target_leverage) / price
             
-            # Calculate Stop Loss
-            stop_loss = self.risk_manager.calculate_stop_loss(df, price, 'LONG')
+            # Calculate Stop Loss (根据杠杆调整)
+            if target_leverage >= 30:
+                stop_loss_pct = 0.025  # 30x: 2.5%止损
+            elif target_leverage >= 20:
+                stop_loss_pct = 0.035  # 20x: 3.5%止损
+            else:
+                stop_loss_pct = 0.045  # 10x: 4.5%止损
             
-            self.logger.info(f"[开仓流程] {symbol} 最终计算: 数量={quantity}, 杠杆={target_leverage}x, 止损={stop_loss}")
+            stop_loss = price * (1 - stop_loss_pct)
+            
+            self.logger.info(f"[开仓流程] {symbol} 最终计算: 数量={quantity:.4f}, 杠杆={target_leverage}x, 止损={stop_loss:.4f} ({stop_loss_pct*100:.1f}%)")
+            self.logger.info(f"📊 [置信度详情] RSI={signal['metrics'].get('rsi', 0):.1f}, Vol比={signal['metrics'].get('volume_ratio', 0):.2f}x, ADX={signal['metrics'].get('adx', 0):.1f}")
             
             if quantity <= 0:
                 self.logger.warning(f"{symbol} 计算仓位为 0，跳过")
@@ -273,7 +306,7 @@ class TradingBot:
                 self.logger.info(f"✅ 开仓订单已提交: {symbol} {quantity} @ {price}")
                 self.trade_logger.info(f"开仓成功: {symbol} | 数量: {quantity} | 价格: {price} | 止损: {stop_loss}")
                 
-                # Log Order (Entry)
+                # Log Order (Entry) - 包含置信度信息
                 self.recorder.log_order({
                     'order_id': order.get('id', ''),
                     'symbol': symbol,
@@ -282,7 +315,9 @@ class TradingBot:
                     'price': price,
                     'quantity': quantity,
                     'status': 'FILLED',
-                    'signal_score': df.iloc[-1].get('score', 0) if 'score' in df.columns else 0 # Actually score is in signal dict, need to pass it
+                    'leverage': target_leverage,  # 记录实际使用的杠杆
+                    'confidence_score': confidence_score,  # 置信度评分
+                    'signal_metrics': signal['metrics'] if signal else {}  # 信号指标
                 })
                 
                 # 6. Place Stop Loss IMMEDIATELY
@@ -304,7 +339,10 @@ class TradingBot:
                     'quantity': quantity,
                     'stop_loss': stop_loss,
                     'highest_price': price,
-                    'entry_time': datetime.now()
+                    'entry_time': datetime.now(),
+                    'leverage': target_leverage,  # 记录杠杆用于后续监控
+                    'confidence_score': confidence_score,  # 记录置信度
+                    'metrics': signal['metrics'] if signal else {}  # 保存完整metrics
                 }
             else:
                 self.logger.error(f"[开仓流程] {symbol} 订单提交失败（exchange返回None）")
@@ -486,7 +524,7 @@ class TradingBot:
             # 2. Calculate Metrics
             entry_price = position['entry_price']
             entry_time = position.get('entry_time', datetime.now())
-            leverage = self.config.LEVERAGE
+            leverage = position.get('leverage', self.config.LEVERAGE)  # 使用实际杠杆
             pnl = (current_price - entry_price) * position['quantity']
             pnl_pct = (current_price - entry_price) / entry_price
             roe = pnl_pct * leverage
@@ -501,6 +539,10 @@ class TradingBot:
                 'quantity': position['quantity'],
                 'leverage': leverage,
                 'signal_score': position.get('signal_score', 0),
+                'confidence_score': position.get('confidence_score', 0),  # 新增
+                'rsi': position.get('metrics', {}).get('rsi', 0),  # 新增 (需从signal保存)
+                'adx': position.get('metrics', {}).get('adx', 0),  # 新增
+                'volume_ratio': position.get('metrics', {}).get('volume_ratio', 0),  # 新增
                 'exit_time': datetime.now(),
                 'exit_price': current_price,
                 'exit_reason': reason,

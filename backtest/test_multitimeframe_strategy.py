@@ -34,6 +34,8 @@ class MultiTimeframeStrategy(MomentumStrategy):
         if df.empty or len(df) < 20:
             return None
         
+        # 使用预计算的指标
+        # 注意：df是history_slice，最后一行是当前K线
         current = df.iloc[-1]
         prev = df.iloc[-2]
         
@@ -44,19 +46,27 @@ class MultiTimeframeStrategy(MomentumStrategy):
         if current['close'] <= prev['high']:
             return None
         
-        # 核心条件2: 成交量确认 (放宽至 2x average)
-        avg_vol = df['volume'].iloc[-21:-1].mean()
-        if current['volume'] < 2.0 * avg_vol:  # 从3x降低到2x
+        # 核心条件2: 成交量确认 (使用预计算的均线)
+        # avg_vol = df['volume'].iloc[-21:-1].mean() # 旧逻辑
+        if 'vol_ma' not in current:
+            return None
+            
+        avg_vol = current['vol_ma']
+        if avg_vol == 0: return None
+        
+        if current['volume'] < 2.0 * avg_vol:
             return None
         
-        # 核心条件3: RSI范围 (55-90，放宽)
-        rsi = ta.rsi(df['close'], length=14).iloc[-1]
-        if not (55 <= rsi <= 90):  # 从60-85放宽至55-90
+        # 核心条件3: RSI范围 (使用预计算值)
+        if 'rsi' not in current: return None
+        rsi = current['rsi']
+        
+        if not (55 <= rsi <= 90):
             return None
         
-        # 计算metrics用于记录
+        # 获取其他预计算指标
+        adx = current.get('adx', 0)
         vol_ratio = current['volume'] / avg_vol
-        adx = ta.adx(df['high'], df['low'], df['close'], length=14)['ADX_14'].iloc[-1]
         
         return {
             'symbol': symbol,
@@ -190,6 +200,34 @@ class MultiTimeframeEngine(RealBacktestEngine):
                 })
                 df_1h.dropna(inplace=True)
                 
+                # === 性能优化: 预计算指标 ===
+                # 1. 预计算技术指标 (RSI, ADX, VolMA)
+                df_15m['rsi'] = ta.rsi(df_15m['close'], length=14)
+                adx_df = ta.adx(df_15m['high'], df_15m['low'], df_15m['close'], length=14)
+                df_15m['adx'] = adx_df['ADX_14']
+                # 成交量均线 (20周期，模拟之前的 iloc[-21:-1].mean())
+                df_15m['vol_ma'] = df_15m['volume'].rolling(window=20).mean().shift(1) # Shift 1 to exclude current candle
+                
+                # 预计算前高 (用于突破策略)
+                df_15m['prev_high'] = df_15m['high'].shift(1)
+                
+                # 2. 预计算24小时涨幅 (处理数据缺失)
+                # 创建完整的时间索引
+                if not df_15m.empty:
+                    full_idx = pd.date_range(start=df_15m.index[0], end=df_15m.index[-1], freq='15min')
+                    # Reindex并前向填充价格，用于计算涨幅
+                    df_full = df_15m.reindex(full_idx)
+                    df_full['close_filled'] = df_full['close'].ffill()
+                    
+                    # 计算96周期(24h)涨幅
+                    df_full['change_24h'] = df_full['close_filled'].pct_change(periods=96) * 100
+                    
+                    # 将计算结果映射回原始DataFrame
+                    df_15m['change_24h'] = df_full.loc[df_15m.index, 'change_24h']
+                
+                # 清理NaN (指标计算初期会有NaN)
+                df_15m.dropna(subset=['rsi', 'adx', 'vol_ma'], inplace=True)
+                
                 if len(df_15m) > 50 and len(df_1h) > 50:
                     self.data_feed[symbol] = df_15m
                     self.data_feed_1h[symbol] = df_1h
@@ -216,45 +254,42 @@ class MultiTimeframeEngine(RealBacktestEngine):
             df_1h = self.data_feed_1h[symbol]
             
             # 确保有足够数据
-            available_15m = df_15m[df_15m.index <= current_time]
-            available_1h = df_1h[df_1h.index <= current_time]
+            # available_15m = df_15m[df_15m.index <= current_time] # REMOVED SLICING
+            # available_1h = df_1h[df_1h.index <= current_time]    # REMOVED SLICING
             
-            if len(available_15m) < 50 or len(available_1h) < 50:
-                continue
-            
-            # 计算24小时涨幅（使用时间索引，避免数据缺失导致的计算错误）
-            time_24h_ago = current_time - pd.Timedelta(hours=24)
-            
-            # 查找24小时前的价格（如果找不到精确时间，找最近的一个）
-            # 使用 searchsorted 找到位置
-            idx = available_15m.index.searchsorted(time_24h_ago)
-            
-            # 如果位置超出范围或太远，跳过
-            if idx >= len(available_15m):
+            # 直接检查当前时间点是否有数据
+            if current_time not in df_15m.index:
                 continue
                 
-            # 获取该位置的时间戳
-            found_time = available_15m.index[idx]
+            # 获取当前行
+            current_row = df_15m.loc[current_time]
             
-            # 如果找到的时间与目标时间相差超过4小时，说明数据缺失太严重，跳过
-            if abs((found_time - time_24h_ago).total_seconds()) > 4 * 3600:
+            # 检查是否有预计算的 change_24h
+            if 'change_24h' not in current_row or pd.isna(current_row['change_24h']):
                 continue
                 
-            current_price = available_15m.iloc[-1]['close']
-            price_24h_ago = available_15m.iloc[idx]['close']
-            change_pct = ((current_price - price_24h_ago) / price_24h_ago) * 100
+            change_pct = current_row['change_24h']
             
             # 涨幅筛选：已移除，直接扫描所有币种
             # if self.config.CHANGE_THRESHOLD_MIN <= change_pct <= self.config.CHANGE_THRESHOLD_MAX:
             
             # 直接检查1小时级别确认 (仅作参考)
-            confirmed_1h = self.strategy.check_signal_1h(symbol, available_1h)
+            # 注意：这里我们仍然需要1小时的数据切片吗？
+            # check_signal_1h 只需要 len(df_1h) > 50，而我们在 load_data 已经过滤了
+            # 所以只要当前时间有1小时数据即可
+            # 为了保持兼容性，我们可以传入一个伪造的df或者修改 check_signal_1h
+            # 但最快的方法是：既然 check_signal_1h 总是返回 True (在当前策略中)，我们可以直接跳过它
+            # 或者只检查当前时间点是否有1小时数据
+            
+            # 简化：假设1小时数据存在且足够（load_data已保证）
+            confirmed_1h = True 
             
             if confirmed_1h:
                 candidates.append({
                     'symbol': symbol,
                     'change_pct': change_pct,
-                    'confirmed_1h': True
+                    'confirmed_1h': True,
+                    'current_row': current_row # 传递当前行，避免再次查找
                 })
         
         # 按涨幅排序
@@ -264,14 +299,15 @@ class MultiTimeframeEngine(RealBacktestEngine):
         # 对筛选出的候选进行15分钟信号检查
         for candidate in candidates:
             symbol = candidate['symbol']
-            df_15m = self.data_feed[symbol]
-            available = df_15m[df_15m.index <= current_time]
+            current_row = candidate['current_row']
             
-            if len(available) < 50:
-                continue
+            # 检查15分钟信号 (传入当前行而不是整个DataFrame切片)
+            # 我们需要修改 check_signal 来接受 Series (单行) 或者我们构造一个只包含当前行的 DF
+            # 但最好的方式是修改 check_signal 逻辑，让它支持直接传入 current_row
             
-            # 检查15分钟信号
-            signal = self.strategy.check_signal(symbol, available)
+            # 为了不破坏继承结构，我们在 check_signal 内部做了适配
+            # 但这里我们直接调用一个新的内部方法 _check_signal_fast
+            signal = self._check_signal_fast(symbol, current_row)
             
             if signal and signal['side'] == 'LONG':
                 # 添加1小时确认标记到metrics
@@ -288,6 +324,40 @@ class MultiTimeframeEngine(RealBacktestEngine):
                     'symbol': symbol,
                     'signal': signal
                 })
+
+    def _check_signal_fast(self, symbol, row):
+        """
+        极速信号检查 (仅使用当前行数据，无DataFrame切片)
+        """
+        # 1. 突破确认
+        if 'prev_high' not in row or pd.isna(row['prev_high']):
+            return None
+        if row['close'] <= row['prev_high']:
+            return None
+            
+        # 2. 成交量确认
+        if 'vol_ma' not in row or row['vol_ma'] == 0:
+            return None
+        if row['volume'] < 2.0 * row['vol_ma']:
+            return None
+            
+        # 3. RSI范围
+        if 'rsi' not in row or pd.isna(row['rsi']):
+            return None
+        if not (55 <= row['rsi'] <= 90):
+            return None
+            
+        return {
+            'symbol': symbol,
+            'side': 'LONG',
+            'entry_price': row['close'],
+            'timestamp': row.name, # Series name is the index (timestamp)
+            'metrics': {
+                'rsi': row['rsi'],
+                'adx': row.get('adx', 0),
+                'volume_ratio': row['volume'] / row['vol_ma']
+            }
+        }
 
 def main():
     print("="*60)

@@ -22,7 +22,8 @@ class TradeRecorder:
                 writer = csv.writer(f)
                 writer.writerow([
                     'trade_id', 'symbol', 'side', 'entry_time', 'entry_price', 
-                    'quantity', 'leverage', 'signal_score', 'market_regime',
+                    'quantity', 'leverage', 'signal_score', 'confidence_score',
+                    'rsi', 'adx', 'volume_ratio', 'market_regime',
                     'exit_time', 'exit_price', 'exit_reason', 'pnl', 'pnl_pct', 
                     'roe', 'fees', 'holding_time_min', 'mae', 'mfe', 'efficiency'
                 ])
@@ -33,7 +34,8 @@ class TradeRecorder:
                 writer = csv.writer(f)
                 writer.writerow([
                     'timestamp', 'order_id', 'symbol', 'type', 'side', 
-                    'price', 'quantity', 'status', 'signal_score'
+                    'price', 'quantity', 'status', 'leverage', 'confidence_score',
+                    'rsi', 'adx', 'volume_ratio', 'upper_wick_ratio'
                 ])
 
     def log_trade_open(self, trade_data):
@@ -59,8 +61,12 @@ class TradeRecorder:
                     trade_data['entry_time'],
                     trade_data['entry_price'],
                     trade_data['quantity'],
-                    trade_data['leverage'],
+                    trade_data.get('leverage', 20),
                     trade_data.get('signal_score', 0),
+                    trade_data.get('confidence_score', 0),
+                    trade_data.get('rsi', 0),
+                    trade_data.get('adx', 0),
+                    trade_data.get('volume_ratio', 0),
                     trade_data.get('market_regime', 'Unknown'),
                     trade_data['exit_time'],
                     trade_data['exit_price'],
@@ -82,6 +88,7 @@ class TradeRecorder:
         with self.lock:
             with open(self.orders_file, 'a', newline='', encoding='utf-8') as f:
                 writer = csv.writer(f)
+                metrics = order_data.get('signal_metrics', {})
                 writer.writerow([
                     datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
                     order_data.get('order_id', ''),
@@ -91,5 +98,10 @@ class TradeRecorder:
                     order_data['price'],
                     order_data['quantity'],
                     order_data['status'],
-                    order_data.get('signal_score', '')
+                    order_data.get('leverage', 20),
+                    order_data.get('confidence_score', 0),
+                    metrics.get('rsi', 0),
+                    metrics.get('adx', 0),
+                    metrics.get('volume_ratio', 0),
+                    metrics.get('upper_wick_ratio', 0)
                 ])

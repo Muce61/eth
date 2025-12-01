@@ -364,7 +364,12 @@ def get_position_history():
                 'fee': row['fees'],
                 'icon': f"/static/icons/{row['symbol'].split('/')[0].lower().replace('1000','')}.png",
                 'signal_score': row.get('signal_score', 0),
-                'exit_reason': row.get('exit_reason', 'Unknown')
+                'exit_reason': row.get('exit_reason', 'Unknown'),
+                'leverage': row.get('leverage', 20),  # 新增
+                'confidence_score': row.get('confidence_score', 0),  # 新增
+                'rsi': row.get('rsi', 0),  # 新增
+                'adx': row.get('adx', 0),  # 新增
+                'volume_ratio': row.get('volume_ratio', 0)  # 新增
             })
             
         return jsonify({'history': history, 'count': len(history)})
