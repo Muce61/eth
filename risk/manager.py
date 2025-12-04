@@ -7,25 +7,33 @@ class RiskManager:
 
     def calculate_position_size(self, account_balance, entry_price, stop_loss_price):
         """
-        Calculate position size based on percentage of account balance.
-        Margin = Account Balance * TRADE_MARGIN_PERCENT
-        Quantity = (Margin * Leverage) / Entry Price
+        Calculate position size based on Fixed Risk Model.
+        Risk Amount = Account Balance * RISK_PER_TRADE (e.g. 2%)
+        Quantity = Risk Amount / (Entry Price - Stop Loss Price)
         """
-        if entry_price == 0 or account_balance == 0:
+        if entry_price == 0 or account_balance == 0 or entry_price <= stop_loss_price:
             return 0
             
-        # Calculate margin as percentage of balance
-        margin = account_balance * self.config.TRADE_MARGIN_PERCENT
+        # 1. Calculate Risk Amount (How much we are willing to lose)
+        risk_amount = account_balance * self.config.RISK_PER_TRADE
         
-        # Check if balance is sufficient
-        if margin <= 0:
-            print(f"余额不足: 账户余额 {account_balance}, 计算保证金 {margin}")
-            return 0
+        # 2. Calculate Risk Per Unit
+        risk_per_unit = entry_price - stop_loss_price
+        
+        # 3. Calculate Quantity
+        quantity = risk_amount / risk_per_unit
+        
+        # 4. Check Leverage Limit
+        # Max Position Value = Balance * Max Leverage
+        max_position_value = account_balance * self.config.LEVERAGE
+        current_position_value = quantity * entry_price
+        
+        if current_position_value > max_position_value:
+            # Cap quantity to max leverage
+            quantity = max_position_value / entry_price
+            print(f"⚠️ Position capped by leverage {self.config.LEVERAGE}x")
             
-        position_value = margin * self.config.LEVERAGE
-        quantity = position_value / entry_price
-        
-        print(f"仓位计算: 余额={account_balance:.2f}, 保证金({self.config.TRADE_MARGIN_PERCENT*100}%)={margin:.2f}, 杠杆={self.config.LEVERAGE}x, 仓位价值={position_value:.2f}, 数量={quantity:.6f}")
+        print(f"仓位计算: 余额={account_balance:.2f}, 风险金额({self.config.RISK_PER_TRADE*100}%)={risk_amount:.2f}, 止损距离={risk_per_unit:.4f}, 数量={quantity:.6f}")
         
         return quantity
 

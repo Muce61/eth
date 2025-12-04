@@ -6,6 +6,9 @@ from strategy.momentum import MomentumStrategy
 from risk.manager import RiskManager
 from config.settings import Config
 
+from strategy.smart_exit import SmartExitModule
+from strategy.quality_filter import QualityFilterModule
+
 class RealBacktestEngine:
     def __init__(self, initial_balance=100): # User requested 100u
         self.balance = initial_balance
@@ -17,8 +20,14 @@ class RealBacktestEngine:
         self.risk_manager = RiskManager()
         self.config = Config()
         
+        # Initialize New Modules
+        self.smart_exit = SmartExitModule()
+        self.quality_filter = QualityFilterModule()
+        
         # Override config for backtest if needed
         self.config.MAX_OPEN_POSITIONS = 10 # Match live config
+        self.config.MAX_LONG_POSITIONS = 7  # Reserve slots for longs
+        self.config.MAX_SHORT_POSITIONS = 3 # Reserve 3 slots for shorts (hedging)
         self.config.LEVERAGE = 20 # Reduced from 50x for stability
         self.risk_manager.config.LEVERAGE = 20
         self.config.TRADE_MARGIN_PERCENT = 0.1 # Match live config
@@ -31,22 +40,73 @@ class RealBacktestEngine:
         
     def load_data(self):
         """
-        Load all CSVs from /Users/muce/1m_data/backtest_data_legacy/ into a dictionary of DataFrames.
+        Load data from processed 15m directory if available, otherwise fallback to 1m -> 15m resampling.
         """
-        data_dir = Path("/Users/muce/1m_data/backtest_data_legacy")
+        processed_dir = Path("/Users/muce/1m_data/processed_15m_data")
+        raw_dir = Path("/Users/muce/1m_data/new_backtest_data_1year_1m")
         self.data_feed = {}
         
-        print("Loading data...")
+        # Try loading from processed 15m directory first
+        if processed_dir.exists() and any(processed_dir.iterdir()):
+            print(f"Loading pre-processed 15m data from {processed_dir}...")
+            data_dir = processed_dir
+            is_resampled = True
+        else:
+            print(f"Loading raw 1m data from {raw_dir}...")
+            print("Applying 1m -> 15m resampling (This may take a while)...")
+            data_dir = raw_dir
+            is_resampled = False
+            
+        # Check if directory exists
+        if not data_dir.exists():
+            print(f"WARNING: Data directory {data_dir} does not exist!")
+            return
+
         for file_path in data_dir.glob("*.csv"):
             symbol = file_path.stem # e.g. BTCUSDT
-            # Convert back to standard format if needed, but internal logic uses whatever
-            # Let's keep it simple: symbol string
-            df = pd.read_csv(file_path, parse_dates=['timestamp'], index_col='timestamp')
-            self.data_feed[symbol] = df
+            try:
+                df = pd.read_csv(file_path, parse_dates=['timestamp'], index_col='timestamp')
+                
+                if is_resampled:
+                    # Already 15m, just load
+                    df_15m = df
+                else:
+                    # Resample 1m to 15m
+                    agg_dict = {
+                        'open': 'first',
+                        'high': 'max',
+                        'low': 'min',
+                        'close': 'last',
+                        'volume': 'sum'
+                    }
+                    
+                    # Handle potential missing columns or different case
+                    available_cols = df.columns.tolist()
+                    final_agg = {}
+                    for col, func in agg_dict.items():
+                        if col in available_cols:
+                            final_agg[col] = func
+                        elif col.capitalize() in available_cols: # Try Title case
+                            final_agg[col.capitalize()] = func
+                            
+                    if not final_agg:
+                        print(f"Skipping {symbol}: No OHLCV columns found")
+                        continue
+                        
+                    df_15m = df.resample('15min').agg(final_agg).dropna()
+                
+                # Normalize column names to lowercase
+                df_15m.columns = [c.lower() for c in df_15m.columns]
+                
+                self.data_feed[symbol] = df_15m
+                # if 'BTC' in symbol.upper():
+                #     print(f"DEBUG: Loaded {symbol} with {len(df_15m)} rows")
+            except Exception as e:
+                print(f"Error loading {symbol}: {e}")
             
         print(f"Loaded {len(self.data_feed)} symbols.")
         
-    def run(self, days=None):
+    def run(self, days=None, start_date=None, end_date=None):
         if not hasattr(self, 'data_feed') or not self.data_feed:
             self.load_data()
             
@@ -61,13 +121,28 @@ class RealBacktestEngine:
             
         sorted_timestamps = sorted(list(all_timestamps))
         
-        # Filter for last N days if requested
-        if days:
+        # Filter by Date Range
+        if start_date:
+            start_ts = pd.Timestamp(start_date)
+            sorted_timestamps = [t for t in sorted_timestamps if t >= start_ts]
+            
+        if end_date:
+            end_ts = pd.Timestamp(end_date)
+            sorted_timestamps = [t for t in sorted_timestamps if t <= end_ts]
+            
+        # Filter for last N days if requested (overrides start_date if both present, or used in conjunction?)
+        # Let's make 'days' mutually exclusive or secondary to explicit dates.
+        # If start_date is NOT provided but days IS provided:
+        if days and not start_date:
             end_time = sorted_timestamps[-1]
             start_time = end_time - timedelta(days=days)
             sorted_timestamps = [t for t in sorted_timestamps if t >= start_time]
             print(f"Filtered to last {days} days: {len(sorted_timestamps)} candles")
         
+        if not sorted_timestamps:
+            print("No data found for the specified date range.")
+            return
+
         print(f"Backtesting over {len(sorted_timestamps)} timestamps...")
         print(f"Start: {sorted_timestamps[0]}, End: {sorted_timestamps[-1]}")
         
@@ -97,196 +172,96 @@ class RealBacktestEngine:
             # 1. Execute pending signal (if entry time matches)
             if self.pending_signal and self.pending_signal['entry_time'] == current_time:
                 symbol = self.pending_signal['symbol']
+                side = self.pending_signal['side']
                 entry_price = self.pending_signal['entry_price']
                 metrics = self.pending_signal['metrics']
                 
+                # Debug: Print when executing SHORT
+                if side == 'SHORT':
+                    print(f"🔴 EXECUTING SHORT: {symbol} @ {entry_price} (side={side})")
+                
                 # Execute the entry at next open price
-                self._open_position(symbol, entry_price, current_time, None, metrics)
+                self._open_position(symbol, entry_price, current_time, None, metrics, side)
                 self.pending_signal = None  # Clear after execution
             
             # 2. Manage Existing Positions
             self._manage_positions(current_time)
             
-            # 3. Check for New Entries (only if slots available)
-            if len(self.positions) < self.config.MAX_OPEN_POSITIONS:
-                self._scan_market(current_time)
+            # 3. Check for New Entries (check slots by side)
+            # Count current longs and shorts
+            current_longs = sum(1 for pos in self.positions.values() if pos.get('side', 'LONG') == 'LONG')
+            current_shorts = sum(1 for pos in self.positions.values() if pos.get('side') == 'SHORT')
+            
+            # Scan if any slots available
+            if current_longs < self.config.MAX_LONG_POSITIONS or current_shorts < self.config.MAX_SHORT_POSITIONS:
+                self._scan_market(current_time, current_longs, current_shorts)
                 
             if i % 100 == 0:
                 print(f"Processing {current_time}... Balance: ${self.balance:.2f}")
+                
+        # Debug: Check for unclosed positions
+        if self.positions:
+            print(f"\n⚠️ WARNING: {len(self.positions)} unclosed positions at end of backtest!")
+            for sym, pos in self.positions.items():
+                print(f"  - {sym} ({pos.get('side', 'LONG')}): Entry @ {pos['entry_price']:.4f}")
                 
         self._generate_report(days)
         
     def _manage_positions(self, current_time):
         # Create a list of keys to iterate safely while modifying dict
-        active_symbols = list(self.positions.keys())
-        
-        for symbol in active_symbols:
+        for symbol in list(self.positions.keys()):
             pos = self.positions[symbol]
-            df = self.data_feed.get(symbol)
             
-            if df is None or current_time not in df.index:
-                continue
+            # Get current price
+            if current_time not in self.data_feed[symbol].index:
+                continue # No data for this timestamp
                 
-            current_candle = df.loc[current_time]
+            current_candle = self.data_feed[symbol].loc[current_time]
             current_price = current_candle['close']
             high_price = current_candle['high']
             low_price = current_candle['low']
             
-            # Update Highest Price (for Trailing Stop)
-            pos['highest_price'] = max(pos['highest_price'], high_price)
+            side = pos.get('side', 'LONG')
             
-            # Calculate liquidation price first (needed for comparison)
-            # Liquidation Price approx Entry * (1 - 1/Leverage) for Long
-            # With 50x, 1/50 = 0.02
-            liq_price = pos['entry_price'] * (1 - (1 / pos['leverage']) + 0.005)  # 0.5% buffer for maintenance margin
-            
-            # CRITICAL FIX: Check Stop Loss BEFORE Liquidation
-            # In real trading, stop-loss orders execute at the stop price (if no price gap)
-            # So if low_price hits stop_loss but is still above liq_price, it's a Stop Loss execution
-            # If low_price hits both, we assume stop-loss triggered first (more realistic)
-            
-            # Check Stop Loss first
-            if low_price <= pos['stop_loss']:
-                # Determine if this was truly a liquidation or just stop-loss
-                # If stop_loss price is very close to liq_price (within 0.3%), likely got liquidated
-                # Otherwise, stop-loss order would have executed
-                if low_price <= liq_price:
-                    # Price fell below liquidation line
-                    # But check if stop-loss is reasonably above liq (indicating stop would trigger first)
-                    stop_to_liq_gap = (pos['stop_loss'] - liq_price) / pos['entry_price']
-                    if stop_to_liq_gap >= 0.002:  # 0.2% gap or more = stop-loss executes first
-                        self._close_position(symbol, pos['stop_loss'], current_time, 'Stop Loss')
-                    else:
-                        # Stop-loss too close to liq, assume liquidation happened
-                        self._close_position(symbol, liq_price, current_time, 'LIQUIDATION')
-                else:
-                    # Normal stop-loss execution
-                    self._close_position(symbol, pos['stop_loss'], current_time, 'Stop Loss')
-                continue
-                
-            # Check Stepped Trailing Profit
-            # Logic: Reach +20% ROE -> SL = +15% ROE
-            #        Reach +40% ROE -> SL = +35% ROE
-            #        Step = 20%, Buffer = 5%
-            
-            # Calculate current max ROE based on highest price since entry
-            # Note: We use highest_price to determine if a threshold was reached
-            max_price_gain_pct = (pos['highest_price'] - pos['entry_price']) / pos['entry_price']
-            max_roe = max_price_gain_pct * pos['leverage']
-            
-            # OPT 3: Fast profit-taking mechanism
-            # Lock in profits early to avoid turning winners into losers
-            current_price_gain_pct = (current_price - pos['entry_price']) / pos['entry_price']
-            current_roe = current_price_gain_pct * pos['leverage']
-            
-            # === PARTIAL PROFIT TAKING (NEW) ===
-            # Goal: Distribute profits across multiple exits for steady returns
-            
-            # Level 1: ROE 15% - Take 40% off the table
-            if current_roe >= 0.15 and not pos.get('partial_1_closed', False):
-                partial_qty = pos['quantity'] * 0.40
-                partial_pnl = partial_qty * (current_price - pos['entry_price'])
-                self.balance += partial_pnl
-                
-                # Record partial close
-                self.trades.append({
-                    'symbol': symbol,
-                    'entry_price': pos['entry_price'],
-                    'exit_price': current_price,
-                    'entry_time': pos['entry_time'],
-                    'exit_time': current_time,
-                    'pnl': partial_pnl,
-                    'reason': 'Partial TP 15%',
-                    'duration': current_time - pos['entry_time'],
-                    'rsi': pos.get('rsi', 0),
-                    'adx': pos.get('adx', 0),
-                    'volume_ratio': pos.get('volume_ratio', 0),
-                    'upper_wick_ratio': pos.get('upper_wick_ratio', 0)
-                })
-                
-                pos['quantity'] -= partial_qty
-                pos['partial_1_closed'] = True
-                # Move SL to breakeven
-                pos['stop_loss'] = max(pos['stop_loss'], pos['entry_price'] * 1.002)
-                continue
-            
-            # Level 2: ROE 25% - Take another 30% (50% of remaining)
-            if current_roe >= 0.25 and pos.get('partial_1_closed') and not pos.get('partial_2_closed', False):
-                partial_qty = pos['quantity'] * 0.50  # 50% of remaining = 30% of original
-                partial_pnl = partial_qty * (current_price - pos['entry_price'])
-                self.balance += partial_pnl
-                
-                self.trades.append({
-                    'symbol': symbol,
-                    'entry_price': pos['entry_price'],
-                    'exit_price': current_price,
-                    'entry_time': pos['entry_time'],
-                    'exit_time': current_time,
-                    'pnl': partial_pnl,
-                    'reason': 'Partial TP 25%',
-                    'duration': current_time - pos['entry_time'],
-                    'rsi': pos.get('rsi', 0),
-                    'adx': pos.get('adx', 0),
-                    'volume_ratio': pos.get('volume_ratio', 0),
-                    'upper_wick_ratio': pos.get('upper_wick_ratio', 0)
-                })
-                
-                pos['quantity'] -= partial_qty
-                pos['partial_2_closed'] = True
-                # Lock in 20% ROE
-                new_sl_price = pos['entry_price'] * (1 + (0.20 / pos['leverage']))
-                pos['stop_loss'] = max(pos['stop_loss'], new_sl_price)
-                continue
-            
-            # Level 3: ROE 40% - Close all remaining
-            if current_roe >= 0.40:
-                self._close_position(symbol, current_price, current_time, 'Final TP 40%')
-                continue
-            
-            # At 15% ROE, move SL to breakeven (if not already done)
-            if current_roe >= 0.15 and pos['stop_loss'] < pos['entry_price']:
-                new_sl_price = pos['entry_price'] * 1.002  # Breakeven + 0.2%
-                pos['stop_loss'] = max(pos['stop_loss'], new_sl_price)
-                # print(f"[{current_time}] {symbol} Fast Profit: ROE {current_roe*100:.1f}% -> SL to Breakeven")
-            
-            # At 25% ROE, lock in 12% ROE (Match Live)
-            elif current_roe >= 0.25:
-                target_sl_roe = 0.12
-                new_sl_price = pos['entry_price'] * (1 + (target_sl_roe / pos['leverage']))
-                pos['stop_loss'] = max(pos['stop_loss'], new_sl_price)
-                # print(f"[{current_time}] {symbol} Fast Profit: ROE {current_roe*100:.1f}% -> SL to 12% ROE")
-                
-            # At 40% ROE, lock in 25% ROE (Match Live)
-            elif current_roe >= 0.40:
-                target_sl_roe = 0.25
-                new_sl_price = pos['entry_price'] * (1 + (target_sl_roe / pos['leverage']))
-                pos['stop_loss'] = max(pos['stop_loss'], new_sl_price)
-                # print(f"[{current_time}] {symbol} Fast Profit: ROE {current_roe*100:.1f}% -> SL to 25% ROE")
-            
-            # Determine the highest threshold reached (20%, 40%, 60%...)
-            # e.g. 0.25 -> 0.20. 0.45 -> 0.40.
-            if max_roe >= 0.20:
-                # Current bracket floor (0.2, 0.4, etc.)
-                bracket_floor = int(max_roe / 0.20) * 0.20
-                
-                # Target SL ROE (Bracket - 5%)
-                target_sl_roe = bracket_floor - 0.05
-                
-                # Convert ROE to Price
-                # Price = Entry * (1 + ROE / Leverage)
-                new_sl_price = pos['entry_price'] * (1 + (target_sl_roe / pos['leverage']))
-                
-                # Update SL if higher
-                if new_sl_price > pos['stop_loss']:
-                    pos['stop_loss'] = new_sl_price
-                    # print(f"[{current_time}] {symbol} Trailing Step: Max ROE {max_roe*100:.1f}% -> SL {target_sl_roe*100:.1f}%")
+            # === STRICT EXECUTION LOGIC (FIXED FOR BOTH LONG AND SHORT) ===
+            if side == 'LONG':
+                # 1. Check Stop Loss FIRST (Low Price for LONG)
+                if low_price <= pos['stop_loss']:
+                     self._close_position(symbol, pos['stop_loss'], current_time, 'Stop Loss')
+                     continue
 
-            # Note: The actual closing happens in the "Check Stop Loss" block in the NEXT iteration 
-            # or we can check it right here against low_price if we want instant trigger.
-            # Let's check immediately to be precise.
-            if low_price <= pos['stop_loss']:
-                 self._close_position(symbol, pos['stop_loss'], current_time, 'Trailing Stop (Stepped)')
-                 continue
+                # 2. Check Liquidation (LONG)
+                liq_price = pos['entry_price'] * (1 - 0.9 / pos['leverage'])
+                if low_price <= liq_price:
+                    self._close_position(symbol, liq_price, current_time, 'LIQUIDATION')
+                    continue
+
+                # 3. Update Highest Price (Only if we survived the Low)
+                if high_price > pos['highest_price']:
+                    pos['highest_price'] = high_price
+                    
+            else:  # SHORT
+                # 1. Check Stop Loss FIRST (High Price for SHORT - price rising)
+                if high_price >= pos['stop_loss']:
+                     self._close_position(symbol, pos['stop_loss'], current_time, 'Stop Loss')
+                     continue
+
+                # 2. Check Liquidation (SHORT)
+                liq_price = pos['entry_price'] * (1 + 0.9 / pos['leverage'])
+                if high_price >= liq_price:
+                    self._close_position(symbol, liq_price, current_time, 'LIQUIDATION')
+                    continue
+
+                # 3. Update Lowest Price (for SHORT trailing)
+                if low_price < pos.get('lowest_price', pos['entry_price']):
+                    pos['lowest_price'] = low_price
+                
+            # 4. Check Smart Exit (Trailing Stop / Break-even)
+            # Now it's safe to check this because we know we didn't stop out
+            should_exit, exit_reason, exit_price = self.smart_exit.check_exit(pos, current_price, current_time)
+            if should_exit:
+                self._close_position(symbol, exit_price, current_time, exit_reason)
+                continue
     
     def _rank_coins_by_volume(self):
         """
@@ -298,98 +273,157 @@ class RealBacktestEngine:
         for symbol, df in self.data_feed.items():
             if len(df) < 96:
                 continue
+                
+            # Calculate average volume over last 500 candles (approx 5 days)
+            # Volume in USD = volume * close
+            avg_vol_usd = (df['volume'] * df['close']).tail(500).mean()
+            volume_stats[symbol] = avg_vol_usd
             
-            # Calculate average 24h volume over the entire dataset
-            df['volume_usd'] = df['close'] * df['volume']
-            avg_volume_24h = df['volume_usd'].rolling(96).sum().mean()
-            volume_stats[symbol] = avg_volume_24h
+        # Sort desc
+        sorted_coins = sorted(volume_stats.items(), key=lambda x: x[1], reverse=True)
         
-        # Sort by volume (descending)
-        ranked = sorted(volume_stats.items(), key=lambda x: x[1], reverse=True)
+        # Create rank map
+        self.coin_volume_ranking = {coin: rank+1 for rank, (coin, vol) in enumerate(sorted_coins)}
+        print(f"Ranked {len(self.coin_volume_ranking)} coins by volume.")
         
-        # Assign ranking (1 = highest volume)
-        for rank, (symbol, vol) in enumerate(ranked, start=1):
-            self.coin_volume_ranking[symbol] = rank
-        
-        top_200 = [s for s, r in self.coin_volume_ranking.items() if r <= 200]
-        print(f"Top 200 coins identified: {len(top_200)} coins qualify")
-
-    def _scan_market(self, current_time):
-        """
-        Simulate 'get_top_gainers' and strategy check.
-        """
-        candidates = []
-        
-        # 1. Calculate 24h Change for all symbols
-        time_24h_ago = current_time - timedelta(hours=24)
+    def _scan_market(self, current_time, current_longs, current_shorts):
+        long_candidates = []
+        short_candidates = []
         
         for symbol, df in self.data_feed.items():
+            # Need at least 96 candles for 24h change
+            # And need to be at current_time
             if current_time not in df.index:
+                # if 'BTC' in symbol.upper():
+                #     print(f"DEBUG: {symbol} not in index at {current_time}")
                 continue
                 
-            # Get price 24h ago (approximate or exact)
+            # Get index location of current_time
+            # Note: get_loc might be slow if index is not unique, but here it should be
             try:
-                # FIX P0: Use PREVIOUS K-line close to avoid look-ahead bias
-                # In real trading, we can only know the 24h change AFTER the current K-line closes
-                # So we should use the previous K-line's close price for calculation
                 row_loc = df.index.get_loc(current_time)
                 
-                # Check if we have enough history (96 candles = 24h)
-                if row_loc < 96:
+                # Need at least 200 candles for EMA200
+                if row_loc < 200:
+                    # if 'BTC' in symbol.upper():
+                    #     print(f"DEBUG: {symbol} row_loc {row_loc} < 200 at {current_time}")
                     continue
+                    
+                # Slice data up to current_time (inclusive)
+                # We need enough history for indicators (EMA200, RSI, etc.)
+                # Taking last 201 candles to be safe
+                start_loc = row_loc - 200
+                if start_loc < 0:
+                    start_loc = 0
+                    
+                # Use iloc for slicing by position
+                # We need up to current_time (row_loc is the index of current_time)
+                # So we want [start_loc : row_loc + 1]
+                historical_data = df.iloc[start_loc : row_loc + 1].copy()
+                # Calculate 24h change
+                # 24h = 96 * 15m
+                current_close = df.iloc[row_loc]['close']
+                prev_close = df.iloc[row_loc - 96]['close']
                 
-                # Use PREVIOUS close (not current close)
-                previous_close = df.iloc[row_loc - 1]['close']
-                price_24h_ago = df.iloc[row_loc - 96]['close']
+                if prev_close == 0:
+                    continue
+                    
+                change_pct = (current_close - prev_close) / prev_close * 100
                 
-                change_pct = ((previous_close - price_24h_ago) / price_24h_ago) * 100
-                
-                # QUALITY FILTER 1: Volume Filter (24h > $10M)
-                # Calculate 24h volume in USD (last 96 candles)
-                volume_24h_slice = df.iloc[row_loc - 96 : row_loc]
+                # QUALITY FILTER 1: Volume Check
+                # Get last 24h volume sum
+                volume_24h_slice = df.iloc[row_loc - 96 : row_loc + 1]
                 volume_24h_usd = (volume_24h_slice['close'] * volume_24h_slice['volume']).sum()
                 
-                if volume_24h_usd < self.MIN_24H_VOLUME_USD:
-                    continue  # Skip low-volume coins
+                # === QUALITY FILTER MODULE CHECK ===
+                is_good, reason = self.quality_filter.check_quality(symbol, volume_24h_slice, volume_24h_usd)
+                if not is_good:
+                    # if 'BTC' in symbol.upper():
+                    #     print(f"DEBUG: {symbol} Quality Filter Failed: {reason}")
+                    continue
                 
                 # QUALITY FILTER 2: Top 200 Ranking Check
                 if symbol not in self.coin_volume_ranking:
+                    # if 'BTCUSDTUSDT' == symbol:
+                    #     print(f"DEBUG: {symbol} Failed Ranking - Not in ranking list")
                     continue  # Not in top 200, skip
                 
                 if self.coin_volume_ranking[symbol] > self.TOP_N_COINS:
+                    # if 'BTCUSDTUSDT' == symbol:
+                    #     print(f"DEBUG: {symbol} Failed Ranking - Rank {self.coin_volume_ranking[symbol]} > {self.TOP_N_COINS}")
                     continue  # Ranked below 200, skip
                 
-                # Filter by 24h change threshold
-                if self.config.CHANGE_THRESHOLD_MIN <= change_pct <= self.config.CHANGE_THRESHOLD_MAX:
-                    candidates.append({
+                # Filter by 24h change threshold (Absolute value to allow Shorts)
+                # Relaxed to capture more opportunities
+                if abs(change_pct) >= self.config.CHANGE_THRESHOLD_MIN:
+                    # Separate into long/short candidates based on change direction
+                    candidate_data = {
                         'symbol': symbol,
                         'change': change_pct,
                         'df': df,
                         'row_loc': row_loc,
                         'volume_24h': volume_24h_usd
-                    })
+                    }
                     
-            except Exception:
+                    # Positive change -> potential long, Negative -> potential short
+                    if change_pct > 0:
+                        long_candidates.append(candidate_data)
+                    else:
+                        short_candidates.append(candidate_data)
+                else:
+                    # if 'BTCUSDTUSDT' == symbol:
+                    #     print(f"DEBUG: {symbol} Failed Change Threshold: {change_pct:.2f}% not in [{self.config.CHANGE_THRESHOLD_MIN}, {self.config.CHANGE_THRESHOLD_MAX}]")
+                    pass
+                    
+            except Exception as e:
+                # if 'BTC' in symbol.upper():
+                #     print(f"DEBUG: {symbol} Exception in _scan_market: {e}")
                 continue
                 
-        # Sort by Change % (Top Gainers)
-        candidates.sort(key=lambda x: x['change'], reverse=True)
+        # Sort by Change % (Top Gainers for longs, Top Losers for shorts)
+        long_candidates.sort(key=lambda x: x['change'], reverse=True)
+        short_candidates.sort(key=lambda x: x['change'], reverse=False)  # Most negative first
         
-        # Take top N
-        top_candidates = candidates[:self.config.TOP_GAINER_COUNT]
+        # Process based on available slots
+        signals_to_process = []
+        
+        # Process shorts first (priority for hedging)
+        if current_shorts < self.config.MAX_SHORT_POSITIONS:
+            slots_available = self.config.MAX_SHORT_POSITIONS - current_shorts
+            top_shorts = short_candidates[:min(slots_available, self.config.TOP_GAINER_COUNT)]
+            signals_to_process.extend(top_shorts)
+        
+        # Process longs
+        if current_longs < self.config.MAX_LONG_POSITIONS:
+            slots_available = self.config.MAX_LONG_POSITIONS - current_longs
+            top_longs = long_candidates[:min(slots_available, self.config.TOP_GAINER_COUNT)]
+            signals_to_process.extend(top_longs)
         
         # Check Strategy for these candidates
-        for cand in top_candidates:
+        for cand in signals_to_process:
             symbol = cand['symbol']
             df = cand['df']
             row_loc = cand['row_loc']
             
-            # Get recent history for strategy (50 candles)
-            history_slice = df.iloc[row_loc - 50 : row_loc + 1]
+            # Get recent history for strategy (Need > 200 for EMA200)
+            # Was 50, now increasing to 205 to be safe
+            start_slice = row_loc - 205
+            if start_slice < 0:
+                start_slice = 0
+                
+            history_slice = df.iloc[start_slice : row_loc + 1]
             
             signal = self.strategy.check_signal(symbol, history_slice)
             
-            if signal and signal['side'] == 'LONG':
+            if signal:
+                # Check if we have a slot available for this side
+                if signal['side'] == 'LONG':
+                    if current_longs >= self.config.MAX_LONG_POSITIONS:
+                        continue  # No long slots available
+                elif signal['side'] == 'SHORT':
+                    if current_shorts >= self.config.MAX_SHORT_POSITIONS:
+                        continue  # No short slots available
+                
                 # FIX P0: Entry price should be NEXT K-line's open, not current close
                 # In real trading, we see the signal after current K-line closes,
                 # so we can only enter at next K-line's open price
@@ -406,13 +440,19 @@ class RealBacktestEngine:
                 # For now, mark this as a pending signal
                 self.pending_signal = {
                     'symbol': symbol,
+                    'side': signal['side'],  # Store side (LONG or SHORT)
                     'entry_price': next_open_price,
                     'entry_time': next_time,
                     'metrics': signal.get('metrics', {})
                 }
+                
+                # Debug: Print when storing SHORT
+                if signal['side'] == 'SHORT':
+                    print(f"🔴 STORING SHORT SIGNAL: {symbol} for execution at {next_time}")
+                
                 break # Only open 1 position per scan
 
-    def _open_position(self, symbol, price, timestamp, history_slice, metrics=None):
+    def _open_position(self, symbol, price, timestamp, history_slice, metrics=None, side='LONG'):
         # DYNAMIC LEVERAGE: Tier-based leverage assignment
         # Top 50 coins: 50x
         # Top 51-200 coins: 20x
@@ -450,10 +490,16 @@ class RealBacktestEngine:
         
         # P1 FIX: Add slippage (0.05% - more realistic for small orders on liquid pairs)
         slippage = 0.0005  # 0.05% (reduced from 0.1%)
-        entry_price_with_slippage = price * (1 + slippage)
-        stop_loss = entry_price_with_slippage * (1 - stop_loss_pct)
+        
+        if side == 'LONG':
+            entry_price_with_slippage = price * (1 + slippage)
+            stop_loss = entry_price_with_slippage * (1 - stop_loss_pct)
+        else: # SHORT
+            entry_price_with_slippage = price * (1 - slippage)
+            stop_loss = entry_price_with_slippage * (1 + stop_loss_pct)
         
         # Use risk manager for size
+        # Note: RiskManager calculates size based on risk amount / distance to SL
         quantity = self.risk_manager.calculate_position_size(self.balance, entry_price_with_slippage, stop_loss)
         
         # Check margin usage
@@ -471,22 +517,30 @@ class RealBacktestEngine:
             'entry_price': entry_price_with_slippage,
             'quantity': quantity,
             'stop_loss': stop_loss,
-            'highest_price': entry_price_with_slippage,
+            'highest_price': entry_price_with_slippage, # For trailing stop (LONG)
+            'lowest_price': entry_price_with_slippage,  # For trailing stop (SHORT)
             'entry_time': timestamp,
             'leverage': leverage,
+            'side': side,
             'metrics': metrics or {}
         }
-        print(f"[{timestamp}] OPEN LONG {symbol} @ {entry_price_with_slippage:.4f} | SL: {stop_loss:.4f} (-0.75%/-15%ROE) | Size: {quantity:.2f}")
+        print(f"[{timestamp}] OPEN {side} {symbol} @ {entry_price_with_slippage:.4f} | SL: {stop_loss:.4f} | Size: {quantity:.2f}")
 
     def _close_position(self, symbol, exit_price, timestamp, reason):
         pos = self.positions[symbol]
+        side = pos.get('side', 'LONG')
         
         # P1 FIX: Add exit slippage (0.05% worse price on exit)
         slippage = 0.0005  # 0.05% (reduced from 0.1%)
-        exit_price_with_slippage = exit_price * (1 - slippage)
         
-        # PnL
-        pnl = (exit_price_with_slippage - pos['entry_price']) * pos['quantity']
+        if side == 'LONG':
+            exit_price_with_slippage = exit_price * (1 - slippage)
+            # PnL = (Exit - Entry) * Qty
+            pnl = (exit_price_with_slippage - pos['entry_price']) * pos['quantity']
+        else: # SHORT
+            exit_price_with_slippage = exit_price * (1 + slippage)
+            # PnL = (Entry - Exit) * Qty
+            pnl = (pos['entry_price'] - exit_price_with_slippage) * pos['quantity']
         
         # Fee
         notional = exit_price_with_slippage * pos['quantity']
@@ -497,13 +551,15 @@ class RealBacktestEngine:
         
         trade_record = {
             'symbol': symbol,
+            'side': side,
             'entry_price': pos['entry_price'],
             'exit_price': exit_price_with_slippage,
             'entry_time': pos['entry_time'],
             'exit_time': timestamp,
             'pnl': net_pnl,
             'reason': reason,
-            'duration': timestamp - pos['entry_time']
+            'duration': timestamp - pos['entry_time'],
+            'balance_after': self.balance  # 记录交易后的账户余额（资金曲线）
         }
         # Add metrics to trade record
         if 'metrics' in pos:

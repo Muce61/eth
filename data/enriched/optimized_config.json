@@ -1,0 +1,28 @@
+{
+  "WHITELIST": [
+    "VIRTUALUSDTUSDT",
+    "DOTUSDTUSDT",
+    "LINKUSDTUSDT",
+    "ENAUSDTUSDT"
+  ],
+  "BLACKLIST": [
+    "COAIUSDTUSDT",
+    "FARTCOINUSDTUSDT",
+    "AIAUSDTUSDT"
+  ],
+  "BEST_HOURS": [
+    5,
+    6,
+    8,
+    9,
+    15
+  ],
+  "WORST_HOURS": [
+    20,
+    21,
+    22
+  ],
+  "MIN_HOLDING_MINUTES": 15,
+  "MAX_HOLDING_MINUTES": 45,
+  "WEEKEND_TRADING": false
+}

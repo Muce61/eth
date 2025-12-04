@@ -1,0 +1,172 @@
+================================================================================
+快速参数验证 - 5天回测
+================================================================================
+
+📊 测试目标:
+1. 验证止损逻辑是否正确 (应该是0.5%-1.5%)
+2. 验证置信度过滤是否生效 (score < 50 应该跳过)
+3. 验证保本逻辑是否放宽到30% ROE
+
+正在运行5天回测...
+Loading data (Top 50 curated coins for speed)...
+Loaded 43 symbols.
+Ranking coins by average 24h volume...
+Top 200 coins identified: 43 coins qualify
+Filtered to last 5 days: 7201 candles
+Backtesting over 7201 timestamps...
+Start: 2025-11-24 06:39:00, End: 2025-11-29 06:39:00
+Processing 2025-11-24 06:39:00... Balance: $100.00
+Processing 2025-11-24 08:19:00... Balance: $100.00
+Processing 2025-11-24 09:59:00... Balance: $100.00
+Processing 2025-11-24 11:39:00... Balance: $100.00
+Processing 2025-11-24 13:19:00... Balance: $100.00
+Processing 2025-11-24 14:59:00... Balance: $100.00
+Processing 2025-11-24 16:39:00... Balance: $100.00
+[2025-11-24 17:59:00] Open BNBUSDTUSDT: Score=100, Lev=30x, SL=0.5%
+仓位计算: 余额=100.00, 保证金(10.0%)=10.00, 杠杆=30x, 仓位价值=300.00, 数量=0.345680
+[2025-11-24 17:59:00] OPEN LONG BNBUSDTUSDT @ 867.8537 | SL: 863.5144 (-0.75%/-15%ROE) | Size: 0.35
+[2025-11-24 18:15:00] CLOSE BNBUSDTUSDT @ 863.5144 | PnL: $-1.80 | Reason: Stop Loss
+Processing 2025-11-24 18:19:00... Balance: $98.05
+Processing 2025-11-24 19:59:00... Balance: $98.05
+[2025-11-24 20:56:00] Open 1000BONKUSDTUSDT: Score=90, Lev=30x, SL=0.5%
+仓位计算: 余额=98.05, 保证金(10.0%)=9.81, 杠杆=30x, 仓位价值=294.15, 数量=29389.038863
+[2025-11-24 20:56:00] OPEN LONG 1000BONKUSDTUSDT @ 0.0100 | SL: 0.0100 (-0.75%/-15%ROE) | Size: 29389.04
+[2025-11-24 21:02:00] CLOSE 1000BONKUSDTUSDT @ 0.0101 | PnL: $3.13 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-24 21:39:00... Balance: $101.04
+Processing 2025-11-24 23:19:00... Balance: $101.04
+Processing 2025-11-25 00:59:00... Balance: $101.04
+Processing 2025-11-25 02:39:00... Balance: $101.04
+Processing 2025-11-25 04:19:00... Balance: $101.04
+Processing 2025-11-25 05:59:00... Balance: $101.04
+Processing 2025-11-25 07:39:00... Balance: $101.04
+Processing 2025-11-25 09:19:00... Balance: $101.04
+Processing 2025-11-25 10:59:00... Balance: $101.04
+Processing 2025-11-25 12:39:00... Balance: $101.04
+Processing 2025-11-25 14:19:00... Balance: $101.04
+Processing 2025-11-25 15:59:00... Balance: $101.04
+[2025-11-25 17:01:00] Open FILUSDTUSDT: Score=90, Lev=30x, SL=0.5%
+仓位计算: 余额=101.04, 保证金(10.0%)=10.10, 杠杆=30x, 仓位价值=303.12, 数量=183.949812
+[2025-11-25 17:01:00] OPEN LONG FILUSDTUSDT @ 1.6478 | SL: 1.6396 (-0.75%/-15%ROE) | Size: 183.95
+[2025-11-25 17:08:00] CLOSE FILUSDTUSDT @ 1.6396 | PnL: $-1.82 | Reason: Stop Loss
+[2025-11-25 17:27:00] Open FILUSDTUSDT: Score=90, Lev=30x, SL=0.5%
+仓位计算: 余额=99.07, 保证金(10.0%)=9.91, 杠杆=30x, 仓位价值=297.21, 数量=176.612672
+[2025-11-25 17:27:00] OPEN LONG FILUSDTUSDT @ 1.6828 | SL: 1.6744 (-0.75%/-15%ROE) | Size: 176.61
+[2025-11-25 17:28:00] Open FILUSDTUSDT: Score=90, Lev=30x, SL=0.5%
+仓位计算: 余额=98.92, 保证金(10.0%)=9.89, 杠杆=30x, 仓位价值=296.77, 数量=175.721056
+[2025-11-25 17:28:00] OPEN LONG FILUSDTUSDT @ 1.6888 | SL: 1.6804 (-0.75%/-15%ROE) | Size: 175.72
+[2025-11-25 17:31:00] CLOSE FILUSDTUSDT @ 1.7226 | PnL: $5.63 | Reason: Trailing Stop (Stepped)
+Processing 2025-11-25 17:39:00... Balance: $104.41
+[2025-11-25 17:41:00] Open NEARUSDTUSDT: Score=100, Lev=30x, SL=0.5%
+仓位计算: 余额=104.41, 保证金(10.0%)=10.44, 杠杆=30x, 仓位价值=313.22, 数量=163.138117
+[2025-11-25 17:41:00] OPEN LONG NEARUSDTUSDT @ 1.9200 | SL: 1.9104 (-0.75%/-15%ROE) | Size: 163.14
+[2025-11-25 17:47:00] CLOSE NEARUSDTUSDT @ 1.9104 | PnL: $-1.88 | Reason: Stop Loss
+[2025-11-25 17:52:00] Open UNIUSDTUSDT: Score=75, Lev=20x, SL=1.0%
+仓位计算: 余额=102.37, 保证金(10.0%)=10.24, 杠杆=20x, 仓位价值=204.74, 数量=33.410884
+[2025-11-25 17:52:00] OPEN LONG UNIUSDTUSDT @ 6.1281 | SL: 6.0668 (-0.75%/-15%ROE) | Size: 33.41
+[2025-11-25 18:00:00] CLOSE UNIUSDTUSDT @ 6.0668 | PnL: $-2.25 | Reason: Stop Loss
+Processing 2025-11-25 19:19:00... Balance: $100.02
+Processing 2025-11-25 20:59:00... Balance: $100.02
+Processing 2025-11-25 22:39:00... Balance: $100.02
+Processing 2025-11-26 00:19:00... Balance: $100.02
+Processing 2025-11-26 01:59:00... Balance: $100.02
+Processing 2025-11-26 03:39:00... Balance: $100.02
+Processing 2025-11-26 05:19:00... Balance: $100.02
+Processing 2025-11-26 06:59:00... Balance: $100.02
+Processing 2025-11-26 08:39:00... Balance: $100.02
+Processing 2025-11-26 10:19:00... Balance: $100.02
+Processing 2025-11-26 11:59:00... Balance: $100.02
+Processing 2025-11-26 13:39:00... Balance: $100.02
+Processing 2025-11-26 15:19:00... Balance: $100.02
+Processing 2025-11-26 16:59:00... Balance: $100.02
+[2025-11-26 17:29:00] Open XRPUSDTUSDT: Score=90, Lev=30x, SL=0.5%
+仓位计算: 余额=100.02, 保证金(10.0%)=10.00, 杠杆=30x, 仓位价值=300.06, 数量=135.386786
+[2025-11-26 17:29:00] OPEN LONG XRPUSDTUSDT @ 2.2163 | SL: 2.2052 (-0.75%/-15%ROE) | Size: 135.39
+[2025-11-26 17:34:00] Open 1000PEPEUSDTUSDT: Score=90, Lev=30x, SL=0.5%
+仓位计算: 余额=99.87, 保证金(10.0%)=9.99, 杠杆=30x, 仓位价值=299.61, 数量=64558.092838
+[2025-11-26 17:34:00] OPEN LONG 1000PEPEUSDTUSDT @ 0.0046 | SL: 0.0046 (-0.75%/-15%ROE) | Size: 64558.09
+[2025-11-26 18:01:00] Open BNBUSDTUSDT: Score=75, Lev=20x, SL=1.0%
+仓位计算: 余额=99.72, 保证金(10.0%)=9.97, 杠杆=20x, 仓位价值=199.44, 数量=0.223556
+[2025-11-26 18:01:00] OPEN LONG BNBUSDTUSDT @ 892.1258 | SL: 883.2046 (-0.75%/-15%ROE) | Size: 0.22
+[2025-11-26 18:09:00] Open WIFUSDTUSDT: Score=85, Lev=30x, SL=0.5%
+仓位计算: 余额=99.62, 保证金(10.0%)=9.96, 杠杆=30x, 仓位价值=298.86, 数量=778.502331
+[2025-11-26 18:09:00] OPEN LONG WIFUSDTUSDT @ 0.3839 | SL: 0.3820 (-0.75%/-15%ROE) | Size: 778.50
+[2025-11-26 18:09:00] CLOSE WIFUSDTUSDT @ 0.3820 | PnL: $-1.79 | Reason: Stop Loss
+[2025-11-26 18:16:00] Open SOLUSDTUSDT: Score=90, Lev=30x, SL=0.5%
+仓位计算: 余额=97.68, 保证金(10.0%)=9.77, 杠杆=30x, 仓位价值=293.04, 数量=2.043904
+[2025-11-26 18:16:00] OPEN LONG SOLUSDTUSDT @ 143.3717 | SL: 142.6548 (-0.75%/-15%ROE) | Size: 2.04
+[2025-11-26 18:20:00] CLOSE XRPUSDTUSDT @ 2.2422 | PnL: $3.20 | Reason: Stop Loss
+[2025-11-26 18:32:00] CLOSE 1000PEPEUSDTUSDT @ 0.0047 | PnL: $3.19 | Reason: Stop Loss
+Processing 2025-11-26 18:39:00... Balance: $103.92
+Processing 2025-11-26 20:19:00... Balance: $103.92
+[2025-11-26 20:41:00] CLOSE SOLUSDTUSDT @ 142.6548 | PnL: $-1.76 | Reason: Stop Loss
+Processing 2025-11-26 21:59:00... Balance: $102.17
+Processing 2025-11-26 23:39:00... Balance: $102.17
+Processing 2025-11-27 01:19:00... Balance: $102.17
+Processing 2025-11-27 02:59:00... Balance: $102.17
+Processing 2025-11-27 04:39:00... Balance: $102.17
+Processing 2025-11-27 06:19:00... Balance: $102.17
+Processing 2025-11-27 07:59:00... Balance: $102.17
+Processing 2025-11-27 09:39:00... Balance: $102.17
+Processing 2025-11-27 11:19:00... Balance: $102.17
+Processing 2025-11-27 12:59:00... Balance: $102.17
+Processing 2025-11-27 14:39:00... Balance: $102.17
+Processing 2025-11-27 16:19:00... Balance: $102.17
+Processing 2025-11-27 17:59:00... Balance: $102.17
+Processing 2025-11-27 19:39:00... Balance: $102.17
+Processing 2025-11-27 21:19:00... Balance: $102.17
+Processing 2025-11-27 22:59:00... Balance: $102.17
+Processing 2025-11-28 00:39:00... Balance: $102.17
+Processing 2025-11-28 02:19:00... Balance: $102.17
+Processing 2025-11-28 03:59:00... Balance: $102.17
+Processing 2025-11-28 05:39:00... Balance: $102.17
+Processing 2025-11-28 07:19:00... Balance: $102.17
+[2025-11-28 07:56:00] CLOSE BNBUSDTUSDT @ 883.2046 | PnL: $-2.19 | Reason: Stop Loss
+[2025-11-28 08:51:00] Open 1000PEPEUSDTUSDT: Score=70, Lev=20x, SL=1.0%
+仓位计算: 余额=99.97, 保证金(10.0%)=10.00, 杠杆=20x, 仓位价值=199.95, 数量=42175.372759
+[2025-11-28 08:51:00] OPEN LONG 1000PEPEUSDTUSDT @ 0.0047 | SL: 0.0047 (-0.75%/-15%ROE) | Size: 42175.37
+Processing 2025-11-28 08:59:00... Balance: $99.87
+Processing 2025-11-28 10:39:00... Balance: $99.87
+[2025-11-28 11:15:00] CLOSE 1000PEPEUSDTUSDT @ 0.0047 | PnL: $-2.20 | Reason: Stop Loss
+Processing 2025-11-28 12:19:00... Balance: $97.68
+Processing 2025-11-28 13:59:00... Balance: $97.68
+[2025-11-28 14:28:00] Open ADAUSDTUSDT: Score=85, Lev=30x, SL=0.5%
+仓位计算: 余额=97.68, 保证金(10.0%)=9.77, 杠杆=30x, 仓位价值=293.03, 数量=675.313681
+[2025-11-28 14:28:00] OPEN LONG ADAUSDTUSDT @ 0.4339 | SL: 0.4317 (-0.75%/-15%ROE) | Size: 675.31
+[2025-11-28 14:30:00] CLOSE ADAUSDTUSDT @ 0.4317 | PnL: $-1.76 | Reason: Stop Loss
+Processing 2025-11-28 15:39:00... Balance: $95.77
+Processing 2025-11-28 17:19:00... Balance: $95.77
+Processing 2025-11-28 18:59:00... Balance: $95.77
+Processing 2025-11-28 20:39:00... Balance: $95.77
+Processing 2025-11-28 22:19:00... Balance: $95.77
+Processing 2025-11-28 23:59:00... Balance: $95.77
+Processing 2025-11-29 01:39:00... Balance: $95.77
+Processing 2025-11-29 03:19:00... Balance: $95.77
+Processing 2025-11-29 04:59:00... Balance: $95.77
+Processing 2025-11-29 06:39:00... Balance: $95.77
+
+========================================
+REALISTIC BACKTEST RESULTS (5 Days)
+========================================
+Final Balance: $95.77
+Total Return: -4.23%
+Total Trades: 13
+Winning Trades: 4
+Losing Trades: 9
+Win Rate: 30.77%
+Avg Win: $3.79
+Avg Loss: $-1.94
+Profit Factor: 0.87
+Max Profit Trade: $5.63 (FILUSDTUSDT)
+Max Loss Trade: $-2.25 (UNIUSDTUSDT)
+Max Holding Time: 1 days 13:55:00
+Min Holding Time: 0 days 00:00:00
+Trades saved to backtest_trades_5d.csv
+
+================================================================================
+✅ 快速验证完成
+================================================================================
+
+💡 检查要点:
+1. 查看debug输出中的 'SL=' 值,应该是0.5%-1.5%
+2. 查看 'Score=' 值,所有交易应该 >= 50
+3. 如果看到正确的值,说明修改生效,可以运行完整90天回测
