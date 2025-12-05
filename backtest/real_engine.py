@@ -9,11 +9,15 @@ from config.settings import Config
 from strategy.smart_exit import SmartExitModule
 from strategy.quality_filter import QualityFilterModule
 
+from risk.trend_reversal_detector import TrendReversalDetector
+
 class RealBacktestEngine:
     def __init__(self, initial_balance=100): # User requested 100u
         self.balance = initial_balance
         self.initial_balance = initial_balance
+        self.peak_balance = initial_balance # Track peak balance for drawdown calc
         self.positions = {} # {symbol: {entry_price, quantity, stop_loss, ...}}
+        self.paper_positions = {} # Virtual positions for circuit breaker recovery
         self.trades = []
         self.pending_signal = None  # For realistic entry price simulation
         self.strategy = MomentumStrategy()
@@ -23,11 +27,10 @@ class RealBacktestEngine:
         # Initialize New Modules
         self.smart_exit = SmartExitModule()
         self.quality_filter = QualityFilterModule()
+        self.trend_detector = TrendReversalDetector()
         
         # Override config for backtest if needed
         self.config.MAX_OPEN_POSITIONS = 10 # Match live config
-        self.config.MAX_LONG_POSITIONS = 7  # Reserve slots for longs
-        self.config.MAX_SHORT_POSITIONS = 3 # Reserve 3 slots for shorts (hedging)
         self.config.LEVERAGE = 20 # Reduced from 50x for stability
         self.risk_manager.config.LEVERAGE = 20
         self.config.TRADE_MARGIN_PERCENT = 0.1 # Match live config
@@ -40,23 +43,15 @@ class RealBacktestEngine:
         
     def load_data(self):
         """
-        Load data from processed 15m directory if available, otherwise fallback to 1m -> 15m resampling.
+        Load all CSVs from /Users/muce/1m_data/new_backtest_data_1year_1m/ into a dictionary of DataFrames.
+        Performs resampling from 1m to 15m granularity for strategy consistency.
         """
-        processed_dir = Path("/Users/muce/1m_data/processed_15m_data")
-        raw_dir = Path("/Users/muce/1m_data/new_backtest_data_1year_1m")
+        data_dir = Path("/Users/muce/1m_data/new_backtest_data_1year_1m")
         self.data_feed = {}
         
-        # Try loading from processed 15m directory first
-        if processed_dir.exists() and any(processed_dir.iterdir()):
-            print(f"Loading pre-processed 15m data from {processed_dir}...")
-            data_dir = processed_dir
-            is_resampled = True
-        else:
-            print(f"Loading raw 1m data from {raw_dir}...")
-            print("Applying 1m -> 15m resampling (This may take a while)...")
-            data_dir = raw_dir
-            is_resampled = False
-            
+        print(f"Loading data from {data_dir}...")
+        print("Applying 1m -> 15m resampling...")
+        
         # Check if directory exists
         if not data_dir.exists():
             print(f"WARNING: Data directory {data_dir} does not exist!")
@@ -67,44 +62,38 @@ class RealBacktestEngine:
             try:
                 df = pd.read_csv(file_path, parse_dates=['timestamp'], index_col='timestamp')
                 
-                if is_resampled:
-                    # Already 15m, just load
-                    df_15m = df
-                else:
-                    # Resample 1m to 15m
-                    agg_dict = {
-                        'open': 'first',
-                        'high': 'max',
-                        'low': 'min',
-                        'close': 'last',
-                        'volume': 'sum'
-                    }
-                    
-                    # Handle potential missing columns or different case
-                    available_cols = df.columns.tolist()
-                    final_agg = {}
-                    for col, func in agg_dict.items():
-                        if col in available_cols:
-                            final_agg[col] = func
-                        elif col.capitalize() in available_cols: # Try Title case
-                            final_agg[col.capitalize()] = func
-                            
-                    if not final_agg:
-                        print(f"Skipping {symbol}: No OHLCV columns found")
-                        continue
+                # Resample 1m to 15m
+                agg_dict = {
+                    'open': 'first',
+                    'high': 'max',
+                    'low': 'min',
+                    'close': 'last',
+                    'volume': 'sum'
+                }
+                
+                # Handle potential missing columns or different case
+                available_cols = df.columns.tolist()
+                final_agg = {}
+                for col, func in agg_dict.items():
+                    if col in available_cols:
+                        final_agg[col] = func
+                    elif col.capitalize() in available_cols: # Try Title case
+                        final_agg[col.capitalize()] = func
                         
-                    df_15m = df.resample('15min').agg(final_agg).dropna()
+                if not final_agg:
+                    print(f"Skipping {symbol}: No OHLCV columns found")
+                    continue
+                    
+                df_15m = df.resample('15min').agg(final_agg).dropna()
                 
                 # Normalize column names to lowercase
                 df_15m.columns = [c.lower() for c in df_15m.columns]
                 
                 self.data_feed[symbol] = df_15m
-                # if 'BTC' in symbol.upper():
-                #     print(f"DEBUG: Loaded {symbol} with {len(df_15m)} rows")
             except Exception as e:
                 print(f"Error loading {symbol}: {e}")
             
-        print(f"Loaded {len(self.data_feed)} symbols.")
+        print(f"Loaded {len(self.data_feed)} symbols (Resampled to 15m).")
         
     def run(self, days=None, start_date=None, end_date=None):
         if not hasattr(self, 'data_feed') or not self.data_feed:
@@ -172,96 +161,73 @@ class RealBacktestEngine:
             # 1. Execute pending signal (if entry time matches)
             if self.pending_signal and self.pending_signal['entry_time'] == current_time:
                 symbol = self.pending_signal['symbol']
-                side = self.pending_signal['side']
                 entry_price = self.pending_signal['entry_price']
                 metrics = self.pending_signal['metrics']
                 
-                # Debug: Print when executing SHORT
-                if side == 'SHORT':
-                    print(f"🔴 EXECUTING SHORT: {symbol} @ {entry_price} (side={side})")
-                
                 # Execute the entry at next open price
-                self._open_position(symbol, entry_price, current_time, None, metrics, side)
+                self._open_position(symbol, entry_price, current_time, None, metrics)
                 self.pending_signal = None  # Clear after execution
             
             # 2. Manage Existing Positions
             self._manage_positions(current_time)
             
-            # 3. Check for New Entries (check slots by side)
-            # Count current longs and shorts
-            current_longs = sum(1 for pos in self.positions.values() if pos.get('side', 'LONG') == 'LONG')
-            current_shorts = sum(1 for pos in self.positions.values() if pos.get('side') == 'SHORT')
-            
-            # Scan if any slots available
-            if current_longs < self.config.MAX_LONG_POSITIONS or current_shorts < self.config.MAX_SHORT_POSITIONS:
-                self._scan_market(current_time, current_longs, current_shorts)
+            # 3. Check for New Entries (only if slots available)
+            if len(self.positions) < self.config.MAX_OPEN_POSITIONS:
+                self._scan_market(current_time)
                 
             if i % 100 == 0:
                 print(f"Processing {current_time}... Balance: ${self.balance:.2f}")
-                
-        # Debug: Check for unclosed positions
-        if self.positions:
-            print(f"\n⚠️ WARNING: {len(self.positions)} unclosed positions at end of backtest!")
-            for sym, pos in self.positions.items():
-                print(f"  - {sym} ({pos.get('side', 'LONG')}): Entry @ {pos['entry_price']:.4f}")
                 
         self._generate_report(days)
         
     def _manage_positions(self, current_time):
         # Create a list of keys to iterate safely while modifying dict
+        # Manage Real Positions
         for symbol in list(self.positions.keys()):
+
+            self._manage_single_position(symbol, current_time, is_paper=False)
+            
+        # Manage Paper Positions
+        for symbol in list(self.paper_positions.keys()):
+            self._manage_single_position(symbol, current_time, is_paper=True)
+
+    def _manage_single_position(self, symbol, current_time, is_paper=False):
+        if is_paper:
+            pos = self.paper_positions[symbol]
+        else:
             pos = self.positions[symbol]
             
-            # Get current price
-            if current_time not in self.data_feed[symbol].index:
-                continue # No data for this timestamp
-                
-            current_candle = self.data_feed[symbol].loc[current_time]
-            current_price = current_candle['close']
-            high_price = current_candle['high']
-            low_price = current_candle['low']
+        # Get current price
+        if symbol not in self.data_feed:
+            return
             
-            side = pos.get('side', 'LONG')
+        df = self.data_feed[symbol]
+        if current_time not in df.index:
+            return
             
-            # === STRICT EXECUTION LOGIC (FIXED FOR BOTH LONG AND SHORT) ===
-            if side == 'LONG':
-                # 1. Check Stop Loss FIRST (Low Price for LONG)
-                if low_price <= pos['stop_loss']:
-                     self._close_position(symbol, pos['stop_loss'], current_time, 'Stop Loss')
-                     continue
-
-                # 2. Check Liquidation (LONG)
-                liq_price = pos['entry_price'] * (1 - 0.9 / pos['leverage'])
-                if low_price <= liq_price:
-                    self._close_position(symbol, liq_price, current_time, 'LIQUIDATION')
-                    continue
-
-                # 3. Update Highest Price (Only if we survived the Low)
-                if high_price > pos['highest_price']:
-                    pos['highest_price'] = high_price
-                    
-            else:  # SHORT
-                # 1. Check Stop Loss FIRST (High Price for SHORT - price rising)
-                if high_price >= pos['stop_loss']:
-                     self._close_position(symbol, pos['stop_loss'], current_time, 'Stop Loss')
-                     continue
-
-                # 2. Check Liquidation (SHORT)
-                liq_price = pos['entry_price'] * (1 + 0.9 / pos['leverage'])
-                if high_price >= liq_price:
-                    self._close_position(symbol, liq_price, current_time, 'LIQUIDATION')
-                    continue
-
-                # 3. Update Lowest Price (for SHORT trailing)
-                if low_price < pos.get('lowest_price', pos['entry_price']):
-                    pos['lowest_price'] = low_price
-                
-            # 4. Check Smart Exit (Trailing Stop / Break-even)
-            # Now it's safe to check this because we know we didn't stop out
-            should_exit, exit_reason, exit_price = self.smart_exit.check_exit(pos, current_price, current_time)
-            if should_exit:
-                self._close_position(symbol, exit_price, current_time, exit_reason)
-                continue
+        current_candle = df.loc[current_time]
+        current_price = current_candle['close']
+        high_price = current_candle['high']
+        low_price = current_candle['low']
+        
+        # Update highest price for trailing stop
+        if high_price > pos['highest_price']:
+            pos['highest_price'] = high_price
+            
+        # 1. Check Stop Loss (Always First)
+        if low_price <= pos['stop_loss']:
+            self._close_position(symbol, pos['stop_loss'], current_time, 'Stop Loss')
+            return
+            
+        # 2. Smart Exit Checks
+        should_exit, reason, exit_price = self.smart_exit.check_exit(
+            pos, 
+            current_price, 
+            current_time
+        )
+        
+        if should_exit:
+            self._close_position(symbol, exit_price, current_time, reason)
     
     def _rank_coins_by_volume(self):
         """
@@ -286,144 +252,120 @@ class RealBacktestEngine:
         self.coin_volume_ranking = {coin: rank+1 for rank, (coin, vol) in enumerate(sorted_coins)}
         print(f"Ranked {len(self.coin_volume_ranking)} coins by volume.")
         
-    def _scan_market(self, current_time, current_longs, current_shorts):
-        long_candidates = []
-        short_candidates = []
+    def _scan_market(self, current_time):
+        candidates = []
+        # 1. Circuit Breaker Check
+        is_paused = False
+        if self.trend_detector.should_pause_trading(self.balance, self.peak_balance):
+            # Check if we can recover
+            if not self.trend_detector.check_recovery():
+                is_paused = True
+                # print(f"[{current_time}] 🛑 Trading Paused: Circuit Breaker Active (Paper Trading Mode)")
         
+        # 2. Market Regime Filter (BTC Trend)
+        btc_trend_ok = True
+        if 'BTCUSDT' in self.data_feed:
+            btc_df = self.data_feed['BTCUSDT']
+            # Get BTC data up to current time
+            btc_slice = btc_df.loc[:current_time]
+            if len(btc_slice) > 200:
+                btc_close = btc_slice['close'].iloc[-1]
+                btc_ema200 = ta.ema(btc_slice['close'], length=200).iloc[-1]
+                if btc_close < btc_ema200:
+                    btc_trend_ok = False
+                    # print(f"[{current_time}] 🐻 Market Bearish (BTC < EMA200). Skipping Longs.")
+        
+        if not btc_trend_ok:
+            return # Skip all trades if Market is Bearish
+            
+        # Scan all symbols
         for symbol, df in self.data_feed.items():
-            # Need at least 96 candles for 24h change
-            # And need to be at current_time
+            if symbol not in self.coin_volume_ranking:
+                continue
+                
+            # Skip if already in position (Real or Paper)
+            if symbol in self.positions or symbol in self.paper_positions:
+                continue
+                
+            # Get data up to current time
+            # Use binary search for speed or simple slicing
+            # For backtest, we can just slice. 
+            # OPTIMIZATION: Don't slice entire DF, just get tail relative to current_time
+            # But since index is datetime, slicing is easy
+            
+            # Check if data exists for this time
             if current_time not in df.index:
-                # if 'BTC' in symbol.upper():
-                #     print(f"DEBUG: {symbol} not in index at {current_time}")
                 continue
                 
-            # Get index location of current_time
-            # Note: get_loc might be slow if index is not unique, but here it should be
-            try:
-                row_loc = df.index.get_loc(current_time)
-                
-                # Need at least 200 candles for EMA200
-                if row_loc < 200:
-                    # if 'BTC' in symbol.upper():
-                    #     print(f"DEBUG: {symbol} row_loc {row_loc} < 200 at {current_time}")
-                    continue
-                    
-                # Slice data up to current_time (inclusive)
-                # We need enough history for indicators (EMA200, RSI, etc.)
-                # Taking last 201 candles to be safe
-                start_loc = row_loc - 200
-                if start_loc < 0:
-                    start_loc = 0
-                    
-                # Use iloc for slicing by position
-                # We need up to current_time (row_loc is the index of current_time)
-                # So we want [start_loc : row_loc + 1]
-                historical_data = df.iloc[start_loc : row_loc + 1].copy()
-                # Calculate 24h change
-                # 24h = 96 * 15m
-                current_close = df.iloc[row_loc]['close']
-                prev_close = df.iloc[row_loc - 96]['close']
-                
-                if prev_close == 0:
-                    continue
-                    
-                change_pct = (current_close - prev_close) / prev_close * 100
-                
-                # QUALITY FILTER 1: Volume Check
-                # Get last 24h volume sum
-                volume_24h_slice = df.iloc[row_loc - 96 : row_loc + 1]
-                volume_24h_usd = (volume_24h_slice['close'] * volume_24h_slice['volume']).sum()
-                
-                # === QUALITY FILTER MODULE CHECK ===
-                is_good, reason = self.quality_filter.check_quality(symbol, volume_24h_slice, volume_24h_usd)
-                if not is_good:
-                    # if 'BTC' in symbol.upper():
-                    #     print(f"DEBUG: {symbol} Quality Filter Failed: {reason}")
-                    continue
-                
-                # QUALITY FILTER 2: Top 200 Ranking Check
-                if symbol not in self.coin_volume_ranking:
-                    # if 'BTCUSDTUSDT' == symbol:
-                    #     print(f"DEBUG: {symbol} Failed Ranking - Not in ranking list")
-                    continue  # Not in top 200, skip
-                
-                if self.coin_volume_ranking[symbol] > self.TOP_N_COINS:
-                    # if 'BTCUSDTUSDT' == symbol:
-                    #     print(f"DEBUG: {symbol} Failed Ranking - Rank {self.coin_volume_ranking[symbol]} > {self.TOP_N_COINS}")
-                    continue  # Ranked below 200, skip
-                
-                # Filter by 24h change threshold (Absolute value to allow Shorts)
-                # Relaxed to capture more opportunities
-                if abs(change_pct) >= self.config.CHANGE_THRESHOLD_MIN:
-                    # Separate into long/short candidates based on change direction
-                    candidate_data = {
-                        'symbol': symbol,
-                        'change': change_pct,
-                        'df': df,
-                        'row_loc': row_loc,
-                        'volume_24h': volume_24h_usd
-                    }
-                    
-                    # Positive change -> potential long, Negative -> potential short
-                    if change_pct > 0:
-                        long_candidates.append(candidate_data)
-                    else:
-                        short_candidates.append(candidate_data)
-                else:
-                    # if 'BTCUSDTUSDT' == symbol:
-                    #     print(f"DEBUG: {symbol} Failed Change Threshold: {change_pct:.2f}% not in [{self.config.CHANGE_THRESHOLD_MIN}, {self.config.CHANGE_THRESHOLD_MAX}]")
-                    pass
-                    
-            except Exception as e:
-                # if 'BTC' in symbol.upper():
-                #     print(f"DEBUG: {symbol} Exception in _scan_market: {e}")
+            row_loc = df.index.get_loc(current_time)
+            
+            # Need at least 200 candles for EMA200
+            if row_loc < 200:
                 continue
                 
-        # Sort by Change % (Top Gainers for longs, Top Losers for shorts)
-        long_candidates.sort(key=lambda x: x['change'], reverse=True)
-        short_candidates.sort(key=lambda x: x['change'], reverse=False)  # Most negative first
+            # Slice strictly up to current time (no lookahead)
+            # iloc is exclusive on end? No, slice is [start:end]
+            # We need [start : row_loc+1] to include current candle
+            start_loc = max(0, row_loc - 250) # Optimization: only take last 250 candles
+            historical_data = df.iloc[start_loc : row_loc + 1].copy()
+            # Calculate 24h change
+            # 24h = 96 * 15m
+            current_close = df.iloc[row_loc]['close']
+            prev_close = df.iloc[row_loc - 96]['close']
+            
+            if prev_close == 0:
+                continue
+                
+            change_pct = (current_close - prev_close) / prev_close * 100
+                
+            # QUALITY FILTER 1: Volume Check
+            # Get last 24h volume sum
+            volume_24h_slice = df.iloc[row_loc - 96 : row_loc + 1]
+            volume_24h_usd = (volume_24h_slice['close'] * volume_24h_slice['volume']).sum()
+            
+            # === QUALITY FILTER MODULE CHECK ===
+            is_good, reason = self.quality_filter.check_quality(symbol, volume_24h_slice, volume_24h_usd)
+            if not is_good:
+                # print(f"Skipping {symbol}: {reason}")
+                continue
+            
+            # QUALITY FILTER 2: Top 200 Ranking Check
+            if symbol not in self.coin_volume_ranking:
+                continue  # Not in top 200, skip
+            
+            if self.coin_volume_ranking[symbol] > self.TOP_N_COINS:
+                continue  # Ranked below 200, skip
+            
+            # Filter by 24h change threshold
+            if self.config.CHANGE_THRESHOLD_MIN <= change_pct <= self.config.CHANGE_THRESHOLD_MAX:
+                candidates.append({
+                    'symbol': symbol,
+                    'change': change_pct,
+                    'df': df,
+                    'row_loc': row_loc,
+                    'volume_24h': volume_24h_usd
+                    })
+                    
+
+                
+        # Sort by Change % (Top Gainers)
+        candidates.sort(key=lambda x: x['change'], reverse=True)
         
-        # Process based on available slots
-        signals_to_process = []
-        
-        # Process shorts first (priority for hedging)
-        if current_shorts < self.config.MAX_SHORT_POSITIONS:
-            slots_available = self.config.MAX_SHORT_POSITIONS - current_shorts
-            top_shorts = short_candidates[:min(slots_available, self.config.TOP_GAINER_COUNT)]
-            signals_to_process.extend(top_shorts)
-        
-        # Process longs
-        if current_longs < self.config.MAX_LONG_POSITIONS:
-            slots_available = self.config.MAX_LONG_POSITIONS - current_longs
-            top_longs = long_candidates[:min(slots_available, self.config.TOP_GAINER_COUNT)]
-            signals_to_process.extend(top_longs)
+        # Take top N
+        top_candidates = candidates[:self.config.TOP_GAINER_COUNT]
         
         # Check Strategy for these candidates
-        for cand in signals_to_process:
+        for cand in top_candidates:
             symbol = cand['symbol']
             df = cand['df']
             row_loc = cand['row_loc']
             
-            # Get recent history for strategy (Need > 200 for EMA200)
-            # Was 50, now increasing to 205 to be safe
-            start_slice = row_loc - 205
-            if start_slice < 0:
-                start_slice = 0
-                
-            history_slice = df.iloc[start_slice : row_loc + 1]
+            # Get recent history for strategy (50 candles)
+            history_slice = df.iloc[row_loc - 50 : row_loc + 1]
             
             signal = self.strategy.check_signal(symbol, history_slice)
             
-            if signal:
-                # Check if we have a slot available for this side
-                if signal['side'] == 'LONG':
-                    if current_longs >= self.config.MAX_LONG_POSITIONS:
-                        continue  # No long slots available
-                elif signal['side'] == 'SHORT':
-                    if current_shorts >= self.config.MAX_SHORT_POSITIONS:
-                        continue  # No short slots available
-                
+            if signal and signal['side'] == 'LONG':
                 # FIX P0: Entry price should be NEXT K-line's open, not current close
                 # In real trading, we see the signal after current K-line closes,
                 # so we can only enter at next K-line's open price
@@ -440,19 +382,14 @@ class RealBacktestEngine:
                 # For now, mark this as a pending signal
                 self.pending_signal = {
                     'symbol': symbol,
-                    'side': signal['side'],  # Store side (LONG or SHORT)
                     'entry_price': next_open_price,
                     'entry_time': next_time,
-                    'metrics': signal.get('metrics', {})
+                    'metrics': signal.get('metrics', {}),
+                    'is_paper_trade': is_paused # Pass the paused status to the signal
                 }
-                
-                # Debug: Print when storing SHORT
-                if signal['side'] == 'SHORT':
-                    print(f"🔴 STORING SHORT SIGNAL: {symbol} for execution at {next_time}")
-                
                 break # Only open 1 position per scan
 
-    def _open_position(self, symbol, price, timestamp, history_slice, metrics=None, side='LONG'):
+    def _open_position(self, symbol, price, timestamp, history_slice, metrics=None, is_paper_trade=False):
         # DYNAMIC LEVERAGE: Tier-based leverage assignment
         # Top 50 coins: 50x
         # Top 51-200 coins: 20x
@@ -490,16 +427,11 @@ class RealBacktestEngine:
         
         # P1 FIX: Add slippage (0.05% - more realistic for small orders on liquid pairs)
         slippage = 0.0005  # 0.05% (reduced from 0.1%)
-        
-        if side == 'LONG':
-            entry_price_with_slippage = price * (1 + slippage)
-            stop_loss = entry_price_with_slippage * (1 - stop_loss_pct)
-        else: # SHORT
-            entry_price_with_slippage = price * (1 - slippage)
-            stop_loss = entry_price_with_slippage * (1 + stop_loss_pct)
+        entry_price_with_slippage = price * (1 + slippage)
+        stop_loss = entry_price_with_slippage * (1 - stop_loss_pct)
         
         # Use risk manager for size
-        # Note: RiskManager calculates size based on risk amount / distance to SL
+        # For paper trade, use hypothetical balance (e.g. current balance)
         quantity = self.risk_manager.calculate_position_size(self.balance, entry_price_with_slippage, stop_loss)
         
         # Check margin usage
@@ -508,67 +440,89 @@ class RealBacktestEngine:
         if quantity <= 0:
             return
 
-        # Deduct Fee (0.05% Taker)
-        notional = price * quantity
-        fee = notional * 0.0005
-        self.balance -= fee
+        # Deduct Fee (0.05% Taker) - ONLY FOR REAL TRADES
+        if not is_paper_trade:
+            notional = price * quantity
+            fee = notional * 0.0005
+            self.balance -= fee
         
-        self.positions[symbol] = {
+        position_data = {
             'entry_price': entry_price_with_slippage,
             'quantity': quantity,
             'stop_loss': stop_loss,
-            'highest_price': entry_price_with_slippage, # For trailing stop (LONG)
-            'lowest_price': entry_price_with_slippage,  # For trailing stop (SHORT)
+            'highest_price': entry_price_with_slippage,
             'entry_time': timestamp,
             'leverage': leverage,
-            'side': side,
-            'metrics': metrics or {}
+            'metrics': metrics or {},
+            'is_paper': is_paper_trade
         }
-        print(f"[{timestamp}] OPEN {side} {symbol} @ {entry_price_with_slippage:.4f} | SL: {stop_loss:.4f} | Size: {quantity:.2f}")
+        
+        if is_paper_trade:
+            self.paper_positions[symbol] = position_data
+            print(f"[{timestamp}] 📝 OPEN PAPER LONG {symbol} @ {entry_price_with_slippage:.4f}")
+        else:
+            self.positions[symbol] = position_data
+            print(f"[{timestamp}] OPEN LONG {symbol} @ {entry_price_with_slippage:.4f} | SL: {stop_loss:.4f} (-0.75%/-15%ROE) | Size: {quantity:.2f}")
 
     def _close_position(self, symbol, exit_price, timestamp, reason):
-        pos = self.positions[symbol]
-        side = pos.get('side', 'LONG')
-        
+        # Check if it's a real or paper position
+        if symbol in self.positions:
+            pos = self.positions[symbol]
+            is_paper = False
+        elif hasattr(self, 'paper_positions') and symbol in self.paper_positions:
+            pos = self.paper_positions[symbol]
+            is_paper = True
+        else:
+            return # Position not found
+            
         # P1 FIX: Add exit slippage (0.05% worse price on exit)
         slippage = 0.0005  # 0.05% (reduced from 0.1%)
+        exit_price_with_slippage = exit_price * (1 - slippage)
         
-        if side == 'LONG':
-            exit_price_with_slippage = exit_price * (1 - slippage)
-            # PnL = (Exit - Entry) * Qty
-            pnl = (exit_price_with_slippage - pos['entry_price']) * pos['quantity']
-        else: # SHORT
-            exit_price_with_slippage = exit_price * (1 + slippage)
-            # PnL = (Entry - Exit) * Qty
-            pnl = (pos['entry_price'] - exit_price_with_slippage) * pos['quantity']
+        # PnL
+        pnl = (exit_price_with_slippage - pos['entry_price']) * pos['quantity']
         
         # Fee
         notional = exit_price_with_slippage * pos['quantity']
         fee = notional * 0.0005
         
         net_pnl = pnl - fee
-        self.balance += net_pnl
         
-        trade_record = {
-            'symbol': symbol,
-            'side': side,
-            'entry_price': pos['entry_price'],
-            'exit_price': exit_price_with_slippage,
-            'entry_time': pos['entry_time'],
-            'exit_time': timestamp,
-            'pnl': net_pnl,
-            'reason': reason,
-            'duration': timestamp - pos['entry_time'],
-            'balance_after': self.balance  # 记录交易后的账户余额（资金曲线）
-        }
-        # Add metrics to trade record
-        if 'metrics' in pos:
-            trade_record.update(pos['metrics'])
+        if not is_paper:
+            self.balance += net_pnl
             
-        self.trades.append(trade_record)
-        del self.positions[symbol]
-        
-        print(f"[{timestamp}] CLOSE {symbol} @ {exit_price:.4f} | PnL: ${net_pnl:.2f} | Reason: {reason}")
+            # Update Peak Balance
+            if self.balance > self.peak_balance:
+                self.peak_balance = self.balance
+                
+            trade_record = {
+                'symbol': symbol,
+                'entry_price': pos['entry_price'],
+                'exit_price': exit_price_with_slippage,
+                'entry_time': pos['entry_time'],
+                'exit_time': timestamp,
+                'pnl': net_pnl,
+                'balance_after': self.balance,  # Track balance after this trade
+                'reason': reason,
+                'duration': timestamp - pos['entry_time']
+            }
+            # Add metrics to trade record
+            if 'metrics' in pos:
+                trade_record.update(pos['metrics'])
+                
+            self.trades.append(trade_record)
+            print(f"[{timestamp}] CLOSE {symbol} @ {exit_price:.4f} | PnL: ${net_pnl:.2f} | Reason: {reason}")
+            
+            del self.positions[symbol]
+            
+        else:
+            # Paper Trade Logic
+            print(f"[{timestamp}] 📝 CLOSE PAPER {symbol} | PnL: ${net_pnl:.2f} | Reason: {reason}")
+            del self.paper_positions[symbol]
+            
+        # Feed result to Trend Detector (BOTH Real and Paper)
+        # This allows the detector to see if "virtual" trades are winning
+        self.trend_detector.add_trade_result(symbol, net_pnl, timestamp)
 
     def _generate_report(self, days=None):
         print("\n" + "=" * 40)

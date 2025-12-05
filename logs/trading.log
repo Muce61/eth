@@ -2548,3 +2548,117 @@
 2025-11-29 04:39:43,214 - trading_bot - INFO - 涨幅榜已更新: 0 个币种
 2025-11-29 04:40:53,231 - trading_bot - INFO - 涨幅榜已更新: 0 个币种
 2025-11-29 04:41:13,296 - trading_bot - INFO - 正在停止交易机器人...
+2025-12-05 14:42:08,790 - trading_bot - INFO - 📊 已启用: 信号置信度驱动动态杠杆策略
+2025-12-05 14:42:08,790 - trading_bot - INFO - 🛡️ 已启用: 趋势反转熔断机制 (三层防御)
+2025-12-05 14:42:08,790 - trading_bot - INFO - 🧠 已启用: 智能离场模块 (动态追踪 + 保本止损)
+2025-12-05 14:42:08,791 - trading_bot - INFO - 正在启动交易机器人...
+2025-12-05 14:42:12,636 - trading_bot - INFO - 监控列表发生变化，正在更新 WebSocket 订阅...
+2025-12-05 14:42:12,636 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:42:12,636 - trading_bot - INFO - 正在执行启动时历史数据检查...
+2025-12-05 14:42:16,231 - trading_bot - INFO - 📊 已启用: 信号置信度驱动动态杠杆策略
+2025-12-05 14:42:16,231 - trading_bot - INFO - 🛡️ 已启用: 趋势反转熔断机制 (三层防御)
+2025-12-05 14:42:16,231 - trading_bot - INFO - 🧠 已启用: 智能离场模块 (动态追踪 + 保本止损)
+2025-12-05 14:42:16,231 - trading_bot - INFO - 正在启动交易机器人...
+2025-12-05 14:42:17,475 - trading_bot - INFO - ✓ 信号检测: ZEC/USDT:USDT 满足条件
+2025-12-05 14:42:17,476 - trading_bot - INFO - 发现信号: ZEC/USDT:USDT 做多 (虚拟交易: True)
+2025-12-05 14:42:17,476 - trading_bot - ERROR - 执行开仓出错 ZEC/USDT:USDT: '<' not supported between instances of 'NoneType' and 'int'
+2025-12-05 14:42:19,984 - trading_bot - INFO - 监控列表发生变化，正在更新 WebSocket 订阅...
+2025-12-05 14:42:19,985 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:42:19,985 - trading_bot - INFO - 正在执行启动时历史数据检查...
+2025-12-05 14:42:25,149 - trading_bot - INFO - ✓ 信号检测: ZEC/USDT:USDT 满足条件
+2025-12-05 14:42:25,149 - trading_bot - INFO - 发现信号: ZEC/USDT:USDT 做多 (虚拟交易: True)
+2025-12-05 14:42:25,149 - trading_bot - ERROR - 执行开仓出错 ZEC/USDT:USDT: '<' not supported between instances of 'NoneType' and 'int'
+2025-12-05 14:42:32,118 - trading_bot - INFO - 启动时检查完成
+2025-12-05 14:42:38,702 - trading_bot - INFO - 启动时检查完成
+2025-12-05 14:43:32,267 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:43:38,867 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:44:38,300 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:44:45,290 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:45:44,384 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:45:51,612 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:46:50,702 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:46:57,988 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:47:57,462 - trading_bot - INFO - 监控列表发生变化，正在更新 WebSocket 订阅...
+2025-12-05 14:47:59,382 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:48:04,176 - trading_bot - INFO - 监控列表发生变化，正在更新 WebSocket 订阅...
+2025-12-05 14:48:05,965 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:49:05,511 - trading_bot - INFO - 监控列表发生变化，正在更新 WebSocket 订阅...
+2025-12-05 14:49:06,654 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:49:12,541 - trading_bot - INFO - 监控列表发生变化，正在更新 WebSocket 订阅...
+2025-12-05 14:49:14,245 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:50:12,952 - trading_bot - INFO - 监控列表发生变化，正在更新 WebSocket 订阅...
+2025-12-05 14:50:14,926 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:50:20,697 - trading_bot - INFO - 监控列表发生变化，正在更新 WebSocket 订阅...
+2025-12-05 14:50:22,505 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:51:20,960 - trading_bot - INFO - 监控列表发生变化，正在更新 WebSocket 订阅...
+2025-12-05 14:51:22,188 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:51:28,721 - trading_bot - INFO - 监控列表发生变化，正在更新 WebSocket 订阅...
+2025-12-05 14:51:29,761 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:52:28,437 - trading_bot - INFO - 监控列表发生变化，正在更新 WebSocket 订阅...
+2025-12-05 14:52:29,451 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:52:35,939 - trading_bot - INFO - 监控列表发生变化，正在更新 WebSocket 订阅...
+2025-12-05 14:52:37,042 - trading_bot - INFO - 涨幅榜已更新: 50 个币种
+2025-12-05 14:53:22,684 - trading_bot - INFO - 正在停止交易机器人...
+2025-12-05 14:53:22,940 - trading_bot - INFO - 正在停止交易机器人...
+2025-12-05 15:00:49,833 - trading_bot - INFO - 📊 已启用: 信号置信度驱动动态杠杆策略
+2025-12-05 15:00:49,833 - trading_bot - INFO - 🛡️ 已启用: 趋势反转熔断机制 (三层防御)
+2025-12-05 15:00:49,833 - trading_bot - INFO - 🧠 已启用: 智能离场模块 (动态追踪 + 保本止损)
+2025-12-05 15:01:46,569 - trading_bot - INFO - 📊 已启用: 信号置信度驱动动态杠杆策略
+2025-12-05 15:01:46,569 - trading_bot - INFO - 🛡️ 已启用: 趋势反转熔断机制 (三层防御)
+2025-12-05 15:01:46,569 - trading_bot - INFO - 🧠 已启用: 智能离场模块 (动态追踪 + 保本止损)
+2025-12-05 15:01:46,570 - trading_bot - INFO - 正在启动交易机器人...
+2025-12-05 15:01:54,225 - trading_bot - ERROR - 扫描涨幅榜失败: 'list' object has no attribute 'add'
+2025-12-05 15:01:54,225 - trading_bot - INFO - 正在执行启动时历史数据检查...
+2025-12-05 15:01:54,225 - trading_bot - INFO - 启动时检查完成
+2025-12-05 15:02:58,136 - trading_bot - ERROR - 扫描涨幅榜失败: 'list' object has no attribute 'add'
+2025-12-05 15:03:32,936 - trading_bot - INFO - 📊 已启用: 信号置信度驱动动态杠杆策略
+2025-12-05 15:03:32,936 - trading_bot - INFO - 🛡️ 已启用: 趋势反转熔断机制 (三层防御)
+2025-12-05 15:03:32,936 - trading_bot - INFO - 🧠 已启用: 智能离场模块 (动态追踪 + 保本止损)
+2025-12-05 15:03:32,937 - trading_bot - INFO - 正在启动交易机器人...
+2025-12-05 15:03:40,467 - trading_bot - ERROR - 扫描涨幅榜失败: 'MarketMonitor' object has no attribute 'subscribe'
+2025-12-05 15:03:40,468 - trading_bot - INFO - 正在执行启动时历史数据检查...
+2025-12-05 15:03:40,839 - trading_bot - INFO - 启动时检查完成
+2025-12-05 15:04:01,980 - trading_bot - ERROR - 扫描涨幅榜失败: 'list' object has no attribute 'add'
+2025-12-05 15:04:12,833 - trading_bot - INFO - 📊 已启用: 信号置信度驱动动态杠杆策略
+2025-12-05 15:04:12,834 - trading_bot - INFO - 🛡️ 已启用: 趋势反转熔断机制 (三层防御)
+2025-12-05 15:04:12,834 - trading_bot - INFO - 🧠 已启用: 智能离场模块 (动态追踪 + 保本止损)
+2025-12-05 15:04:12,834 - trading_bot - INFO - 正在启动交易机器人...
+2025-12-05 15:04:20,510 - trading_bot - INFO - 新增监控: SAPIEN/USDT:USDT
+2025-12-05 15:04:20,510 - trading_bot - INFO - 新增监控: 1000LUNC/USDT:USDT
+2025-12-05 15:04:20,510 - trading_bot - INFO - 新增监控: SKYAI/USDT:USDT
+2025-12-05 15:04:20,510 - trading_bot - INFO - 新增监控: RIVER/USDT:USDT
+2025-12-05 15:04:20,510 - trading_bot - INFO - 新增监控: HEMI/USDT:USDT
+2025-12-05 15:04:20,510 - trading_bot - INFO - 新增监控: ZEC/USDT:USDT
+2025-12-05 15:04:20,510 - trading_bot - INFO - 当前监控列表 (6): ['SAPIEN/USDT:USDT', '1000LUNC/USDT:USDT', 'SKYAI/USDT:USDT', 'RIVER/USDT:USDT', 'HEMI/USDT:USDT', 'ZEC/USDT:USDT']
+2025-12-05 15:04:20,510 - trading_bot - INFO - 正在执行启动时历史数据检查...
+2025-12-05 15:04:22,932 - trading_bot - INFO - 启动时检查完成
+2025-12-05 15:04:44,670 - trading_bot - ERROR - 扫描涨幅榜失败: 'MarketMonitor' object has no attribute 'subscribe'
+2025-12-05 15:05:06,208 - trading_bot - ERROR - 扫描涨幅榜失败: 'list' object has no attribute 'add'
+2025-12-05 15:05:20,607 - trading_bot - INFO - 📊 已启用: 信号置信度驱动动态杠杆策略
+2025-12-05 15:05:20,607 - trading_bot - INFO - 🛡️ 已启用: 趋势反转熔断机制 (三层防御)
+2025-12-05 15:05:20,607 - trading_bot - INFO - 🧠 已启用: 智能离场模块 (动态追踪 + 保本止损)
+2025-12-05 15:05:20,607 - trading_bot - INFO - 正在启动交易机器人...
+2025-12-05 15:05:26,810 - trading_bot - INFO - 当前监控列表 (6): ['SAPIEN/USDT:USDT', '1000LUNC/USDT:USDT', 'SKYAI/USDT:USDT', 'RIVER/USDT:USDT', 'HEMI/USDT:USDT', 'ZEC/USDT:USDT']
+2025-12-05 15:05:29,070 - trading_bot - INFO - 新增监控: HEMI/USDT:USDT
+2025-12-05 15:05:29,071 - trading_bot - INFO - 新增监控: RIVER/USDT:USDT
+2025-12-05 15:05:29,071 - trading_bot - INFO - 新增监控: ZEC/USDT:USDT
+2025-12-05 15:05:29,071 - trading_bot - INFO - 新增监控: SAPIEN/USDT:USDT
+2025-12-05 15:05:29,071 - trading_bot - INFO - 新增监控: 1000LUNC/USDT:USDT
+2025-12-05 15:05:29,071 - trading_bot - INFO - 新增监控: SKYAI/USDT:USDT
+2025-12-05 15:05:29,071 - trading_bot - INFO - 当前监控列表 (6): ['HEMI/USDT:USDT', 'RIVER/USDT:USDT', 'ZEC/USDT:USDT', 'SAPIEN/USDT:USDT', '1000LUNC/USDT:USDT', 'SKYAI/USDT:USDT']
+2025-12-05 15:05:29,071 - trading_bot - INFO - 正在执行启动时历史数据检查...
+2025-12-05 15:05:31,508 - trading_bot - INFO - 启动时检查完成
+2025-12-05 15:05:49,978 - trading_bot - ERROR - 扫描涨幅榜失败: 'MarketMonitor' object has no attribute 'subscribe'
+2025-12-05 15:06:10,043 - trading_bot - ERROR - 扫描涨幅榜失败: 'list' object has no attribute 'add'
+2025-12-05 15:06:33,538 - trading_bot - INFO - 当前监控列表 (6): ['SAPIEN/USDT:USDT', '1000LUNC/USDT:USDT', 'SKYAI/USDT:USDT', 'RIVER/USDT:USDT', 'HEMI/USDT:USDT', 'ZEC/USDT:USDT']
+2025-12-05 15:06:35,902 - trading_bot - INFO - 当前监控列表 (6): ['HEMI/USDT:USDT', 'RIVER/USDT:USDT', 'ZEC/USDT:USDT', 'SAPIEN/USDT:USDT', '1000LUNC/USDT:USDT', 'SKYAI/USDT:USDT']
+2025-12-05 15:06:55,878 - trading_bot - ERROR - 扫描涨幅榜失败: 'MarketMonitor' object has no attribute 'subscribe'
+2025-12-05 15:07:14,100 - trading_bot - ERROR - 扫描涨幅榜失败: 'list' object has no attribute 'add'
+2025-12-05 15:07:40,449 - trading_bot - INFO - 当前监控列表 (6): ['SAPIEN/USDT:USDT', '1000LUNC/USDT:USDT', 'SKYAI/USDT:USDT', 'RIVER/USDT:USDT', 'HEMI/USDT:USDT', 'ZEC/USDT:USDT']
+2025-12-05 15:07:42,689 - trading_bot - INFO - 当前监控列表 (6): ['HEMI/USDT:USDT', 'RIVER/USDT:USDT', 'ZEC/USDT:USDT', 'SAPIEN/USDT:USDT', '1000LUNC/USDT:USDT', 'SKYAI/USDT:USDT']
+2025-12-05 15:08:01,838 - trading_bot - ERROR - 扫描涨幅榜失败: 'MarketMonitor' object has no attribute 'subscribe'
+2025-12-05 15:08:17,931 - trading_bot - ERROR - 扫描涨幅榜失败: 'list' object has no attribute 'add'
+2025-12-05 15:08:47,073 - trading_bot - INFO - 当前监控列表 (6): ['SAPIEN/USDT:USDT', '1000LUNC/USDT:USDT', 'SKYAI/USDT:USDT', 'RIVER/USDT:USDT', 'HEMI/USDT:USDT', 'ZEC/USDT:USDT']
+2025-12-05 15:08:49,439 - trading_bot - INFO - 当前监控列表 (6): ['HEMI/USDT:USDT', 'RIVER/USDT:USDT', 'ZEC/USDT:USDT', 'SAPIEN/USDT:USDT', '1000LUNC/USDT:USDT', 'SKYAI/USDT:USDT']
+2025-12-05 15:09:08,378 - trading_bot - ERROR - 扫描涨幅榜失败: 'MarketMonitor' object has no attribute 'subscribe'
+2025-12-05 15:09:22,935 - trading_bot - ERROR - 扫描涨幅榜失败: 'list' object has no attribute 'add'

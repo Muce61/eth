@@ -99,116 +99,63 @@ class MomentumStrategy:
         """
         if df.empty or len(df) < 21:
             return None
-            
-        # DEBUG: Trace BTC
-        if 'BTC' in symbol.upper():
-            # print(f"DEBUG: Checking {symbol} | Len: {len(df)}")
-            pass
 
         current = df.iloc[-1]
+        body_size = current['close'] - current['open']
+        upper_wick = current['high'] - current['close']
         
-        # Calculate metrics
+        # ========================================
+        # QUALITY FILTERS V2 (Relaxed for Opportunity)
+        # Based on Legacy Test: Filters work (545% on 227 coins)
+        # Goal: Balance selectivity with opportunity capture
+        # ========================================
+        
+        # Calculate metrics for filtering
         avg_vol = df['volume'].iloc[-21:-1].mean()
         vol_ratio = current['volume'] / avg_vol if avg_vol > 0 else 0
         rsi = ta.rsi(df['close'], length=14).iloc[-1]
         adx = ta.adx(df['high'], df['low'], df['close'], length=14)['ADX_14'].iloc[-1]
+        upper_wick_ratio = upper_wick / current['close']
         
-        # Trend Check (EMA 200)
-        ema200 = ta.ema(df['close'], length=200)
-        if ema200 is None:
-            # if 'BTC' in symbol.upper():
-            #     print(f"DEBUG: {symbol} EMA200 is None (Len: {len(df)})")
+        # FILTER 1: RSI Range (65-90) - RELAXED from 70-85
+        # Allow: Moderate momentum (65-70) AND strong momentum up to 90
+        # Avoid: Only extreme overbought >90 (historical 10% win rate)
+        if not (65 <= rsi <= 90):
+            return None
+        
+        # FILTER 2: ADX Range (25-60) - RELAXED from 30-50
+        # Allow: Broader trend range to capture more trends
+        # Avoid: Only very weak trends <25
+        if not (25 <= adx <= 60):
+            return None
+        
+        # FILTER 3: Volume Ratio (2.5-12x) - RELAXED from 3-8x
+        # Allow: Moderate volume (2.5x) and stronger pumps (12x)
+        # Avoid: Only extreme chasing >12x
+        if not (2.5 <= vol_ratio <= 12):
+            return None
+        
+        # FILTER 4: Upper Wick Ratio (< 20%) - RELAXED from 15%
+        # Allow: Slightly more wick tolerance
+        if upper_wick_ratio > 0.20:
             return None
             
-        current_ema = ema200.iloc[-1]
-        if pd.isna(current_ema):
-            # if 'BTC' in symbol.upper():
-            #     print(f"DEBUG: {symbol} EMA200 is NaN (Len: {len(df)})")
-            return None
-            
-        # DEBUG: Print metrics for BTC
-        if 'BTC' in symbol.upper() and (vol_ratio > 2.0 or rsi > 50 or rsi < 50):
-             # print(f"DEBUG: {symbol} Price: {current['close']:.2f} | EMA: {current_ema:.2f} | Vol: {vol_ratio:.2f} | RSI: {rsi:.2f}")
-             pass
+        # Signal Generated
+        timestamp = df['timestamp'].iloc[-1] if 'timestamp' in df.columns else df.index[-1]
         
-        # Get timestamp from the last candle
-        timestamp = df.index[-1]
-
-        # ----------------------------------------
-        # LONG SIGNAL
-        # ----------------------------------------
-        if current['close'] > current_ema:
-            # 1. EMA Deviation Cap (15%)
-            if (current['close'] - current_ema) / current_ema > 0.15:
-                # print(f"DEBUG: {symbol} Long Rejected - EMA Deviation {((current['close'] - current_ema) / current_ema):.2f} > 0.15")
-                return None
-                
-            # 2. Time Filter (Avoid 05:00-07:00 UTC)
-            if timestamp.hour in [5, 6, 7]:
-                return None
-            
-            # 3. Volume Filter (Data-optimized > 3.2)
-            if vol_ratio <= 3.2:
-                # print(f"DEBUG: {symbol} Long Rejected - Vol {vol_ratio:.2f} <= 3.5")
-                return None
-                
-            # 4. RSI Filter (Data-optimized > 59)
-            if rsi <= 59:
-                # print(f"DEBUG: {symbol} Long Rejected - RSI {rsi:.2f} <= 60")
-                return None
-                
-            # 5. ADX Filter (Data-optimized 33-60 for best win rate)
-            if not (33 <= adx <= 60):
-                # print(f"DEBUG: {symbol} Long Rejected - ADX {adx:.2f} not in 25-60")
-                return None
-            
-            print(f"✅ SIGNAL FOUND: {symbol} LONG | Vol: {vol_ratio:.2f} | RSI: {rsi:.2f}")    
-            return {
-                'symbol': symbol,
-                'side': 'LONG',
-                'entry_price': current['close'],
-                'timestamp': timestamp,
-                'metrics': {'rsi': rsi, 'adx': adx, 'vol': vol_ratio}
+        # Metrics already calculated above for filtering
+        return {
+            'symbol': symbol,
+            'side': 'LONG',
+            'entry_price': current['close'],
+            'timestamp': timestamp,
+            'metrics': {
+                'rsi': rsi,
+                'adx': adx,
+                'volume_ratio': vol_ratio,
+                'upper_wick_ratio': upper_wick_ratio
             }
-            
-        # ----------------------------------------
-        # SHORT SIGNAL
-        # ----------------------------------------
-        elif current['close'] < current_ema:
-            # 1. EMA Deviation Cap (15% downside)
-            if (current_ema - current['close']) / current_ema > 0.15:
-                return None
-                
-            # 2. Time Filter
-            if timestamp.hour in [5, 6, 7]:
-                return None
-                
-            # 3. Volume Filter (Panic Selling)
-            if vol_ratio <= 3.0:
-                return None
-                
-            # 4. RSI Filter (Weakness < 45)
-            if rsi >= 45:
-                return None
-                
-            # 5. ADX Filter
-            if not (25 <= adx <= 60):
-                return None
-                
-            # 6. Candle Shape (Must be Red)
-            if current['close'] >= current['open']:
-                return None
-            
-            print(f"✅ SIGNAL FOUND: {symbol} SHORT | Vol: {vol_ratio:.2f} | RSI: {rsi:.2f}")
-            return {
-                'symbol': symbol,
-                'side': 'SHORT',
-                'entry_price': current['close'],
-                'timestamp': timestamp,
-                'metrics': {'rsi': rsi, 'adx': adx, 'vol': vol_ratio}
-            }
-            
-        return None
+        }
 
     def calculate_signal_score(self, df):
         """

@@ -17,18 +17,16 @@ from utils.backtest_metrics import calculate_comprehensive_metrics
 
 def main():
     print("="*80)
-    print("样本外压力测试: 2025年10月 (10.01 - 10.31)")
-    print("策略配置: SmartExit + QualityFilter (与11月回测一致)")
+    print("样本外压力测试: 2025年1月 - 11月 (01.01 - 11.30)")
+    print("策略配置: 固定风险 2% (无守财模式) + 亏损模式过滤 + 资金回撤保护")
     print("="*80)
-    print()
     
     # 初始化回测引擎
     engine = RealBacktestEngine(initial_balance=100)
     
-    # 运行回测 (指定日期范围)
-    # 注意: 数据源可能从9月开始，所以10月应该有数据
-    print("正在运行10月份回测...")
-    engine.run(start_date='2025-10-01', end_date='2025-10-31')
+    # Run for Jan to Nov (11 months)
+    print("\n正在运行2025年1-11月份回测 (11个月)...")
+    engine.run(start_date='2025-01-01', end_date='2025-11-30')
     
     # 计算指标
     metrics = calculate_comprehensive_metrics(
@@ -54,8 +52,8 @@ def main():
     # 保存交易记录
     trades_df = pd.DataFrame(engine.trades)
     if not trades_df.empty:
-        trades_df.to_csv('backtest_results/csv/backtest_trades_october.csv', index=False)
-        print("交易记录已保存至 backtest_results/csv/backtest_trades_october.csv")
+        trades_df.to_csv('backtest_results/csv/backtest_trades_november.csv', index=False)
+        print("交易记录已保存至 backtest_results/csv/backtest_trades_november.csv")
 
 if __name__ == "__main__":
     main()

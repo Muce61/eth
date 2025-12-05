@@ -48,7 +48,7 @@ def fetch_1year_data():
     print(f"Estimated time: 2-3 hours (due to API limits)\n")
     
     # Create output directory
-    output_dir = Path('/Users/muce/1m_data/new_backtest_data_1year_1m')
+    output_dir = Path('/Users/muce/1m_data/backtest_data_1year_1m')
     output_dir.mkdir(parents=True, exist_ok=True)
     
     # Timeframe: 1m
@@ -63,36 +63,22 @@ def fetch_1year_data():
     failed = 0
     
     for idx, symbol in enumerate(top_symbols, 1):
+        # Check if file already exists
         filename = output_dir / f"{symbol.replace('/', '').replace(':', '')}.csv"
+        
+        if filename.exists():
+            # Check if file size is reasonable (> 1MB indicates complete download)
+            file_size_mb = filename.stat().st_size / (1024 * 1024)
+            if file_size_mb > 1.0:
+                print(f"[{idx}/{len(top_symbols)}] {symbol}... ✓ Already exists ({file_size_mb:.1f}MB), skipping")
+                successful += 1
+                continue
         
         print(f"[{idx}/{len(top_symbols)}] {symbol}...", end=' ')
         
         try:
-            # Check if file exists and determine start time
-            if filename.exists():
-                # Read existing file to get last timestamp
-                existing_df = pd.read_csv(filename)
-                if len(existing_df) > 0:
-                    existing_df['timestamp'] = pd.to_datetime(existing_df['timestamp'])
-                    last_timestamp = existing_df['timestamp'].max()
-                    
-                    # If data is up to date (within 2 hours), skip
-                    if (datetime.now() - last_timestamp).total_seconds() < 7200:
-                        print(f"✓ Up to date (last: {last_timestamp})")
-                        successful += 1
-                        continue
-                    
-                    # Start from last timestamp + 1 minute
-                    current_start = last_timestamp + timedelta(minutes=1)
-                    print(f"Updating from {last_timestamp.strftime('%Y-%m-%d %H:%M')}...", end=' ')
-                else:
-                    current_start = start_time
-                    existing_df = None
-            else:
-                current_start = start_time
-                existing_df = None
-            
             all_data = []
+            current_start = start_time
             
             # Fetch data in chunks (pagination)
             while current_start < end_time:
@@ -118,29 +104,19 @@ def fetch_1year_data():
                 # Rate limiting
                 time.sleep(0.05)
             
-            if len(all_data) == 0:
-                print(f"✓ No new data")
-                successful += 1
-                continue
+            # Convert to DataFrame
+            df = pd.DataFrame(all_data, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
+            df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
             
-            # Convert new data to DataFrame
-            new_df = pd.DataFrame(all_data, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
-            new_df['timestamp'] = pd.to_datetime(new_df['timestamp'], unit='ms')
-            
-            # Merge with existing data if exists
-            if existing_df is not None:
-                df = pd.concat([existing_df, new_df], ignore_index=True)
-            else:
-                df = new_df
-            
-            # Remove duplicates and sort
+            # Remove duplicates
             df = df.drop_duplicates(subset=['timestamp'])
             df = df.sort_values('timestamp')
             
             # Save to CSV
+            filename = output_dir / f"{symbol.replace('/', '').replace(':', '')}.csv"
             df.to_csv(filename, index=False)
             
-            print(f"✓ Added {len(new_df):,} candles (total: {len(df):,})")
+            print(f"✓ {len(df):,} candles")
             successful += 1
             
         except Exception as e:

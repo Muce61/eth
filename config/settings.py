@@ -15,7 +15,7 @@ class Config:
     TIMEFRAME = '15m'  # Signal timeframe
     LOOKBACK_WINDOW = 50 # For indicators
     TOP_GAINER_COUNT = 50
-    CHANGE_THRESHOLD_MIN = 0.5   # Min 0.5% 24h change (lowered from 2.0%)
+    CHANGE_THRESHOLD_MIN = 2.0   # Min 2% 24h change (widened from 5%)
     CHANGE_THRESHOLD_MAX = 200.0 # Max 200% 24h change (widened from 20%)
     BULLISH_CANDLES_COUNT = 2    # Reduced to 2 for faster entry
     

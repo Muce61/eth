@@ -5,7 +5,10 @@ from config.settings import Config
 from data.binance_client import BinanceClient
 from data.websocket_monitor import MarketMonitor
 from strategy.momentum import MomentumStrategy
+from strategy.quality_filter import QualityFilterModule as QualityFilter
 from risk.manager import RiskManager
+from risk.trend_reversal_detector import TrendReversalDetector
+from strategy.smart_exit import SmartExitModule
 from execution.executor import Executor
 from monitor.logger import setup_logger
 import logging
@@ -28,8 +31,19 @@ class TradingBot:
         self.logger.info("📊 已启用: 信号置信度驱动动态杠杆策略")
         self.risk_manager = RiskManager()
         
-        self.active_symbols = [] # Symbols we are monitoring/trading
+        # 初始化趋势反转检测器 (熔断机制)
+        self.trend_detector = TrendReversalDetector()
+        self.logger.info("🛡️ 已启用: 趋势反转熔断机制 (三层防御)")
+        
+        # 初始化智能离场模块 (对齐回测逻辑)
+        self.smart_exit = SmartExitModule()
+        self.logger.info("🧠 已启用: 智能离场模块 (动态追踪 + 保本止损)")
+        
+        self.quality_filter = QualityFilter() # New: Backtest Alignment
+        
+        self.active_symbols = set() # Symbols we are monitoring/trading
         self.positions = {} # {symbol: position_data}
+        self.paper_positions = {} # {symbol: position_data} (虚拟持仓)
         
         self.monitor = MarketMonitor(callbacks={
             'ticker': self.on_ticker_update,
@@ -43,6 +57,10 @@ class TradingBot:
         
         from monitor.trade_recorder import TradeRecorder
         self.recorder = TradeRecorder()
+
+        # Cache for volume ranking
+        self.coin_volume_ranking = {}
+        self.TOP_N_COINS = 200
         
     def start(self):
         self.logger.info("正在启动交易机器人...")
@@ -63,10 +81,30 @@ class TradingBot:
             while True:
                 time.sleep(60) # Scan every minute
                 self.scan_top_gainers()
+                
+                # Polling Strategy Trigger (Since WS is dummy)
+                # Iterate over a copy to avoid modification issues
+                current_symbols = list(self.active_symbols)
+                for symbol in current_symbols:
+                    self.process_strategy_safe(symbol)
+                    
                 self.log_market_status() # New logging function
                 self.manage_positions()
         except KeyboardInterrupt:
             self.stop()
+
+    def process_strategy_safe(self, symbol):
+        """
+        Safely fetch data and process strategy for a symbol.
+        """
+        try:
+            # Fetch recent klines (enough for strategy)
+            # Strategy needs ~50 candles
+            df = self.client.get_historical_klines(symbol, timeframe=self.config.TIMEFRAME, limit=60)
+            if not df.empty:
+                self.process_strategy(symbol, df)
+        except Exception as e:
+            self.logger.error(f"策略处理失败 {symbol}: {e}")
 
     def check_historical_signals(self):
         """
@@ -86,6 +124,7 @@ class TradingBot:
         """
         Log detailed status of top 20 coins to CSV (Snapshot).
         """
+        # self.logger.info("正在更新市场状态CSV...")
         csv_file = "logs/market_status.csv"
         
         data_rows = []
@@ -136,43 +175,88 @@ class TradingBot:
     def scan_top_gainers(self):
         """
         Fetch top gainers and update active symbols.
+        Now includes Quality Filter and Volume Ranking (Backtest Alignment).
         """
         try:
-            # Fetch more than 50 to allow for filtering
-            top_gainers = self.client.get_top_gainers(limit=100)
+            # 1. Fetch all tickers
+            tickers = self.client.get_top_gainers()
+            self.top_gainers_data = tickers # Cache for logging
             
-            # Filter using strategy logic (5% <= change <= 20%)
-            qualified_symbols = self.strategy.filter_top_gainers(top_gainers)
+            # 2. Update Volume Ranking (Global)
+            # We need 24h volume for all coins to rank them
+            # Tickers data usually contains quoteVolume
+            all_volumes = []
+            for t in tickers:
+                symbol = t[0]
+                vol = float(t[1].get('quoteVolume', 0))
+                all_volumes.append((symbol, vol))
             
-            self.top_gainers_data = top_gainers # Cache full list for lookup if needed
-            new_symbols = qualified_symbols
+            all_volumes.sort(key=lambda x: x[1], reverse=True)
+            self.coin_volume_ranking = {sym: rank+1 for rank, (sym, _) in enumerate(all_volumes)}
             
-            # Update monitor if symbols changed
-            with self.lock:
-                if set(new_symbols) != set(self.active_symbols):
-                    self.logger.info("监控列表发生变化，正在更新 WebSocket 订阅...")
-                    self.active_symbols = new_symbols
-                    
-                    # Restart Monitor to subscribe to new symbols
-                    # Note: Monitor restart might take time, do it outside lock? 
-                    # No, active_symbols needs protection. But stopping monitor might block.
-                    # Better: Update symbols, then restart monitor outside lock if possible?
-                    # Monitor reads self.symbols. Let's keep it simple for now.
-                    
-                    if self.monitor.keep_running:
-                        self.monitor.stop()
-                        # Wait a bit for thread to close
-                        time.sleep(1)
-                        
-                    self.monitor.symbols = self.active_symbols
-                    self.monitor.start()
-                else:
-                    self.active_symbols = new_symbols
+            # 3. Filter Candidates
+            new_symbols = set()
+            
+            # Pre-filter by change % to reduce API calls
+            candidates = [t for t in tickers if self.config.CHANGE_THRESHOLD_MIN <= float(t[1]['percentage']) <= self.config.CHANGE_THRESHOLD_MAX]
+            
+            # Limit to checking top 30 candidates to avoid rate limits
+            for t in candidates[:30]:
+                symbol = t[0]
                 
-            self.logger.info(f"涨幅榜已更新: {len(self.active_symbols)} 个币种")
+                # Rank Check
+                rank = self.coin_volume_ranking.get(symbol, 999)
+                if rank > self.TOP_N_COINS:
+                    # self.logger.debug(f"Skipping {symbol}: Rank {rank} > {self.TOP_N_COINS}")
+                    continue
+                    
+                # Quality Check (Needs History)
+                try:
+                    # Fetch enough data for EMA96 (24h) and Volume MA
+                    df = self.client.get_historical_klines(symbol, timeframe=self.config.TIMEFRAME, limit=120)
+                    if df.empty: continue
+                    
+                    # Calculate 24h Volume
+                    # Approximate by summing last 96 candles (15m * 96 = 24h)
+                    volume_24h_slice = df.iloc[-96:]
+                    volume_24h_usd = (volume_24h_slice['close'] * volume_24h_slice['volume']).sum()
+                    
+                    is_good, reason = self.quality_filter.check_quality(symbol, volume_24h_slice, volume_24h_usd)
+                    
+                    if is_good:
+                        new_symbols.add(symbol)
+                    else:
+                        pass
+                        # self.logger.debug(f"Skipping {symbol}: {reason}")
+                        
+                except Exception as e:
+                    self.logger.error(f"Error checking quality for {symbol}: {e}")
+            
+            # Update Active Symbols
+            with self.lock:
+                # Add new symbols
+                for s in new_symbols:
+                    if s not in self.active_symbols:
+                        self.active_symbols.add(s)
+                        # self.monitor.subscribe(s) # Dummy monitor has no subscribe
+                        self.logger.info(f"新增监控: {s}")
+                
+                # Remove old symbols (if not in position)
+                # Keep symbols if we have a position or if they are still in top gainers
+                to_remove = []
+                for s in self.active_symbols:
+                    if s not in new_symbols and s not in self.positions and s not in self.paper_positions:
+                        to_remove.append(s)
+                        
+                for s in to_remove:
+                    self.active_symbols.remove(s)
+                    # self.monitor.unsubscribe(s) # Dummy monitor has no unsubscribe
+                    self.logger.info(f"移除监控: {s}")
+                    
+            self.logger.info(f"当前监控列表 ({len(self.active_symbols)}): {list(self.active_symbols)}")
             
         except Exception as e:
-            self.logger.error(f"扫描涨幅榜出错: {e}")
+            self.logger.error(f"扫描涨幅榜失败: {e}")
 
     def on_ticker_update(self, data):
         # Handle ticker updates if needed (e.g. for real-time top gainer check)
@@ -200,8 +284,47 @@ class TradingBot:
                 self.process_strategy(symbol, df)
 
     def process_strategy(self, symbol, df):
+        # 1. Check Circuit Breaker (Global)
+        current_balance = float(self.client.get_balance())
+        
+        # Let's use a simple peak balance tracker
+        if not hasattr(self, 'peak_balance'):
+            self.peak_balance = current_balance
+        self.peak_balance = max(self.peak_balance, current_balance)
+        
+        should_pause = self.trend_detector.should_pause_trading(current_balance, self.peak_balance)
+        
+        # 2. Check BTC Trend (Market Regime)
+        is_btc_downtrend = False
+        try:
+            btc_df = self.client.get_historical_klines('BTCUSDT', timeframe=self.config.TIMEFRAME, limit=210)
+            if not btc_df.empty:
+                import pandas_ta as ta
+                ema200 = ta.ema(btc_df['close'], length=200).iloc[-1]
+                btc_price = btc_df['close'].iloc[-1]
+                if btc_price < ema200:
+                    is_btc_downtrend = True
+        except Exception as e:
+            self.logger.warning(f"无法获取BTC趋势: {e}")
+
+        # Determine if this should be a paper trade
+        is_paper_trade = False
+        if should_pause:
+            is_paper_trade = True
+        elif is_btc_downtrend:
+            is_paper_trade = True
+
         # Check for Entry
-        if symbol not in self.positions:
+        # LOCKING: Protect access to positions
+        with self.lock:
+            # If paper trade, we check paper positions
+            if is_paper_trade:
+                if symbol in self.paper_positions:
+                    return 
+            else:
+                if symbol in self.positions:
+                    return
+
             # DEBUG: Log that we're checking for a signal
             # self.logger.debug(f"检查 {symbol} 信号...")
             
@@ -213,33 +336,67 @@ class TradingBot:
             
             if signal and signal['side'] == 'LONG':
                 
-                # Check Max Positions
-                if len(self.positions) >= self.config.MAX_OPEN_POSITIONS:
-                    active_symbol = list(self.positions.keys())[0]
-                    self.logger.info(f"跳过信号 {symbol}: 已有持仓 {active_symbol}")
-                    self.trade_logger.info(f"跳过信号 {symbol}: 已有持仓 {active_symbol} (上限 {self.config.MAX_OPEN_POSITIONS})")
-                    return
+                # Check Max Positions (Real only)
+                if not is_paper_trade:
+                    if len(self.positions) >= self.config.MAX_OPEN_POSITIONS:
+                        active_symbol = list(self.positions.keys())[0]
+                        self.logger.info(f"跳过信号 {symbol}: 已有持仓 {active_symbol}")
+                        self.trade_logger.info(f"跳过信号 {symbol}: 已有持仓 {active_symbol} (上限 {self.config.MAX_OPEN_POSITIONS})")
+                        return
                     
-                self.logger.info(f"发现信号: {symbol} 做多")
-                self.trade_logger.info(f"触发信号: {symbol} 做多 | 价格: {df['close'].iloc[-1]}")
-                self.execute_entry(symbol, df, signal=signal)  # 传递signal对象用于动态杠杆计算
-        
-        # Check for Exit (Trailing Stop handled in manage_positions or here?)
-        # Better here with real-time price, but we need current price.
-        # df.iloc[-1]['close'] is the close of the JUST closed candle.
-        # For trailing stop, we might want real-time price from ticker.
-        pass
+                self.logger.info(f"发现信号: {symbol} 做多 (虚拟交易: {is_paper_trade})")
+                self.trade_logger.info(f"触发信号: {symbol} 做多 | 价格: {df['close'].iloc[-1]} | 虚拟: {is_paper_trade}")
+                self.execute_entry(symbol, df, signal=signal, is_paper_trade=is_paper_trade)  # 传递signal对象用于动态杠杆计算
+    
+    # Check for Exit (Trailing Stop handled in manage_positions or here?)
+    # Better here with real-time price, but we need current price.
+    # df.iloc[-1]['close'] is the close of the JUST closed candle.
+    # For trailing stop, we might want real-time price from ticker.
+    pass
 
-    def execute_entry(self, symbol, df, signal=None):
+    def execute_entry(self, symbol, df, signal=None, is_paper_trade=False):
         """执行开仓 (已集成信号置信度动态杠杆)"""
-        self.logger.info(f"[开仓流程] 开始执行 {symbol} 开仓...")
+        mode_str = "虚拟交易" if is_paper_trade else "实盘交易"
+        self.logger.info(f"[开仓流程] 开始执行 {symbol} 开仓 ({mode_str})...")
+        
         try:
             price = df['close'].iloc[-1]
             self.logger.info(f"[开仓流程] {symbol} 入场价格: {price}")
             
-            balance = self.client.get_balance()
+            balance = float(self.client.get_balance())
             self.logger.info(f"[开仓流程] 账户余额: {balance} USDT")
             
+            # Calculate Stop Loss
+            # ... (Reuse existing logic or call strategy)
+            # For simplicity, let's assume fixed 1.4% or similar to backtest
+            # Backtest uses ATR or fixed. Let's use fixed 1.4% for safety as per backtest fallback
+            stop_loss_pct = 0.014
+            stop_loss_price = price * (1 - stop_loss_pct)
+            
+            # Calculate Quantity using Risk Manager
+            # For paper trade, use real balance to simulate realistic size
+            quantity = self.risk_manager.calculate_position_size(balance, price, stop_loss_price)
+            
+            if quantity <= 0:
+                self.logger.warning(f"计算仓位为0，跳过开仓")
+                return
+
+            # PAPER TRADING EXECUTION
+            if is_paper_trade:
+                position_data = {
+                    'symbol': symbol,
+                    'entry_price': price,
+                    'quantity': quantity,
+                    'stop_loss': stop_loss_price,
+                    'highest_price': price,
+                    'entry_time': datetime.now(),
+                    'is_paper': True
+                }
+                self.paper_positions[symbol] = position_data
+                self.logger.info(f"📝 [虚拟交易] 开仓成功: {symbol} @ {price}")
+                return
+
+            # REAL TRADING EXECUTION
             # 1. Set Margin Mode to ISOLATED (Safety First)
             self.executor.set_margin_mode(symbol, 'ISOLATED')
             
@@ -248,8 +405,50 @@ class TradingBot:
                 # 使用信号置信度模块计算最优杠杆
                 calculated_leverage = self.leverage_strategy.calculate(
                     symbol=symbol,
+                    signal_metrics=signal['metrics'],
+                    market_volatility=signal.get('volatility', 0) # 需要策略返回波动率
+                )
+                leverage = calculated_leverage
+            else:
+                leverage = 10 # Default fallback
+                
+            self.executor.set_leverage(symbol, leverage)
+            
+            # 3. Place Market Order
+            self.executor.place_order(symbol, 'BUY', quantity, 'MARKET')
+            
+            # 4. Place Stop Loss
+            self.executor.place_stop_loss(symbol, 'BUY', quantity, stop_loss_price)
+            
+            # 5. Record Position
+            position_data = {
+                'symbol': symbol,
+                'entry_price': price,
+                'quantity': quantity,
+                'stop_loss': stop_loss_price,
+                'highest_price': price,
+                'entry_time': datetime.now(),
+                'leverage': leverage,
+                'is_paper': False
+            }
+            self.positions[symbol] = position_data
+            
+            self.logger.info(f"✅ [实盘交易] 开仓成功: {symbol} @ {price}")
+            
+        except Exception as e:
+            self.logger.error(f"开仓失败 {symbol}: {e}")
+
+    def execute_entry(self, symbol, df, signal, is_paper_trade=False):
+        """
+        Execute entry logic: Calculate leverage, quantity, and place orders.
+        """
+        try:
+            # 1. Calculate Dynamic Leverage
+            if not is_paper_trade:
+                calculated_leverage, metrics = self.leverage_strategy.calculate_dynamic_leverage(
+                    symbol=symbol, 
                     signal=signal,
-                    current_price=price,
+                    current_price=df['close'].iloc[-1],
                     df=df
                 )
                 confidence_score = self.leverage_strategy.get_confidence_score(signal)
@@ -258,7 +457,7 @@ class TradingBot:
                 # Fallback: 使用固定杠杆
                 calculated_leverage = self.config.LEVERAGE
                 confidence_score = 0
-                self.logger.warning(f"⚠️  [动态杠杆] {symbol} 无有效信号metrics,使用固定杠杆 {calculated_leverage}x")
+                # self.logger.warning(f"⚠️  [动态杠杆] {symbol} 无有效信号metrics,使用固定杠杆 {calculated_leverage}x")
             
             # 3. 安全限制: 最大杠杆25x (留安全边际)
             max_safe_leverage = 25
@@ -275,23 +474,29 @@ class TradingBot:
                 target_leverage = 10
                 self.executor.set_leverage(symbol, target_leverage)
 
-            # 5. Calculate Quantity
-            # Risk Amount = Balance * Margin% (e.g. 10%)
-            risk_amount = balance * self.config.TRADE_MARGIN_PERCENT
-            # Quantity = (Risk Amount * Leverage) / Price
-            quantity = (risk_amount * target_leverage) / price
+            # 5. Calculate Quantity & Stop Loss (Risk-Based)
+            current_price = df['close'].iloc[-1]
+            balance = float(self.client.get_balance())
             
-            # Calculate Stop Loss (根据杠杆调整)
-            if target_leverage >= 30:
-                stop_loss_pct = 0.025  # 30x: 2.5%止损
-            elif target_leverage >= 20:
-                stop_loss_pct = 0.035  # 20x: 3.5%止损
-            else:
-                stop_loss_pct = 0.045  # 10x: 4.5%止损
+            # 5.1 Calculate ATR Stop Loss
+            stop_loss_price = self.risk_manager.calculate_stop_loss(df, current_price, side='LONG')
             
-            stop_loss = price * (1 - stop_loss_pct)
+            # 5.2 Calculate Position Size (Risk Manager)
+            # Note: RiskManager uses account balance to determine risk amount
+            quantity = self.risk_manager.calculate_position_size(balance, current_price, stop_loss_price, leverage=target_leverage)
             
-            self.logger.info(f"[开仓流程] {symbol} 最终计算: 数量={quantity:.4f}, 杠杆={target_leverage}x, 止损={stop_loss:.4f} ({stop_loss_pct*100:.1f}%)")
+            # 5.3 Sanity Check
+            if quantity <= 0:
+                self.logger.warning(f"❌ [开仓流程] {symbol} 计算数量为0 (可能止损太近或余额不足)")
+                return
+
+            # 5.4 Ensure Minimum Notional (Binance usually $5)
+            notional = quantity * current_price
+            if notional < 6:
+                self.logger.warning(f"❌ [开仓流程] {symbol} 名义价值 ${notional:.2f} < $6, 放弃开仓")
+                return
+            
+            self.logger.info(f"[开仓流程] {symbol} 最终计算: 数量={quantity:.4f}, 杠杆={target_leverage}x, 止损={stop_loss_price:.4f}")
             self.logger.info(f"📊 [置信度详情] RSI={signal['metrics'].get('rsi', 0):.1f}, Vol比={signal['metrics'].get('volume_ratio', 0):.2f}x, ADX={signal['metrics'].get('adx', 0):.1f}")
             
             if quantity <= 0:
@@ -354,212 +559,116 @@ class TradingBot:
 
     def manage_positions(self):
         """
-        Comprehensive position management matching backtest logic:
-        1. Base stop loss check (CRITICAL)
-        2. Liquidation protection (CRITICAL)
-        3. ROE-based profit taking
-        4. Trailing stop
-        5. Stagnation exit
+        Manage open positions (Real and Paper).
         """
-        if not self.positions:
-            return
-            
-        self.logger.info(f"正在管理 {len(self.positions)} 个持仓...")
-        
-        from datetime import datetime, timedelta
-        
-        # Iterate over a copy of keys to avoid RuntimeError during modification
-        for symbol in list(self.positions.keys()):
-            try:
-                position = self.positions[symbol]
-                
-                # Fetch latest price
-                ticker = self.client.exchange.fetch_ticker(symbol)
-                current_price = ticker['last']
-                
-                # Get position details
-                entry_price = position['entry_price']
-                stop_loss = position['stop_loss']
-                highest_price = position.get('highest_price', entry_price)
-                entry_time = position.get('entry_time', datetime.now())
-                leverage = self.config.LEVERAGE
-                
-                # Calculate ROE
-                current_roe = ((current_price - entry_price) / entry_price) * leverage
-                
-                # ===== 1. BASE STOP LOSS CHECK (CRITICAL) =====
-                if current_price <= stop_loss:
-                    self.logger.critical(f"🛑 {symbol} 止损触发! 当前价: {current_price:.6f}, 止损价: {stop_loss:.6f}")
-                    self.trade_logger.critical(f"{symbol} 止损平仓 @ {current_price}, ROE: {current_roe:.2%}")
+        # LOCKING: Protect access to positions
+        with self.lock:
+            # 1. Manage Real Positions
+            for symbol in list(self.positions.keys()):
+                try:
+                    self.manage_single_position(symbol, is_paper=False)
+                except Exception as e:
+                    self.logger.error(f"管理实盘仓位 {symbol} 出错: {e}")
                     
-                    # Close position
-                    self._close_position_and_log(symbol, 'Stop Loss', current_price, position)
-                    continue
-                
-                # ===== 2. LIQUIDATION PROTECTION (CRITICAL) =====
-                liq_threshold = 1 / leverage - 0.005  # 50x: -1.5%
-                liq_price = entry_price * (1 - liq_threshold)
-                
-                if current_price <= liq_price:
-                    self.logger.critical(f"⚠️ {symbol} 接近爆仓! 当前价: {current_price:.6f}, 爆仓价: {liq_price:.6f}")
-                    self.trade_logger.critical(f"{symbol} 爆仓保护平仓 @ {current_price}, ROE: {current_roe:.2%}")
-                    
-                    # Emergency close
-                    self._close_position_and_log(symbol, 'LIQUIDATION PROTECT', current_price, position)
-                    continue
-                
-                # Update highest price
-                if current_price > highest_price:
-                    position['highest_price'] = current_price
-                    highest_price = current_price
-                    self.logger.info(f"✨ {symbol} 新高: {current_price:.6f}, ROE: {current_roe:.2%}")
-                
-                # ===== 3. ROE-BASED PROFIT TAKING =====
-                # Move to breakeven at 15% ROE (matched to backtest)
-                if current_roe >= 0.15 and stop_loss < entry_price:
-                    new_sl = entry_price * 1.002  # Breakeven + 0.2%
-                    self.logger.info(f"📈 {symbol} 15% ROE达成，移动止损至保本: {new_sl:.6f}")
-                    position['stop_loss'] = new_sl
-                    
-                    # Update exchange stop loss order
-                    try:
-                        self.executor.cancel_all_orders(symbol)
-                        self.executor.place_stop_loss(symbol, 'BUY', position['quantity'], new_sl)
-                    except Exception as e:
-                        self.logger.warning(f"更新止损单失败: {e}")
-                
-                # Lock in 12% profit at 25% ROE
-                elif current_roe >= 0.25:
-                    target_roe = 0.12
-                    new_sl = entry_price * (1 + target_roe / leverage)
-                    
-                    if new_sl > stop_loss:
-                        self.logger.info(f"💰 {symbol} 25% ROE达成，锁定12%利润: {new_sl:.6f}")
-                        
-                        # CRITICAL FIX: If price dropped below new_sl, sell immediately
-                        if new_sl > current_price:
-                            self.logger.warning(f"⚠️ {symbol} 价格回调过快 ({current_price} < {new_sl})，立即市价止盈!")
-                            self._close_position_and_log(symbol, 'Panic Take Profit (25%)', current_price, position)
-                            continue
-                        
-                        position['stop_loss'] = new_sl
-                        try:
-                            self.executor.cancel_all_orders(symbol)
-                            self.executor.place_stop_loss(symbol, 'BUY', position['quantity'], new_sl)
-                        except Exception as e:
-                            self.logger.warning(f"更新止损单失败: {e}")
-                
-                # Lock in 25% profit at 40% ROE
-                elif current_roe >= 0.40:
-                    target_roe = 0.25
-                    new_sl = entry_price * (1 + target_roe / leverage)
-                    
-                    if new_sl > stop_loss:
-                        self.logger.info(f"🎯 {symbol} 40% ROE达成，锁定25%利润: {new_sl:.6f}")
-                        
-                        # CRITICAL FIX: If price dropped below new_sl, sell immediately
-                        if new_sl > current_price:
-                            self.logger.warning(f"⚠️ {symbol} 价格回调过快 ({current_price} < {new_sl})，立即市价止盈!")
-                            self._close_position_and_log(symbol, 'Panic Take Profit (40%)', current_price, position)
-                            continue
-                            
-                        position['stop_loss'] = new_sl
-                        try:
-                            self.executor.cancel_all_orders(symbol)
-                            self.executor.place_stop_loss(symbol, 'BUY', position['quantity'], new_sl)
-                        except Exception as e:
-                            self.logger.warning(f"更新止损单失败: {e}")
-                
-                # ===== 4. STAGNATION EXIT =====
-                time_held = datetime.now() - entry_time
-                if time_held > timedelta(hours=24) and current_roe < 0.05:
-                    self.logger.info(f"⏰ {symbol} 滞涨离场: 持仓{time_held}, ROE={current_roe:.2%}")
-                    self.trade_logger.info(f"{symbol} 滞涨平仓 @ {current_price}, 持仓时长: {time_held}")
-                    
-                    # Close position
-                    self._close_position_and_log(symbol, 'Stagnation', current_price, position)
-                    continue
-                
-                # ===== 5. TRADITIONAL TRAILING STOP =====
-                max_roe = ((highest_price - entry_price) / entry_price) * leverage
-                
-                # Stepped trailing for high ROE (>20%)
-                if max_roe >= 0.20:
-                    bracket_floor = int(max_roe / 0.20) * 0.20
-                    target_sl_roe = bracket_floor - 0.05
-                    trail_sl = entry_price * (1 + target_sl_roe / leverage)
-                    
-                    if trail_sl > stop_loss:
-                        self.logger.info(f"🔝 {symbol} 阶梯止盈触发: max_roe={max_roe:.2%}, 新止损={trail_sl:.6f}")
-                        
-                        # CRITICAL FIX: If price dropped below trail_sl, sell immediately
-                        if trail_sl > current_price:
-                            self.logger.warning(f"⚠️ {symbol} 价格回调过快 ({current_price} < {trail_sl})，立即市价止盈!")
-                            self._close_position_and_log(symbol, 'Trailing Stop (Panic)', current_price, position)
-                            continue
-                        
-                        position['stop_loss'] = trail_sl
-                        
-                        try:
-                            self.executor.cancel_all_orders(symbol)
-                            self.executor.place_stop_loss(symbol, 'BUY', position['quantity'], trail_sl)
-                        except Exception as e:
-                            self.logger.warning(f"更新止损单失败: {e}")
-                
-                # Log position status
-                self.logger.info(f"📊 {symbol}: 价格={current_price:.6f}, ROE={current_roe:.2%}, 止损={stop_loss:.6f}, 持仓={time_held}")
-                    
-            except Exception as e:
-                self.logger.error(f"管理持仓 {symbol} 出错: {e}")
+            # 2. Manage Paper Positions
+            for symbol in list(self.paper_positions.keys()):
+                try:
+                    self.manage_single_position(symbol, is_paper=True)
+                except Exception as e:
+                    self.logger.error(f"管理虚拟仓位 {symbol} 出错: {e}")
 
-    def _close_position_and_log(self, symbol, reason, current_price, position):
-        """
-        Helper to close position, cancel orders, and log trade.
-        """
+    def manage_single_position(self, symbol, is_paper=False):
+        if is_paper:
+            pos = self.paper_positions[symbol]
+        else:
+            pos = self.positions[symbol]
+            
+        # Get current price
+        # Optimization: Use local ticker cache if available, else fetch
+        # For now, fetch ticker
         try:
-            # 1. Close Position
-            self.executor.place_order(symbol, 'SELL', position['quantity'])
-            self.executor.cancel_all_orders(symbol)
-            
-            # 2. Calculate Metrics
-            entry_price = position['entry_price']
-            entry_time = position.get('entry_time', datetime.now())
-            leverage = position.get('leverage', self.config.LEVERAGE)  # 使用实际杠杆
-            pnl = (current_price - entry_price) * position['quantity']
-            pnl_pct = (current_price - entry_price) / entry_price
-            roe = pnl_pct * leverage
-            holding_time_min = (datetime.now() - entry_time).total_seconds() / 60
-            
-            # 3. Log Trade
-            self.recorder.log_trade_close({
-                'symbol': symbol,
-                'side': 'LONG',
-                'entry_time': entry_time,
-                'entry_price': entry_price,
-                'quantity': position['quantity'],
-                'leverage': leverage,
-                'signal_score': position.get('signal_score', 0),
-                'confidence_score': position.get('confidence_score', 0),  # 新增
-                'rsi': position.get('metrics', {}).get('rsi', 0),  # 新增 (需从signal保存)
-                'adx': position.get('metrics', {}).get('adx', 0),  # 新增
-                'volume_ratio': position.get('metrics', {}).get('volume_ratio', 0),  # 新增
-                'exit_time': datetime.now(),
-                'exit_price': current_price,
-                'exit_reason': reason,
-                'pnl': pnl,
-                'pnl_pct': pnl_pct,
-                'roe': roe,
-                'holding_time_min': holding_time_min
-            })
-            
-            # 4. Cleanup
+            ticker = self.client.get_ticker(symbol)
+            current_price = float(ticker['lastPrice'])
+        except Exception as e:
+            self.logger.error(f"获取价格失败 {symbol}: {e}")
+            return
+        
+        # Check Exit Conditions
+        
+        # 1. Hard Stop Loss (Safety Net)
+        # For real positions, this is also on the exchange, but we check here to sync state.
+        if current_price <= pos['stop_loss']:
+            pnl = (pos['stop_loss'] - pos['entry_price']) * pos['quantity']
+            reason = "Stop Loss"
+            self.close_position(symbol, pos['stop_loss'], reason, is_paper)
+            return
+
+        # 2. Smart Exit (Dynamic Trailing / Break-even / Time Stop)
+        # Using the same logic as backtest
+        should_exit, exit_reason, exit_price = self.smart_exit.check_exit(
+            position=pos,
+            current_price=current_price,
+            current_time=datetime.now()
+            # current_atr=None # We don't have ATR here yet, optional
+        )
+        
+        if should_exit:
+            # Use current_price for execution if exit_price is not specified or different
+            # check_exit returns the trigger price, but we execute at market (current_price)
+            self.close_position(symbol, current_price, exit_reason, is_paper)
+            return
+
+    def close_position(self, symbol, price, reason, is_paper=False):
+        if is_paper:
+            if symbol in self.paper_positions:
+                pos = self.paper_positions[symbol]
+                pnl = (price - pos['entry_price']) * pos['quantity']
+                del self.paper_positions[symbol]
+                self.logger.info(f"📝 [虚拟交易] 平仓 {symbol} @ {price} | PnL: ${pnl:.2f} | 原因: {reason}")
+                
+                # Feed result to detector
+                self.trend_detector.add_trade_result(symbol, pnl, datetime.now())
+                
+                # Check recovery
+                if self.trend_detector.check_recovery():
+                    self.logger.info("✅ 虚拟交易表现良好，准备恢复实盘交易")
+                
+        else:
             if symbol in self.positions:
+                pos = self.positions[symbol]
+                quantity = pos['quantity']
+                
+                self.logger.info(f"正在平仓 {symbol} ({reason})...")
+                
+                # 1. Cancel Stop Loss
+                self.executor.cancel_all_orders(symbol)
+                
+                # 2. Place Market Sell
+                self.executor.place_order(symbol, 'SELL', quantity, 'MARKET')
+                
+                pnl = (price - pos['entry_price']) * quantity
+                self.logger.info(f"✅ [实盘交易] 平仓完成 {symbol} @ {price} | PnL: ${pnl:.2f}")
+                self.trade_logger.info(f"平仓: {symbol} | 价格: {price} | PnL: {pnl} | 原因: {reason}")
+                
                 del self.positions[symbol]
                 
-            self.logger.info(f"✅ {symbol} 平仓完成 ({reason}): PnL=${pnl:.2f}, ROE={roe:.2%}")
-            
-        except Exception as e:
-            self.logger.error(f"平仓日志记录失败 {symbol}: {e}")
+                # Feed result to detector (Real trades also count for stats)
+                self.trend_detector.add_trade_result(symbol, pnl, datetime.now())
+                
+                # Log Trade
+                self.recorder.log_trade({
+                    'symbol': symbol,
+                    'entry_price': pos['entry_price'],
+                    'exit_price': price,
+                    'quantity': quantity,
+                    'pnl': pnl,
+                    'reason': reason,
+                    'entry_time': pos['entry_time'],
+                    'exit_time': datetime.now(),
+                    'leverage': pos.get('leverage', 1)
+                })
+
+
 
 if __name__ == "__main__":
     bot = TradingBot()

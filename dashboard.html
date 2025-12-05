@@ -917,6 +917,35 @@
                 const res = await fetch('/api/market-status');
                 const json = await res.json();
                 if (!json.error) {
+                    // Check Data Freshness
+                    const now = Date.now() / 1000;
+                    const fileTime = json.last_updated;
+                    const diff = now - fileTime;
+                    
+                    const statusDot = document.querySelector('.dot');
+                    const statusText = document.querySelector('[data-i18n="system_operational"]');
+                    const updatedText = document.getElementById('last-updated');
+                    
+                    // Format file time
+                    const dateObj = new Date(fileTime * 1000);
+                    const timeStr = dateObj.toLocaleTimeString();
+                    
+                    if (diff > 300) { // Older than 5 minutes
+                        statusDot.style.backgroundColor = 'var(--text-secondary)'; // Gray
+                        statusDot.style.boxShadow = 'none';
+                        statusText.innerText = "System Offline / Data Stale";
+                        statusText.style.color = 'var(--text-secondary)';
+                        updatedText.innerText = `Data as of: ${timeStr} (Stale)`;
+                        updatedText.style.color = 'var(--down-color)';
+                    } else {
+                        statusDot.style.backgroundColor = 'var(--up-color)';
+                        statusDot.style.boxShadow = '0 0 8px rgba(14, 203, 129, 0.4)';
+                        statusText.innerText = translations[currentLang].system_operational;
+                        statusText.style.color = 'var(--text-secondary)';
+                        updatedText.innerText = `Last Update: ${timeStr}`;
+                        updatedText.style.color = 'var(--text-secondary)';
+                    }
+
                     const tbody = document.getElementById('market-body');
                     tbody.innerHTML = json.data.map(row => {
                         const change = parseFloat(row['涨幅%']);
