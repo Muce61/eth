@@ -118,27 +118,20 @@ class MomentumStrategy:
         upper_wick_ratio = upper_wick / current['close']
         
         # FILTER 1: RSI Range (65-90) - RELAXED from 70-85
-        # Allow: Moderate momentum (65-70) AND strong momentum up to 90
-        # Avoid: Only extreme overbought >90 (historical 10% win rate)
         if not (65 <= rsi <= 90):
-            return None
+            return {'status': 'REJECTED', 'reason': f'RSI {rsi:.1f} not in [65, 90]'}
         
         # FILTER 2: ADX Range (25-60) - RELAXED from 30-50
-        # Allow: Broader trend range to capture more trends
-        # Avoid: Only very weak trends <25
         if not (25 <= adx <= 60):
-            return None
+            return {'status': 'REJECTED', 'reason': f'ADX {adx:.1f} not in [25, 60]'}
         
         # FILTER 3: Volume Ratio (2.5-12x) - RELAXED from 3-8x
-        # Allow: Moderate volume (2.5x) and stronger pumps (12x)
-        # Avoid: Only extreme chasing >12x
         if not (2.5 <= vol_ratio <= 12):
-            return None
+            return {'status': 'REJECTED', 'reason': f'VolRatio {vol_ratio:.1f} not in [2.5, 12]'}
         
         # FILTER 4: Upper Wick Ratio (< 20%) - RELAXED from 15%
-        # Allow: Slightly more wick tolerance
         if upper_wick_ratio > 0.20:
-            return None
+             return {'status': 'REJECTED', 'reason': f'WickRatio {upper_wick_ratio:.1%} > 20%'}
             
         # Signal Generated
         timestamp = df['timestamp'].iloc[-1] if 'timestamp' in df.columns else df.index[-1]

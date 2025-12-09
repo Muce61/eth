@@ -1,1 +1,1 @@
-trade_id,symbol,side,entry_time,entry_price,entry_quantity,entry_value,leverage,stop_loss,exit_time,exit_price,exit_reason,holding_time,pnl,pnl_pct,roe,fees,balance_before,balance_after,tags
+trade_id,symbol,side,entry_time,entry_price,quantity,leverage,signal_score,confidence_score,rsi,adx,volume_ratio,market_regime,exit_time,exit_price,exit_reason,pnl,pnl_pct,roe,fees,holding_time_min,mae,mfe,efficiency

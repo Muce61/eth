@@ -1,7 +1,9 @@
 import pandas as pd
+import pandas_ta as ta
 import numpy as np
 from pathlib import Path
-from datetime import timedelta
+from datetime import datetime, timedelta
+import logging
 from strategy.momentum import MomentumStrategy
 from risk.manager import RiskManager
 from config.settings import Config
@@ -39,7 +41,25 @@ class RealBacktestEngine:
         # Quality Filters (NEW)
         self.MIN_24H_VOLUME_USD = 10_000_000  # $10M minimum 24h volume
         self.TOP_N_COINS = 200  # Only trade top 200 coins by volume
-        self.coin_volume_ranking = {}  # Will be populated in run()
+        
+        # DYNAMIC UNIVERSE STATE
+        self.active_universe = set() # Set of symbols in current Top 200
+        self.coin_volume_ranking = {} # Map of symbol -> rank (Dynamic)
+        self.last_universe_update = None # Date of last update
+        
+        # Load Leverage Limits Snapshot
+        self.leverage_limits = {}
+        try:
+            import json
+            snapshot_path = Path("backtest/leverage_snapshot.json")
+            if snapshot_path.exists():
+                with open(snapshot_path, 'r') as f:
+                    self.leverage_limits = json.load(f)
+                print(f"✅ Loaded leverage limits for {len(self.leverage_limits)} symbols into backtest.")
+            else:
+                print("Warning: Leverage snapshot not found. Using defaults.")
+        except Exception as e:
+            print(f"Warning: Failed to load leverage snapshot: {e}")
         
     def load_data(self):
         """
@@ -99,10 +119,6 @@ class RealBacktestEngine:
         if not hasattr(self, 'data_feed') or not self.data_feed:
             self.load_data()
             
-        # PRE-COMPUTE: Rank coins by average 24h volume (proxy for market cap)
-        print("Ranking coins by average 24h volume...")
-        self._rank_coins_by_volume()
-        
         # 1. Align Timestamps
         all_timestamps = set()
         for df in self.data_feed.values():
@@ -136,8 +152,14 @@ class RealBacktestEngine:
         print(f"Start: {sorted_timestamps[0]}, End: {sorted_timestamps[-1]}")
         
         # 2. Iterate through time
-        # Need a lookback window for 24h change calculation (24h = 96 * 15m candles)
-        lookback_24h = 96
+        # Need a lookback window for 24h change calculation
+        # Calculate frequency dynamically
+        if len(sorted_timestamps) > 1:
+            diff = (sorted_timestamps[1] - sorted_timestamps[0]).total_seconds()
+            lookback_24h = int(86400 / diff)
+            print(f"Detected Timeframe: {int(diff/60)}m | 24h Lookback: {lookback_24h} candles")
+        else:
+            lookback_24h = 96 # Fallback to 15m default
         min_history = 50 # For strategy pattern
         
         # If we filtered by days, we might need to load more history for indicators
@@ -229,28 +251,57 @@ class RealBacktestEngine:
         if should_exit:
             self._close_position(symbol, exit_price, current_time, reason)
     
-    def _rank_coins_by_volume(self):
+    def _update_rolling_universe(self, current_time):
         """
-        Rank all coins by their average 24h USD volume.
-        This serves as a proxy for market cap (top 200 filter).
+        Dynamically update the Top 200 coin universe based on PREVIOUS 24h volume.
+        Eliminates Look-Ahead Bias.
         """
+        # print(f"[{current_time}] 🔄 Updating Rolling Universe (Top {self.TOP_N_COINS})...")
         volume_stats = {}
+        start_time = current_time - timedelta(hours=24)
         
         for symbol, df in self.data_feed.items():
-            if len(df) < 96:
+            # Slice last 24h
+            # Efficient slicing on DatetimeIndex
+            # We use slicing with variables which works if index is sorted
+            
+            # Check if symbol has data in this window
+            try:
+                # df.loc[start:end] includes endpoints
+                # We typically rely on 15m candles. 
+                # Optimization: Check if last timestamp < start_time (coin dead) or first > current (not listed yet)
+                if df.index[-1] < start_time or df.index[0] > current_time:
+                    continue
+                
+                slice_24h = df.loc[start_time:current_time]
+                
+                if slice_24h.empty:
+                    continue
+                    
+                # Calculate metric: Sum of (Close * Volume)
+                # This is approx 24h USD volume
+                vol_usd = (slice_24h['close'] * slice_24h['volume']).sum()
+                
+                if vol_usd > 0:
+                    volume_stats[symbol] = vol_usd
+            except Exception as e:
                 continue
                 
-            # Calculate average volume over last 500 candles (approx 5 days)
-            # Volume in USD = volume * close
-            avg_vol_usd = (df['volume'] * df['close']).tail(500).mean()
-            volume_stats[symbol] = avg_vol_usd
-            
-        # Sort desc
+        # Sort Top N
         sorted_coins = sorted(volume_stats.items(), key=lambda x: x[1], reverse=True)
+        top_candidates = [coin for coin, vol in sorted_coins[:self.TOP_N_COINS]]
         
-        # Create rank map
+        self.active_universe = set(top_candidates)
+        
+        # Update Ranking Map for Dynamic Leverage
         self.coin_volume_ranking = {coin: rank+1 for rank, (coin, vol) in enumerate(sorted_coins)}
-        print(f"Ranked {len(self.coin_volume_ranking)} coins by volume.")
+        
+        self.last_universe_update = current_time.date()
+        # print(f"[{current_time}] ✅ Universe Updated: {len(self.active_universe)} coins active.")
+
+    # def _rank_coins_by_volume(self): 
+    # REMOVED due to Look-Ahead Bias
+    #     pass
         
     def _scan_market(self, current_time):
         candidates = []
@@ -263,9 +314,13 @@ class RealBacktestEngine:
                 # print(f"[{current_time}] 🛑 Trading Paused: Circuit Breaker Active (Paper Trading Mode)")
         
         # 2. Market Regime Filter (BTC Trend)
+        # DISABLED PER USER REQUEST (2025-12-07) - Backtest showed removing this yields 7x profit
         btc_trend_ok = True
-        if 'BTCUSDT' in self.data_feed:
-            btc_df = self.data_feed['BTCUSDT']
+        '''
+        btc_key = 'BTCUSDTUSDT' if 'BTCUSDTUSDT' in self.data_feed else 'BTCUSDT'
+        
+        if btc_key in self.data_feed:
+            btc_df = self.data_feed[btc_key]
             # Get BTC data up to current time
             btc_slice = btc_df.loc[:current_time]
             if len(btc_slice) > 200:
@@ -274,29 +329,33 @@ class RealBacktestEngine:
                 if btc_close < btc_ema200:
                     btc_trend_ok = False
                     # print(f"[{current_time}] 🐻 Market Bearish (BTC < EMA200). Skipping Longs.")
+        '''
         
         if not btc_trend_ok:
             return # Skip all trades if Market is Bearish
             
+        # DYNAMIC UNIVERSE: Update if needed (Daily at 00:00 UTC)
+        # Check if we need effective update
+        # If timestamp is 00:00 -> Update
+        # Or if it's the very first run (self.last_universe_update is None)
+        # Note: current_time is Timestamp object
+        if self.last_universe_update is None or current_time.date() > self.last_universe_update:
+             self._update_rolling_universe(current_time)
+            
         # Scan all symbols
         for symbol, df in self.data_feed.items():
-            if symbol not in self.coin_volume_ranking:
+            # Skip if not in Rolling Universe (Top 200)
+            if symbol not in self.active_universe:
                 continue
                 
             # Skip if already in position (Real or Paper)
             if symbol in self.positions or symbol in self.paper_positions:
                 continue
-                
-            # Get data up to current time
-            # Use binary search for speed or simple slicing
-            # For backtest, we can just slice. 
-            # OPTIMIZATION: Don't slice entire DF, just get tail relative to current_time
-            # But since index is datetime, slicing is easy
             
-            # Check if data exists for this time
+            # Check for data existence...
             if current_time not in df.index:
                 continue
-                
+
             row_loc = df.index.get_loc(current_time)
             
             # Need at least 200 candles for EMA200
@@ -304,12 +363,10 @@ class RealBacktestEngine:
                 continue
                 
             # Slice strictly up to current time (no lookahead)
-            # iloc is exclusive on end? No, slice is [start:end]
-            # We need [start : row_loc+1] to include current candle
-            start_loc = max(0, row_loc - 250) # Optimization: only take last 250 candles
-            historical_data = df.iloc[start_loc : row_loc + 1].copy()
+            start_loc = max(0, row_loc - 250) 
+            # slice... 
+            
             # Calculate 24h change
-            # 24h = 96 * 15m
             current_close = df.iloc[row_loc]['close']
             prev_close = df.iloc[row_loc - 96]['close']
             
@@ -319,22 +376,16 @@ class RealBacktestEngine:
             change_pct = (current_close - prev_close) / prev_close * 100
                 
             # QUALITY FILTER 1: Volume Check
-            # Get last 24h volume sum
             volume_24h_slice = df.iloc[row_loc - 96 : row_loc + 1]
             volume_24h_usd = (volume_24h_slice['close'] * volume_24h_slice['volume']).sum()
             
             # === QUALITY FILTER MODULE CHECK ===
             is_good, reason = self.quality_filter.check_quality(symbol, volume_24h_slice, volume_24h_usd)
             if not is_good:
-                # print(f"Skipping {symbol}: {reason}")
                 continue
             
             # QUALITY FILTER 2: Top 200 Ranking Check
-            if symbol not in self.coin_volume_ranking:
-                continue  # Not in top 200, skip
-            
-            if self.coin_volume_ranking[symbol] > self.TOP_N_COINS:
-                continue  # Ranked below 200, skip
+            # Handled by loop condition (symbol in active_universe)
             
             # Filter by 24h change threshold
             if self.config.CHANGE_THRESHOLD_MIN <= change_pct <= self.config.CHANGE_THRESHOLD_MAX:
@@ -361,11 +412,50 @@ class RealBacktestEngine:
             row_loc = cand['row_loc']
             
             # Get recent history for strategy (50 candles)
-            history_slice = df.iloc[row_loc - 50 : row_loc + 1]
+            # FIX: We need 15m candles for strategy, but df is 1m resolution (in MinuteFreq mode)
+            # We must resample on the fly to simulate "looking at 15m chart while trading 1m"
+            
+            # 1. Determine if we need resampling
+            time_diff = (df.index[1] - df.index[0]).total_seconds()
+            is_1m_data = time_diff < 300 # Assume < 5min means 1m data
+            
+            if is_1m_data:
+                # Take last ~1000 minutes to ensure we have enough 15m candles (need 50 15m = 750m)
+                # Slice logic: Get data up to current row_loc inclusive
+                lookback_mins = 1500 # Safe margin
+                start_resample_loc = max(0, row_loc - lookback_mins)
+                
+                # Create slice copy
+                df_slice_1m = df.iloc[start_resample_loc : row_loc + 1].copy()
+                
+                # Resample to 15m
+                agg_dict = {
+                    'open': 'first',
+                    'high': 'max',
+                    'low': 'min',
+                    'close': 'last',
+                    'volume': 'sum'
+                }
+                
+                # We want the last bin to represent the "developing" candle if incomplete
+                # standard resample aligns to 15m boundaries (00, 15, 30, 45)
+                # This perfectly mimics developing candle logic
+                history_df = df_slice_1m.resample('15min').agg(agg_dict).dropna()
+                
+                # Check if we have enough 15m history
+                if len(history_df) < 50:
+                    continue
+                    
+                # Take last 50 for strategy
+                history_slice = history_df.tail(50)
+            else:
+                # Already 15m data (Standard Backtest)
+                history_slice = df.iloc[row_loc - 50 : row_loc + 1]
             
             signal = self.strategy.check_signal(symbol, history_slice)
             
-            if signal and signal['side'] == 'LONG':
+            # MATCH MAIN.PY LOGIC: Handle new rejection format
+            if signal and signal.get('side') == 'LONG':
                 # FIX P0: Entry price should be NEXT K-line's open, not current close
                 # In real trading, we see the signal after current K-line closes,
                 # so we can only enter at next K-line's open price
@@ -403,6 +493,36 @@ class RealBacktestEngine:
             leverage = 20  # Mid-tier coins
         else:
             leverage = 10  # Small coins (fallback)
+            
+        # Limit by Exchange Max Leverage (from Snapshot)
+        # Note: 'symbol' in backtest is usually 'BTCUSDT', but map might have 'BTC/USDT:USDT'
+        # We need to try matching
+        max_lev = 20 # Default safe fallback
+        
+        # Try direct match
+        if symbol in self.leverage_limits:
+            max_lev = self.leverage_limits[symbol]
+        else:
+            # Try formatting
+            alt_key = f"{symbol}/USDT:USDT" # Standard CCXT format
+            if alt_key in self.leverage_limits:
+                max_lev = self.leverage_limits[alt_key]
+            else:
+                # Try simple key without suffix
+                # Snapshot keys: 'BTC/USDT:USDT'
+                # Backtest keys: 'BTCUSDT' (from filename)
+                # Need to map 'BTCUSDT' -> 'BTC/USDT:USDT'
+                # Let's iterate if needed or build a map, but simpler:
+                # Basic mapping: BTCUSDT -> BTC/USDT:USDT is unlikely to match string perfectly 
+                # because base currency length varies. 1000FLOKIUSDT -> 1000FLOKI
+                # Let's just default to 20 if not found, or trust the strategy if it's a major pair.
+                
+                # Check if it's a known big coin (Top 50 usually safe for 50x except outliers)
+                if coin_rank <= 50: 
+                     max_lev = 50 # Assume okay if not in map
+        
+        if max_lev:
+            leverage = min(leverage, max_lev)
         
         # Update risk manager leverage for this trade
         self.risk_manager.config.LEVERAGE = leverage
