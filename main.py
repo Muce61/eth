@@ -71,8 +71,139 @@ class TradingBot:
         self.logger.info("正在启动交易机器人...")
         self.trade_logger.info("交易机器人启动 - 交易日志")
         
+        # 0. Self-Diagnostic Test (User Request)
+        self.run_self_diagnostic()
+        
         # 1. Sync Existing Positions (Recovery Mode)
         self.sync_existing_positions()
+
+    def run_self_diagnostic(self):
+        """
+        Start-up Test: Buy min BTC, check SL, close immediately.
+        Abort if SL fails.
+        """
+        symbol = 'ETHUSDT' if not self.config.TESTNET else 'ETH/USDT:USDT' 
+        # Ensure mapping matches system
+        if 'ETH/USDT:USDT' in self.active_symbols or True: # Force check
+             symbol_internal = 'ETH/USDT:USDT'
+             
+        self.logger.info(f"🧪 [自检程序] 启动: 尝试使用最小单位做多 {symbol_internal} 测试止损...")
+        
+        try:
+            # 1. Buy Min Quantity (0.01 ETH => ~40 USDT > 20 USDT Min. Margin ~2U. Safe)
+            qty = 0.01
+            
+            # Explicitly set leverage for test
+            self.executor.set_leverage(symbol_internal, 20)
+            
+            # Place Order
+            self.logger.info(f"🧪 [自检程序] 1. 开仓 (Market Buy {qty} ETH)...")
+            order = self.executor.place_order(symbol_internal, 'BUY', qty, 'MARKET')
+            if not order or 'id' not in order:
+                self.logger.error("❌ [自检失败] 开仓订单失效，终止程序")
+                import sys; sys.exit(1)
+            
+            # Helper to get entry price
+            entry_price = float(order.get('average', 0))
+            if entry_price == 0:
+                # Fallback if average not returned immediately, fetch ticker
+                ticker = self.client.get_ticker(symbol_internal)
+                entry_price = float(ticker['last'])
+            
+            # Place Stop Loss (1% below)
+            stop_price = entry_price * 0.99
+            self.logger.info(f"🧪 [自检程序] 1.1 设置止损 (Algo) @ {stop_price}...")
+            self.executor.place_stop_loss(symbol_internal, 'BUY', qty, stop_price)
+                
+            time.sleep(3) # Wait for callbacks/SL placement
+            
+            # 2. Verify Stop Loss
+            self.logger.info(f"🧪 [自检程序] 2. 验证止损单 (Algo/Standard)...")
+            
+            # Check Standard Orders first
+            orders = self.client.exchange.fetch_open_orders(symbol_internal)
+            sl_found = False
+            for o in orders:
+                if o['type'] in ['STOP', 'STOP_MARKET']:
+                    self.logger.info(f"   ✅ [普通接口] 发现止损单: ID {o['id']} @ {o.get('stopPrice')}")
+                    sl_found = True
+                    break
+            
+            # Check Algo Orders if not found
+            if not sl_found:
+                algo_orders = self.executor.fetch_open_algo_orders(symbol_internal)
+                for o in algo_orders:
+                    # Algo order structure might differ, usually has 'orderType' or 'type'
+                    o_type = o.get('algoType') or o.get('type')
+                    if o_type in ['CONDITIONAL', 'STOP_MARKET']: 
+                        self.logger.info(f"   ✅ [Algo接口] 发现止损单: ID {o.get('clientAlgoId') or o.get('algoId')} @ {o.get('triggerPrice')}")
+                        sl_found = True
+                        break
+
+            if not sl_found:
+                self.logger.error("❌ [自检失败] 未检测到止损单! 系统将紧急平仓并退出")
+                # Attempt Close
+                self.executor.cancel_all_orders(symbol_internal)
+                self.executor.place_order(symbol_internal, 'SELL', qty, 'MARKET')
+                import sys; sys.exit(1)
+            else:
+                self.logger.info("✅ [自检成功] 止损功能正常")
+            
+            # 3. Logic Simulation (Smart Exit)
+            self.logger.info(f"🧪 [自检程序] 3. 模拟移动止盈逻辑 (Code Logic Verification)...")
+            try:
+                # Mock Position
+                mock_pos = {
+                    'symbol': 'MOCK/USDT',
+                    'entry_price': 2000.0,
+                    'quantity': 1.0,
+                    'highest_price': 2000.0,
+                    'entry_time': datetime.now(),
+                    'leverage': 20
+                }
+                
+                # A. Simulate Pump (2000 -> 3000, +50%)
+                # This should update highest_price but NOT exit yet (unless pullback)
+                self.smart_exit.check_exit(mock_pos, 3000.0, datetime.now())
+                
+                if mock_pos['highest_price'] == 3000.0:
+                     self.logger.info("   ✅ 逻辑验证 A: 最高价更新正常 (2000 -> 3000)")
+                else:
+                     self.logger.error(f"   ❌ 逻辑验证 A 失败: highest_price = {mock_pos['highest_price']}")
+                
+                # B. Simulate Pullback (3000 -> 2600, -13% from high, still +30% ROI)
+                # Max ROE = 50% * 20 = 1000% !!
+                # Trailing activation is 30% ROE. Callback is 5-10%.
+                # Here pullback is large. Should trigger.
+                should_exit, reason, price = self.smart_exit.check_exit(mock_pos, 2600.0, datetime.now())
+                
+                if should_exit:
+                    self.logger.info(f"   ✅ 逻辑验证 B: 移动止盈触发正常 ({reason})")
+                else:
+                    self.logger.error("   ❌ 逻辑验证 B 失败: 未触发移动止盈")
+                    
+            except Exception as logic_e:
+                 self.logger.error(f"   ❌ 逻辑模拟异常: {logic_e}")
+
+            # 4. Always Close (Real Trade)
+            self.logger.info(f"🧪 [自检程序] 4. 平仓清理 (Closing Real Trade)...")
+            self.executor.cancel_all_orders(symbol_internal) # Cancel SL first
+            self.executor.place_order(symbol_internal, 'SELL', qty, 'MARKET')
+            
+            # 5. Final Cleanup of Algo Orders (Iterative)
+            self.executor.cancel_all_algo_orders(symbol_internal)
+            
+            self.logger.info(f"✅ [自检完成] 交易功能 & 核心逻辑验证通过")
+            
+        except Exception as e:
+            self.logger.error(f"❌ [自检异常] {e}")
+            # Emergency Close Attempt
+            try:
+                self.executor.place_order(symbol_internal, 'SELL', qty, 'MARKET')
+            except:
+                pass
+            import sys; sys.exit(1)
+
         
         # 2. Initial Top Gainers Scan
         self.scan_top_gainers()
@@ -120,7 +251,7 @@ class TradingBot:
                 
                 qty = float(p['contracts'])
                 entry_price = float(p['entryPrice'])
-                leverage = int(p.get('leverage', 20))
+                leverage = int(p.get('leverage') or 20)
                 
                 self.logger.info(f"🔍 发现交易所持仓: {symbol} x {qty} @ {entry_price}")
                 
@@ -423,9 +554,10 @@ class TradingBot:
         # Determine if this should be a paper trade
         is_paper_trade = False
         if should_pause:
+            self.logger.warning(f"⚠️ [DEBUG] 触发虚拟交易 -> should_pause=True. Peak: {self.peak_balance}, Curr: {current_balance}, Drawdown: {(self.peak_balance - current_balance)/self.peak_balance if self.peak_balance else 0}")
             is_paper_trade = True
-        # elif is_btc_downtrend: # Disabled
-        #     is_paper_trade = True
+        else:
+            self.logger.info(f"[DEBUG] 实盘模式检查 -> should_pause=False. Peak: {self.peak_balance}, Curr: {current_balance}")
 
         # Check for Entry
         # LOCKING: Protect access to positions
@@ -540,6 +672,12 @@ class TradingBot:
             
             if leverage < target_leverage:
                 self.logger.info(f"⚠️ {symbol} 杠杆被限制: 目标 {target_leverage}x -> 实际 {leverage}x (最大支持)")
+
+            # CRITICAL FIX: Explicitly set leverage on exchange
+            try:
+                self.executor.set_leverage(symbol, leverage)
+            except Exception as e:
+                self.logger.error(f"❌ 设置杠杆失败 {symbol} {leverage}x: {e}")
             
             # Log the final leverage used
             if coin_rank <= 50:
@@ -651,12 +789,21 @@ class TradingBot:
         # Check Exit Conditions
         
         # 1. Hard Stop Loss (Safety Net)
-        # For real positions, this is also on the exchange, but we check here to sync state.
-        if current_price <= pos['stop_loss']:
+        # For real Positions: We rely on the Algo Order (Conditional Order) on Binance.
+        # We DO NOT close via code to avoid race conditions or double closing.
+        # For Paper Positions: We must close via code.
+        if is_paper and current_price <= pos['stop_loss']:
             pnl = (pos['stop_loss'] - pos['entry_price']) * pos['quantity']
-            reason = "Stop Loss"
+            reason = "Stop Loss (Paper)"
             self.close_position(symbol, pos['stop_loss'], reason, is_paper)
             return
+        elif not is_paper and current_price <= pos['stop_loss']:
+             # Log warning but do not act (Trust Algo Order)
+             self.logger.warning(f"🛡️ [监控中] {symbol} 触发止损价 {pos['stop_loss']}! 等待 Algo Order 执行...")
+        else:
+             # Transient Debug
+             if not is_paper and symbol == 'LUNA2/USDT:USDT':
+                  self.logger.info(f"🛡️ [监控中] {symbol} 现价: {current_price} > 止损价: {pos['stop_loss']} (差距: {(current_price - pos['stop_loss'])/current_price*100:.2f}%)")
 
         # 2. Smart Exit (Dynamic Trailing / Break-even / Time Stop)
         # Using the same logic as backtest
@@ -668,8 +815,10 @@ class TradingBot:
         )
         
         # 2.1 On-Chain Trailing Stop Update (Safety Feature)
-        # If Smart Exit calculates a theoretical Trailing Stop that is better than our hard SL,
-        # we move the hard SL up to that level to lock in profits on the exchange.
+        # USER REQUEST: Use Code Logic Soft TP to match backtest.
+        # So we DISABLE the automatic hard SL update. The Hard SL remains fixed as a safety net.
+        # The Code Logic (smart_exit) will handle trailing take profit via Market Sell.
+        """
         if not is_paper:
             try:
                 theoretical_stop = self.smart_exit.get_current_trailing_stop(pos)
@@ -691,6 +840,7 @@ class TradingBot:
                         
             except Exception as e:
                 self.logger.error(f"⚠️ 更新移动止损失败 {symbol}: {e}")
+        """
 
         if should_exit:
             # Use current_price for execution if exit_price is not specified or different

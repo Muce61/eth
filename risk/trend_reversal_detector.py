@@ -107,10 +107,9 @@ class TrendReversalDetector:
         
         if is_reversal:
             if not self.pause_long:
-                # print(f"⚠️  检测到趋势反转信号: {reason}")
-                # print(f"   暂停开新多头仓位，保护资金安全")
-                pass
-            self.pause_long = True
+                print(f"⚠️ [TrendDetector] 检测到趋势反转: {reason} -> 暂停开仓")
+                self.pause_long = True
+                self.save_state() # SAVE STATE
             return True
         
         # 检测大幅回撤
@@ -118,9 +117,9 @@ class TrendReversalDetector:
             drawdown = (peak_balance - current_balance) / peak_balance
             if drawdown > 0.30:  # 回撤超过30%
                 if not self.pause_long:
-                    # print(f"⚠️  回撤过大 ({drawdown*100:.1f}%)，暂停交易")
-                    pass
-                self.pause_long = True
+                    print(f"⚠️ [TrendDetector] 回撤过大 ({drawdown*100:.1f}%) -> 暂停开仓")
+                    self.pause_long = True
+                    self.save_state() # SAVE STATE
                 return True
         
         return False

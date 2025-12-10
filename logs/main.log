@@ -1,81 +1,107 @@
-2025-12-10 17:34:35,490 - trading_bot - INFO - 📊 已启用: 信号置信度驱动动态杠杆策略
-2025-12-10 17:34:35,491 - trading_bot - INFO - 🛡️ 已启用: 趋势反转熔断机制 (三层防御)
-2025-12-10 17:34:35,491 - trading_bot - INFO - 🧠 已启用: 智能离场模块 (动态追踪 + 保本止损)
-2025-12-10 17:34:35,492 - trading_bot - INFO - 正在启动交易机器人...
-2025-12-10 17:34:35,492 - trading_bot - INFO - 🔄 正在从交易所同步持仓信息...
-2025-12-10 17:34:35,773 - trading_bot - INFO - ✅ 无现有持仓需要恢复
-2025-12-10 17:34:37,872 - trading_bot - INFO - 🔄 每日列表更新 (UTC 2025-12-10): 重新计算 Top 200 成交量排名...
-2025-12-10 17:34:37,873 - trading_bot - INFO - ✅ 列表更新完成: 596 个币种已排名
-2025-12-10 17:34:41,106 - trading_bot - INFO - 新增监控: STABLE/USDT:USDT
-2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: 1000LUNC/USDT:USDT
-2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: OL/USDT:USDT
-2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: AXL/USDT:USDT
-2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: AIOT/USDT:USDT
-2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: PIEVERSE/USDT:USDT
-2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: RIVER/USDT:USDT
-2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: XPL/USDT:USDT
-2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: MAGIC/USDT:USDT
-2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: FOLKS/USDT:USDT
-2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: BEAT/USDT:USDT
-2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: LUNA2/USDT:USDT
-2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: HYPER/USDT:USDT
-2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: PIPPIN/USDT:USDT
-2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: ADA/USDT:USDT
-2025-12-10 17:34:41,109 - trading_bot - INFO - 新增监控: FET/USDT:USDT
-2025-12-10 17:34:41,109 - trading_bot - INFO - 新增监控: G/USDT:USDT
-2025-12-10 17:34:41,110 - trading_bot - INFO - 当前监控列表 (17): ['PIPPIN/USDT:USDT', 'STABLE/USDT:USDT', '1000LUNC/USDT:USDT', 'OL/USDT:USDT', 'AXL/USDT:USDT', 'AIOT/USDT:USDT', 'PIEVERSE/USDT:USDT', 'RIVER/USDT:USDT', 'XPL/USDT:USDT', 'MAGIC/USDT:USDT', 'FOLKS/USDT:USDT', 'BEAT/USDT:USDT', 'HYPER/USDT:USDT', 'LUNA2/USDT:USDT', 'ADA/USDT:USDT', 'FET/USDT:USDT', 'G/USDT:USDT']
-2025-12-10 17:34:41,113 - trading_bot - INFO - 正在执行启动时历史数据检查...
-2025-12-10 17:34:41,420 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 52.6 not in [65, 90]
-2025-12-10 17:34:41,660 - trading_bot - INFO - ✗ 信号拒绝: STABLE/USDT:USDT | RSI 61.2 not in [65, 90]
-2025-12-10 17:34:41,961 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 60.9 not in [65, 90]
-2025-12-10 17:34:42,299 - trading_bot - INFO - ✗ 信号拒绝: OL/USDT:USDT | RSI 43.7 not in [65, 90]
-2025-12-10 17:34:42,521 - trading_bot - INFO - ✗ 信号拒绝: AXL/USDT:USDT | RSI 56.4 not in [65, 90]
-2025-12-10 17:34:42,697 - trading_bot - INFO - ✗ 信号拒绝: AIOT/USDT:USDT | RSI 46.0 not in [65, 90]
-2025-12-10 17:34:43,004 - trading_bot - INFO - ✗ 信号拒绝: PIEVERSE/USDT:USDT | VolRatio 0.7 not in [2.5, 12]
-2025-12-10 17:34:43,211 - trading_bot - INFO - ✗ 信号拒绝: RIVER/USDT:USDT | RSI 47.9 not in [65, 90]
-2025-12-10 17:34:43,412 - trading_bot - INFO - ✗ 信号拒绝: XPL/USDT:USDT | RSI 41.8 not in [65, 90]
-2025-12-10 17:34:43,636 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 43.4 not in [65, 90]
-2025-12-10 17:34:43,890 - trading_bot - INFO - ✗ 信号拒绝: FOLKS/USDT:USDT | VolRatio 0.9 not in [2.5, 12]
-2025-12-10 17:34:44,084 - trading_bot - INFO - ✗ 信号拒绝: BEAT/USDT:USDT | VolRatio 0.5 not in [2.5, 12]
-2025-12-10 17:34:44,265 - trading_bot - INFO - ✗ 信号拒绝: HYPER/USDT:USDT | RSI 44.0 not in [65, 90]
-2025-12-10 17:34:44,445 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | ADX 23.7 not in [25, 60]
-2025-12-10 17:34:44,876 - trading_bot - INFO - ✗ 信号拒绝: ADA/USDT:USDT | RSI 63.8 not in [65, 90]
-2025-12-10 17:34:45,089 - trading_bot - INFO - ✗ 信号拒绝: FET/USDT:USDT | RSI 56.9 not in [65, 90]
-2025-12-10 17:34:45,351 - trading_bot - INFO - ✗ 信号拒绝: G/USDT:USDT | RSI 56.7 not in [65, 90]
-2025-12-10 17:34:45,351 - trading_bot - INFO - 启动时检查完成
-2025-12-10 17:35:48,686 - trading_bot - INFO - 当前监控列表 (17): ['PIPPIN/USDT:USDT', 'STABLE/USDT:USDT', '1000LUNC/USDT:USDT', 'OL/USDT:USDT', 'AXL/USDT:USDT', 'AIOT/USDT:USDT', 'PIEVERSE/USDT:USDT', 'RIVER/USDT:USDT', 'XPL/USDT:USDT', 'MAGIC/USDT:USDT', 'FOLKS/USDT:USDT', 'BEAT/USDT:USDT', 'HYPER/USDT:USDT', 'LUNA2/USDT:USDT', 'ADA/USDT:USDT', 'FET/USDT:USDT', 'G/USDT:USDT']
-2025-12-10 17:35:48,867 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 52.3 not in [65, 90]
-2025-12-10 17:35:49,054 - trading_bot - INFO - ✗ 信号拒绝: STABLE/USDT:USDT | RSI 63.4 not in [65, 90]
-2025-12-10 17:35:49,237 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 61.4 not in [65, 90]
-2025-12-10 17:35:49,476 - trading_bot - INFO - ✗ 信号拒绝: OL/USDT:USDT | RSI 43.9 not in [65, 90]
-2025-12-10 17:35:49,784 - trading_bot - INFO - ✗ 信号拒绝: AXL/USDT:USDT | RSI 56.7 not in [65, 90]
-2025-12-10 17:35:49,961 - trading_bot - INFO - ✗ 信号拒绝: AIOT/USDT:USDT | RSI 45.2 not in [65, 90]
-2025-12-10 17:35:50,209 - trading_bot - INFO - ✗ 信号拒绝: PIEVERSE/USDT:USDT | VolRatio 0.8 not in [2.5, 12]
-2025-12-10 17:35:50,390 - trading_bot - INFO - ✗ 信号拒绝: RIVER/USDT:USDT | RSI 47.8 not in [65, 90]
-2025-12-10 17:35:50,584 - trading_bot - INFO - ✗ 信号拒绝: XPL/USDT:USDT | RSI 42.7 not in [65, 90]
-2025-12-10 17:35:50,763 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 44.6 not in [65, 90]
-2025-12-10 17:35:51,014 - trading_bot - INFO - ✗ 信号拒绝: FOLKS/USDT:USDT | VolRatio 1.1 not in [2.5, 12]
-2025-12-10 17:35:51,254 - trading_bot - INFO - ✗ 信号拒绝: BEAT/USDT:USDT | VolRatio 0.6 not in [2.5, 12]
-2025-12-10 17:35:51,422 - trading_bot - INFO - ✗ 信号拒绝: HYPER/USDT:USDT | RSI 43.7 not in [65, 90]
-2025-12-10 17:35:51,595 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | ADX 21.9 not in [25, 60]
-2025-12-10 17:35:51,793 - trading_bot - INFO - ✗ 信号拒绝: ADA/USDT:USDT | RSI 64.2 not in [65, 90]
-2025-12-10 17:35:51,962 - trading_bot - INFO - ✗ 信号拒绝: FET/USDT:USDT | RSI 58.3 not in [65, 90]
-2025-12-10 17:35:52,153 - trading_bot - INFO - ✗ 信号拒绝: G/USDT:USDT | RSI 57.3 not in [65, 90]
-2025-12-10 17:36:57,927 - trading_bot - INFO - 当前监控列表 (17): ['PIPPIN/USDT:USDT', 'STABLE/USDT:USDT', '1000LUNC/USDT:USDT', 'OL/USDT:USDT', 'AXL/USDT:USDT', 'AIOT/USDT:USDT', 'PIEVERSE/USDT:USDT', 'RIVER/USDT:USDT', 'XPL/USDT:USDT', 'MAGIC/USDT:USDT', 'FOLKS/USDT:USDT', 'BEAT/USDT:USDT', 'HYPER/USDT:USDT', 'LUNA2/USDT:USDT', 'ADA/USDT:USDT', 'FET/USDT:USDT', 'G/USDT:USDT']
-2025-12-10 17:36:58,141 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 52.0 not in [65, 90]
-2025-12-10 17:36:58,318 - trading_bot - INFO - ✗ 信号拒绝: STABLE/USDT:USDT | RSI 63.2 not in [65, 90]
-2025-12-10 17:36:58,497 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 61.6 not in [65, 90]
-2025-12-10 17:36:58,956 - trading_bot - INFO - ✗ 信号拒绝: OL/USDT:USDT | RSI 44.1 not in [65, 90]
-2025-12-10 17:36:59,159 - trading_bot - INFO - ✗ 信号拒绝: AXL/USDT:USDT | RSI 53.9 not in [65, 90]
-2025-12-10 17:36:59,428 - trading_bot - INFO - ✗ 信号拒绝: AIOT/USDT:USDT | RSI 41.5 not in [65, 90]
-2025-12-10 17:36:59,686 - trading_bot - INFO - ✗ 信号拒绝: PIEVERSE/USDT:USDT | VolRatio 0.9 not in [2.5, 12]
-2025-12-10 17:36:59,942 - trading_bot - INFO - ✗ 信号拒绝: RIVER/USDT:USDT | RSI 49.0 not in [65, 90]
-2025-12-10 17:37:00,249 - trading_bot - INFO - ✗ 信号拒绝: XPL/USDT:USDT | RSI 43.1 not in [65, 90]
-2025-12-10 17:37:00,654 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 45.1 not in [65, 90]
-2025-12-10 17:37:00,831 - trading_bot - INFO - ✗ 信号拒绝: FOLKS/USDT:USDT | VolRatio 1.3 not in [2.5, 12]
-2025-12-10 17:37:01,015 - trading_bot - INFO - ✗ 信号拒绝: BEAT/USDT:USDT | VolRatio 0.6 not in [2.5, 12]
-2025-12-10 17:37:01,260 - trading_bot - INFO - ✗ 信号拒绝: HYPER/USDT:USDT | RSI 43.3 not in [65, 90]
-2025-12-10 17:37:01,499 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | ADX 22.0 not in [25, 60]
-2025-12-10 17:37:01,671 - trading_bot - INFO - ✗ 信号拒绝: ADA/USDT:USDT | RSI 64.6 not in [65, 90]
-2025-12-10 17:37:02,080 - trading_bot - INFO - ✗ 信号拒绝: FET/USDT:USDT | RSI 57.7 not in [65, 90]
-2025-12-10 17:37:02,256 - trading_bot - INFO - ✗ 信号拒绝: G/USDT:USDT | RSI 58.0 not in [65, 90]
+2025-12-10 18:50:34,663 - trading_bot - INFO - 📊 已启用: 信号置信度驱动动态杠杆策略
+2025-12-10 18:50:34,665 - trading_bot - INFO - 🛡️ 已启用: 趋势反转熔断机制 (三层防御)
+2025-12-10 18:50:34,665 - trading_bot - INFO - 🧠 已启用: 智能离场模块 (动态追踪 + 保本止损)
+2025-12-10 18:50:34,665 - trading_bot - INFO - 正在启动交易机器人...
+2025-12-10 18:50:34,665 - trading_bot - INFO - 🧪 [自检程序] 启动: 尝试使用最小单位做多 ETH/USDT:USDT 测试止损...
+2025-12-10 18:50:34,737 - trading_bot - INFO - ETH/USDT:USDT 杠杆设置为 20x
+2025-12-10 18:50:34,737 - trading_bot - INFO - 🧪 [自检程序] 1. 开仓 (Market Buy 0.01 ETH)...
+2025-12-10 18:50:34,737 - trading_bot - INFO - 正在提交 BUY MARKET 订单: 0.01 ETH/USDT:USDT...
+2025-12-10 18:50:34,955 - trading_bot - INFO - 订单已提交: 8389766046546844690
+2025-12-10 18:50:34,955 - trading_bot - INFO - 🧪 [自检程序] 1.1 设置止损 (Algo) @ 3282.0579...
+2025-12-10 18:50:34,955 - trading_bot - INFO - 🛡️ 设置强力链上止损 (Algo Endpoint): 触发价 3282.0579 (侧: sell)
+2025-12-10 18:50:34,955 - trading_bot - INFO - 🚀 发送 Algo Order (Manual Sign): ETH/USDT:USDT sell 0.01
+2025-12-10 18:50:35,152 - trading_bot - INFO - ✅ Algo Order 成功: ID JVPR4xpBEZKBOwtS0SD63E
+2025-12-10 18:50:38,157 - trading_bot - INFO - 🧪 [自检程序] 2. 验证止损单 (Algo/Standard)...
+2025-12-10 18:50:38,414 - trading_bot - INFO -    ✅ [Algo接口] 发现止损单: ID JVPR4xpBEZKBOwtS0SD63E @ 3282.06
+2025-12-10 18:50:38,415 - trading_bot - INFO - ✅ [自检成功] 止损功能正常
+2025-12-10 18:50:38,415 - trading_bot - INFO - 🧪 [自检程序] 3. 模拟移动止盈逻辑 (Code Logic Verification)...
+2025-12-10 18:50:38,415 - trading_bot - INFO -    ✅ 逻辑验证 A: 最高价更新正常 (2000 -> 3000)
+2025-12-10 18:50:38,415 - trading_bot - INFO -    ✅ 逻辑验证 B: 移动止盈触发正常 (Smart Trailing (Max 1000%))
+2025-12-10 18:50:38,415 - trading_bot - INFO - 🧪 [自检程序] 4. 平仓清理 (Closing Real Trade)...
+2025-12-10 18:50:38,700 - trading_bot - INFO - 正在撤销 1 个 Algo 订单...
+2025-12-10 18:50:38,866 - trading_bot - INFO - ✅ 撤销 Algo Order 1000000015236798 成功
+2025-12-10 18:50:38,866 - trading_bot - INFO - 已撤销 ETH/USDT:USDT 所有挂单 (Standard + Algo)
+2025-12-10 18:50:38,866 - trading_bot - INFO - 正在提交 SELL MARKET 订单: 0.01 ETH/USDT:USDT...
+2025-12-10 18:50:38,957 - trading_bot - INFO - 订单已提交: 8389766046546922397
+2025-12-10 18:50:39,115 - trading_bot - INFO - ✅ [自检完成] 交易功能 & 核心逻辑验证通过
+2025-12-10 18:50:40,305 - trading_bot - INFO - 🔄 每日列表更新 (UTC 2025-12-10): 重新计算 Top 200 成交量排名...
+2025-12-10 18:50:40,305 - trading_bot - INFO - ✅ 列表更新完成: 596 个币种已排名
+2025-12-10 18:50:43,416 - trading_bot - INFO - 新增监控: PENGU/USDT:USDT
+2025-12-10 18:50:43,416 - trading_bot - INFO - 新增监控: FOLKS/USDT:USDT
+2025-12-10 18:50:43,416 - trading_bot - INFO - 新增监控: OL/USDT:USDT
+2025-12-10 18:50:43,416 - trading_bot - INFO - 新增监控: FET/USDT:USDT
+2025-12-10 18:50:43,416 - trading_bot - INFO - 新增监控: G/USDT:USDT
+2025-12-10 18:50:43,417 - trading_bot - INFO - 新增监控: RIVER/USDT:USDT
+2025-12-10 18:50:43,417 - trading_bot - INFO - 新增监控: PIPPIN/USDT:USDT
+2025-12-10 18:50:43,417 - trading_bot - INFO - 新增监控: AIOT/USDT:USDT
+2025-12-10 18:50:43,417 - trading_bot - INFO - 新增监控: BEAT/USDT:USDT
+2025-12-10 18:50:43,417 - trading_bot - INFO - 新增监控: PIEVERSE/USDT:USDT
+2025-12-10 18:50:43,417 - trading_bot - INFO - 新增监控: HYPER/USDT:USDT
+2025-12-10 18:50:43,417 - trading_bot - INFO - 新增监控: AXL/USDT:USDT
+2025-12-10 18:50:43,417 - trading_bot - INFO - 新增监控: STABLE/USDT:USDT
+2025-12-10 18:50:43,417 - trading_bot - INFO - 新增监控: LUNA2/USDT:USDT
+2025-12-10 18:50:43,417 - trading_bot - INFO - 新增监控: MAGIC/USDT:USDT
+2025-12-10 18:50:43,418 - trading_bot - INFO - 当前监控列表 (15): ['PENGU/USDT:USDT', 'FOLKS/USDT:USDT', 'OL/USDT:USDT', 'FET/USDT:USDT', 'G/USDT:USDT', 'LUNA2/USDT:USDT', 'RIVER/USDT:USDT', 'PIPPIN/USDT:USDT', 'AIOT/USDT:USDT', 'BEAT/USDT:USDT', 'PIEVERSE/USDT:USDT', 'HYPER/USDT:USDT', 'AXL/USDT:USDT', 'STABLE/USDT:USDT', 'MAGIC/USDT:USDT']
+2025-12-10 18:50:43,419 - trading_bot - INFO - 正在执行启动时历史数据检查...
+2025-12-10 18:50:43,636 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:50:43,642 - trading_bot - INFO - ✗ 信号拒绝: PENGU/USDT:USDT | RSI 39.7 not in [65, 90]
+2025-12-10 18:50:43,838 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:50:43,843 - trading_bot - INFO - ✗ 信号拒绝: FOLKS/USDT:USDT | VolRatio 0.3 not in [2.5, 12]
+2025-12-10 18:50:44,251 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:50:44,254 - trading_bot - INFO - ✗ 信号拒绝: OL/USDT:USDT | RSI 51.5 not in [65, 90]
+2025-12-10 18:50:44,477 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:50:44,478 - trading_bot - INFO - ✗ 信号拒绝: FET/USDT:USDT | RSI 41.1 not in [65, 90]
+2025-12-10 18:50:44,741 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:50:44,742 - trading_bot - INFO - ✗ 信号拒绝: G/USDT:USDT | RSI 49.1 not in [65, 90]
+2025-12-10 18:50:44,915 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:50:44,922 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 1.3 not in [2.5, 12]
+2025-12-10 18:50:45,172 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:50:45,176 - trading_bot - INFO - ✗ 信号拒绝: RIVER/USDT:USDT | RSI 54.3 not in [65, 90]
+2025-12-10 18:50:45,329 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:50:45,330 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | VolRatio 0.2 not in [2.5, 12]
+2025-12-10 18:50:45,483 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:50:45,500 - trading_bot - INFO - ✗ 信号拒绝: AIOT/USDT:USDT | RSI 44.2 not in [65, 90]
+2025-12-10 18:50:45,723 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:50:45,724 - trading_bot - INFO - ✗ 信号拒绝: BEAT/USDT:USDT | VolRatio 0.4 not in [2.5, 12]
+2025-12-10 18:50:45,900 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:50:45,901 - trading_bot - INFO - ✗ 信号拒绝: PIEVERSE/USDT:USDT | RSI 46.7 not in [65, 90]
+2025-12-10 18:50:46,075 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:50:46,078 - trading_bot - INFO - ✗ 信号拒绝: HYPER/USDT:USDT | RSI 34.4 not in [65, 90]
+2025-12-10 18:50:46,266 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:50:46,267 - trading_bot - INFO - ✗ 信号拒绝: AXL/USDT:USDT | RSI 57.0 not in [65, 90]
+2025-12-10 18:50:46,455 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:50:46,456 - trading_bot - INFO - ✗ 信号拒绝: STABLE/USDT:USDT | VolRatio 0.4 not in [2.5, 12]
+2025-12-10 18:50:46,683 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:50:46,686 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 45.7 not in [65, 90]
+2025-12-10 18:50:46,687 - trading_bot - INFO - 启动时检查完成
+2025-12-10 18:51:49,925 - trading_bot - INFO - 当前监控列表 (15): ['PENGU/USDT:USDT', 'FOLKS/USDT:USDT', 'OL/USDT:USDT', 'FET/USDT:USDT', 'G/USDT:USDT', 'LUNA2/USDT:USDT', 'RIVER/USDT:USDT', 'PIPPIN/USDT:USDT', 'AIOT/USDT:USDT', 'BEAT/USDT:USDT', 'PIEVERSE/USDT:USDT', 'HYPER/USDT:USDT', 'AXL/USDT:USDT', 'STABLE/USDT:USDT', 'MAGIC/USDT:USDT']
+2025-12-10 18:51:50,090 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:51:50,093 - trading_bot - INFO - ✗ 信号拒绝: PENGU/USDT:USDT | RSI 39.9 not in [65, 90]
+2025-12-10 18:51:50,320 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:51:50,323 - trading_bot - INFO - ✗ 信号拒绝: FOLKS/USDT:USDT | VolRatio 0.4 not in [2.5, 12]
+2025-12-10 18:51:50,759 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:51:50,762 - trading_bot - INFO - ✗ 信号拒绝: OL/USDT:USDT | RSI 54.1 not in [65, 90]
+2025-12-10 18:51:51,016 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:51:51,020 - trading_bot - INFO - ✗ 信号拒绝: FET/USDT:USDT | RSI 41.8 not in [65, 90]
+2025-12-10 18:51:51,248 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:51:51,252 - trading_bot - INFO - ✗ 信号拒绝: G/USDT:USDT | RSI 51.3 not in [65, 90]
+2025-12-10 18:51:51,402 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:51:51,403 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 1.5 not in [2.5, 12]
+2025-12-10 18:51:51,591 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:51:51,595 - trading_bot - INFO - ✗ 信号拒绝: RIVER/USDT:USDT | RSI 55.2 not in [65, 90]
+2025-12-10 18:51:51,776 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:51:51,781 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | VolRatio 0.4 not in [2.5, 12]
+2025-12-10 18:51:51,976 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:51:51,981 - trading_bot - INFO - ✗ 信号拒绝: AIOT/USDT:USDT | RSI 43.2 not in [65, 90]
+2025-12-10 18:51:52,284 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:51:52,288 - trading_bot - INFO - ✗ 信号拒绝: BEAT/USDT:USDT | VolRatio 0.4 not in [2.5, 12]
+2025-12-10 18:51:52,499 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:51:52,508 - trading_bot - INFO - ✗ 信号拒绝: PIEVERSE/USDT:USDT | RSI 46.4 not in [65, 90]
+2025-12-10 18:51:52,701 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:51:52,707 - trading_bot - INFO - ✗ 信号拒绝: HYPER/USDT:USDT | RSI 34.3 not in [65, 90]
+2025-12-10 18:51:52,888 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:51:52,889 - trading_bot - INFO - ✗ 信号拒绝: AXL/USDT:USDT | RSI 57.2 not in [65, 90]
+2025-12-10 18:51:53,096 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:51:53,097 - trading_bot - INFO - ✗ 信号拒绝: STABLE/USDT:USDT | VolRatio 0.4 not in [2.5, 12]
+2025-12-10 18:51:53,323 - trading_bot - INFO - [DEBUG] 实盘模式检查 -> should_pause=False. Peak: 9.31233113, Curr: 9.31233113
+2025-12-10 18:51:53,348 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 48.9 not in [65, 90]

@@ -63,8 +63,46 @@ class Executor(BinanceClient):
         sl_side = 'sell' if side.lower() == 'buy' else 'buy'
         
         # Directly use Algo Order (The "Power Mode")
+        # Standard Order failed with -4120, so we MUST use this.
         self.logger.info(f"🛡️ 设置强力链上止损 (Algo Endpoint): 触发价 {stop_price} (侧: {sl_side})")
         return self.place_algo_order(symbol, sl_side, quantity, stop_price)
+
+    def fetch_open_algo_orders(self, symbol=None):
+        """
+        Fetch open Algo Orders (Conditional Orders) manually.
+        CCXT fetch_open_orders does NOT cover these.
+        """
+        try:
+            params = {
+                'timestamp': int(time.time() * 1000),
+                'recvWindow': 5000
+            }
+            if symbol:
+                market = self.exchange.market(symbol)
+                params['symbol'] = market['id']
+                
+            query_string = urllib.parse.urlencode(params)
+            signature = hmac.new(
+                self.exchange.secret.encode('utf-8'),
+                query_string.encode('utf-8'),
+                hashlib.sha256
+            ).hexdigest()
+            
+            full_url = f"https://fapi.binance.com/fapi/v1/openAlgoOrders?{query_string}&signature={signature}"
+            headers = {'X-MBX-APIKEY': self.exchange.apiKey}
+            
+            response = requests.get(full_url, headers=headers)
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    return data
+                return data.get('orders', [])
+            else:
+                self.logger.error(f"❌ 获取 Algo Orders 失败: {response.text}")
+                return []
+        except Exception as e:
+            self.logger.error(f"❌ 获取 Algo Orders 异常: {e}")
+            return []
 
     def place_algo_order(self, symbol, side, quantity, stop_price):
         """
@@ -75,15 +113,18 @@ class Executor(BinanceClient):
             market = self.exchange.market(symbol)
             symbol_raw = market['id']
             
-            # 1. Prepare Parameters
+            # 1. Prepare Parameters (PRECISION FIX)
+            qty_str = self.exchange.amount_to_precision(symbol, quantity)
+            stop_price_str = self.exchange.price_to_precision(symbol, stop_price)
+            
             params = {
                 'symbol': symbol_raw,
                 'side': side.upper(),
-                'quantity': str(quantity),
+                'quantity': qty_str,
                 'reduceOnly': 'true',
                 'type': 'STOP_MARKET',
-                'stopPrice': str(stop_price),
-                'triggerPrice': str(stop_price), # Mandatory for Algo Endpoint
+                'stopPrice': stop_price_str,
+                'triggerPrice': stop_price_str, # Mandatory for Algo Endpoint
                 'workingType': 'CONTRACT_PRICE',
                 'algoType': 'CONDITIONAL', # Mandatory for Algo Endpoint
                 'closePosition': 'false', # We specify quantity, so closePosition is false
@@ -130,7 +171,56 @@ class Executor(BinanceClient):
             return None
     def cancel_all_orders(self, symbol):
         try:
+            # 1. Cancel Standard Orders
             self.exchange.cancel_all_orders(symbol)
-            self.logger.info(f"已撤销 {symbol} 所有挂单")
+            
+            # 2. Cancel Algo Orders (Manual)
+            self.cancel_all_algo_orders(symbol)
+            
+            self.logger.info(f"已撤销 {symbol} 所有挂单 (Standard + Algo)")
         except Exception as e:
             self.logger.warning(f"撤单失败: {e}")
+
+    def cancel_all_algo_orders(self, symbol):
+        """
+        Manually cancel all open Algo Orders for a symbol by fetching and cancelling individually.
+        This provides better compatibility than the batch endpoint which returns 404 sometimes.
+        """
+        try:
+            # 1. Fetch Open Algo Orders
+            orders = self.fetch_open_algo_orders(symbol)
+            if not orders:
+                return
+
+            self.logger.info(f"正在撤销 {len(orders)} 个 Algo 订单...")
+            
+            # 2. Cancel Each Order
+            for o in orders:
+                try:
+                    params = {
+                        'symbol': o['symbol'], # Use symbol from order or passed symbol
+                        'algoId': o['algoId'],
+                        'timestamp': int(time.time() * 1000),
+                        'recvWindow': 5000
+                    }
+                    
+                    query_string = urllib.parse.urlencode(params)
+                    signature = hmac.new(
+                        self.exchange.secret.encode('utf-8'),
+                        query_string.encode('utf-8'),
+                        hashlib.sha256
+                    ).hexdigest()
+                    
+                    full_url = f"https://fapi.binance.com/fapi/v1/algoOrder?{query_string}&signature={signature}"
+                    headers = {'X-MBX-APIKEY': self.exchange.apiKey}
+                    
+                    resp = requests.delete(full_url, headers=headers)
+                    if resp.status_code == 200:
+                        self.logger.info(f"✅ 撤销 Algo Order {o['algoId']} 成功")
+                    else:
+                        self.logger.warning(f"⚠️ 撤销 Algo Order {o['algoId']} 失败: {resp.text}")
+                except Exception as inner_e:
+                    self.logger.error(f"撤销单个 Algo 订单异常: {inner_e}")
+                    
+        except Exception as e:
+            self.logger.error(f"❌ 批量撤销 Algo 订单异常: {e}")
