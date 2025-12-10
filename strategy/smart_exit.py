@@ -67,3 +67,36 @@ class SmartExitModule:
             return True, f"Time Stop ({self.time_stop_hours}h)", current_price
             
         return False, None, None
+            
+    def get_current_trailing_stop(self, position):
+        """
+        Calculate the current theoretical Stop Loss price based on Trailing/Break-even logic.
+        Used for updating the hard stop order on exchange.
+        
+        Returns: 
+            float or None: The calculated new stop price, or None if no trailing condition active yet.
+        """
+        entry_price = position['entry_price']
+        leverage = position.get('leverage', 20)
+        highest_price = position.get('highest_price', entry_price)
+        
+        # Calculate Max ROE for callback logic
+        max_pnl_pct = (highest_price - entry_price) / entry_price
+        max_roe = max_pnl_pct * leverage
+        
+        target_stop_price = None
+        
+        # 1. Break-even Logic
+        if max_roe >= self.breakeven_trigger_roe:
+            breakeven_price = entry_price * 1.002 # 0.2% fee buffer
+            target_stop_price = breakeven_price
+            
+        # 2. Trailing Stop Logic (Prioritize if higher than break-even)
+        if max_roe >= self.trailing_activation_roe:
+            dynamic_callback = max(0.05, self.trailing_callback - (max_roe * 0.05))
+            trailing_price = highest_price * (1 - (dynamic_callback / leverage))
+            
+            if target_stop_price is None or trailing_price > target_stop_price:
+                target_stop_price = trailing_price
+                
+        return target_stop_price

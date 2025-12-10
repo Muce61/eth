@@ -101,7 +101,8 @@ class TradeRecorder:
                     order_data.get('leverage', 20),
                     order_data.get('confidence_score', 0),
                     metrics.get('rsi', 0),
-                    metrics.get('adx', 0),
-                    metrics.get('volume_ratio', 0),
                     metrics.get('upper_wick_ratio', 0)
                 ])
+
+    # Alias for compatibility with main.py
+    log_trade = log_trade_close

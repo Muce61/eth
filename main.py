@@ -1,6 +1,6 @@
 import time
 import threading
-from datetime import datetime
+from datetime import datetime, timezone
 from config.settings import Config
 from data.binance_client import BinanceClient
 from data.websocket_monitor import MarketMonitor
@@ -13,6 +13,7 @@ from execution.executor import Executor
 from monitor.logger import setup_logger
 import logging
 import pandas as pd
+from monitor.universe_recorder import UniverseRecorder
 
 # 动态杠杆策略模块
 from leverage_strategies.signal_confidence import SignalConfidenceModule
@@ -25,6 +26,10 @@ class TradingBot:
         self.client = BinanceClient()
         self.executor = Executor()
         self.strategy = MomentumStrategy()
+        self.universe_recorder = UniverseRecorder()
+        
+        # Universe Consistency (Daily Update)
+        self.last_universe_update_date = None
         
         # 初始化信号置信度模块 (动态杠杆)
         self.leverage_strategy = SignalConfidenceModule()
@@ -66,17 +71,20 @@ class TradingBot:
         self.logger.info("正在启动交易机器人...")
         self.trade_logger.info("交易机器人启动 - 交易日志")
         
-        # 1. Initial Top Gainers Scan
+        # 1. Sync Existing Positions (Recovery Mode)
+        self.sync_existing_positions()
+        
+        # 2. Initial Top Gainers Scan
         self.scan_top_gainers()
         
-        # 2. Initial Historical Check (New Feature)
+        # 3. Initial Historical Check (New Feature)
         self.check_historical_signals()
         
-        # 3. Start WebSocket
+        # 4. Start WebSocket
         self.monitor.symbols = self.active_symbols
         self.monitor.start()
         
-        # 4. Main Loop (Periodic Scan & Position Management)
+        # 5. Main Loop (Periodic Scan & Position Management)
         try:
             while True:
                 time.sleep(60) # Scan every minute
@@ -92,6 +100,74 @@ class TradingBot:
                 self.manage_positions()
         except KeyboardInterrupt:
             self.stop()
+
+    def sync_existing_positions(self):
+        """
+        Recover active positions from the exchange on startup.
+        """
+        self.logger.info("🔄 正在从交易所同步持仓信息...")
+        try:
+            # We need to access the exchange directly or verify if client has get_positions
+            # using internal ccxt object for now as client wrapper might not have it
+            positions = self.client.exchange.fetch_positions()
+            active_list = [p for p in positions if float(p['contracts']) > 0]
+            
+            for p in active_list:
+                symbol = p['symbol']
+                # CCXT symbol might differ, ensure format matches internal
+                # internal: usually 'ETH/USDT:USDT' or 'ETH/USDT' depending on usage.
+                # logs show 'RIVER/USDT:USDT'.
+                
+                qty = float(p['contracts'])
+                entry_price = float(p['entryPrice'])
+                leverage = int(p.get('leverage', 20))
+                
+                self.logger.info(f"🔍 发现交易所持仓: {symbol} x {qty} @ {entry_price}")
+                
+                # Check for existing Open Orders (Stop Loss)
+                orders = self.client.exchange.fetch_open_orders(symbol)
+                stop_loss_price = 0
+                for o in orders:
+                    # Look for STOP orders
+                    if o['type'] in ['STOP', 'STOP_MARKET']:
+                        stop_loss_price = float(o.get('stopPrice', o.get('price', 0)))
+                        self.logger.info(f"   -> 发现关联止损单: {stop_loss_price}")
+                        break
+                
+                # If no SL found, we calculate a default one based on current config/ATR?
+                # For safety, if no SL, we mark it. manage_positions might set one if logic permits,
+                # or we just rely on Smart Exit.
+                # Let's set a wide emergency SL if none found, to trigger management?
+                # Actually, if we set 0, manage_positions need to handle it.
+                if stop_loss_price == 0:
+                    # Fallback: 10% below entry for safety until managed?
+                    # Or better: let smart strategies handle it.
+                    # But structure requires 'stop_loss'.
+                    stop_loss_price = entry_price * 0.9  # Loose safety net
+                    self.logger.warning(f"   ⚠️ 未找到止损单, 设置临时安全止损: {stop_loss_price}")
+
+                position_data = {
+                    'symbol': symbol,
+                    'entry_price': entry_price,
+                    'quantity': qty,
+                    'stop_loss': stop_loss_price,
+                    'highest_price': entry_price, # Reset tracking
+                    'entry_time': datetime.now(), # Reset time
+                    'leverage': leverage,
+                    'is_paper': False
+                }
+                
+                with self.lock:
+                    self.positions[symbol] = position_data
+                    self.active_symbols.add(symbol)
+            
+            if not active_list:
+                self.logger.info("✅ 无现有持仓需要恢复")
+            else:
+                self.logger.info(f"✅ 已恢复 {len(self.positions)} 个持仓")
+                
+        except Exception as e:
+            self.logger.error(f"❌ 同步持仓失败: {e}")
 
     def process_strategy_safe(self, symbol):
         """
@@ -194,18 +270,25 @@ class TradingBot:
             tickers = self.client.get_usdt_tickers()
             
             # 2. Update Volume Ranking (Global) - The "Rolling Universe"
-            # We need 24h volume for all coins to rank them properly
-            all_volumes = []
-            for t in tickers:
-                symbol = t[0]
-                vol = float(t[1].get('quoteVolume', 0))
-                all_volumes.append((symbol, vol))
+            # LOGIC CHANGE (2025-12-10): Update only DAILY to match Backtest consistency
+            # Backtest updates at 00:00 UTC. Live bot should do the same.
+            current_date = datetime.now(timezone.utc).date()
             
-            all_volumes.sort(key=lambda x: x[1], reverse=True)
-            self.coin_volume_ranking = {sym: rank+1 for rank, (sym, _) in enumerate(all_volumes)}
-            self.logger.info(f"市场全量扫描: 已更新 {len(self.coin_volume_ranking)} 个币种的成交量排名")
+            if self.last_universe_update_date is None or current_date > self.last_universe_update_date:
+                self.logger.info(f"🔄 每日列表更新 (UTC {current_date}): 重新计算 Top {self.TOP_N_COINS} 成交量排名...")
+                all_volumes = []
+                for t in tickers:
+                    symbol = t[0]
+                    vol = float(t[1].get('quoteVolume', 0))
+                    all_volumes.append((symbol, vol))
+                
+                all_volumes.sort(key=lambda x: x[1], reverse=True)
+                self.coin_volume_ranking = {sym: rank+1 for rank, (sym, _) in enumerate(all_volumes)}
+                
+                self.last_universe_update_date = current_date
+                self.logger.info(f"✅ 列表更新完成: {len(self.coin_volume_ranking)} 个币种已排名")
             
-            # 3. Filter Candidates (Must be in Top 200 Universe)
+            # 3. Filter Candidates (Must be in Top 200 Universe using FROZEN ranking)
             # Filter by Rank first
             universe_candidates = [t for t in tickers if self.coin_volume_ranking.get(t[0], 999) <= self.TOP_N_COINS]
             
@@ -273,6 +356,12 @@ class TradingBot:
                     self.active_symbols.remove(s)
                     # self.monitor.unsubscribe(s) # Dummy monitor has no unsubscribe
                     self.logger.info(f"移除监控: {s}")
+                
+            # Record Universe for Backtest Alignment
+            try:
+                self.universe_recorder.record_universe(self.active_symbols)
+            except Exception as e:
+                self.logger.error(f"记录监控列表失败: {e}")
                     
             self.logger.info(f"当前监控列表 ({len(self.active_symbols)}): {list(self.active_symbols)}")
             
@@ -486,16 +575,8 @@ class TradingBot:
                 self.logger.warning(f"计算仓位为0，跳过开仓")
                 return
             
-            # 5. Set leverage on exchange
-            self.executor.set_leverage(symbol, leverage)
-            
-            # 6. Place Market Order
-            self.executor.place_order(symbol, 'BUY', quantity, 'MARKET')
-            
-            # 4. Place Stop Loss
-            self.executor.place_stop_loss(symbol, 'BUY', quantity, stop_loss_price)
-            
-            # 5. Record Position
+
+            # 5. Record Position (Optimistic, will verify SL next)
             position_data = {
                 'symbol': symbol,
                 'entry_price': price,
@@ -508,10 +589,28 @@ class TradingBot:
             }
             self.positions[symbol] = position_data
             
-            self.logger.info(f"✅ [实盘交易] 开仓成功: {symbol} @ {price}")
+            # 6. Place Order (Primary)
+            order = self.executor.place_order(symbol, 'BUY', quantity, 'MARKET')
+            # Update precise entry price if possible
+            if order and 'average' in order and order['average']:
+                self.positions[symbol]['entry_price'] = float(order['average'])
             
+            self.logger.info(f"✅ [实盘交易] 开仓成功: {symbol} @ {price} (订单: {order['id']})")
+            
+            # 7. Place Stop Loss (Secondary - Fail Safe)
+            try:
+                self.executor.place_stop_loss(symbol, 'BUY', quantity, stop_loss_price)
+                self.logger.info(f"🛡️ 止损单设置成功: {symbol} @ {stop_loss_price}")
+            except Exception as sl_error:
+                self.logger.error(f"⚠️ 止损单设置失败 {symbol}: {sl_error} (请手动设置!)")
+                # We do NOT remove the position, we keep it managed so we can retry or close it
+                
         except Exception as e:
+            # If Primary Order failed, we can safely assume no position
             self.logger.error(f"开仓失败 {symbol}: {e}")
+            # Clean up if we recorded it prematurely (unlikely with this flow, but safe)
+            if symbol in self.positions:
+                del self.positions[symbol]
 
     def manage_positions(self):
         """
@@ -568,6 +667,31 @@ class TradingBot:
             # current_atr=None # We don't have ATR here yet, optional
         )
         
+        # 2.1 On-Chain Trailing Stop Update (Safety Feature)
+        # If Smart Exit calculates a theoretical Trailing Stop that is better than our hard SL,
+        # we move the hard SL up to that level to lock in profits on the exchange.
+        if not is_paper:
+            try:
+                theoretical_stop = self.smart_exit.get_current_trailing_stop(pos)
+                if theoretical_stop:
+                    current_hard_stop = pos.get('stop_loss', 0)
+                    # Filter: Only update if improvement is significant (> 0.5%) to avoid spamming orders
+                    if theoretical_stop > current_hard_stop * 1.005:
+                        self.logger.info(f"🔄 移动止损触发 {symbol}: {current_hard_stop:.4f} -> {theoretical_stop:.4f}")
+                        
+                        # 1. Cancel Old SL
+                        self.executor.cancel_all_orders(symbol)
+                        
+                        # 2. Place New SL (Stop Limit)
+                        # For Longs, SL is SELL.
+                        self.executor.place_stop_loss(symbol, 'SELL', pos['quantity'], theoretical_stop)
+                        
+                        # 3. Update State
+                        pos['stop_loss'] = theoretical_stop
+                        
+            except Exception as e:
+                self.logger.error(f"⚠️ 更新移动止损失败 {symbol}: {e}")
+
         if should_exit:
             # Use current_price for execution if exit_price is not specified or different
             # check_exit returns the trigger price, but we execute at market (current_price)

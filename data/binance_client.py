@@ -63,7 +63,7 @@ class BinanceClient:
                         valid_tickers.append((symbol, data))
             
             # Sort by percentage change desc
-            valid_tickers.sort(key=lambda x: float(x[1]['percentage']), reverse=True)
+            valid_tickers.sort(key=lambda x: float(x[1]['percentage']) if x[1].get('percentage') is not None else -999.0, reverse=True)
             return valid_tickers[:limit]
         except Exception as e:
             print(f"Error fetching top gainers: {e}")

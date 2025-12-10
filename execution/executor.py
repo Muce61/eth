@@ -1,5 +1,11 @@
 import time
 import logging
+import ccxt
+import hmac
+import hashlib
+import urllib.parse
+import json
+import requests
 from data.binance_client import BinanceClient
 from config.settings import Config
 
@@ -45,18 +51,83 @@ class Executor(BinanceClient):
             else:
                 self.logger.warning(f"设置保证金模式失败 {symbol}: {e}")
 
+
+
+
     def place_stop_loss(self, symbol, side, quantity, stop_price):
         """
-        Place a STOP_MARKET order.
-        If Long, SL is Sell. If Short, SL is Buy.
+        Place a Stop Loss using the Algo Order Endpoint (Primary Strategy).
+        We bypass the standard endpoint which often returns -4120.
+        Fallback: Soft Stop (handled by caller if this returns None).
         """
         sl_side = 'sell' if side.lower() == 'buy' else 'buy'
-        params = {
-            'stopPrice': stop_price,
-            'reduceOnly': True
-        }
-        return self.place_order(symbol, sl_side, quantity, 'STOP_MARKET', params=params)
+        
+        # Directly use Algo Order (The "Power Mode")
+        self.logger.info(f"🛡️ 设置强力链上止损 (Algo Endpoint): 触发价 {stop_price} (侧: {sl_side})")
+        return self.place_algo_order(symbol, sl_side, quantity, stop_price)
 
+    def place_algo_order(self, symbol, side, quantity, stop_price):
+        """
+        Manually construct a signed request to /fapi/v1/algoOrder to bypass CCXT/API limitations.
+        """
+        try:
+            # 1. Prepare Params (Standard)
+            market = self.exchange.market(symbol)
+            symbol_raw = market['id']
+            
+            # 1. Prepare Parameters
+            params = {
+                'symbol': symbol_raw,
+                'side': side.upper(),
+                'quantity': str(quantity),
+                'reduceOnly': 'true',
+                'type': 'STOP_MARKET',
+                'stopPrice': str(stop_price),
+                'triggerPrice': str(stop_price), # Mandatory for Algo Endpoint
+                'workingType': 'CONTRACT_PRICE',
+                'algoType': 'CONDITIONAL', # Mandatory for Algo Endpoint
+                'closePosition': 'false', # We specify quantity, so closePosition is false
+                'priceProtect': 'true',
+                'timestamp': int(time.time() * 1000),
+                'recvWindow': 5000
+            }
+            
+            # 2. Generate Signature (Manual HMAC SHA256)
+            # This bypasses all CCXT Testnet/Sandbox confusion by implementing the raw auth protocol.
+            query_string = urllib.parse.urlencode(params)
+            signature = hmac.new(
+                self.exchange.secret.encode('utf-8'),
+                query_string.encode('utf-8'),
+                hashlib.sha256
+            ).hexdigest()
+            
+            # 3. Construct Request
+            final_query = f"{query_string}&signature={signature}"
+            full_url = "https://fapi.binance.com/fapi/v1/algoOrder?" + final_query
+            
+            headers = {
+                'X-MBX-APIKEY': self.exchange.apiKey,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+            
+            # 4. Execute Request
+            self.logger.info(f"🚀 发送 Algo Order (Manual Sign): {symbol} {side} {quantity}")
+            
+            # We use a fresh requests call to avoid any middleware interference
+            response = requests.post(full_url, headers=headers)
+            
+            # 5. Handle Response
+            if response.status_code == 200:
+                data = response.json()
+                self.logger.info(f"✅ Algo Order 成功: ID {data.get('clientAlgoId', 'Unknown')}")
+                return data
+            else:
+                self.logger.error(f"❌ Algo Order 失败 (HTTP {response.status_code}): {response.text}")
+                return None
+                
+        except Exception as e:
+            self.logger.error(f"❌ Algo Order 异常: {e}")
+            return None
     def cancel_all_orders(self, symbol):
         try:
             self.exchange.cancel_all_orders(symbol)

@@ -1,719 +1,81 @@
-nohup: ignoring input
-2025-12-09 15:41:17,127 - trading_bot - INFO - 📊 已启用: 信号置信度驱动动态杠杆策略
-2025-12-09 15:41:17,127 - trading_bot - INFO - 🛡️ 已启用: 趋势反转熔断机制 (三层防御)
-2025-12-09 15:41:17,128 - trading_bot - INFO - 🧠 已启用: 智能离场模块 (动态追踪 + 保本止损)
-2025-12-09 15:41:17,130 - trading_bot - INFO - 正在启动交易机器人...
-2025-12-09 15:41:17,245 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 15:41:20,216 - trading_bot - INFO - 新增监控: CC/USDT:USDT
-2025-12-09 15:41:20,216 - trading_bot - INFO - 新增监控: USTC/USDT:USDT
-2025-12-09 15:41:20,216 - trading_bot - INFO - 新增监控: LYN/USDT:USDT
-2025-12-09 15:41:20,216 - trading_bot - INFO - 新增监控: ALLO/USDT:USDT
-2025-12-09 15:41:20,216 - trading_bot - INFO - 新增监控: POWER/USDT:USDT
-2025-12-09 15:41:20,216 - trading_bot - INFO - 新增监控: H/USDT:USDT
-2025-12-09 15:41:20,216 - trading_bot - INFO - 新增监控: RDNT/USDT:USDT
-2025-12-09 15:41:20,216 - trading_bot - INFO - 新增监控: LUNA2/USDT:USDT
-2025-12-09 15:41:20,216 - trading_bot - INFO - 新增监控: ZEC/USDT:USDT
-2025-12-09 15:41:20,216 - trading_bot - INFO - 新增监控: PIPPIN/USDT:USDT
-2025-12-09 15:41:20,216 - trading_bot - INFO - 新增监控: MAGIC/USDT:USDT
-2025-12-09 15:41:20,216 - trading_bot - INFO - 新增监控: BLUAI/USDT:USDT
-2025-12-09 15:41:20,216 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', 'H/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'PIPPIN/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT']
-2025-12-09 15:41:20,218 - trading_bot - INFO - 正在执行启动时历史数据检查...
-2025-12-09 15:41:20,349 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 55.9 not in [65, 90]
-2025-12-09 15:41:20,471 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 60.7 not in [65, 90]
-2025-12-09 15:41:20,596 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 60.5 not in [65, 90]
-2025-12-09 15:41:20,723 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 38.4 not in [65, 90]
-2025-12-09 15:41:20,852 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 42.8 not in [65, 90]
-2025-12-09 15:41:20,979 - trading_bot - INFO - ✗ 信号拒绝: H/USDT:USDT | RSI 56.1 not in [65, 90]
-2025-12-09 15:41:21,106 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 50.9 not in [65, 90]
-2025-12-09 15:41:21,242 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 1.1 not in [2.5, 12]
-2025-12-09 15:41:21,372 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 64.4 not in [65, 90]
-2025-12-09 15:41:21,500 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 51.1 not in [65, 90]
-2025-12-09 15:41:21,629 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 47.5 not in [65, 90]
-2025-12-09 15:41:21,756 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 49.3 not in [65, 90]
-2025-12-09 15:41:21,757 - trading_bot - INFO - 启动时检查完成
-2025-12-09 15:42:22,228 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 15:42:25,226 - trading_bot - INFO - 新增监控: 1000FLOKI/USDT:USDT
-2025-12-09 15:42:25,226 - trading_bot - INFO - 移除监控: H/USDT:USDT
-2025-12-09 15:42:25,226 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'PIPPIN/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 15:42:25,365 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 55.4 not in [65, 90]
-2025-12-09 15:42:25,495 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 61.1 not in [65, 90]
-2025-12-09 15:42:25,631 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 60.8 not in [65, 90]
-2025-12-09 15:42:25,762 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 36.7 not in [65, 90]
-2025-12-09 15:42:25,891 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 45.5 not in [65, 90]
-2025-12-09 15:42:26,020 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 49.1 not in [65, 90]
-2025-12-09 15:42:26,152 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | ADX 24.6 not in [25, 60]
-2025-12-09 15:42:26,277 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | VolRatio 0.7 not in [2.5, 12]
-2025-12-09 15:42:26,410 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 59.9 not in [65, 90]
-2025-12-09 15:42:26,546 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 47.3 not in [65, 90]
-2025-12-09 15:42:26,680 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 49.1 not in [65, 90]
-2025-12-09 15:42:26,813 - trading_bot - INFO - ✓ 信号检测: 1000FLOKI/USDT:USDT 满足条件
-2025-12-09 15:42:26,814 - trading_bot - INFO - 发现信号: 1000FLOKI/USDT:USDT 做多 (虚拟交易: False)
-2025-12-09 15:42:26,814 - trading_bot - INFO - [开仓流程] 开始执行 1000FLOKI/USDT:USDT 开仓 (实盘交易)...
-2025-12-09 15:42:26,814 - trading_bot - INFO - [开仓流程] 1000FLOKI/USDT:USDT 入场价格: 0.05025
-2025-12-09 15:42:26,875 - trading_bot - INFO - [开仓流程] 账户余额: 93.76974397 USDT
-2025-12-09 15:42:26,996 - trading_bot - INFO - 1000FLOKI/USDT:USDT 保证金模式设置为 ISOLATED
-2025-12-09 15:42:26,997 - trading_bot - ERROR - 开仓失败 1000FLOKI/USDT:USDT: '<' not supported between instances of 'NoneType' and 'int'
-2025-12-09 15:43:28,130 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 15:43:31,108 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'PIPPIN/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 15:43:31,249 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 53.7 not in [65, 90]
-2025-12-09 15:43:31,383 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 60.0 not in [65, 90]
-2025-12-09 15:43:31,517 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 57.6 not in [65, 90]
-2025-12-09 15:43:31,652 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 37.9 not in [65, 90]
-2025-12-09 15:43:31,786 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 44.8 not in [65, 90]
-2025-12-09 15:43:31,917 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 48.9 not in [65, 90]
-2025-12-09 15:43:32,050 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | ADX 24.6 not in [25, 60]
-2025-12-09 15:43:32,180 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 64.8 not in [65, 90]
-2025-12-09 15:43:32,317 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 59.4 not in [65, 90]
-2025-12-09 15:43:32,447 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 47.7 not in [65, 90]
-2025-12-09 15:43:32,577 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 49.4 not in [65, 90]
-2025-12-09 15:43:32,710 - trading_bot - INFO - ✓ 信号检测: 1000FLOKI/USDT:USDT 满足条件
-2025-12-09 15:43:32,710 - trading_bot - INFO - 发现信号: 1000FLOKI/USDT:USDT 做多 (虚拟交易: False)
-2025-12-09 15:43:32,710 - trading_bot - INFO - [开仓流程] 开始执行 1000FLOKI/USDT:USDT 开仓 (实盘交易)...
-2025-12-09 15:43:32,710 - trading_bot - INFO - [开仓流程] 1000FLOKI/USDT:USDT 入场价格: 0.05026
-2025-12-09 15:43:32,771 - trading_bot - INFO - [开仓流程] 账户余额: 93.76974397 USDT
-2025-12-09 15:43:32,832 - trading_bot - INFO - 1000FLOKI/USDT:USDT 保证金模式设置为 ISOLATED
-2025-12-09 15:43:32,832 - trading_bot - ERROR - 开仓失败 1000FLOKI/USDT:USDT: '<' not supported between instances of 'NoneType' and 'int'
-2025-12-09 15:44:34,012 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 15:44:37,016 - trading_bot - INFO - 新增监控: 1000LUNC/USDT:USDT
-2025-12-09 15:44:37,016 - trading_bot - INFO - 当前监控列表 (13): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'PIPPIN/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 15:44:37,148 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 53.7 not in [65, 90]
-2025-12-09 15:44:37,277 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 61.8 not in [65, 90]
-2025-12-09 15:44:37,410 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 56.8 not in [65, 90]
-2025-12-09 15:44:37,543 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 38.0 not in [65, 90]
-2025-12-09 15:44:37,681 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 45.1 not in [65, 90]
-2025-12-09 15:44:37,813 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 60.0 not in [65, 90]
-2025-12-09 15:44:37,942 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 48.4 not in [65, 90]
-2025-12-09 15:44:38,072 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | ADX 24.6 not in [25, 60]
-2025-12-09 15:44:38,199 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 63.7 not in [65, 90]
-2025-12-09 15:44:38,327 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 59.0 not in [65, 90]
-2025-12-09 15:44:38,453 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 47.7 not in [65, 90]
-2025-12-09 15:44:38,580 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 49.6 not in [65, 90]
-2025-12-09 15:44:38,714 - trading_bot - INFO - ✓ 信号检测: 1000FLOKI/USDT:USDT 满足条件
-2025-12-09 15:44:38,714 - trading_bot - INFO - 发现信号: 1000FLOKI/USDT:USDT 做多 (虚拟交易: False)
-2025-12-09 15:44:38,715 - trading_bot - INFO - [开仓流程] 开始执行 1000FLOKI/USDT:USDT 开仓 (实盘交易)...
-2025-12-09 15:44:38,715 - trading_bot - INFO - [开仓流程] 1000FLOKI/USDT:USDT 入场价格: 0.05029
-2025-12-09 15:44:38,774 - trading_bot - INFO - [开仓流程] 账户余额: 93.76974397 USDT
-2025-12-09 15:44:38,835 - trading_bot - INFO - 1000FLOKI/USDT:USDT 保证金模式设置为 ISOLATED
-2025-12-09 15:44:38,835 - trading_bot - ERROR - 开仓失败 1000FLOKI/USDT:USDT: '<' not supported between instances of 'NoneType' and 'int'
-2025-12-09 15:45:40,038 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 15:45:43,016 - trading_bot - INFO - 当前监控列表 (13): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'PIPPIN/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 15:45:43,151 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 55.1 not in [65, 90]
-2025-12-09 15:45:43,276 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 61.6 not in [65, 90]
-2025-12-09 15:45:43,402 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 55.3 not in [65, 90]
-2025-12-09 15:45:43,528 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 37.3 not in [65, 90]
-2025-12-09 15:45:43,653 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 41.6 not in [65, 90]
-2025-12-09 15:45:43,777 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 57.7 not in [65, 90]
-2025-12-09 15:45:43,902 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 50.4 not in [65, 90]
-2025-12-09 15:45:44,034 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 0.1 not in [2.5, 12]
-2025-12-09 15:45:44,165 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 63.4 not in [65, 90]
-2025-12-09 15:45:44,371 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 60.2 not in [65, 90]
-2025-12-09 15:45:44,504 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 47.6 not in [65, 90]
-2025-12-09 15:45:44,645 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 47.1 not in [65, 90]
-2025-12-09 15:45:44,780 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | VolRatio 0.1 not in [2.5, 12]
-2025-12-09 15:46:45,951 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 15:46:48,946 - trading_bot - INFO - 当前监控列表 (13): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'PIPPIN/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 15:46:49,136 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 54.2 not in [65, 90]
-2025-12-09 15:46:49,274 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 62.3 not in [65, 90]
-2025-12-09 15:46:49,398 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 55.8 not in [65, 90]
-2025-12-09 15:46:49,536 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 36.9 not in [65, 90]
-2025-12-09 15:46:49,694 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 42.8 not in [65, 90]
-2025-12-09 15:46:49,852 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 59.3 not in [65, 90]
-2025-12-09 15:46:49,993 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 50.4 not in [65, 90]
-2025-12-09 15:46:50,148 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 0.2 not in [2.5, 12]
-2025-12-09 15:46:50,286 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 63.2 not in [65, 90]
-2025-12-09 15:46:50,429 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 61.7 not in [65, 90]
-2025-12-09 15:46:50,567 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 48.0 not in [65, 90]
-2025-12-09 15:46:50,708 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 47.5 not in [65, 90]
-2025-12-09 15:46:50,845 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | VolRatio 0.4 not in [2.5, 12]
-2025-12-09 15:47:52,021 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 15:47:54,988 - trading_bot - INFO - 移除监控: PIPPIN/USDT:USDT
-2025-12-09 15:47:54,989 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 15:47:55,116 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 53.5 not in [65, 90]
-2025-12-09 15:47:55,257 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 63.1 not in [65, 90]
-2025-12-09 15:47:55,389 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 56.4 not in [65, 90]
-2025-12-09 15:47:55,515 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 36.8 not in [65, 90]
-2025-12-09 15:47:55,643 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 42.1 not in [65, 90]
-2025-12-09 15:47:55,770 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 58.1 not in [65, 90]
-2025-12-09 15:47:55,901 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 51.1 not in [65, 90]
-2025-12-09 15:47:56,024 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | RSI 64.6 not in [65, 90]
-2025-12-09 15:47:56,151 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 61.5 not in [65, 90]
-2025-12-09 15:47:56,277 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 46.4 not in [65, 90]
-2025-12-09 15:47:56,403 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 46.8 not in [65, 90]
-2025-12-09 15:47:56,530 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | VolRatio 1.0 not in [2.5, 12]
-2025-12-09 15:48:57,614 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 15:49:00,589 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 15:49:00,721 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 53.5 not in [65, 90]
-2025-12-09 15:49:00,850 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 62.0 not in [65, 90]
-2025-12-09 15:49:00,973 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 55.2 not in [65, 90]
-2025-12-09 15:49:01,099 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 37.9 not in [65, 90]
-2025-12-09 15:49:01,223 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 41.9 not in [65, 90]
-2025-12-09 15:49:01,349 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 61.0 not in [65, 90]
-2025-12-09 15:49:01,476 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 51.1 not in [65, 90]
-2025-12-09 15:49:01,603 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 0.4 not in [2.5, 12]
-2025-12-09 15:49:01,727 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 61.5 not in [65, 90]
-2025-12-09 15:49:01,858 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 46.0 not in [65, 90]
-2025-12-09 15:49:01,984 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 47.0 not in [65, 90]
-2025-12-09 15:49:02,113 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | RSI 64.2 not in [65, 90]
-2025-12-09 15:50:03,290 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 15:50:06,321 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 15:50:06,482 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 50.8 not in [65, 90]
-2025-12-09 15:50:06,640 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 62.2 not in [65, 90]
-2025-12-09 15:50:06,788 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 56.1 not in [65, 90]
-2025-12-09 15:50:06,937 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 38.0 not in [65, 90]
-2025-12-09 15:50:07,084 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 43.0 not in [65, 90]
-2025-12-09 15:50:07,234 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 61.9 not in [65, 90]
-2025-12-09 15:50:07,383 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 50.2 not in [65, 90]
-2025-12-09 15:50:07,535 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 0.5 not in [2.5, 12]
-2025-12-09 15:50:07,688 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 61.7 not in [65, 90]
-2025-12-09 15:50:07,845 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 46.8 not in [65, 90]
-2025-12-09 15:50:08,000 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 47.9 not in [65, 90]
-2025-12-09 15:50:08,156 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | VolRatio 1.7 not in [2.5, 12]
-2025-12-09 15:51:09,426 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 15:51:12,411 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 15:51:12,540 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 51.3 not in [65, 90]
-2025-12-09 15:51:12,686 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 61.8 not in [65, 90]
-2025-12-09 15:51:12,839 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 56.3 not in [65, 90]
-2025-12-09 15:51:12,999 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 38.9 not in [65, 90]
-2025-12-09 15:51:13,147 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 42.9 not in [65, 90]
-2025-12-09 15:51:13,274 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 61.4 not in [65, 90]
-2025-12-09 15:51:13,399 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 50.2 not in [65, 90]
-2025-12-09 15:51:13,531 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 0.6 not in [2.5, 12]
-2025-12-09 15:51:13,661 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 61.5 not in [65, 90]
-2025-12-09 15:51:13,794 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 46.4 not in [65, 90]
-2025-12-09 15:51:13,924 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 48.3 not in [65, 90]
-2025-12-09 15:51:14,049 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | VolRatio 1.8 not in [2.5, 12]
-2025-12-09 15:52:15,165 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 15:52:18,152 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 15:52:18,284 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 51.8 not in [65, 90]
-2025-12-09 15:52:18,420 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 60.5 not in [65, 90]
-2025-12-09 15:52:18,554 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 58.2 not in [65, 90]
-2025-12-09 15:52:18,683 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 39.5 not in [65, 90]
-2025-12-09 15:52:18,829 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 43.0 not in [65, 90]
-2025-12-09 15:52:18,982 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 60.7 not in [65, 90]
-2025-12-09 15:52:19,119 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 53.8 not in [65, 90]
-2025-12-09 15:52:19,282 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 0.6 not in [2.5, 12]
-2025-12-09 15:52:19,408 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 62.2 not in [65, 90]
-2025-12-09 15:52:19,535 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 46.0 not in [65, 90]
-2025-12-09 15:52:19,664 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 47.5 not in [65, 90]
-2025-12-09 15:52:19,795 - trading_bot - INFO - ✓ 信号检测: 1000FLOKI/USDT:USDT 满足条件
-2025-12-09 15:52:19,796 - trading_bot - INFO - 发现信号: 1000FLOKI/USDT:USDT 做多 (虚拟交易: False)
-2025-12-09 15:52:19,796 - trading_bot - INFO - [开仓流程] 开始执行 1000FLOKI/USDT:USDT 开仓 (实盘交易)...
-2025-12-09 15:52:19,796 - trading_bot - INFO - [开仓流程] 1000FLOKI/USDT:USDT 入场价格: 0.05022
-2025-12-09 15:52:19,854 - trading_bot - INFO - [开仓流程] 账户余额: 93.76974397 USDT
-2025-12-09 15:52:20,067 - trading_bot - INFO - 1000FLOKI/USDT:USDT 保证金模式设置为 ISOLATED
-2025-12-09 15:52:20,067 - trading_bot - ERROR - 开仓失败 1000FLOKI/USDT:USDT: '<' not supported between instances of 'NoneType' and 'int'
-2025-12-09 15:53:21,223 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 15:53:24,249 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 15:53:24,399 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 53.8 not in [65, 90]
-2025-12-09 15:53:24,550 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 61.6 not in [65, 90]
-2025-12-09 15:53:24,700 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 57.8 not in [65, 90]
-2025-12-09 15:53:24,850 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 39.4 not in [65, 90]
-2025-12-09 15:53:24,999 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 42.4 not in [65, 90]
-2025-12-09 15:53:25,150 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 60.9 not in [65, 90]
-2025-12-09 15:53:25,301 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 53.1 not in [65, 90]
-2025-12-09 15:53:25,451 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 0.7 not in [2.5, 12]
-2025-12-09 15:53:25,602 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | VolRatio 0.4 not in [2.5, 12]
-2025-12-09 15:53:25,757 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 46.0 not in [65, 90]
-2025-12-09 15:53:25,914 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 49.0 not in [65, 90]
-2025-12-09 15:53:26,068 - trading_bot - INFO - ✓ 信号检测: 1000FLOKI/USDT:USDT 满足条件
-2025-12-09 15:53:26,068 - trading_bot - INFO - 发现信号: 1000FLOKI/USDT:USDT 做多 (虚拟交易: False)
-2025-12-09 15:53:26,068 - trading_bot - INFO - [开仓流程] 开始执行 1000FLOKI/USDT:USDT 开仓 (实盘交易)...
-2025-12-09 15:53:26,068 - trading_bot - INFO - [开仓流程] 1000FLOKI/USDT:USDT 入场价格: 0.05003
-2025-12-09 15:53:26,141 - trading_bot - INFO - [开仓流程] 账户余额: 93.76974397 USDT
-2025-12-09 15:53:26,364 - trading_bot - INFO - 1000FLOKI/USDT:USDT 保证金模式设置为 ISOLATED
-2025-12-09 15:53:26,364 - trading_bot - ERROR - 开仓失败 1000FLOKI/USDT:USDT: '<' not supported between instances of 'NoneType' and 'int'
-2025-12-09 15:54:27,578 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 15:54:30,552 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 15:54:30,704 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 54.0 not in [65, 90]
-2025-12-09 15:54:30,848 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 61.3 not in [65, 90]
-2025-12-09 15:54:30,974 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 57.4 not in [65, 90]
-2025-12-09 15:54:31,109 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 39.2 not in [65, 90]
-2025-12-09 15:54:31,250 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 42.0 not in [65, 90]
-2025-12-09 15:54:31,373 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 60.3 not in [65, 90]
-2025-12-09 15:54:31,511 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 53.6 not in [65, 90]
-2025-12-09 15:54:31,630 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 0.9 not in [2.5, 12]
-2025-12-09 15:54:31,750 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | VolRatio 0.4 not in [2.5, 12]
-2025-12-09 15:54:31,870 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 46.4 not in [65, 90]
-2025-12-09 15:54:31,996 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 49.2 not in [65, 90]
-2025-12-09 15:54:32,121 - trading_bot - INFO - ✓ 信号检测: 1000FLOKI/USDT:USDT 满足条件
-2025-12-09 15:54:32,121 - trading_bot - INFO - 发现信号: 1000FLOKI/USDT:USDT 做多 (虚拟交易: False)
-2025-12-09 15:54:32,121 - trading_bot - INFO - [开仓流程] 开始执行 1000FLOKI/USDT:USDT 开仓 (实盘交易)...
-2025-12-09 15:54:32,121 - trading_bot - INFO - [开仓流程] 1000FLOKI/USDT:USDT 入场价格: 0.04994
-2025-12-09 15:54:32,176 - trading_bot - INFO - [开仓流程] 账户余额: 93.76974397 USDT
-2025-12-09 15:54:32,386 - trading_bot - INFO - 1000FLOKI/USDT:USDT 保证金模式设置为 ISOLATED
-2025-12-09 15:54:32,386 - trading_bot - ERROR - 开仓失败 1000FLOKI/USDT:USDT: '<' not supported between instances of 'NoneType' and 'int'
-2025-12-09 15:55:33,432 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 15:55:36,437 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 15:55:36,569 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 57.6 not in [65, 90]
-2025-12-09 15:55:36,700 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 64.8 not in [65, 90]
-2025-12-09 15:55:36,827 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 57.0 not in [65, 90]
-2025-12-09 15:55:36,958 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 37.3 not in [65, 90]
-2025-12-09 15:55:37,085 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 41.9 not in [65, 90]
-2025-12-09 15:55:37,213 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 20.7 not in [25, 60]
-2025-12-09 15:55:37,339 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 52.9 not in [65, 90]
-2025-12-09 15:55:37,464 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 1.3 not in [2.5, 12]
-2025-12-09 15:55:37,591 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | VolRatio 0.5 not in [2.5, 12]
-2025-12-09 15:55:37,718 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 47.2 not in [65, 90]
-2025-12-09 15:55:37,845 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 49.7 not in [65, 90]
-2025-12-09 15:55:37,982 - trading_bot - INFO - ✓ 信号检测: 1000FLOKI/USDT:USDT 满足条件
-2025-12-09 15:55:37,983 - trading_bot - INFO - 发现信号: 1000FLOKI/USDT:USDT 做多 (虚拟交易: False)
-2025-12-09 15:55:37,983 - trading_bot - INFO - [开仓流程] 开始执行 1000FLOKI/USDT:USDT 开仓 (实盘交易)...
-2025-12-09 15:55:37,983 - trading_bot - INFO - [开仓流程] 1000FLOKI/USDT:USDT 入场价格: 0.05011
-2025-12-09 15:55:38,043 - trading_bot - INFO - [开仓流程] 账户余额: 93.76974397 USDT
-2025-12-09 15:55:38,251 - trading_bot - INFO - 1000FLOKI/USDT:USDT 保证金模式设置为 ISOLATED
-2025-12-09 15:55:38,252 - trading_bot - ERROR - 开仓失败 1000FLOKI/USDT:USDT: '<' not supported between instances of 'NoneType' and 'int'
-2025-12-09 15:56:39,464 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 15:56:42,441 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 15:56:42,608 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 56.2 not in [65, 90]
-2025-12-09 15:56:42,775 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | ADX 23.9 not in [25, 60]
-2025-12-09 15:56:42,926 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 56.3 not in [65, 90]
-2025-12-09 15:56:43,071 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 38.5 not in [65, 90]
-2025-12-09 15:56:43,216 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 41.8 not in [65, 90]
-2025-12-09 15:56:43,345 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 20.9 not in [25, 60]
-2025-12-09 15:56:43,474 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 53.4 not in [65, 90]
-2025-12-09 15:56:43,602 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 1.5 not in [2.5, 12]
-2025-12-09 15:56:43,728 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | VolRatio 0.6 not in [2.5, 12]
-2025-12-09 15:56:43,857 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 46.0 not in [65, 90]
-2025-12-09 15:56:43,982 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 48.3 not in [65, 90]
-2025-12-09 15:56:44,102 - trading_bot - INFO - ✓ 信号检测: 1000FLOKI/USDT:USDT 满足条件
-2025-12-09 15:56:44,102 - trading_bot - INFO - 发现信号: 1000FLOKI/USDT:USDT 做多 (虚拟交易: False)
-2025-12-09 15:56:44,102 - trading_bot - INFO - [开仓流程] 开始执行 1000FLOKI/USDT:USDT 开仓 (实盘交易)...
-2025-12-09 15:56:44,102 - trading_bot - INFO - [开仓流程] 1000FLOKI/USDT:USDT 入场价格: 0.04998
-2025-12-09 15:56:44,159 - trading_bot - INFO - [开仓流程] 账户余额: 93.76974397 USDT
-2025-12-09 15:56:44,394 - trading_bot - INFO - 1000FLOKI/USDT:USDT 保证金模式设置为 ISOLATED
-2025-12-09 15:56:44,394 - trading_bot - ERROR - 开仓失败 1000FLOKI/USDT:USDT: '<' not supported between instances of 'NoneType' and 'int'
-2025-12-09 15:57:45,474 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 15:57:48,459 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 15:57:48,596 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 55.4 not in [65, 90]
-2025-12-09 15:57:48,729 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | ADX 23.9 not in [25, 60]
-2025-12-09 15:57:48,867 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 56.3 not in [65, 90]
-2025-12-09 15:57:48,997 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 37.9 not in [65, 90]
-2025-12-09 15:57:49,126 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 41.3 not in [65, 90]
-2025-12-09 15:57:49,252 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 20.9 not in [25, 60]
-2025-12-09 15:57:49,404 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 53.8 not in [65, 90]
-2025-12-09 15:57:49,533 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 1.6 not in [2.5, 12]
-2025-12-09 15:57:49,662 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | VolRatio 0.6 not in [2.5, 12]
-2025-12-09 15:57:49,789 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 47.2 not in [65, 90]
-2025-12-09 15:57:49,914 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 49.1 not in [65, 90]
-2025-12-09 15:57:50,043 - trading_bot - INFO - ✓ 信号检测: 1000FLOKI/USDT:USDT 满足条件
-2025-12-09 15:57:50,044 - trading_bot - INFO - 发现信号: 1000FLOKI/USDT:USDT 做多 (虚拟交易: False)
-2025-12-09 15:57:50,044 - trading_bot - INFO - [开仓流程] 开始执行 1000FLOKI/USDT:USDT 开仓 (实盘交易)...
-2025-12-09 15:57:50,044 - trading_bot - INFO - [开仓流程] 1000FLOKI/USDT:USDT 入场价格: 0.04992
-2025-12-09 15:57:50,103 - trading_bot - INFO - [开仓流程] 账户余额: 93.76974397 USDT
-2025-12-09 15:57:50,310 - trading_bot - INFO - 1000FLOKI/USDT:USDT 保证金模式设置为 ISOLATED
-2025-12-09 15:57:50,310 - trading_bot - ERROR - 开仓失败 1000FLOKI/USDT:USDT: '<' not supported between instances of 'NoneType' and 'int'
-2025-12-09 15:58:51,471 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 15:58:54,445 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 15:58:54,579 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 55.0 not in [65, 90]
-2025-12-09 15:58:54,705 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 64.5 not in [65, 90]
-2025-12-09 15:58:54,832 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 57.7 not in [65, 90]
-2025-12-09 15:58:54,954 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 37.3 not in [65, 90]
-2025-12-09 15:58:55,084 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 39.2 not in [65, 90]
-2025-12-09 15:58:55,209 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 20.9 not in [25, 60]
-2025-12-09 15:58:55,335 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 55.2 not in [65, 90]
-2025-12-09 15:58:55,460 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 1.7 not in [2.5, 12]
-2025-12-09 15:58:55,589 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 64.7 not in [65, 90]
-2025-12-09 15:58:55,718 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 46.8 not in [65, 90]
-2025-12-09 15:58:55,843 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 49.0 not in [65, 90]
-2025-12-09 15:58:55,972 - trading_bot - INFO - ✓ 信号检测: 1000FLOKI/USDT:USDT 满足条件
-2025-12-09 15:58:55,972 - trading_bot - INFO - 发现信号: 1000FLOKI/USDT:USDT 做多 (虚拟交易: False)
-2025-12-09 15:58:55,972 - trading_bot - INFO - [开仓流程] 开始执行 1000FLOKI/USDT:USDT 开仓 (实盘交易)...
-2025-12-09 15:58:55,972 - trading_bot - INFO - [开仓流程] 1000FLOKI/USDT:USDT 入场价格: 0.04992
-2025-12-09 15:58:56,030 - trading_bot - INFO - [开仓流程] 账户余额: 93.76974397 USDT
-2025-12-09 15:58:56,236 - trading_bot - INFO - 1000FLOKI/USDT:USDT 保证金模式设置为 ISOLATED
-2025-12-09 15:58:56,236 - trading_bot - ERROR - 开仓失败 1000FLOKI/USDT:USDT: '<' not supported between instances of 'NoneType' and 'int'
-2025-12-09 15:59:57,103 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:00:00,106 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:00:00,279 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 55.6 not in [65, 90]
-2025-12-09 16:00:00,417 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 64.4 not in [65, 90]
-2025-12-09 16:00:00,563 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 58.3 not in [65, 90]
-2025-12-09 16:00:02,644 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 37.0 not in [65, 90]
-2025-12-09 16:00:02,802 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 39.9 not in [65, 90]
-2025-12-09 16:00:02,984 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 20.9 not in [25, 60]
-2025-12-09 16:00:03,161 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 54.0 not in [65, 90]
-2025-12-09 16:00:03,335 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 1.9 not in [2.5, 12]
-2025-12-09 16:00:03,501 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 62.9 not in [65, 90]
-2025-12-09 16:00:03,665 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 46.6 not in [65, 90]
-2025-12-09 16:00:03,885 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 49.1 not in [65, 90]
-2025-12-09 16:00:04,088 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | VolRatio 0.0 not in [2.5, 12]
-2025-12-09 16:01:05,220 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:01:08,231 - trading_bot - INFO - 移除监控: MAGIC/USDT:USDT
-2025-12-09 16:01:08,231 - trading_bot - INFO - 当前监控列表 (11): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:01:08,394 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 55.7 not in [65, 90]
-2025-12-09 16:01:08,557 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | VolRatio 0.2 not in [2.5, 12]
-2025-12-09 16:01:08,709 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 56.1 not in [65, 90]
-2025-12-09 16:01:08,879 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 37.1 not in [65, 90]
-2025-12-09 16:01:09,025 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 42.1 not in [65, 90]
-2025-12-09 16:01:09,167 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 20.2 not in [25, 60]
-2025-12-09 16:01:09,324 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 48.0 not in [65, 90]
-2025-12-09 16:01:09,527 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 0.4 not in [2.5, 12]
-2025-12-09 16:01:09,672 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 64.5 not in [65, 90]
-2025-12-09 16:01:09,830 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 46.7 not in [65, 90]
-2025-12-09 16:01:09,986 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | VolRatio 0.2 not in [2.5, 12]
-2025-12-09 16:02:10,956 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:02:13,929 - trading_bot - INFO - 新增监控: MAGIC/USDT:USDT
-2025-12-09 16:02:13,929 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:02:14,096 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 56.4 not in [65, 90]
-2025-12-09 16:02:14,225 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | VolRatio 0.4 not in [2.5, 12]
-2025-12-09 16:02:14,348 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 55.1 not in [65, 90]
-2025-12-09 16:02:14,479 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 37.6 not in [65, 90]
-2025-12-09 16:02:14,601 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 41.7 not in [65, 90]
-2025-12-09 16:02:14,728 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 20.2 not in [25, 60]
-2025-12-09 16:02:14,851 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 49.6 not in [65, 90]
-2025-12-09 16:02:14,979 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 0.5 not in [2.5, 12]
-2025-12-09 16:02:15,106 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | VolRatio 0.6 not in [2.5, 12]
-2025-12-09 16:02:15,239 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 46.2 not in [65, 90]
-2025-12-09 16:02:15,363 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 46.2 not in [65, 90]
-2025-12-09 16:02:15,497 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | VolRatio 0.3 not in [2.5, 12]
-2025-12-09 16:03:16,387 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:03:19,383 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:03:19,558 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 51.8 not in [65, 90]
-2025-12-09 16:03:19,743 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 61.2 not in [65, 90]
-2025-12-09 16:03:19,918 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 57.4 not in [65, 90]
-2025-12-09 16:03:20,061 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 37.7 not in [65, 90]
-2025-12-09 16:03:20,214 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 40.9 not in [65, 90]
-2025-12-09 16:03:20,351 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 20.2 not in [25, 60]
-2025-12-09 16:03:20,477 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 45.9 not in [65, 90]
-2025-12-09 16:03:20,603 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | RSI 64.7 not in [65, 90]
-2025-12-09 16:03:20,728 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | VolRatio 0.7 not in [2.5, 12]
-2025-12-09 16:03:20,860 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 45.0 not in [65, 90]
-2025-12-09 16:03:20,988 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 47.3 not in [65, 90]
-2025-12-09 16:03:21,111 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | VolRatio 0.4 not in [2.5, 12]
-2025-12-09 16:04:22,001 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:04:24,983 - trading_bot - INFO - 新增监控: PIPPIN/USDT:USDT
-2025-12-09 16:04:24,983 - trading_bot - INFO - 移除监控: MAGIC/USDT:USDT
-2025-12-09 16:04:24,983 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'PIPPIN/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:04:25,116 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 51.2 not in [65, 90]
-2025-12-09 16:04:25,248 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 63.1 not in [65, 90]
-2025-12-09 16:04:25,373 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 58.1 not in [65, 90]
-2025-12-09 16:04:25,501 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 37.2 not in [65, 90]
-2025-12-09 16:04:25,626 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 44.5 not in [65, 90]
-2025-12-09 16:04:25,761 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 20.2 not in [25, 60]
-2025-12-09 16:04:25,901 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 45.2 not in [65, 90]
-2025-12-09 16:04:26,032 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 0.7 not in [2.5, 12]
-2025-12-09 16:04:26,156 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | VolRatio 0.8 not in [2.5, 12]
-2025-12-09 16:04:26,284 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 58.3 not in [65, 90]
-2025-12-09 16:04:26,410 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 47.0 not in [65, 90]
-2025-12-09 16:04:26,537 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | VolRatio 0.6 not in [2.5, 12]
-2025-12-09 16:05:27,422 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:05:30,396 - trading_bot - INFO - 新增监控: MAGIC/USDT:USDT
-2025-12-09 16:05:30,396 - trading_bot - INFO - 移除监控: PIPPIN/USDT:USDT
-2025-12-09 16:05:30,396 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:05:30,538 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 48.4 not in [65, 90]
-2025-12-09 16:05:30,681 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 62.3 not in [65, 90]
-2025-12-09 16:05:30,807 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 57.8 not in [65, 90]
-2025-12-09 16:05:30,934 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 34.6 not in [65, 90]
-2025-12-09 16:05:31,061 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 44.4 not in [65, 90]
-2025-12-09 16:05:31,204 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 20.2 not in [25, 60]
-2025-12-09 16:05:31,337 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 46.4 not in [65, 90]
-2025-12-09 16:05:31,462 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 0.9 not in [2.5, 12]
-2025-12-09 16:05:31,588 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | VolRatio 0.9 not in [2.5, 12]
-2025-12-09 16:05:31,712 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 47.1 not in [65, 90]
-2025-12-09 16:05:31,841 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 44.6 not in [65, 90]
-2025-12-09 16:05:31,967 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | VolRatio 0.7 not in [2.5, 12]
-2025-12-09 16:06:32,805 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:06:35,825 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:06:35,977 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 48.6 not in [65, 90]
-2025-12-09 16:06:36,129 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 64.5 not in [65, 90]
-2025-12-09 16:06:36,312 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 58.3 not in [65, 90]
-2025-12-09 16:06:36,481 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 36.8 not in [65, 90]
-2025-12-09 16:06:36,626 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 43.5 not in [65, 90]
-2025-12-09 16:06:36,797 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 20.2 not in [25, 60]
-2025-12-09 16:06:36,952 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 44.0 not in [65, 90]
-2025-12-09 16:06:37,104 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 1.1 not in [2.5, 12]
-2025-12-09 16:06:37,268 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 64.9 not in [65, 90]
-2025-12-09 16:06:37,410 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 45.8 not in [65, 90]
-2025-12-09 16:06:37,555 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 45.4 not in [65, 90]
-2025-12-09 16:06:37,687 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | VolRatio 0.7 not in [2.5, 12]
-2025-12-09 16:07:38,627 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:07:41,615 - trading_bot - INFO - 移除监控: MAGIC/USDT:USDT
-2025-12-09 16:07:41,615 - trading_bot - INFO - 当前监控列表 (11): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:07:41,741 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 48.5 not in [65, 90]
-2025-12-09 16:07:41,869 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | VolRatio 1.3 not in [2.5, 12]
-2025-12-09 16:07:41,991 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 59.9 not in [65, 90]
-2025-12-09 16:07:42,116 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 35.0 not in [65, 90]
-2025-12-09 16:07:42,241 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 44.5 not in [65, 90]
-2025-12-09 16:07:42,372 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 20.2 not in [25, 60]
-2025-12-09 16:07:42,504 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 43.6 not in [65, 90]
-2025-12-09 16:07:42,628 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 1.3 not in [2.5, 12]
-2025-12-09 16:07:42,750 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | VolRatio 1.0 not in [2.5, 12]
-2025-12-09 16:07:42,876 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 46.1 not in [65, 90]
-2025-12-09 16:07:43,005 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | VolRatio 0.8 not in [2.5, 12]
-2025-12-09 16:08:43,800 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:08:46,820 - trading_bot - INFO - 新增监控: MAGIC/USDT:USDT
-2025-12-09 16:08:46,820 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:08:46,945 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 46.9 not in [65, 90]
-2025-12-09 16:08:47,072 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | VolRatio 1.6 not in [2.5, 12]
-2025-12-09 16:08:47,197 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 59.5 not in [65, 90]
-2025-12-09 16:08:47,331 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 34.9 not in [65, 90]
-2025-12-09 16:08:47,453 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 44.2 not in [65, 90]
-2025-12-09 16:08:47,581 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 20.3 not in [25, 60]
-2025-12-09 16:08:47,710 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 43.5 not in [65, 90]
-2025-12-09 16:08:47,842 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 1.4 not in [2.5, 12]
-2025-12-09 16:08:47,968 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 64.7 not in [65, 90]
-2025-12-09 16:08:48,090 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 44.6 not in [65, 90]
-2025-12-09 16:08:48,212 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 46.7 not in [65, 90]
-2025-12-09 16:08:48,342 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | VolRatio 0.8 not in [2.5, 12]
-2025-12-09 16:09:49,219 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:09:52,198 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:09:52,332 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 46.3 not in [65, 90]
-2025-12-09 16:09:52,458 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | VolRatio 1.8 not in [2.5, 12]
-2025-12-09 16:09:52,581 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 59.2 not in [65, 90]
-2025-12-09 16:09:52,706 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 36.2 not in [65, 90]
-2025-12-09 16:09:52,831 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 44.0 not in [65, 90]
-2025-12-09 16:09:52,958 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 20.3 not in [25, 60]
-2025-12-09 16:09:53,088 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 43.5 not in [65, 90]
-2025-12-09 16:09:53,223 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 1.5 not in [2.5, 12]
-2025-12-09 16:09:53,355 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | VolRatio 1.1 not in [2.5, 12]
-2025-12-09 16:09:53,485 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 45.0 not in [65, 90]
-2025-12-09 16:09:53,634 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 46.3 not in [65, 90]
-2025-12-09 16:09:53,768 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | RSI 63.8 not in [65, 90]
-2025-12-09 16:10:54,652 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:10:57,649 - trading_bot - INFO - 当前监控列表 (12): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', 'BLUAI/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:10:57,800 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 46.0 not in [65, 90]
-2025-12-09 16:10:57,934 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | VolRatio 1.9 not in [2.5, 12]
-2025-12-09 16:10:58,079 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 59.9 not in [65, 90]
-2025-12-09 16:10:58,225 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 36.6 not in [65, 90]
-2025-12-09 16:10:58,368 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 46.2 not in [65, 90]
-2025-12-09 16:10:58,505 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 20.3 not in [25, 60]
-2025-12-09 16:10:58,644 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 44.0 not in [65, 90]
-2025-12-09 16:10:58,790 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 1.6 not in [2.5, 12]
-2025-12-09 16:10:58,934 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 64.5 not in [65, 90]
-2025-12-09 16:10:59,071 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 44.6 not in [65, 90]
-2025-12-09 16:10:59,202 - trading_bot - INFO - ✗ 信号拒绝: BLUAI/USDT:USDT | RSI 44.8 not in [65, 90]
-2025-12-09 16:10:59,356 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | RSI 64.0 not in [65, 90]
-2025-12-09 16:12:00,275 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:12:03,248 - trading_bot - INFO - 移除监控: BLUAI/USDT:USDT
-2025-12-09 16:12:03,248 - trading_bot - INFO - 当前监控列表 (11): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:12:03,380 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 46.6 not in [65, 90]
-2025-12-09 16:12:03,502 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 63.2 not in [65, 90]
-2025-12-09 16:12:03,624 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 60.6 not in [65, 90]
-2025-12-09 16:12:03,751 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 36.9 not in [65, 90]
-2025-12-09 16:12:03,872 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 46.0 not in [65, 90]
-2025-12-09 16:12:03,999 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 20.3 not in [25, 60]
-2025-12-09 16:12:04,135 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 44.5 not in [65, 90]
-2025-12-09 16:12:04,260 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 1.7 not in [2.5, 12]
-2025-12-09 16:12:04,386 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 64.4 not in [65, 90]
-2025-12-09 16:12:04,522 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 45.0 not in [65, 90]
-2025-12-09 16:12:04,656 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | VolRatio 1.4 not in [2.5, 12]
-2025-12-09 16:13:05,458 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:13:08,491 - trading_bot - INFO - 新增监控: H/USDT:USDT
-2025-12-09 16:13:08,491 - trading_bot - INFO - 移除监控: MAGIC/USDT:USDT
-2025-12-09 16:13:08,492 - trading_bot - INFO - 当前监控列表 (11): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'H/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:13:08,724 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 47.0 not in [65, 90]
-2025-12-09 16:13:08,897 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | VolRatio 2.2 not in [2.5, 12]
-2025-12-09 16:13:09,057 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 59.7 not in [65, 90]
-2025-12-09 16:13:09,203 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 36.7 not in [65, 90]
-2025-12-09 16:13:09,347 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 47.2 not in [65, 90]
-2025-12-09 16:13:09,488 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 20.3 not in [25, 60]
-2025-12-09 16:13:09,628 - trading_bot - INFO - ✗ 信号拒绝: H/USDT:USDT | RSI 39.2 not in [65, 90]
-2025-12-09 16:13:09,772 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 44.8 not in [65, 90]
-2025-12-09 16:13:09,915 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 1.9 not in [2.5, 12]
-2025-12-09 16:13:10,066 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 63.9 not in [65, 90]
-2025-12-09 16:13:10,227 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | RSI 60.9 not in [65, 90]
-2025-12-09 16:14:11,063 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:14:14,040 - trading_bot - INFO - 当前监控列表 (11): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'H/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:14:14,175 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 47.8 not in [65, 90]
-2025-12-09 16:14:14,310 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 63.8 not in [65, 90]
-2025-12-09 16:14:14,441 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 60.4 not in [65, 90]
-2025-12-09 16:14:14,568 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 37.0 not in [65, 90]
-2025-12-09 16:14:14,692 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 47.5 not in [65, 90]
-2025-12-09 16:14:14,820 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 20.3 not in [25, 60]
-2025-12-09 16:14:14,949 - trading_bot - INFO - ✗ 信号拒绝: H/USDT:USDT | RSI 39.3 not in [65, 90]
-2025-12-09 16:14:15,082 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 45.0 not in [65, 90]
-2025-12-09 16:14:15,234 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | RSI 64.9 not in [65, 90]
-2025-12-09 16:14:15,380 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 63.0 not in [65, 90]
-2025-12-09 16:14:15,522 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | RSI 61.5 not in [65, 90]
-2025-12-09 16:15:16,366 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:15:19,343 - trading_bot - INFO - 当前监控列表 (11): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'H/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:15:19,470 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 48.6 not in [65, 90]
-2025-12-09 16:15:19,596 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 58.8 not in [65, 90]
-2025-12-09 16:15:19,728 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 61.2 not in [65, 90]
-2025-12-09 16:15:19,856 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 37.1 not in [65, 90]
-2025-12-09 16:15:19,983 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 45.5 not in [65, 90]
-2025-12-09 16:15:20,112 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | VolRatio 0.1 not in [2.5, 12]
-2025-12-09 16:15:20,241 - trading_bot - INFO - ✗ 信号拒绝: H/USDT:USDT | RSI 43.5 not in [65, 90]
-2025-12-09 16:15:20,369 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 46.9 not in [65, 90]
-2025-12-09 16:15:20,496 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | RSI 62.8 not in [65, 90]
-2025-12-09 16:15:20,658 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | VolRatio 0.0 not in [2.5, 12]
-2025-12-09 16:15:20,788 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | RSI 62.5 not in [65, 90]
-2025-12-09 16:16:21,590 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:16:24,560 - trading_bot - INFO - 新增监控: MAGIC/USDT:USDT
-2025-12-09 16:16:24,560 - trading_bot - INFO - 移除监控: H/USDT:USDT
-2025-12-09 16:16:24,560 - trading_bot - INFO - 当前监控列表 (11): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:16:24,692 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 50.8 not in [65, 90]
-2025-12-09 16:16:24,820 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 61.1 not in [65, 90]
-2025-12-09 16:16:24,947 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 61.2 not in [65, 90]
-2025-12-09 16:16:25,077 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 38.1 not in [65, 90]
-2025-12-09 16:16:25,210 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 45.6 not in [65, 90]
-2025-12-09 16:16:25,347 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | VolRatio 0.3 not in [2.5, 12]
-2025-12-09 16:16:25,481 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 46.5 not in [65, 90]
-2025-12-09 16:16:25,612 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | RSI 62.5 not in [65, 90]
-2025-12-09 16:16:25,739 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | VolRatio 0.1 not in [2.5, 12]
-2025-12-09 16:16:25,873 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 46.1 not in [65, 90]
-2025-12-09 16:16:25,997 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | RSI 62.9 not in [65, 90]
-2025-12-09 16:17:26,873 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:17:29,851 - trading_bot - INFO - 移除监控: MAGIC/USDT:USDT
-2025-12-09 16:17:29,851 - trading_bot - INFO - 当前监控列表 (10): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:17:29,982 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 52.4 not in [65, 90]
-2025-12-09 16:17:30,112 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 59.5 not in [65, 90]
-2025-12-09 16:17:30,250 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 61.6 not in [65, 90]
-2025-12-09 16:17:30,386 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 40.8 not in [65, 90]
-2025-12-09 16:17:30,515 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 46.4 not in [65, 90]
-2025-12-09 16:17:30,638 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | VolRatio 0.5 not in [2.5, 12]
-2025-12-09 16:17:30,776 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 46.5 not in [65, 90]
-2025-12-09 16:17:30,913 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | RSI 63.2 not in [65, 90]
-2025-12-09 16:17:31,043 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | VolRatio 0.3 not in [2.5, 12]
-2025-12-09 16:17:31,177 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | RSI 62.9 not in [65, 90]
-2025-12-09 16:18:32,057 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:18:35,133 - trading_bot - INFO - 新增监控: H/USDT:USDT
-2025-12-09 16:18:35,134 - trading_bot - INFO - 当前监控列表 (11): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'H/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:18:35,277 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 52.1 not in [65, 90]
-2025-12-09 16:18:35,426 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 60.6 not in [65, 90]
-2025-12-09 16:18:35,558 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 62.6 not in [65, 90]
-2025-12-09 16:18:35,692 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 42.6 not in [65, 90]
-2025-12-09 16:18:35,820 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 47.4 not in [65, 90]
-2025-12-09 16:18:35,949 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | VolRatio 0.6 not in [2.5, 12]
-2025-12-09 16:18:36,076 - trading_bot - INFO - ✗ 信号拒绝: H/USDT:USDT | RSI 44.8 not in [65, 90]
-2025-12-09 16:18:36,202 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 46.9 not in [65, 90]
-2025-12-09 16:18:36,326 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | RSI 62.7 not in [65, 90]
-2025-12-09 16:18:36,447 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | VolRatio 0.4 not in [2.5, 12]
-2025-12-09 16:18:36,576 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | RSI 62.3 not in [65, 90]
-2025-12-09 16:19:37,359 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:19:40,369 - trading_bot - INFO - 移除监控: H/USDT:USDT
-2025-12-09 16:19:40,370 - trading_bot - INFO - 当前监控列表 (10): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:19:40,497 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 56.7 not in [65, 90]
-2025-12-09 16:19:40,619 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 58.5 not in [65, 90]
-2025-12-09 16:19:40,741 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 63.0 not in [65, 90]
-2025-12-09 16:19:40,864 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 40.4 not in [65, 90]
-2025-12-09 16:19:40,995 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 48.0 not in [65, 90]
-2025-12-09 16:19:41,118 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 63.7 not in [65, 90]
-2025-12-09 16:19:41,245 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 47.3 not in [65, 90]
-2025-12-09 16:19:41,372 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | RSI 61.4 not in [65, 90]
-2025-12-09 16:19:41,505 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | VolRatio 0.5 not in [2.5, 12]
-2025-12-09 16:19:41,633 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | RSI 63.6 not in [65, 90]
-2025-12-09 16:20:42,353 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:20:45,321 - trading_bot - INFO - 新增监控: MAGIC/USDT:USDT
-2025-12-09 16:20:45,321 - trading_bot - INFO - 当前监控列表 (11): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT', '1000FLOKI/USDT:USDT']
-2025-12-09 16:20:45,454 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 55.7 not in [65, 90]
-2025-12-09 16:20:45,578 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 59.3 not in [65, 90]
-2025-12-09 16:20:45,705 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 63.6 not in [65, 90]
-2025-12-09 16:20:45,828 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 38.5 not in [65, 90]
-2025-12-09 16:20:45,953 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 46.8 not in [65, 90]
-2025-12-09 16:20:46,086 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 61.5 not in [65, 90]
-2025-12-09 16:20:46,211 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 46.9 not in [65, 90]
-2025-12-09 16:20:46,339 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | RSI 63.1 not in [65, 90]
-2025-12-09 16:20:46,466 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | VolRatio 0.5 not in [2.5, 12]
-2025-12-09 16:20:46,593 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 46.1 not in [65, 90]
-2025-12-09 16:20:46,721 - trading_bot - INFO - ✗ 信号拒绝: 1000FLOKI/USDT:USDT | RSI 62.9 not in [65, 90]
-2025-12-09 16:21:47,490 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:21:50,489 - trading_bot - INFO - 新增监控: H/USDT:USDT
-2025-12-09 16:21:50,490 - trading_bot - INFO - 移除监控: 1000FLOKI/USDT:USDT
-2025-12-09 16:21:50,490 - trading_bot - INFO - 当前监控列表 (11): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'H/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'MAGIC/USDT:USDT']
-2025-12-09 16:21:50,645 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 55.6 not in [65, 90]
-2025-12-09 16:21:50,791 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 60.9 not in [65, 90]
-2025-12-09 16:21:50,923 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 63.3 not in [65, 90]
-2025-12-09 16:21:51,081 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 36.6 not in [65, 90]
-2025-12-09 16:21:51,239 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 45.7 not in [65, 90]
-2025-12-09 16:21:51,383 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 61.9 not in [65, 90]
-2025-12-09 16:21:51,522 - trading_bot - INFO - ✗ 信号拒绝: H/USDT:USDT | RSI 44.2 not in [65, 90]
-2025-12-09 16:21:51,654 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 45.9 not in [65, 90]
-2025-12-09 16:21:51,784 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 0.9 not in [2.5, 12]
-2025-12-09 16:21:51,921 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | VolRatio 0.5 not in [2.5, 12]
-2025-12-09 16:21:52,053 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 47.1 not in [65, 90]
-2025-12-09 16:22:52,980 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:22:55,971 - trading_bot - INFO - 新增监控: PIPPIN/USDT:USDT
-2025-12-09 16:22:55,971 - trading_bot - INFO - 移除监控: H/USDT:USDT
-2025-12-09 16:22:55,971 - trading_bot - INFO - 移除监控: MAGIC/USDT:USDT
-2025-12-09 16:22:55,971 - trading_bot - INFO - 当前监控列表 (10): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'PIPPIN/USDT:USDT']
-2025-12-09 16:22:56,102 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 57.3 not in [65, 90]
-2025-12-09 16:22:56,225 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 63.7 not in [65, 90]
-2025-12-09 16:22:56,349 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 64.0 not in [65, 90]
-2025-12-09 16:22:56,470 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 36.4 not in [65, 90]
-2025-12-09 16:22:56,596 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 46.3 not in [65, 90]
-2025-12-09 16:22:56,718 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 62.2 not in [65, 90]
-2025-12-09 16:22:56,839 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 46.5 not in [65, 90]
-2025-12-09 16:22:56,961 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 1.0 not in [2.5, 12]
-2025-12-09 16:22:57,093 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 63.2 not in [65, 90]
-2025-12-09 16:22:57,217 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 49.4 not in [65, 90]
-2025-12-09 16:23:57,925 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:24:00,906 - trading_bot - INFO - 新增监控: MAGIC/USDT:USDT
-2025-12-09 16:24:00,907 - trading_bot - INFO - 当前监控列表 (11): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'PIPPIN/USDT:USDT', 'MAGIC/USDT:USDT']
-2025-12-09 16:24:01,044 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 54.8 not in [65, 90]
-2025-12-09 16:24:01,180 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | RSI 64.3 not in [65, 90]
-2025-12-09 16:24:01,313 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | ADX 25.0 not in [25, 60]
-2025-12-09 16:24:01,450 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 36.1 not in [65, 90]
-2025-12-09 16:24:01,588 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 43.9 not in [65, 90]
-2025-12-09 16:24:01,732 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 62.3 not in [65, 90]
-2025-12-09 16:24:01,872 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 46.1 not in [65, 90]
-2025-12-09 16:24:02,010 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 1.2 not in [2.5, 12]
-2025-12-09 16:24:02,150 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 62.5 not in [65, 90]
-2025-12-09 16:24:02,311 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 49.7 not in [65, 90]
-2025-12-09 16:24:02,445 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 45.2 not in [65, 90]
-2025-12-09 16:25:03,245 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:25:06,216 - trading_bot - INFO - 移除监控: MAGIC/USDT:USDT
-2025-12-09 16:25:06,216 - trading_bot - INFO - 当前监控列表 (10): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'PIPPIN/USDT:USDT']
-2025-12-09 16:25:06,339 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 54.8 not in [65, 90]
-2025-12-09 16:25:06,468 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | VolRatio 1.2 not in [2.5, 12]
-2025-12-09 16:25:06,604 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | RSI 64.8 not in [65, 90]
-2025-12-09 16:25:06,724 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 36.4 not in [65, 90]
-2025-12-09 16:25:06,855 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 43.6 not in [65, 90]
-2025-12-09 16:25:06,982 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 24.9 not in [25, 60]
-2025-12-09 16:25:07,106 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 43.5 not in [65, 90]
-2025-12-09 16:25:07,227 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 1.4 not in [2.5, 12]
-2025-12-09 16:25:07,354 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 61.8 not in [65, 90]
-2025-12-09 16:25:07,481 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 49.5 not in [65, 90]
-2025-12-09 16:26:08,184 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:26:11,150 - trading_bot - INFO - 当前监控列表 (10): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'PIPPIN/USDT:USDT']
-2025-12-09 16:26:11,281 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 54.9 not in [65, 90]
-2025-12-09 16:26:11,405 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | VolRatio 1.5 not in [2.5, 12]
-2025-12-09 16:26:11,533 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | ADX 25.0 not in [25, 60]
-2025-12-09 16:26:11,661 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 35.0 not in [65, 90]
-2025-12-09 16:26:11,789 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 44.0 not in [65, 90]
-2025-12-09 16:26:11,913 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 24.9 not in [25, 60]
-2025-12-09 16:26:12,034 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 43.6 not in [65, 90]
-2025-12-09 16:26:12,160 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 2.1 not in [2.5, 12]
-2025-12-09 16:26:12,284 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 61.4 not in [65, 90]
-2025-12-09 16:26:12,415 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 50.8 not in [65, 90]
-2025-12-09 16:27:13,136 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:27:16,106 - trading_bot - INFO - 当前监控列表 (10): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'PIPPIN/USDT:USDT']
-2025-12-09 16:27:16,247 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 53.8 not in [65, 90]
-2025-12-09 16:27:16,400 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | VolRatio 1.8 not in [2.5, 12]
-2025-12-09 16:27:16,544 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | VolRatio 1.7 not in [2.5, 12]
-2025-12-09 16:27:16,669 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 34.1 not in [65, 90]
-2025-12-09 16:27:16,802 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 43.7 not in [65, 90]
-2025-12-09 16:27:16,950 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 24.9 not in [25, 60]
-2025-12-09 16:27:17,085 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 43.6 not in [65, 90]
-2025-12-09 16:27:17,216 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 2.3 not in [2.5, 12]
-2025-12-09 16:27:17,345 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 63.1 not in [65, 90]
-2025-12-09 16:27:17,482 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 51.5 not in [65, 90]
-2025-12-09 16:28:18,237 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:28:21,213 - trading_bot - INFO - 当前监控列表 (10): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'PIPPIN/USDT:USDT']
-2025-12-09 16:28:21,348 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 53.3 not in [65, 90]
-2025-12-09 16:28:21,469 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | VolRatio 2.1 not in [2.5, 12]
-2025-12-09 16:28:21,595 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | VolRatio 1.9 not in [2.5, 12]
-2025-12-09 16:28:21,720 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 34.9 not in [65, 90]
-2025-12-09 16:28:21,843 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 45.2 not in [65, 90]
-2025-12-09 16:28:21,967 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 24.9 not in [25, 60]
-2025-12-09 16:28:22,094 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 43.8 not in [65, 90]
-2025-12-09 16:28:22,222 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | VolRatio 2.4 not in [2.5, 12]
-2025-12-09 16:28:22,345 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 64.7 not in [65, 90]
-2025-12-09 16:28:22,471 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 52.9 not in [65, 90]
-2025-12-09 16:29:23,286 - trading_bot - INFO - 市场全量扫描: 已更新 595 个币种的成交量排名
-2025-12-09 16:29:26,316 - trading_bot - INFO - 当前监控列表 (10): ['CC/USDT:USDT', 'USTC/USDT:USDT', 'LYN/USDT:USDT', 'ALLO/USDT:USDT', 'POWER/USDT:USDT', '1000LUNC/USDT:USDT', 'RDNT/USDT:USDT', 'LUNA2/USDT:USDT', 'ZEC/USDT:USDT', 'PIPPIN/USDT:USDT']
-2025-12-09 16:29:26,476 - trading_bot - INFO - ✗ 信号拒绝: CC/USDT:USDT | RSI 51.1 not in [65, 90]
-2025-12-09 16:29:26,631 - trading_bot - INFO - ✗ 信号拒绝: USTC/USDT:USDT | VolRatio 2.3 not in [2.5, 12]
-2025-12-09 16:29:26,768 - trading_bot - INFO - ✗ 信号拒绝: LYN/USDT:USDT | VolRatio 2.1 not in [2.5, 12]
-2025-12-09 16:29:26,923 - trading_bot - INFO - ✗ 信号拒绝: ALLO/USDT:USDT | RSI 33.7 not in [65, 90]
-2025-12-09 16:29:27,072 - trading_bot - INFO - ✗ 信号拒绝: POWER/USDT:USDT | RSI 42.5 not in [65, 90]
-2025-12-09 16:29:27,227 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | ADX 24.9 not in [25, 60]
-2025-12-09 16:29:27,372 - trading_bot - INFO - ✗ 信号拒绝: RDNT/USDT:USDT | RSI 43.6 not in [65, 90]
-2025-12-09 16:29:27,525 - trading_bot - INFO - ✓ 信号检测: LUNA2/USDT:USDT 满足条件
-2025-12-09 16:29:27,527 - trading_bot - INFO - 发现信号: LUNA2/USDT:USDT 做多 (虚拟交易: False)
-2025-12-09 16:29:27,527 - trading_bot - INFO - [开仓流程] 开始执行 LUNA2/USDT:USDT 开仓 (实盘交易)...
-2025-12-09 16:29:27,527 - trading_bot - INFO - [开仓流程] LUNA2/USDT:USDT 入场价格: 0.14322
-2025-12-09 16:29:27,594 - trading_bot - INFO - [开仓流程] 账户余额: 93.76974397 USDT
-2025-12-09 16:29:27,844 - trading_bot - INFO - LUNA2/USDT:USDT 保证金模式设置为 ISOLATED
-2025-12-09 16:29:27,845 - trading_bot - ERROR - 开仓失败 LUNA2/USDT:USDT: '<' not supported between instances of 'NoneType' and 'int'
-2025-12-09 16:29:28,000 - trading_bot - INFO - ✗ 信号拒绝: ZEC/USDT:USDT | RSI 63.2 not in [65, 90]
-2025-12-09 16:29:28,160 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 53.1 not in [65, 90]
+2025-12-10 17:34:35,490 - trading_bot - INFO - 📊 已启用: 信号置信度驱动动态杠杆策略
+2025-12-10 17:34:35,491 - trading_bot - INFO - 🛡️ 已启用: 趋势反转熔断机制 (三层防御)
+2025-12-10 17:34:35,491 - trading_bot - INFO - 🧠 已启用: 智能离场模块 (动态追踪 + 保本止损)
+2025-12-10 17:34:35,492 - trading_bot - INFO - 正在启动交易机器人...
+2025-12-10 17:34:35,492 - trading_bot - INFO - 🔄 正在从交易所同步持仓信息...
+2025-12-10 17:34:35,773 - trading_bot - INFO - ✅ 无现有持仓需要恢复
+2025-12-10 17:34:37,872 - trading_bot - INFO - 🔄 每日列表更新 (UTC 2025-12-10): 重新计算 Top 200 成交量排名...
+2025-12-10 17:34:37,873 - trading_bot - INFO - ✅ 列表更新完成: 596 个币种已排名
+2025-12-10 17:34:41,106 - trading_bot - INFO - 新增监控: STABLE/USDT:USDT
+2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: 1000LUNC/USDT:USDT
+2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: OL/USDT:USDT
+2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: AXL/USDT:USDT
+2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: AIOT/USDT:USDT
+2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: PIEVERSE/USDT:USDT
+2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: RIVER/USDT:USDT
+2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: XPL/USDT:USDT
+2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: MAGIC/USDT:USDT
+2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: FOLKS/USDT:USDT
+2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: BEAT/USDT:USDT
+2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: LUNA2/USDT:USDT
+2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: HYPER/USDT:USDT
+2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: PIPPIN/USDT:USDT
+2025-12-10 17:34:41,108 - trading_bot - INFO - 新增监控: ADA/USDT:USDT
+2025-12-10 17:34:41,109 - trading_bot - INFO - 新增监控: FET/USDT:USDT
+2025-12-10 17:34:41,109 - trading_bot - INFO - 新增监控: G/USDT:USDT
+2025-12-10 17:34:41,110 - trading_bot - INFO - 当前监控列表 (17): ['PIPPIN/USDT:USDT', 'STABLE/USDT:USDT', '1000LUNC/USDT:USDT', 'OL/USDT:USDT', 'AXL/USDT:USDT', 'AIOT/USDT:USDT', 'PIEVERSE/USDT:USDT', 'RIVER/USDT:USDT', 'XPL/USDT:USDT', 'MAGIC/USDT:USDT', 'FOLKS/USDT:USDT', 'BEAT/USDT:USDT', 'HYPER/USDT:USDT', 'LUNA2/USDT:USDT', 'ADA/USDT:USDT', 'FET/USDT:USDT', 'G/USDT:USDT']
+2025-12-10 17:34:41,113 - trading_bot - INFO - 正在执行启动时历史数据检查...
+2025-12-10 17:34:41,420 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 52.6 not in [65, 90]
+2025-12-10 17:34:41,660 - trading_bot - INFO - ✗ 信号拒绝: STABLE/USDT:USDT | RSI 61.2 not in [65, 90]
+2025-12-10 17:34:41,961 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 60.9 not in [65, 90]
+2025-12-10 17:34:42,299 - trading_bot - INFO - ✗ 信号拒绝: OL/USDT:USDT | RSI 43.7 not in [65, 90]
+2025-12-10 17:34:42,521 - trading_bot - INFO - ✗ 信号拒绝: AXL/USDT:USDT | RSI 56.4 not in [65, 90]
+2025-12-10 17:34:42,697 - trading_bot - INFO - ✗ 信号拒绝: AIOT/USDT:USDT | RSI 46.0 not in [65, 90]
+2025-12-10 17:34:43,004 - trading_bot - INFO - ✗ 信号拒绝: PIEVERSE/USDT:USDT | VolRatio 0.7 not in [2.5, 12]
+2025-12-10 17:34:43,211 - trading_bot - INFO - ✗ 信号拒绝: RIVER/USDT:USDT | RSI 47.9 not in [65, 90]
+2025-12-10 17:34:43,412 - trading_bot - INFO - ✗ 信号拒绝: XPL/USDT:USDT | RSI 41.8 not in [65, 90]
+2025-12-10 17:34:43,636 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 43.4 not in [65, 90]
+2025-12-10 17:34:43,890 - trading_bot - INFO - ✗ 信号拒绝: FOLKS/USDT:USDT | VolRatio 0.9 not in [2.5, 12]
+2025-12-10 17:34:44,084 - trading_bot - INFO - ✗ 信号拒绝: BEAT/USDT:USDT | VolRatio 0.5 not in [2.5, 12]
+2025-12-10 17:34:44,265 - trading_bot - INFO - ✗ 信号拒绝: HYPER/USDT:USDT | RSI 44.0 not in [65, 90]
+2025-12-10 17:34:44,445 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | ADX 23.7 not in [25, 60]
+2025-12-10 17:34:44,876 - trading_bot - INFO - ✗ 信号拒绝: ADA/USDT:USDT | RSI 63.8 not in [65, 90]
+2025-12-10 17:34:45,089 - trading_bot - INFO - ✗ 信号拒绝: FET/USDT:USDT | RSI 56.9 not in [65, 90]
+2025-12-10 17:34:45,351 - trading_bot - INFO - ✗ 信号拒绝: G/USDT:USDT | RSI 56.7 not in [65, 90]
+2025-12-10 17:34:45,351 - trading_bot - INFO - 启动时检查完成
+2025-12-10 17:35:48,686 - trading_bot - INFO - 当前监控列表 (17): ['PIPPIN/USDT:USDT', 'STABLE/USDT:USDT', '1000LUNC/USDT:USDT', 'OL/USDT:USDT', 'AXL/USDT:USDT', 'AIOT/USDT:USDT', 'PIEVERSE/USDT:USDT', 'RIVER/USDT:USDT', 'XPL/USDT:USDT', 'MAGIC/USDT:USDT', 'FOLKS/USDT:USDT', 'BEAT/USDT:USDT', 'HYPER/USDT:USDT', 'LUNA2/USDT:USDT', 'ADA/USDT:USDT', 'FET/USDT:USDT', 'G/USDT:USDT']
+2025-12-10 17:35:48,867 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 52.3 not in [65, 90]
+2025-12-10 17:35:49,054 - trading_bot - INFO - ✗ 信号拒绝: STABLE/USDT:USDT | RSI 63.4 not in [65, 90]
+2025-12-10 17:35:49,237 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 61.4 not in [65, 90]
+2025-12-10 17:35:49,476 - trading_bot - INFO - ✗ 信号拒绝: OL/USDT:USDT | RSI 43.9 not in [65, 90]
+2025-12-10 17:35:49,784 - trading_bot - INFO - ✗ 信号拒绝: AXL/USDT:USDT | RSI 56.7 not in [65, 90]
+2025-12-10 17:35:49,961 - trading_bot - INFO - ✗ 信号拒绝: AIOT/USDT:USDT | RSI 45.2 not in [65, 90]
+2025-12-10 17:35:50,209 - trading_bot - INFO - ✗ 信号拒绝: PIEVERSE/USDT:USDT | VolRatio 0.8 not in [2.5, 12]
+2025-12-10 17:35:50,390 - trading_bot - INFO - ✗ 信号拒绝: RIVER/USDT:USDT | RSI 47.8 not in [65, 90]
+2025-12-10 17:35:50,584 - trading_bot - INFO - ✗ 信号拒绝: XPL/USDT:USDT | RSI 42.7 not in [65, 90]
+2025-12-10 17:35:50,763 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 44.6 not in [65, 90]
+2025-12-10 17:35:51,014 - trading_bot - INFO - ✗ 信号拒绝: FOLKS/USDT:USDT | VolRatio 1.1 not in [2.5, 12]
+2025-12-10 17:35:51,254 - trading_bot - INFO - ✗ 信号拒绝: BEAT/USDT:USDT | VolRatio 0.6 not in [2.5, 12]
+2025-12-10 17:35:51,422 - trading_bot - INFO - ✗ 信号拒绝: HYPER/USDT:USDT | RSI 43.7 not in [65, 90]
+2025-12-10 17:35:51,595 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | ADX 21.9 not in [25, 60]
+2025-12-10 17:35:51,793 - trading_bot - INFO - ✗ 信号拒绝: ADA/USDT:USDT | RSI 64.2 not in [65, 90]
+2025-12-10 17:35:51,962 - trading_bot - INFO - ✗ 信号拒绝: FET/USDT:USDT | RSI 58.3 not in [65, 90]
+2025-12-10 17:35:52,153 - trading_bot - INFO - ✗ 信号拒绝: G/USDT:USDT | RSI 57.3 not in [65, 90]
+2025-12-10 17:36:57,927 - trading_bot - INFO - 当前监控列表 (17): ['PIPPIN/USDT:USDT', 'STABLE/USDT:USDT', '1000LUNC/USDT:USDT', 'OL/USDT:USDT', 'AXL/USDT:USDT', 'AIOT/USDT:USDT', 'PIEVERSE/USDT:USDT', 'RIVER/USDT:USDT', 'XPL/USDT:USDT', 'MAGIC/USDT:USDT', 'FOLKS/USDT:USDT', 'BEAT/USDT:USDT', 'HYPER/USDT:USDT', 'LUNA2/USDT:USDT', 'ADA/USDT:USDT', 'FET/USDT:USDT', 'G/USDT:USDT']
+2025-12-10 17:36:58,141 - trading_bot - INFO - ✗ 信号拒绝: PIPPIN/USDT:USDT | RSI 52.0 not in [65, 90]
+2025-12-10 17:36:58,318 - trading_bot - INFO - ✗ 信号拒绝: STABLE/USDT:USDT | RSI 63.2 not in [65, 90]
+2025-12-10 17:36:58,497 - trading_bot - INFO - ✗ 信号拒绝: 1000LUNC/USDT:USDT | RSI 61.6 not in [65, 90]
+2025-12-10 17:36:58,956 - trading_bot - INFO - ✗ 信号拒绝: OL/USDT:USDT | RSI 44.1 not in [65, 90]
+2025-12-10 17:36:59,159 - trading_bot - INFO - ✗ 信号拒绝: AXL/USDT:USDT | RSI 53.9 not in [65, 90]
+2025-12-10 17:36:59,428 - trading_bot - INFO - ✗ 信号拒绝: AIOT/USDT:USDT | RSI 41.5 not in [65, 90]
+2025-12-10 17:36:59,686 - trading_bot - INFO - ✗ 信号拒绝: PIEVERSE/USDT:USDT | VolRatio 0.9 not in [2.5, 12]
+2025-12-10 17:36:59,942 - trading_bot - INFO - ✗ 信号拒绝: RIVER/USDT:USDT | RSI 49.0 not in [65, 90]
+2025-12-10 17:37:00,249 - trading_bot - INFO - ✗ 信号拒绝: XPL/USDT:USDT | RSI 43.1 not in [65, 90]
+2025-12-10 17:37:00,654 - trading_bot - INFO - ✗ 信号拒绝: MAGIC/USDT:USDT | RSI 45.1 not in [65, 90]
+2025-12-10 17:37:00,831 - trading_bot - INFO - ✗ 信号拒绝: FOLKS/USDT:USDT | VolRatio 1.3 not in [2.5, 12]
+2025-12-10 17:37:01,015 - trading_bot - INFO - ✗ 信号拒绝: BEAT/USDT:USDT | VolRatio 0.6 not in [2.5, 12]
+2025-12-10 17:37:01,260 - trading_bot - INFO - ✗ 信号拒绝: HYPER/USDT:USDT | RSI 43.3 not in [65, 90]
+2025-12-10 17:37:01,499 - trading_bot - INFO - ✗ 信号拒绝: LUNA2/USDT:USDT | ADX 22.0 not in [25, 60]
+2025-12-10 17:37:01,671 - trading_bot - INFO - ✗ 信号拒绝: ADA/USDT:USDT | RSI 64.6 not in [65, 90]
+2025-12-10 17:37:02,080 - trading_bot - INFO - ✗ 信号拒绝: FET/USDT:USDT | RSI 57.7 not in [65, 90]
+2025-12-10 17:37:02,256 - trading_bot - INFO - ✗ 信号拒绝: G/USDT:USDT | RSI 58.0 not in [65, 90]
