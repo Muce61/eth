@@ -210,7 +210,9 @@ class MarketMonitor:
                         self.kline_callback(data)
 
         except Exception as e:
-            pass # self.logger.error(f"消息处理错误: {e}")
+            self.logger.error(f"消息处理错误: {e}")
+            import traceback
+            self.logger.error(traceback.format_exc())
 
     def _update_cache(self, ws_symbol, price):
         """Update cache efficiently"""

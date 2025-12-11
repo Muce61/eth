@@ -23,8 +23,8 @@ def setup_logger(name='trading_bot', log_file='trading.log'):
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
     
-    # Console Handler (only for main bot, not for status log to avoid clutter)
-    if name == 'trading_bot':
+    # Console Handler (only for main bot and monitor, not for status log to avoid clutter)
+    if name in ['trading_bot', 'market_monitor']:
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)
         logger.addHandler(console_handler)
