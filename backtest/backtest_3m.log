@@ -1,0 +1,107 @@
+Starting 3-Month Backtest (1m Timeframe): 2025-09-12 05:30:00+00:00 -> 2025-12-11 05:30:00 (UTC)
+✅ Loaded leverage limits for 604 symbols into backtest.
+Loading 1m data (Raw) for period: 2025-09-12 05:30:00+00:00 to 2025-12-11 05:30:00+00:00...
+Loaded 604 symbols with 1m data in range.
+Backtesting over 129601 timestamps...
+Start: 2025-09-12 05:30:00+00:00, End: 2025-12-11 05:30:00+00:00
+Detected Timeframe: 1m | 24h Lookback: 1440 candles
+Processing 2025-09-12 05:30:00+00:00... Balance: $1000.00
+Processing 2025-09-12 07:10:00+00:00... Balance: $1000.00
+Processing 2025-09-12 08:50:00+00:00... Balance: $1000.00
+Processing 2025-09-12 10:30:00+00:00... Balance: $1000.00
+仓位计算: 余额=1000.00, 风险等级=2.0%, 风险金额=$20.00, 数量=10053.282397
+[2025-09-12 10:39:00+00:00] OPEN LONG HIFIUSDTUSDT @ 0.1373 | SL: 0.1353 (-0.75%/-15%ROE) | Size: 10053.28
+[2025-09-12 10:39:00+00:00] CLOSE HIFIUSDTUSDT @ 0.1353 | PnL: $-21.36 | Reason: Stop Loss
+仓位计算: 余额=977.95, 风险等级=2.0%, 风险金额=$19.56, 数量=6890.567513
+[2025-09-12 10:58:00+00:00] OPEN LONG ARIAUSDTUSDT @ 0.1959 | SL: 0.1930 (-0.75%/-15%ROE) | Size: 6890.57
+[2025-09-12 10:58:00+00:00] CLOSE ARIAUSDTUSDT @ 0.1962 | PnL: $1.35 | Reason: Smart Break-even
+仓位计算: 余额=978.62, 风险等级=2.0%, 风险金额=$19.57, 数量=6661.528125
+[2025-09-12 11:01:00+00:00] OPEN LONG ARIAUSDTUSDT @ 0.2027 | SL: 0.1998 (-0.75%/-15%ROE) | Size: 6661.53
+[2025-09-12 11:01:00+00:00] CLOSE ARIAUSDTUSDT @ 0.1998 | PnL: $-20.90 | Reason: Stop Loss
+仓位计算: 余额=957.05, 风险等级=2.0%, 风险金额=$19.14, 数量=8672.641202
+[2025-09-12 11:11:00+00:00] OPEN LONG HIFIUSDTUSDT @ 0.1523 | SL: 0.1501 (-0.75%/-15%ROE) | Size: 8672.64
+[2025-09-12 11:11:00+00:00] CLOSE HIFIUSDTUSDT @ 0.1549 | PnL: $21.21 | Reason: Smart Trailing (Max 42%)
+仓位计算: 余额=977.60, 风险等级=2.0%, 风险金额=$19.55, 数量=8814.850226
+[2025-09-12 11:12:00+00:00] OPEN LONG HIFIUSDTUSDT @ 0.1530 | SL: 0.1508 (-0.75%/-15%ROE) | Size: 8814.85
+[2025-09-12 11:12:00+00:00] CLOSE HIFIUSDTUSDT @ 0.1508 | PnL: $-20.88 | Reason: Stop Loss
+仓位计算: 余额=956.04, 风险等级=2.0%, 风险金额=$19.12, 数量=8174.288210
+[2025-09-12 11:20:00+00:00] OPEN LONG HIFIUSDTUSDT @ 0.1614 | SL: 0.1591 (-0.75%/-15%ROE) | Size: 8174.29
+[2025-09-12 11:20:00+00:00] CLOSE HIFIUSDTUSDT @ 0.1617 | PnL: $1.32 | Reason: Smart Break-even
+Processing 2025-09-12 12:10:00+00:00... Balance: $956.70
+仓位计算: 余额=956.70, 风险等级=2.0%, 风险金额=$19.13, 数量=8213.515073
+[2025-09-12 13:23:00+00:00] OPEN LONG HIFIUSDTUSDT @ 0.1607 | SL: 0.1584 (-0.75%/-15%ROE) | Size: 8213.52
+[2025-09-12 13:23:00+00:00] CLOSE HIFIUSDTUSDT @ 0.1611 | PnL: $1.32 | Reason: Smart Break-even
+Processing 2025-09-12 13:50:00+00:00... Balance: $957.36
+仓位计算: 余额=957.36, 风险等级=2.0%, 风险金额=$19.15, 数量=6794.397290
+[2025-09-12 14:20:00+00:00] OPEN LONG HIFIUSDTUSDT @ 0.1944 | SL: 0.1916 (-0.75%/-15%ROE) | Size: 6794.40
+[2025-09-12 14:20:00+00:00] CLOSE HIFIUSDTUSDT @ 0.1916 | PnL: $-20.45 | Reason: Stop Loss
+仓位计算: 余额=936.25, 风险等级=2.0%, 风险金额=$18.72, 数量=6252.421752
+[2025-09-12 14:31:00+00:00] OPEN LONG HIFIUSDTUSDT @ 0.2066 | SL: 0.2036 (-0.75%/-15%ROE) | Size: 6252.42
+[2025-09-12 14:31:00+00:00] CLOSE HIFIUSDTUSDT @ 0.2036 | PnL: $-20.00 | Reason: Stop Loss
+仓位计算: 余额=915.60, 风险等级=2.0%, 风险金额=$18.31, 数量=73.660032
+[2025-09-12 15:03:00+00:00] OPEN LONG MYXUSDTUSDT @ 17.1536 | SL: 16.9050 (-0.75%/-15%ROE) | Size: 73.66
+[2025-09-12 15:05:00+00:00] CLOSE MYXUSDTUSDT @ 16.9050 | PnL: $-19.56 | Reason: Stop Loss
+仓位计算: 余额=895.41, 风险等级=2.0%, 风险金额=$17.91, 数量=6021.721806
+[2025-09-12 15:07:00+00:00] OPEN LONG WLFIUSDTUSDT @ 0.2052 | SL: 0.2022 (-0.75%/-15%ROE) | Size: 6021.72
+[2025-09-12 15:10:00+00:00] CLOSE WLFIUSDTUSDT @ 0.2083 | PnL: $17.10 | Reason: Smart Trailing (Max 80%)
+仓位计算: 余额=911.90, 风险等级=2.0%, 风险金额=$18.24, 数量=6047.067481
+[2025-09-12 15:11:00+00:00] OPEN LONG WLFIUSDTUSDT @ 0.2081 | SL: 0.2051 (-0.75%/-15%ROE) | Size: 6047.07
+[2025-09-12 15:19:00+00:00] CLOSE WLFIUSDTUSDT @ 0.2085 | PnL: $1.26 | Reason: Smart Break-even
+Processing 2025-09-12 15:30:00+00:00... Balance: $912.53
+仓位计算: 余额=912.53, 风险等级=2.0%, 风险金额=$18.25, 数量=3173.053945
+[2025-09-12 16:07:00+00:00] OPEN LONG AVNTUSDTUSDT @ 0.3969 | SL: 0.3911 (-0.75%/-15%ROE) | Size: 3173.05
+[2025-09-12 16:07:00+00:00] CLOSE AVNTUSDTUSDT @ 0.4018 | PnL: $14.38 | Reason: Smart Trailing (Max 69%)
+仓位计算: 余额=926.28, 风险等级=2.0%, 风险金额=$18.53, 数量=3088.581862
+[2025-09-12 16:11:00+00:00] OPEN LONG AVNTUSDTUSDT @ 0.4139 | SL: 0.4079 (-0.75%/-15%ROE) | Size: 3088.58
+[2025-09-12 16:11:00+00:00] CLOSE AVNTUSDTUSDT @ 0.4215 | PnL: $22.23 | Reason: Smart Trailing (Max 97%)
+仓位计算: 余额=947.87, 风险等级=2.0%, 风险金额=$18.96, 数量=4849.255705
+[2025-09-12 16:19:00+00:00] OPEN LONG DOGEUSDTUSDT @ 0.2697 | SL: 0.2658 (-0.75%/-15%ROE) | Size: 4849.26
+[2025-09-12 16:20:00+00:00] CLOSE DOGEUSDTUSDT @ 0.2703 | PnL: $1.31 | Reason: Smart Break-even
+仓位计算: 余额=948.52, 风险等级=2.0%, 风险金额=$18.97, 数量=6142.575879
+[2025-09-12 16:48:00+00:00] OPEN LONG HIFIUSDTUSDT @ 0.2131 | SL: 0.2100 (-0.75%/-15%ROE) | Size: 6142.58
+[2025-09-12 16:48:00+00:00] CLOSE HIFIUSDTUSDT @ 0.2229 | PnL: $59.02 | Reason: Smart Trailing (Max 98%)
+仓位计算: 余额=1006.89, 风险等级=2.0%, 风险金额=$20.14, 数量=6322.853953
+[2025-09-12 16:49:00+00:00] OPEN LONG HIFIUSDTUSDT @ 0.2198 | SL: 0.2166 (-0.75%/-15%ROE) | Size: 6322.85
+[2025-09-12 16:49:00+00:00] CLOSE HIFIUSDTUSDT @ 0.2256 | PnL: $35.30 | Reason: Smart Trailing (Max 60%)
+仓位计算: 余额=1041.50, 风险等级=2.0%, 风险金额=$20.83, 数量=6439.309310
+[2025-09-12 16:50:00+00:00] OPEN LONG HIFIUSDTUSDT @ 0.2232 | SL: 0.2200 (-0.75%/-15%ROE) | Size: 6439.31
+[2025-09-12 16:50:00+00:00] CLOSE HIFIUSDTUSDT @ 0.2200 | PnL: $-22.25 | Reason: Stop Loss
+仓位计算: 余额=1018.53, 风险等级=2.0%, 风险金额=$20.37, 数量=3251.864889
+[2025-09-12 16:51:00+00:00] OPEN LONG AVNTUSDTUSDT @ 0.4322 | SL: 0.4260 (-0.75%/-15%ROE) | Size: 3251.86
+[2025-09-12 16:51:00+00:00] CLOSE AVNTUSDTUSDT @ 0.4331 | PnL: $1.40 | Reason: Smart Break-even
+仓位计算: 余额=1019.23, 风险等级=2.0%, 风险金额=$20.38, 数量=231909.785988
+[2025-09-12 16:57:00+00:00] OPEN LONG PUMPUSDTUSDT @ 0.0061 | SL: 0.0060 (-0.75%/-15%ROE) | Size: 231909.79
+[2025-09-12 16:57:00+00:00] CLOSE PUMPUSDTUSDT @ 0.0061 | PnL: $1.40 | Reason: Smart Break-even
+仓位计算: 余额=1019.93, 风险等级=2.0%, 风险金额=$20.40, 数量=231610.839796
+[2025-09-12 16:58:00+00:00] OPEN LONG PUMPUSDTUSDT @ 0.0061 | SL: 0.0060 (-0.75%/-15%ROE) | Size: 231610.84
+仓位计算: 余额=1019.23, 风险等级=2.0%, 风险金额=$20.38, 数量=5918.553577
+[2025-09-12 17:02:00+00:00] OPEN LONG HIFIUSDTUSDT @ 0.2376 | SL: 0.2342 (-0.75%/-15%ROE) | Size: 5918.55
+[2025-09-12 17:02:00+00:00] CLOSE HIFIUSDTUSDT @ 0.2477 | PnL: $57.89 | Reason: Smart Trailing (Max 90%)
+[2025-09-12 17:06:00+00:00] CLOSE PUMPUSDTUSDT @ 0.0061 | PnL: $5.23 | Reason: Smart Trailing (Max 32%)
+Traceback (most recent call last):
+  File "/Users/muce/PycharmProjects/github/eth/backtest/run_last_3months_backtest_1m.py", line 82, in <module>
+    main()
+  File "/Users/muce/PycharmProjects/github/eth/backtest/run_last_3months_backtest_1m.py", line 79, in main
+    engine.run(start_date=start_date, end_date=end_date, days=None)
+  File "/Users/muce/PycharmProjects/github/eth/backtest/real_engine.py", line 202, in run
+    self._scan_market(current_time)
+  File "/Users/muce/PycharmProjects/github/eth/backtest/real_engine.py", line 384, in _scan_market
+    volume_24h_usd = (volume_24h_slice['close'] * volume_24h_slice['volume']).sum()
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  File "/opt/homebrew/anaconda3/lib/python3.12/site-packages/pandas/core/ops/common.py", line 76, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/anaconda3/lib/python3.12/site-packages/pandas/core/arraylike.py", line 202, in __mul__
+    return self._arith_method(other, operator.mul)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/anaconda3/lib/python3.12/site-packages/pandas/core/series.py", line 6154, in _arith_method
+    return base.IndexOpsMixin._arith_method(self, other, op)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/anaconda3/lib/python3.12/site-packages/pandas/core/base.py", line 1390, in _arith_method
+    with np.errstate(all="ignore"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/anaconda3/lib/python3.12/site-packages/numpy/core/_ufunc_config.py", line 436, in __exit__
+    seterr(**self.oldstate)
+  File "/opt/homebrew/anaconda3/lib/python3.12/site-packages/numpy/core/_ufunc_config.py", line 128, in seterr
+    umath.seterrobj(pyvals)
+KeyboardInterrupt

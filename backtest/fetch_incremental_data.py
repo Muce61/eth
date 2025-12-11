@@ -24,8 +24,8 @@ def fetch_incremental_data():
     
     print(f"Total USDT perpetuals: {len(usdt_perpetuals)}")
     print(f"Incremental Update Mode")
-    print(f"Target End Time (Beijing): 2025-12-08 17:00")
-    print(f"Target End Time (UTC): 2025-12-08 09:00")
+    print(f"Target End Time (Beijing): 2025-12-11 13:30")
+    print(f"Target End Time (UTC): 2025-12-11 05:30")
     
     # Create output directory
     data_dir = Path('/Users/muce/1m_data/new_backtest_data_1year_1m')
@@ -36,8 +36,8 @@ def fetch_incremental_data():
     # Timeframe: 1m
     timeframe = '1m'
     
-    # Define end time in UTC
-    end_time = datetime(2025, 12, 8, 9, 0, 0, tzinfo=pytz.UTC)
+    # Define end time in UTC (2025-12-11 13:30 Beijing = 05:30 UTC)
+    end_time = datetime(2025, 12, 11, 5, 30, 0, tzinfo=pytz.UTC)
     
     successful = 0
     failed = 0

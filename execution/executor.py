@@ -218,7 +218,15 @@ class Executor(BinanceClient):
                     if resp.status_code == 200:
                         self.logger.info(f"✅ 撤销 Algo Order {o['algoId']} 成功")
                     else:
-                        self.logger.warning(f"⚠️ 撤销 Algo Order {o['algoId']} 失败: {resp.text}")
+                        # Handle -2011 Unknown order sent (Already cancelled/filled)
+                        try:
+                            err_data = resp.json()
+                            if err_data.get('code') == -2011:
+                                self.logger.info(f"ℹ️ 撤销 Algo Order {o['algoId']} 跳过 (已不存在/已成交)")
+                            else:
+                                self.logger.warning(f"⚠️ 撤销 Algo Order {o['algoId']} 失败: {resp.text}")
+                        except:
+                            self.logger.warning(f"⚠️ 撤销 Algo Order {o['algoId']} 失败: {resp.text}")
                 except Exception as inner_e:
                     self.logger.error(f"撤销单个 Algo 订单异常: {inner_e}")
                     

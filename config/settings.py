@@ -12,7 +12,7 @@ class Config:
     SECRET = os.getenv("BINANCE_SECRET")
     TESTNET = os.getenv("BINANCE_TESTNET", "False").lower() == "true"
     
-    TIMEFRAME = '15m'  # Signal timeframe
+    TIMEFRAME = '15m'  # Signal timeframe (Optimized: 15m Signal + 1m Execution)
     LOOKBACK_WINDOW = 50 # For indicators
     TOP_GAINER_COUNT = 50
     CHANGE_THRESHOLD_MIN = 2.0   # Min 2% 24h change (widened from 5%)
@@ -25,6 +25,7 @@ class Config:
     TRADE_MARGIN_PERCENT = 0.10       # 10% position size per trade
     MAX_OPEN_POSITIONS = 10           # 10 concurrent positions for high frequency
     
+    # Risk Limits
     ATR_PERIOD = 14
     ATR_MULTIPLIER = 2.5              # ATR × 2.5 for stop loss calculation
     STOP_LOSS_CAP_PERCENT = 0.014     # 1.4% hard cap (MUST be below 1.5% liquidation for 50x)

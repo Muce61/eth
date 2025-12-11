@@ -33,13 +33,13 @@ class RealBacktestEngine:
         
         # Override config for backtest if needed
         self.config.MAX_OPEN_POSITIONS = 10 # Match live config
-        self.config.LEVERAGE = 20 # Reduced from 50x for stability
-        self.risk_manager.config.LEVERAGE = 20
+        self.config.LEVERAGE = 50 # Match live config (was 20)
+        self.risk_manager.config.LEVERAGE = 50
         self.config.TRADE_MARGIN_PERCENT = 0.1 # Match live config
         self.risk_manager.config.TRADE_MARGIN_PERCENT = 0.1
         
         # Quality Filters (NEW)
-        self.MIN_24H_VOLUME_USD = 10_000_000  # $10M minimum 24h volume
+        # self.MIN_24H_VOLUME_USD = 10_000_000  # REMOVED: Unused. Logic uses QualityFilterModule (50M).
         self.TOP_N_COINS = 200  # Only trade top 200 coins by volume
         
         # DYNAMIC UNIVERSE STATE
@@ -129,10 +129,14 @@ class RealBacktestEngine:
         # Filter by Date Range
         if start_date:
             start_ts = pd.Timestamp(start_date)
+            if start_ts.tzinfo is None:
+                start_ts = start_ts.tz_localize('UTC')
             sorted_timestamps = [t for t in sorted_timestamps if t >= start_ts]
             
         if end_date:
             end_ts = pd.Timestamp(end_date)
+            if end_ts.tzinfo is None:
+                end_ts = end_ts.tz_localize('UTC')
             sorted_timestamps = [t for t in sorted_timestamps if t <= end_ts]
             
         # Filter for last N days if requested (overrides start_date if both present, or used in conjunction?)
@@ -419,7 +423,9 @@ class RealBacktestEngine:
             time_diff = (df.index[1] - df.index[0]).total_seconds()
             is_1m_data = time_diff < 300 # Assume < 5min means 1m data
             
-            if is_1m_data:
+            # ONLY resample if Config says so (e.g. 15m) AND data is 1m
+            # If Config is 1m, we want RAW 1m data (No Resampling)
+            if is_1m_data and self.config.TIMEFRAME != '1m':
                 # Take last ~1000 minutes to ensure we have enough 15m candles (need 50 15m = 750m)
                 # Slice logic: Get data up to current row_loc inclusive
                 lookback_mins = 1500 # Safe margin
@@ -450,7 +456,10 @@ class RealBacktestEngine:
                 history_slice = history_df.tail(50)
             else:
                 # Already 15m data (Standard Backtest)
-                history_slice = df.iloc[row_loc - 50 : row_loc + 1]
+                # FIX (Indicator Warmup): Live bot uses 300 candles. Backtest used 50.
+                # ADX/EMA needs sufficient warmup. Raising to 300 (start >= 0).
+                start_loc = max(0, row_loc - 300)
+                history_slice = df.iloc[start_loc : row_loc + 1]
             
             signal = self.strategy.check_signal(symbol, history_slice)
             
@@ -527,28 +536,26 @@ class RealBacktestEngine:
         # Update risk manager leverage for this trade
         self.risk_manager.config.LEVERAGE = leverage
         
-        # OPT 2: ATR-based dynamic stop-loss
-        # Calculate ATR if we have history_slice, otherwise use fixed
+        # OPT 2: ATR-based dynamic stop-loss (Using Shared Risk Manager)
+        # Verify we have enough history
+        stop_loss = 0
         if history_slice is not None and len(history_slice) >= 14:
-            import pandas_ta as ta
-            atr = ta.atr(history_slice['high'], history_slice['low'], history_slice['close'], length=14).iloc[-1]
-            
-            # Calculate ATR distance
-            sl_distance = atr * 2.5 # Match live config
-            
-            # CRITICAL: Cap stop loss at 1.4% for 50x leverage (liquidation at ~1.5%)
-            max_stop_distance = price * 0.014
-            sl_distance = min(sl_distance, max_stop_distance)
-            
-            stop_loss_pct = sl_distance / price
+             stop_loss = self.risk_manager.calculate_stop_loss(history_slice, price, side='LONG')
         else:
-            # Fallback to safe 1.4%
-            stop_loss_pct = 0.014
-        
+             # Fallback
+             stop_loss = price * 0.986 # 1.4% Fixed
+             
         # P1 FIX: Add slippage (0.05% - more realistic for small orders on liquid pairs)
         slippage = 0.0005  # 0.05% (reduced from 0.1%)
         entry_price_with_slippage = price * (1 + slippage)
-        stop_loss = entry_price_with_slippage * (1 - stop_loss_pct)
+        
+        # Recalculate Stop Loss based on Slippage Entry? 
+        # Live Bot calculates SL based on 'price' (Close of candle).
+        # We should keep SL level absolute.
+        # But wait, stop_loss from manager is a PRICE level.
+        # If entry slips up, risk increases slightly.
+        # Position sizing handles the risk based on (entry - sl). -> That comes next.
+
         
         # Use risk manager for size
         # For paper trade, use hypothetical balance (e.g. current balance)

@@ -21,6 +21,7 @@ from leverage_strategies.signal_confidence import SignalConfidenceModule
 class TradingBot:
     def __init__(self):
         self.logger = setup_logger()
+        setup_logger('market_monitor', 'main.log') # Ensure WS logs are captured
         self.config = Config()
         
         self.client = BinanceClient()
@@ -50,11 +51,8 @@ class TradingBot:
         self.positions = {} # {symbol: position_data}
         self.paper_positions = {} # {symbol: position_data} (虚拟持仓)
         
-        self.monitor = MarketMonitor(callbacks={
-            'ticker': self.on_ticker_update,
-            'kline': self.on_kline_update
-        })
-        
+        self.monitor = MarketMonitor(kline_callback=self.on_kline_update) # Event-Driven Callback
+    
         self.lock = threading.Lock() # Thread safety for shared resources
         # self.trade_logger = setup_logger('trade_logger', 'trades.log') # Disabled per user request
         self.trade_logger = logging.getLogger('trade_logger_null')
@@ -129,16 +127,28 @@ class TradingBot:
                     sl_found = True
                     break
             
-            # Check Algo Orders if not found
+            # Check Algo Orders if not found (Retry Mechanism)
             if not sl_found:
-                algo_orders = self.executor.fetch_open_algo_orders(symbol_internal)
-                for o in algo_orders:
-                    # Algo order structure might differ, usually has 'orderType' or 'type'
-                    o_type = o.get('algoType') or o.get('type')
-                    if o_type in ['CONDITIONAL', 'STOP_MARKET']: 
-                        self.logger.info(f"   ✅ [Algo接口] 发现止损单: ID {o.get('clientAlgoId') or o.get('algoId')} @ {o.get('triggerPrice')}")
-                        sl_found = True
+                for attempt in range(3):
+                    algo_orders = self.executor.fetch_open_algo_orders(symbol_internal)
+                    # self.logger.info(f"🔍 [Debug] Raw Algo Orders: {algo_orders}") 
+                    
+                    found_in_loop = False
+                    for o in algo_orders:
+                        # Algo order structure might differ
+                        o_type = o.get('algoType') or o.get('type')
+                        if o_type in ['CONDITIONAL', 'STOP_MARKET']: 
+                            self.logger.info(f"   ✅ [Algo接口] 发现止损单: ID {o.get('clientAlgoId') or o.get('algoId')} @ {o.get('triggerPrice')}")
+                            sl_found = True
+                            found_in_loop = True
+                            break
+                    
+                    if found_in_loop:
                         break
+                    else:
+                        if attempt < 2:
+                            self.logger.warning(f"   ⚠️ 未检测到Algo单，等待重试 ({attempt+1}/3)...")
+                            time.sleep(2)
 
             if not sl_found:
                 self.logger.error("❌ [自检失败] 未检测到止损单! 系统将紧急平仓并退出")
@@ -159,7 +169,8 @@ class TradingBot:
                     'quantity': 1.0,
                     'highest_price': 2000.0,
                     'entry_time': datetime.now(),
-                    'leverage': 20
+                    'leverage': 20,
+                    'side': 'BUY'
                 }
                 
                 # A. Simulate Pump (2000 -> 3000, +50%)
@@ -216,19 +227,34 @@ class TradingBot:
         self.monitor.start()
         
         # 5. Main Loop (Periodic Scan & Position Management)
+        # 5. Main Loop (Periodic Scan & Position Management)
+        # 5. Main Loop (Periodic Scan & Position Management)
+        # 5. Main Loop (Periodic Scan & Position Management)
         try:
+            last_scan_time = 0
             while True:
-                time.sleep(60) # Scan every minute
-                self.scan_top_gainers()
+                current_time = time.time()
                 
-                # Polling Strategy Trigger (Since WS is dummy)
-                # Iterate over a copy to avoid modification issues
-                current_symbols = list(self.active_symbols)
-                for symbol in current_symbols:
-                    self.process_strategy_safe(symbol)
-                    
-                self.log_market_status() # New logging function
+                # A. High Frequency: Manage Positions (Every 0.1s)
+                # This ensures "Soft Logic" (Smart Exit) checks price frequently so we don't miss peaks.
                 self.manage_positions()
+                
+                # B. Low Frequency: Scan & Strategy (Every 60s)
+                if current_time - last_scan_time >= 60:
+                    self.logger.info(f"🔄 [周期扫描] 执行分钟级扫描任务...")
+                    self.scan_top_gainers()
+                    
+                    # NOTE: Strategy execution is now EVENT-DRIVEN via WebSocket (on_kline_update)
+                    # We NO LONGER poll 'process_strategy_safe' here.
+                    # This eliminates latency and aligns perfectly with Backtest (Candle Close).
+                        
+                    self.log_market_status() # New logging function
+                    
+                    last_scan_time = current_time
+                    
+                time.sleep(0.1) # 100ms Tickefly to prevent CPU spinning, but fast enough for sub-second checks
+                time.sleep(0.1)
+
         except KeyboardInterrupt:
             self.stop()
 
@@ -256,14 +282,38 @@ class TradingBot:
                 self.logger.info(f"🔍 发现交易所持仓: {symbol} x {qty} @ {entry_price}")
                 
                 # Check for existing Open Orders (Stop Loss)
+                # 1. Check Standard Orders first (Legacy/Exchange dependent)
                 orders = self.client.exchange.fetch_open_orders(symbol)
                 stop_loss_price = 0
+                sl_order_id = None
+                
                 for o in orders:
                     # Look for STOP orders
                     if o['type'] in ['STOP', 'STOP_MARKET']:
                         stop_loss_price = float(o.get('stopPrice', o.get('price', 0)))
-                        self.logger.info(f"   -> 发现关联止损单: {stop_loss_price}")
+                        sl_order_id = o['id']
+                        self.logger.info(f"   -> 发现关联止损单 (Standard): ID {sl_order_id} @ {stop_loss_price}")
                         break
+                
+                # 2. Check Algo Orders if not found (CRITICAL FIX for Zombie Orders)
+                if stop_loss_price == 0:
+                    self.logger.info(f"   -> Standard SL not found, scanning Algo Orders for {symbol}...")
+                    try:
+                        # Use Executor's method which handles auth/signing manualy if needed
+                        algo_orders = self.executor.fetch_open_algo_orders(symbol)
+                        for o in algo_orders:
+                             # Algo order structure might differ (clientAlgoId vs algoId)
+                            o_type = o.get('algoType') or o.get('type')
+                            if o_type in ['CONDITIONAL', 'STOP_MARKET']: 
+                                 # Check if it's a STOP LOSS (reduceOnly or triggered by price)
+                                 trigger_price = float(o.get('triggerPrice', 0))
+                                 if trigger_price > 0:
+                                    stop_loss_price = trigger_price
+                                    sl_order_id = o.get('clientAlgoId') or o.get('algoId')
+                                    self.logger.info(f"   ✅ [Algo接口] 发现关联止损单: ID {sl_order_id} @ {stop_loss_price}")
+                                    break
+                    except Exception as e:
+                        self.logger.warning(f"   ⚠️ Algo Order scan failed for {symbol}: {e}")
                 
                 # If no SL found, we calculate a default one based on current config/ATR?
                 # For safety, if no SL, we mark it. manage_positions might set one if logic permits,
@@ -285,7 +335,8 @@ class TradingBot:
                     'highest_price': entry_price, # Reset tracking
                     'entry_time': datetime.now(), # Reset time
                     'leverage': leverage,
-                    'is_paper': False
+                    'is_paper': False,
+                    'side': 'BUY'
                 }
                 
                 with self.lock:
@@ -306,8 +357,8 @@ class TradingBot:
         """
         try:
             # Fetch recent klines (enough for strategy)
-            # Strategy needs ~50 candles
-            df = self.client.get_historical_klines(symbol, timeframe=self.config.TIMEFRAME, limit=60)
+            # Strategy needs ~50 candles, but ADX/EMA needs warmup (200+)
+            df = self.client.get_historical_klines(symbol, timeframe=self.config.TIMEFRAME, limit=300)
             
             # FIX: Drop the last candle if it's incomplete (active)
             # Binance API usually returns the incomplete candle as the last row
@@ -434,9 +485,10 @@ class TradingBot:
             
             new_symbols = set()
             
-            # Limit to checking top 30 candidates to avoid rate limits
-            # These are already: In Top 200 Volume AND have good gains
-            for t in gainer_candidates[:30]:
+            # Limit to checking top N candidates (aligned with Backtest)
+            # Match Backtest limit (Top 50)
+            check_limit = self.config.TOP_GAINER_COUNT
+            for t in gainer_candidates[:check_limit]:
                 symbol = t[0]
                 
                 # Rank Check
@@ -473,8 +525,11 @@ class TradingBot:
                 for s in new_symbols:
                     if s not in self.active_symbols:
                         self.active_symbols.add(s)
-                        # self.monitor.subscribe(s) # Dummy monitor has no subscribe
-                        self.logger.info(f"新增监控: {s}")
+                        self.monitor.subscribe(s) # Subscribe to BookTicker (Price)
+                        # ALIGNMENT FIX: Always subscribe to 1m execution stream
+                        # We need 1m events to drive the "Developing Candle" strategy (15m logic updated every 1m)
+                        self.monitor.subscribe_kline(s, '1m') 
+                        self.logger.info(f"新增监控: {s} (Price + Kline 1m)")
                 
                 # Remove old symbols (if not in position)
                 # Keep symbols if we have a position or if they are still in top gainers
@@ -485,7 +540,8 @@ class TradingBot:
                         
                 for s in to_remove:
                     self.active_symbols.remove(s)
-                    # self.monitor.unsubscribe(s) # Dummy monitor has no unsubscribe
+                    self.monitor.unsubscribe(s) # Unsubscribe from BookTicker
+                    self.monitor.unsubscribe_kline(s, '1m') # Unsubscribe from Kline 1m
                     self.logger.info(f"移除监控: {s}")
                 
             # Record Universe for Backtest Alignment
@@ -505,97 +561,107 @@ class TradingBot:
 
     def on_kline_update(self, data):
         """
-        Callback for K-line updates.
+        Callback for K-line updates from WebSocket.
+        Trigger strategy ONLY on candle close.
         """
-        symbol = data['s']
-        kline = data['k']
-        is_closed = kline['x']
-        
-        with self.lock:
-            if symbol not in self.active_symbols:
+        try:
+            # Parse data
+            # Format: 's': symbol, 'k': { 'x': is_closed, ... }
+            symbol_ws = data['s'].lower()
+            kline = data['k']
+            is_closed = kline['x']
+            
+            # Find internal symbol mapping
+            # (Simple reverse lookup optimization for now)
+            symbol_internal = None
+            with self.lock:
+                for s in self.active_symbols:
+                    if s.lower().startswith(symbol_ws): # simple match, assume unique
+                        symbol_internal = s
+                        break
+            
+            if not symbol_internal:
                 return
 
-        if is_closed:
-            # Fetch recent history for this symbol to run strategy
-            # Optimization: Maintain local buffer instead of fetching every time
-            # For now, fetch last 50 candles
-            df = self.client.get_historical_klines(symbol, timeframe=self.config.TIMEFRAME, limit=50)
-            
-            if not df.empty:
-                self.process_strategy(symbol, df)
+            # CRITICAL LOGIC ALIGNMENT: 
+            # Only trigger strategy when candle is CLOSED.
+            # This matches Backtest logic exactly.
+            if is_closed:
+                # Log the event for verification
+                self.logger.info(f"⚡️ [Event] Kline Closed for {symbol_internal}. Triggering Strategy...")
+                
+                # Fetch fresh history (SAFE)
+                # Optimization: We could use the WS kline data to update a local cache,
+                # but fetching recent history ensures we have the full context (w/o gaps)
+                # Using process_strategy_safe handles the fetching.
+                self.process_strategy_safe(symbol_internal)
+                
+        except Exception as e:
+            self.logger.error(f"K-line callback error: {e}")
 
-    def process_strategy(self, symbol, df):
-        # 1. Check Circuit Breaker (Global)
+    def process_strategy(self, symbol, df_ignored):
+        # 1. Check Circuit Breaker
         current_balance = float(self.client.get_balance())
-        
-        # Let's use a simple peak balance tracker
-        if not hasattr(self, 'peak_balance'):
-            self.peak_balance = current_balance
+        if not hasattr(self, 'peak_balance'): self.peak_balance = current_balance
         self.peak_balance = max(self.peak_balance, current_balance)
         
         should_pause = self.trend_detector.should_pause_trading(current_balance, self.peak_balance)
-        
-        # 2. Check BTC Trend (Market Regime)
-        # DISABLED PER USER REQUEST (2025-12-07) - Backtest showed removing this yields 7x profit
-        is_btc_downtrend = False
-        '''
-        try:
-            btc_df = self.client.get_historical_klines('BTCUSDT', timeframe=self.config.TIMEFRAME, limit=210)
-            if not btc_df.empty:
-                import pandas_ta as ta
-                ema200 = ta.ema(btc_df['close'], length=200).iloc[-1]
-                btc_price = btc_df['close'].iloc[-1]
-                if btc_price < ema200:
-                    is_btc_downtrend = True
-        except Exception as e:
-            self.logger.warning(f"无法获取BTC趋势: {e}")
-        '''
-        
-        # Determine if this should be a paper trade
-        is_paper_trade = False
-        if should_pause:
-            self.logger.warning(f"⚠️ [DEBUG] 触发虚拟交易 -> should_pause=True. Peak: {self.peak_balance}, Curr: {current_balance}, Drawdown: {(self.peak_balance - current_balance)/self.peak_balance if self.peak_balance else 0}")
-            is_paper_trade = True
-        else:
-            self.logger.info(f"[DEBUG] 实盘模式检查 -> should_pause=False. Peak: {self.peak_balance}, Curr: {current_balance}")
+        is_paper_trade = should_pause
 
-        # Check for Entry
-        # LOCKING: Protect access to positions
+        # Check for Entry - Early Exit
         with self.lock:
-            # If paper trade, we check paper positions
             if is_paper_trade:
-                if symbol in self.paper_positions:
-                    return 
+                if symbol in self.paper_positions: return 
             else:
-                if symbol in self.positions:
-                    return
+                if symbol in self.positions: return
 
-            # DEBUG: Log that we're checking for a signal
-            # self.logger.debug(f"检查 {symbol} 信号...")
+        # === DATA FETCHING & RESAMPLING ===
+        signal = None
+        strategy_df = None
+        
+        try:
+            # Needs enough data for 50x 15m candles
+            limit = 1000 if self.config.TIMEFRAME != '1m' else 210
+            df_1m = self.client.get_historical_klines(symbol, timeframe='1m', limit=limit)
             
-            signal = self.strategy.check_signal(symbol, df)
+            if df_1m.empty: return
+
+            # FIX: Ensure DatetimeIndex for Resampling
+            if 'timestamp' in df_1m.columns:
+                df_1m['timestamp'] = pd.to_datetime(df_1m['timestamp'])
+                df_1m.set_index('timestamp', inplace=True)
+
+            # MODE A: 15m Resampling (Developing Candle Logic)
+            if self.config.TIMEFRAME == '15m':
+                agg_dict = {'open': 'first', 'high': 'max', 'low': 'min', 'close': 'last', 'volume': 'sum'}
+                strategy_df = df_1m.resample('15min').agg(agg_dict).dropna()
+            # MODE B: Raw 1m
+            else:
+                strategy_df = df_1m
+                
+            if len(strategy_df) < self.config.LOOKBACK_WINDOW: return
             
-            # DEBUG: Log signal check result
-            if signal:
-                if signal.get('status') == 'REJECTED':
-                    # Log rejection details (Optional: reduce log noise by using debug)
-                    self.logger.info(f"✗ 信号拒绝: {symbol} | {signal['reason']}")
-                elif signal.get('side') == 'LONG':
-                    self.logger.info(f"✓ 信号检测: {symbol} 满足条件")
+            signal = self.strategy.check_signal(symbol, strategy_df)
             
-            if signal and signal.get('side') == 'LONG':
+        except Exception as e:
+            self.logger.error(f"Strategy processing failed for {symbol}: {e}")
+            return
+
+        # === EXECUTION LOGIC ===
+        if signal:
+            if signal.get('status') == 'REJECTED':
+                self.logger.info(f"✗ 信号拒绝: {symbol} | {signal['reason']}")
+            elif signal.get('side') == 'LONG':
+                self.logger.info(f"✓ 信号检测: {symbol} 满足条件")
                 
                 # Check Max Positions (Real only)
                 if not is_paper_trade:
                     if len(self.positions) >= self.config.MAX_OPEN_POSITIONS:
-                        active_symbol = list(self.positions.keys())[0]
-                        self.logger.info(f"跳过信号 {symbol}: 已有持仓 {active_symbol}")
-                        self.trade_logger.info(f"跳过信号 {symbol}: 已有持仓 {active_symbol} (上限 {self.config.MAX_OPEN_POSITIONS})")
+                        self.logger.info(f"跳过信号 {symbol}: 已有持仓 (上限 {self.config.MAX_OPEN_POSITIONS})")
                         return
-                    
+                
                 self.logger.info(f"发现信号: {symbol} 做多 (虚拟交易: {is_paper_trade})")
-                self.trade_logger.info(f"触发信号: {symbol} 做多 | 价格: {df['close'].iloc[-1]} | 虚拟: {is_paper_trade}")
-                self.execute_entry(symbol, df, signal=signal, is_paper_trade=is_paper_trade)  # 传递signal对象用于动态杠杆计算
+                self.execute_entry(symbol, strategy_df, signal=signal, is_paper_trade=is_paper_trade)
     
     # Check for Exit (Trailing Stop handled in manage_positions or here?)
     # Better here with real-time price, but we need current price.
@@ -643,7 +709,8 @@ class TradingBot:
                     'stop_loss': stop_loss_price,
                     'highest_price': price,
                     'entry_time': datetime.now(),
-                    'is_paper': True
+                    'is_paper': True,
+                    'side': 'BUY'
                 }
                 self.paper_positions[symbol] = position_data
                 self.logger.info(f"📝 [虚拟交易] 开仓成功: {symbol} @ {price}")
@@ -723,7 +790,8 @@ class TradingBot:
                 'highest_price': price,
                 'entry_time': datetime.now(),
                 'leverage': leverage,
-                'is_paper': False
+                'is_paper': False,
+                'side': 'BUY'
             }
             self.positions[symbol] = position_data
             
@@ -777,14 +845,17 @@ class TradingBot:
             pos = self.positions[symbol]
             
         # Get current price
-        # Optimization: Use local ticker cache if available, else fetch
-        # For now, fetch ticker
-        try:
-            ticker = self.client.get_ticker(symbol)
-            current_price = float(ticker['last'])
-        except Exception as e:
-            self.logger.error(f"获取价格失败 {symbol}: {e}")
-            return
+        # Optimization: Use Local WS Cache for Speed!
+        current_price = self.monitor.get_price(symbol)
+        
+        if current_price is None:
+            # Fallback to REST API if WS not ready
+            try:
+                ticker = self.client.get_ticker(symbol)
+                current_price = float(ticker['last'])
+            except Exception as e:
+                self.logger.error(f"获取价格失败 {symbol}: {e}")
+                return
         
         # Check Exit Conditions
         
