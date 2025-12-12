@@ -29,7 +29,17 @@ class RealBacktestEngine:
         # Initialize New Modules
         self.smart_exit = SmartExitModule()
         self.quality_filter = QualityFilterModule()
-        self.trend_detector = TrendReversalDetector()
+        
+        # FIX: Ensure fresh Trend Detector state for Backtest
+        state_file = Path("logs/backtest_trend_state.json")
+        if state_file.exists():
+            try:
+                state_file.unlink() # Delete old state
+                print(f"🗑️ Deleted old trend state file: {state_file}")
+            except Exception as e:
+                print(f"⚠️ Failed to delete old trend state: {e}")
+                
+        self.trend_detector = TrendReversalDetector(state_file=str(state_file))
         
         # Override config for backtest if needed
         self.config.MAX_OPEN_POSITIONS = 10 # Match live config
@@ -184,7 +194,33 @@ class RealBacktestEngine:
         for i in range(start_index, len(sorted_timestamps)):
             current_time = sorted_timestamps[i]
             
-            # 1. Execute pending signal (if entry time matches)
+            # CRITICAL FIX: Only execute on 15m boundaries to match Live Bot
+            # Live Bot uses: if (minutes_since_epoch + 1) % 15 != 0: skip
+            # Here current_time is the timestamp of the data point.
+            # If we are iterating 1m data, e.g. 12:00, 12:01... 
+            # We want to check signal only when the 15m candle closes.
+            # If data is 12:14 (Start), it closes at 12:15.
+            # So we check at 12:15?
+            # Actually, `real_engine` logic usually acts on "current_time" state.
+            # If we resample 12:00-12:15, the bin label is 12:00. WE know it's closed at 12:15.
+            # But the loop iterates 1m steps.
+            # We should only trigger when current_time ends a 15m block.
+            # i.e. 12:14:00 (which closes at 12:15:00) OR 12:15:00?
+            # Data timestamp in CSV is usually Open Time.
+            # 12:14:00 Open -> 12:15:00 Close.
+            # In Live Bot, we trigger at 12:15:00 (Time).
+            # Here we iterate Open Times. 
+            # The Open Time of the LAST 1m candle of a 15m block is XX:14, XX:29, XX:44, XX:59.
+            # So if (current_time.minute + 1) % 15 == 0, we are at the last 1m candle.
+            
+            # CRITICAL FIX: Only execute on 15m boundaries to match Live Bot (Conservative)
+            # OR execute on every 1m (Aggressive / Repainting Mode)
+            
+            if not self.config.ALLOW_DEVELOPING_SIGNALS:
+                if (current_time.minute + 1) % 15 != 0:
+                    continue
+                
+            # 1. Execute pending signal (from previous iteration)
             # 1. Execute pending signals (if entry time matches)
             # Process all pending signals that are due for execution
             # Iterate copy to allow modification if needed (though we clear all)
@@ -245,7 +281,7 @@ class RealBacktestEngine:
         high_price = current_candle['high']
         low_price = current_candle['low']
         
-        # Update highest price for trailing stop
+        # Update highest price for trailing stop (Simulate trail moving up to peak)
         if high_price > pos['highest_price']:
             pos['highest_price'] = high_price
             
@@ -254,10 +290,13 @@ class RealBacktestEngine:
             self._close_position(symbol, pos['stop_loss'], current_time, 'Stop Loss')
             return
             
-        # 2. Smart Exit Checks
+        # 2. Smart Exit Checks (PESSIMISTIC EXECUTION)
+        # We pass 'low_price' to check if the wick hit the trailing stop during the candle.
+        # Note: We already updated 'highest_price' above, so the trailing line is calculated based on High.
+        # This checks: "Did the price crash to Low AFTER hitting High?" (Worst case within the bar)
         should_exit, reason, exit_price = self.smart_exit.check_exit(
             pos, 
-            current_price, 
+            low_price,  # USE LOW PRICE for Validation
             current_time
         )
         
@@ -324,7 +363,7 @@ class RealBacktestEngine:
             # Check if we can recover
             if not self.trend_detector.check_recovery():
                 is_paused = True
-                # print(f"[{current_time}] 🛑 Trading Paused: Circuit Breaker Active (Paper Trading Mode)")
+                print(f"[{current_time}] 🛑 Trading Paused: Circuit Breaker Active")
         
         # 2. Market Regime Filter (BTC Trend)
         # DISABLED PER USER REQUEST (2025-12-07) - Backtest showed removing this yields 7x profit
@@ -400,6 +439,7 @@ class RealBacktestEngine:
             # === QUALITY FILTER MODULE CHECK ===
             is_good, reason = self.quality_filter.check_quality(symbol, volume_24h_slice, volume_24h_usd)
             if not is_good:
+                # print(f"[DEBUG] {symbol} Quality Rejected: {reason}")
                 continue
             
             # QUALITY FILTER 2: Top 200 Ranking Check

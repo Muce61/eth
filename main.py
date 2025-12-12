@@ -1,3 +1,9 @@
+import sys
+import io
+# FORCE UTF-8 for Windows Console to support Emojis
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+
 import time
 import threading
 from datetime import datetime, timezone, timedelta
@@ -34,16 +40,16 @@ class TradingBot:
         
         # 初始化信号置信度模块 (动态杠杆)
         self.leverage_strategy = SignalConfidenceModule()
-        self.logger.info("📊 已启用: 信号置信度驱动动态杠杆策略")
+        self.logger.info("已启用: 信号置信度驱动动态杠杆策略")
         self.risk_manager = RiskManager()
         
         # 初始化趋势反转检测器 (熔断机制)
         self.trend_detector = TrendReversalDetector()
-        self.logger.info("🛡️ 已启用: 趋势反转熔断机制 (三层防御)")
+        self.logger.info("已启用: 趋势反转熔断机制 (三层防御)")
         
         # 初始化智能离场模块 (对齐回测逻辑)
         self.smart_exit = SmartExitModule()
-        self.logger.info("🧠 已启用: 智能离场模块 (动态追踪 + 保本止损)")
+        self.logger.info("已启用: 智能离场模块 (动态追踪 + 保本止损)")
         
         self.quality_filter = QualityFilter() # New: Backtest Alignment
         
@@ -662,15 +668,25 @@ class TradingBot:
                         
                         # Logic: If this is the 12:14 candle, next min is 12:15 (a 15m boundary).
                         # So (current_min + 1) % 15 == 0
-                        if (minutes_since_epoch + 1) % 15 != 0:
-                            trigger_strategy = False
-                            # self.logger.debug(f"忽略非15m收盘: {symbol_internal} (TS: {kline_open_time})")
+                        is_15m_boundary = (minutes_since_epoch + 1) % 15 == 0
+                        
+                        # AGGRESSIVE MODE: If enabled, we trigger on ANY 1m close.
+                        # CONSERVATIVE MODE: Only trigger on 15m boundary.
+                        if not self.config.ALLOW_DEVELOPING_SIGNALS:
+                            if not is_15m_boundary:
+                                trigger_strategy = False
+                                # self.logger.debug(f"忽略非15m收盘: {symbol_internal} (TS: {kline_open_time})")
+                        else:
+                            # In aggressive mode, we might want to log that we are checking intra-bar
+                            pass
+                            
                     except Exception:
                         pass # Fallback to triggering if calc fails
                 
                 if trigger_strategy:
                     # Log the event for verification
-                    self.logger.info(f"⚡️ [Event] 15m Kline Closed for {symbol_internal}. Triggering Strategy...")
+                    event_type = "15m Kline Closed" if (self.config.TIMEFRAME=='15m' and not self.config.ALLOW_DEVELOPING_SIGNALS) else "1m Update (Aggressive)"
+                    self.logger.info(f"⚡️ [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
                     
                     # Fetch fresh history (SAFE)
                     self.process_strategy_safe(symbol_internal)
@@ -700,7 +716,9 @@ class TradingBot:
         
         try:
             # Needs enough data for 50x 15m candles
-            limit = 1000 if self.config.TIMEFRAME != '1m' else 210
+            # FIX: 1000 lines of 1m data = 66x 15m candles. Too short for EMA200 or complex indicators.
+            # Increased to 4500 (3 days = 4320 mins) -> ~300x 15m candles.
+            limit = 4500 if self.config.TIMEFRAME != '1m' else 210
             df_1m = self.client.get_historical_klines(symbol, timeframe='1m', limit=limit)
             
             if df_1m.empty: return
@@ -715,7 +733,7 @@ class TradingBot:
                 agg_dict = {'open': 'first', 'high': 'max', 'low': 'min', 'close': 'last', 'volume': 'sum'}
                 strategy_df = df_1m.resample('15min').agg(agg_dict).dropna()
                 
-                # STRICT ALIGNMENT: Drop Developing Candle if present
+                # STRICT ALIGNMENT: Drop Developing Candle if present (UNLESS Aggressive Mode is ON)
                 # If the last row of strategy_df is the current (just started) 15m candle, it only has 1m of data.
                 # We must trade on the PREVIOUS (Fully Closed) candle.
                 # Example: At 14:00:05, we fetch data. df_1m has 14:00 row. Resample creates 14:00 bucket.
@@ -725,7 +743,11 @@ class TradingBot:
                     # Check if this candle is "in the future" relative to full closure
                     # Simple heuristic: If last_ts is within 14 mins of now, it's developing.
                     if last_ts > (datetime.now() - timedelta(minutes=15)):
-                         strategy_df = strategy_df.iloc[:-1]
+                        # If Aggressive Mode is ON, we KEEP the developing candle (simulating intra-bar signal)
+                        if not self.config.ALLOW_DEVELOPING_SIGNALS:
+                             strategy_df = strategy_df.iloc[:-1]
+                        else:
+                             pass # Keep it! Trade on current state.
 
             # MODE B: Raw 1m
             else:

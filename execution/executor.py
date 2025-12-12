@@ -74,8 +74,8 @@ class Executor(BinanceClient):
         """
         try:
             params = {
-                'timestamp': int(time.time() * 1000),
-                'recvWindow': 5000
+                'timestamp': self.exchange.milliseconds(),
+                'recvWindow': 60000
             }
             if symbol:
                 market = self.exchange.market(symbol)
@@ -129,8 +129,8 @@ class Executor(BinanceClient):
                 'algoType': 'CONDITIONAL', # Mandatory for Algo Endpoint
                 'closePosition': 'false', # We specify quantity, so closePosition is false
                 'priceProtect': 'true',
-                'timestamp': int(time.time() * 1000),
-                'recvWindow': 5000
+                'timestamp': self.exchange.milliseconds(),
+                'recvWindow': 60000
             }
             
             # 2. Generate Signature (Manual HMAC SHA256)
@@ -200,8 +200,8 @@ class Executor(BinanceClient):
                     params = {
                         'symbol': o['symbol'], # Use symbol from order or passed symbol
                         'algoId': o['algoId'],
-                        'timestamp': int(time.time() * 1000),
-                        'recvWindow': 5000
+                        'timestamp': self.exchange.milliseconds(),
+                        'recvWindow': 60000
                     }
                     
                     query_string = urllib.parse.urlencode(params)

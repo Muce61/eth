@@ -17,7 +17,13 @@ class Config:
     TOP_GAINER_COUNT = 50
     CHANGE_THRESHOLD_MIN = 2.0   # Min 2% 24h change (widened from 5%)
     CHANGE_THRESHOLD_MAX = 200.0 # Max 200% 24h change (widened from 20%)
+    CHANGE_THRESHOLD_MAX = 200.0 # Max 200% 24h change (widened from 20%)
     BULLISH_CANDLES_COUNT = 2    # Reduced to 2 for faster entry
+    
+    # Execution Mode
+    # If True: Executes trades on ANY 1m candle close (Intra-bar for 15m). "Repainting" risk but faster entry.
+    # If False: Executes only on confirmed 15m candle close. Safer but slower.
+    ALLOW_DEVELOPING_SIGNALS = False 
     
     # Risk Management - OPTIMIZED CONFIG (10×10% 50x)
     LEVERAGE = 50                     # 50x leverage for maximum returns

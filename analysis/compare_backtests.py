@@ -1,77 +1,115 @@
+
 import pandas as pd
-import matplotlib.pyplot as plt
-import os
+from pathlib import Path
+import sys
 
-def analyze_csv(path, label):
+def compare_backtests():
+    file_3month = Path("e:/dikong/eth/backtest_trades.csv")
+    file_3day = Path("e:/dikong/eth/backtest_trades copy 2.csv") # 3-day result
+    
+    # Target Range (UTC)
+    start_time = pd.Timestamp("2025-12-12 10:00:00", tz='UTC')
+    end_time = pd.Timestamp("2025-12-12 20:00:00", tz='UTC')
+    
+    print(f"Comparing trades from {start_time} to {end_time} UTC")
+    
+    # Load Dataframe
+    # We need to handle potential missing headers or confirm headers
+    # Let's try loading first row to check
     try:
-        df = pd.read_csv(path)
-        if df.empty:
-            return None, {}
+        df1 = pd.read_csv(file_3month)
+        df2 = pd.read_csv(file_3day)
         
-        # Ensure dates
-        df['exit_time'] = pd.to_datetime(df['exit_time'])
-        df = df.sort_values('exit_time')
+        # Check if first column looks like a header or data
+        # If 'symbol' or 'entry_time' is in columns, we are good.
+        # If columns are '0', '1', etc, or numbers, we might need names.
         
-        # Stats
-        initial_bal = 1000 # hardcoded base
-        final_bal = df['balance_after'].iloc[-1]
-        total_ret = (final_bal - initial_bal) / initial_bal * 100
-        trade_count = len(df)
-        win_count = len(df[df['pnl'] > 0])
-        loss_count = len(df[df['pnl'] <= 0])
-        win_rate = win_count / trade_count * 100 if trade_count > 0 else 0
-        avg_pnl = df['pnl'].mean()
+        print(f"3-Month File Columns: {df1.columns.tolist()[:3]}...")
+        print(f"3-Day File Columns: {df2.columns.tolist()[:3]}...")
         
-        stats = {
-            'Label': label,
-            'Total Return (%)': total_ret,
-            'Final Balance ($)': final_bal,
-            'Trade Count': trade_count,
-            'Win Rate (%)': win_rate,
-            'Avg PnL ($)': avg_pnl
-        }
+        # Ensure timestamp columns are parsed
+        # Usually RealBacktestEngine saves: 
+        # index, symbol, entry_price, exit_price, entry_time, exit_time, pnl, balance, exit_reason, duration...
         
-        return df, stats
-    except Exception as e:
-        print(f"Error reading {path}: {e}")
-        return None, {}
+        # We need to identify the time column. Usually 'entry_time'.
+        time_col = 'entry_time'
+        if time_col not in df1.columns:
+            # Fallback: maybe it's unnamed or different?
+            # Let's look for a column that parses to datetime
+            pass
+            
+        df1[time_col] = pd.to_datetime(df1[time_col], utc=True)
+        df2[time_col] = pd.to_datetime(df2[time_col], utc=True)
+        
+        # Filter
+        df1_copy = df1[(df1[time_col] >= start_time) & (df1[time_col] <= end_time)].copy()
+        df2_copy = df2[(df2[time_col] >= start_time) & (df2[time_col] <= end_time)].copy()
+        
+        # Sort to ensure alignment
+        # Sort by entry_time, then symbol
+        df1_sorted = df1_copy.sort_values(by=[time_col, 'symbol']).reset_index(drop=True)
+        df2_sorted = df2_copy.sort_values(by=[time_col, 'symbol']).reset_index(drop=True)
+        
+        print(f"\nTrades in 3-Month Backtest (in range): {len(df1_sorted)}")
+        print(f"Trades in 3-Day Backtest (in range): {len(df2_sorted)}")
+        
+        # Compare
+        if len(df1_sorted) != len(df2_sorted):
+            print("\n❌ Mismatch in number of trades!")
+            # Find diff
+            # We can merge outer to see differences
+            merged = pd.merge(df1_sorted, df2_sorted, on=[time_col, 'symbol'], how='outer', indicator=True, suffixes=('_3m', '_3d'))
+            only_3m = merged[merged['_merge'] == 'left_only']
+            only_3d = merged[merged['_merge'] == 'right_only']
+            
+            if not only_3m.empty:
+                print(f"Trades ONLY in 3-Month ({len(only_3m)}):")
+                print(only_3m[[time_col, 'symbol']].head())
+            if not only_3d.empty:
+                print(f"Trades ONLY in 3-Day ({len(only_3d)}):")
+                print(only_3d[[time_col, 'symbol']].head())
+        else:
+            # Deep comparison
+            # Check key columns: symbol, entry_price, exit_price, pnl
+            cols_to_compare = ['symbol', 'entry_price', 'exit_price', 'pnl']
+            # Only compare columns that exist
+            cols = [c for c in cols_to_compare if c in df1_sorted.columns]
+            
+            diff_count = 0
+            for i in range(len(df1_sorted)):
+                row1 = df1_sorted.iloc[i]
+                row2 = df2_sorted.iloc[i]
+                
+                match = True
+                reason = ""
+                for c in cols:
+                    val1 = row1[c]
+                    val2 = row2[c]
+                    
+                    # Float comparison
+                    if isinstance(val1, float) and isinstance(val2, float):
+                        if abs(val1 - val2) > 1e-6: # Tolerance
+                            match = False
+                            reason = f"{c} mismatch: {val1} vs {val2}"
+                            break
+                    elif val1 != val2:
+                        match = False
+                        reason = f"{c} mismatch: {val1} vs {val2}"
+                        break
+                
+                if not match:
+                    diff_count += 1
+                    print(f"Diff at index {i} ({row1['symbol']} @ {row1[time_col]}): {reason}")
+                    
+            if diff_count == 0:
+                print("\n✅ PERFECT MATCH: Trades are identical.")
+            else:
+                print(f"\n❌ FOUND {diff_count} DIFFERENCES within matching trades.")
 
-def main():
-    path_1m = "backtest_trades_1m_3months.csv"
-    path_15m = "backtest_trades_15m_3months.csv"
-    
-    df_1m, stats_1m = analyze_csv(path_1m, "1m Logic")
-    df_15m, stats_15m = analyze_csv(path_15m, "15m Logic")
-    
-    print("=== Comparative Analysis Report ===")
-    
-    # Print Stats Table
-    all_stats = [stats_1m, stats_15m]
-    res_df = pd.DataFrame(all_stats)
-    print(res_df.to_string(index=False))
-    
-    # Plotting
-    plt.figure(figsize=(14, 7))
-    
-    if df_1m is not None:
-        # Reconstruct Equity Curve
-        # Assuming balance_after is accurate. 
-        # We need to prepend Start Balance for a nicer chart, but usually balance_after is fine.
-        plt.plot(df_1m['exit_time'], df_1m['balance_after'], label='1m Logic', color='blue', alpha=0.7)
-        
-    if df_15m is not None:
-        plt.plot(df_15m['exit_time'], df_15m['balance_after'], label='15m Logic', color='red', alpha=0.7)
-        
-    plt.title('Equity Curve Comparison: 1m vs 15m Logic (3 Months)')
-    plt.xlabel('Date')
-    plt.ylabel('Balance (USDT)')
-    plt.legend()
-    plt.grid(True)
-    
-    out_path = "analysis/charts/comparison_1m_vs_15m.png"
-    os.makedirs(os.path.dirname(out_path), exist_ok=True)
-    plt.savefig(out_path)
-    print(f"\nChart saved to {out_path}")
+    except Exception as e:
+        print(f"Error during comparison: {e}")
+        import traceback
+        traceback.print_exc()
 
 if __name__ == "__main__":
-    main()
+    compare_backtests()

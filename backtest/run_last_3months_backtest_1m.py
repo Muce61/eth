@@ -9,6 +9,27 @@ import pytz
 project_root = Path(__file__).parent.parent
 sys.path.append(str(project_root))
 
+# Redirect Output to File (User Request: No Console Output)
+# Also solves Windows UnicodeEncodeError by forcing UTF-8 file write
+log_dir = project_root / "logs"
+log_dir.mkdir(exist_ok=True)
+log_path = log_dir / "backtest_3m_pessimistic.log"
+
+print(f"Redirecting all output to {log_path} ...")
+
+class DualLogger:
+    def __init__(self, filepath):
+        self.file = open(filepath, "w", encoding="utf-8", buffering=1) # Line buffered
+    
+    def write(self, message):
+        self.file.write(message)
+    
+    def flush(self):
+        self.file.flush()
+
+sys.stdout = DualLogger(log_path)
+sys.stderr = sys.stdout
+
 from backtest.real_engine import RealBacktestEngine
 
 class Last3MonthsBacktestEngine1m(RealBacktestEngine):
@@ -17,12 +38,12 @@ class Last3MonthsBacktestEngine1m(RealBacktestEngine):
         Load data from the 1-year 1m dataset (updated incrementally).
         NO RESAMPLING - Uses raw 1m data.
         """
-        data_dir = Path("/Users/muce/1m_data/new_backtest_data_1year_1m")
+        data_dir = Path("E:/ALIXZ/new_backtest_data_1year_1m")
         self.data_feed = {}
         
-        # Target Period: 3 Months Back from 2025-12-11
-        # Start: Sep 11, 2025 (Approx)
-        end_date = pd.Timestamp("2025-12-11 05:30:00", tz='UTC')
+        # Target Period: 3 Months Back from 2025-12-13
+        # Start: Sep 13, 2025 (Approx)
+        end_date = pd.Timestamp("2025-12-12 20:00:00", tz='UTC')
         start_date = end_date - pd.Timedelta(days=90)
         
         print(f"Loading 1m data (Raw) for period: {start_date} to {end_date}...")
@@ -37,12 +58,24 @@ class Last3MonthsBacktestEngine1m(RealBacktestEngine):
         for file_path in files:
             try:
                 symbol = file_path.stem 
-                # Parse Dates
-                df_1m = pd.read_csv(file_path, parse_dates=['timestamp'], index_col='timestamp')
+                # Parse Dates Robustly
+                try:
+                    df_1m = pd.read_csv(file_path, on_bad_lines='skip')
+                    if 'timestamp' not in df_1m.columns:
+                        continue
+                        
+                    df_1m['timestamp'] = pd.to_datetime(df_1m['timestamp'], errors='coerce')
+                    df_1m = df_1m.dropna(subset=['timestamp'])
+                    df_1m.set_index('timestamp', inplace=True)
+                except Exception as e:
+                    print(f"CSV Read Error {file_path.name}: {e}")
+                    continue
                 
                 # Check timezone
                 if df_1m.index.tz is None:
                     df_1m.index = df_1m.index.tz_localize('UTC')
+                else:
+                    df_1m.index = df_1m.index.tz_convert('UTC')
                 
                 # Filter by Date Range
                 # Optimization: Check if file even overlaps with range before heavy operations
@@ -82,9 +115,9 @@ class Last3MonthsBacktestEngine1m(RealBacktestEngine):
         print(f"Loaded {count} symbols with 1m data in range.")
 
 def main():
-    end_date_str = "2025-12-11 05:30:00"
-    # 90 days prior = 2025-09-12
-    start_date_str = "2025-09-12 05:30:00"
+    end_date_str = "2025-12-12 20:00:00"
+    # 90 days prior = 2025-09-13
+    start_date_str = "2025-09-13 05:30:00"
     
     print(f"Starting 3-Month Backtest (1m Timeframe): {start_date_str} -> {end_date_str} (UTC)")
     print("This might take a while due to large dataset processing...")

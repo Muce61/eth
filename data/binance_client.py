@@ -19,7 +19,8 @@ class BinanceClient:
             'enableRateLimit': True,
             'options': {
                 'defaultType': 'future',
-                'adjustForTimeDifference': True
+                'adjustForTimeDifference': True,
+                'recvWindow': 60000 
             }
         })
         
