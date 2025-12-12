@@ -1,1 +1,1 @@
-timestamp,symbol,order_type,side,quantity,price,status,order_id,error_msg
+timestamp,order_id,symbol,type,side,price,quantity,status,leverage,confidence_score,rsi,adx,volume_ratio,upper_wick_ratio

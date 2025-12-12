@@ -206,6 +206,7 @@ class MarketMonitor:
                     
                 # 2. Kline Update (Strategy Trigger)
                 elif event_type == 'kline':
+                    self._log_data_trace(data) # Trace Log
                     if self.kline_callback:
                         self.kline_callback(data)
 
@@ -243,8 +244,80 @@ class MarketMonitor:
             "params": params,
             "id": int(time.time() * 1000)
         }
+        
         try:
             self.ws.send(json.dumps(payload))
             self.logger.info(f"WebSocket {method}: {len(params)} streams ({stream_type})")
+            
+            # Traceability Log
+            action_str = "START SUBSCRIPTION" if subscribe else "STOP SUBSCRIPTION"
+            self._log_trace(ws_symbols, action_str, stream_type)
+            
         except Exception as e:
             self.logger.error(f"WebSocket 发送订阅失败: {e}")
+
+    # --- Traceability ---
+    def _log_trace(self, ws_symbols, action, stream_type):
+        """
+        Log Start/Stop Subscription events to symbol-specific trace logs.
+        """
+        import os
+        from datetime import datetime
+        
+        trace_dir = "logs/ws_trace"
+        if not os.path.exists(trace_dir):
+            os.makedirs(trace_dir, exist_ok=True)
+            
+        current_time_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        date_str = datetime.now().strftime("%Y-%m-%d")
+        
+        for ws_sym in ws_symbols:
+            # Find internal symbol purely for filename friendliness (optional)
+            # Actually just use ws_symbol is fine
+            file_path = f"{trace_dir}/{ws_sym}_{date_str}.log"
+            
+            try:
+                with open(file_path, "a", encoding="utf-8") as f:
+                    msg = f"[{current_time_str}] {action} {stream_type.upper()}\n"
+                    f.write(msg)
+            except Exception:
+                pass
+
+    def _log_data_trace(self, data):
+        """
+        Log raw WebSocket data (Klines) to trace file.
+        """
+        import os
+        from datetime import datetime
+        
+        if 'e' not in data or data['e'] != 'kline':
+            return
+            
+        k = data['k']
+        
+        # OPTIMIZATION: Only log CLOSED candles (x=True)
+        # This reduces log volume by ~98% and captures the exact data point used for strategy triggers.
+        # User request: "1s logs are unnecessary"
+        if not k['x']:
+            return
+            
+        stream_type = 'kline'
+        ws_symbol = data['s'].lower()
+        
+        trace_dir = "logs/ws_trace"
+        if not os.path.exists(trace_dir):
+            os.makedirs(trace_dir, exist_ok=True)
+            
+        date_str = datetime.now().strftime("%Y-%m-%d")
+        file_path = f"{trace_dir}/{ws_symbol}_{date_str}.log"
+        
+        current_time_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
+        
+        try:
+            with open(file_path, "a", encoding="utf-8") as f:
+                # Format: [Time] [KLINE] Open: ... Close: ... Closed: ...
+                is_closed = "CLOSED"
+                msg = f"[{current_time_str}] [DATA] {is_closed} | T: {k['t']} | O: {k['o']} | C: {k['c']} | V: {k['v']}\n"
+                f.write(msg)
+        except Exception:
+            pass

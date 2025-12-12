@@ -24,8 +24,8 @@ def fetch_incremental_data():
     
     print(f"Total USDT perpetuals: {len(usdt_perpetuals)}")
     print(f"Incremental Update Mode")
-    print(f"Target End Time (Beijing): 2025-12-11 13:30")
-    print(f"Target End Time (UTC): 2025-12-11 05:30")
+    print(f"Target End Time (Beijing): 2025-12-12 17:00")
+    print(f"Target End Time (UTC): 2025-12-12 09:00")
     
     # Create output directory
     data_dir = Path('/Users/muce/1m_data/new_backtest_data_1year_1m')
@@ -36,8 +36,8 @@ def fetch_incremental_data():
     # Timeframe: 1m
     timeframe = '1m'
     
-    # Define end time in UTC (2025-12-11 13:30 Beijing = 05:30 UTC)
-    end_time = datetime(2025, 12, 11, 5, 30, 0, tzinfo=pytz.UTC)
+    # Define end time in UTC (2025-12-12 17:00 Beijing = 09:00 UTC)
+    end_time = datetime(2025, 12, 12, 9, 0, 0, tzinfo=pytz.UTC)
     
     successful = 0
     failed = 0
@@ -53,19 +53,38 @@ def fetch_incremental_data():
             if filename.exists():
                 # Read existing file to find last timestamp
                 df_existing = pd.read_csv(filename, parse_dates=['timestamp'])
+                
+                # Robust Timezone Handling
+                if 'timestamp' in df_existing.columns and not df_existing.empty:
+                     # Check if it has timezone info
+                     if df_existing['timestamp'].dt.tz is None:
+                         # It is naive, localize to UTC
+                         df_existing['timestamp'] = df_existing['timestamp'].dt.tz_localize('UTC')
+                     else:
+                         # It is aware, convert to UTC
+                         df_existing['timestamp'] = df_existing['timestamp'].dt.tz_convert('UTC')
+                
                 if len(df_existing) > 0:
                     last_timestamp = df_existing['timestamp'].max()
                     # Start from next minute
                     start_time = last_timestamp + timedelta(minutes=1)
-                    # Convert to UTC if needed
+                    
+                    # Force start_time to be UTC
                     if start_time.tzinfo is None:
                         start_time = pytz.UTC.localize(start_time)
+                    else:
+                        start_time = start_time.astimezone(pytz.UTC)
                 else:
                     # Empty file, start from 1 year ago
                     start_time = end_time - timedelta(days=365)
+                    if start_time.tzinfo is None: start_time = pytz.UTC.localize(start_time)
             else:
                 # New file, start from 1 year ago
                 start_time = end_time - timedelta(days=365)
+            
+            # Ensure start_time is tz-aware
+            if start_time.tzinfo is None:
+                start_time = pytz.UTC.localize(start_time)
             
             # Check if we need to fetch
             if start_time >= end_time:

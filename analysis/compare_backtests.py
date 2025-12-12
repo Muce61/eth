@@ -1,93 +1,77 @@
 import pandas as pd
-from datetime import datetime, timedelta
+import matplotlib.pyplot as plt
+import os
 
-def compare_backtests():
-    # Load the datasets
-    file_30d = 'backtest_trades copy 4.csv'
-    file_7d = 'backtest_trades.csv'
-    
+def analyze_csv(path, label):
     try:
-        df_30d = pd.read_csv(file_30d, parse_dates=['entry_time', 'exit_time'])
-        df_7d = pd.read_csv(file_7d, parse_dates=['entry_time', 'exit_time'])
+        df = pd.read_csv(path)
+        if df.empty:
+            return None, {}
+        
+        # Ensure dates
+        df['exit_time'] = pd.to_datetime(df['exit_time'])
+        df = df.sort_values('exit_time')
+        
+        # Stats
+        initial_bal = 1000 # hardcoded base
+        final_bal = df['balance_after'].iloc[-1]
+        total_ret = (final_bal - initial_bal) / initial_bal * 100
+        trade_count = len(df)
+        win_count = len(df[df['pnl'] > 0])
+        loss_count = len(df[df['pnl'] <= 0])
+        win_rate = win_count / trade_count * 100 if trade_count > 0 else 0
+        avg_pnl = df['pnl'].mean()
+        
+        stats = {
+            'Label': label,
+            'Total Return (%)': total_ret,
+            'Final Balance ($)': final_bal,
+            'Trade Count': trade_count,
+            'Win Rate (%)': win_rate,
+            'Avg PnL ($)': avg_pnl
+        }
+        
+        return df, stats
     except Exception as e:
-        print(f"Error loading files: {e}")
-        return
+        print(f"Error reading {path}: {e}")
+        return None, {}
 
-    # Determine overlapping period
-    # 7-day test starts around Dec 4/5. 30-day starts Nov 11.
-    # User request: "Exclude the first day of the warm-up period" for the 7-day test.
-    # Let's find the start date of the 7-day test.
-    start_7d = df_7d['entry_time'].min()
+def main():
+    path_1m = "backtest_trades_1m_3months.csv"
+    path_15m = "backtest_trades_15m_3months.csv"
     
-    # Define comparison start time: Start of 7d + 24 hours (warm-up exclusion)
-    comparison_start = start_7d + timedelta(days=1)
+    df_1m, stats_1m = analyze_csv(path_1m, "1m Logic")
+    df_15m, stats_15m = analyze_csv(path_15m, "15m Logic")
     
-    # Filter both dataframes
-    df_30d_filtered = df_30d[df_30d['entry_time'] >= comparison_start].copy()
-    df_7d_filtered = df_7d[df_7d['entry_time'] >= comparison_start].copy()
+    print("=== Comparative Analysis Report ===")
     
-    print(f"Comparison Start Time (after 1 day warm-up): {comparison_start}")
-    print(f"30-Day File Trades in Range: {len(df_30d_filtered)}")
-    print(f"7-Day File Trades in Range: {len(df_7d_filtered)}")
+    # Print Stats Table
+    all_stats = [stats_1m, stats_15m]
+    res_df = pd.DataFrame(all_stats)
+    print(res_df.to_string(index=False))
     
-    # Sort for detailed comparison
-    df_30d_filtered.sort_values(by=['entry_time', 'symbol'], inplace=True)
-    df_7d_filtered.sort_values(by=['entry_time', 'symbol'], inplace=True)
+    # Plotting
+    plt.figure(figsize=(14, 7))
     
-    # Align and Compare
-    # We can merge on entry_time (closest match?) and symbol
-    # Exact second matching might fail if there are slight diffs, but let's try exact first.
-    
-    merged = pd.merge_asof(
-        df_7d_filtered.sort_values('entry_time'),
-        df_30d_filtered.sort_values('entry_time'),
-        on='entry_time',
-        by='symbol',
-        direction='nearest',
-        tolerance=pd.Timedelta('1min'), # Allow 1 min difference
-        suffixes=('_7d', '_30d')
-    )
-    
-    # Check consistency
-    print("\n--- Detailed Trade Comparison ---")
-    consistent_count = 0
-    inconsistent_count = 0
-    missing_count = 0
-    
-    for index, row in merged.iterrows():
-        symbol = row['symbol']
-        time_7d = row['entry_time']
-        pnl_7d = row['pnl_7d']
-        pnl_30d = row['pnl_30d']
+    if df_1m is not None:
+        # Reconstruct Equity Curve
+        # Assuming balance_after is accurate. 
+        # We need to prepend Start Balance for a nicer chart, but usually balance_after is fine.
+        plt.plot(df_1m['exit_time'], df_1m['balance_after'], label='1m Logic', color='blue', alpha=0.7)
         
-        if pd.isna(pnl_30d):
-             print(f"[MISSING] {time_7d} {symbol}: Found in 7d but NOT in 30d")
-             missing_count += 1
-             continue
-             
-        # Check PnL closeness (allow some variance due to precision/state)
-        # 10% tolerance or $5 diff?
-        diff = abs(pnl_7d - pnl_30d)
-        is_consistent = diff < 5.0 # Strict-ish check
+    if df_15m is not None:
+        plt.plot(df_15m['exit_time'], df_15m['balance_after'], label='15m Logic', color='red', alpha=0.7)
         
-        status = "MATCH" if is_consistent else "DIFF"
-        if is_consistent:
-            consistent_count += 1
-        else:
-            inconsistent_count += 1
-            print(f"[{status}] {time_7d} {symbol}: 7d=${pnl_7d:.2f} vs 30d=${pnl_30d:.2f} (Diff: ${diff:.2f})")
-            
-    # Check for trades in 30d but not in 7d?
-    # (Simplified: just strictly comparing what's in 7d against 30d for now is usually enough to reveal logic diffs)
+    plt.title('Equity Curve Comparison: 1m vs 15m Logic (3 Months)')
+    plt.xlabel('Date')
+    plt.ylabel('Balance (USDT)')
+    plt.legend()
+    plt.grid(True)
     
-    print("\n--- Summary ---")
-    print(f"Total Compared Trades (from 7d source): {len(merged)}")
-    print(f"Consistent Matches: {consistent_count}")
-    print(f"Inconsistent PnL: {inconsistent_count}")
-    print(f"Missing in 30d set: {missing_count}")
-    
-    if len(df_30d_filtered) != len(df_7d_filtered):
-        print(f"\nWARNING: Count mismatch! 30d has {len(df_30d_filtered)} trades, 7d has {len(df_7d_filtered)} trades in the same period.")
+    out_path = "analysis/charts/comparison_1m_vs_15m.png"
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    plt.savefig(out_path)
+    print(f"\nChart saved to {out_path}")
 
 if __name__ == "__main__":
-    compare_backtests()
+    main()

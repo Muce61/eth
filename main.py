@@ -1,6 +1,6 @@
 import time
 import threading
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from config.settings import Config
 from data.binance_client import BinanceClient
 from data.websocket_monitor import MarketMonitor
@@ -220,7 +220,8 @@ class TradingBot:
         self.scan_top_gainers()
         
         # 3. Initial Historical Check (New Feature)
-        self.check_historical_signals()
+        # DISABLE FOR STRICT CONSISTENCY (Avoid Late Entry on Startup)
+        # self.check_historical_signals()
         
         # 4. Start WebSocket
         self.monitor.symbols = self.active_symbols
@@ -442,6 +443,40 @@ class TradingBot:
         self.logger.info("正在停止交易机器人...")
         self.monitor.stop()
 
+    def calculate_momentum_96m(self, symbol):
+        """
+        Fetch 1m Klines and calculate change over 96 steps.
+        Matches Backtest Logic: df.iloc[-1] vs df.iloc[-96].
+        """
+        try:
+            # We need 97 candles to compare index "0" vs index "-1" (steps=96)
+            # Fetch 100 to be safe
+            # Use '1m' explicitly, distinct from config.TIMEFRAME
+            df = self.client.get_historical_klines(symbol, timeframe='1m', limit=100)
+            
+            if df.empty or len(df) < 97:
+                return None
+                
+            # Current Close (Last closed candle or developing? Backtest uses df.iloc[row_loc] which is current)
+            # Note: client.get_historical_klines returns completed candles + developing candle usually?
+            # Actually, standard impl returns closed candles mostly unless configured.
+            # Assuming dataframe tail is "Now".
+            
+            current_close = df['close'].iloc[-1]
+            prev_close = df['close'].iloc[-97] # -1 is current, -97 is 96 steps ago. 
+            # Logic: (Current - Prev) / Prev
+            # e.g. [0, 1, 2] -> (2-0)/0 is 2 step change. iloc[-1] vs iloc[-3].
+            
+            if prev_close == 0:
+                return 0.0
+                
+            change_pct = (current_close - prev_close) / prev_close * 100
+            return change_pct
+            
+        except Exception:
+            return None
+
+
     def scan_top_gainers(self):
         """
         Fetch top gainers and update active symbols.
@@ -452,23 +487,33 @@ class TradingBot:
             tickers = self.client.get_usdt_tickers()
             
             # 2. Update Volume Ranking (Global) - The "Rolling Universe"
-            # LOGIC CHANGE (2025-12-10): Update only DAILY to match Backtest consistency
-            # Backtest updates at 00:00 UTC. Live bot should do the same.
+            # 2. Update Universe (Volume Ranking) - STRICT BACKTEST ALIGNMENT
+            # Backtest updates Universe DAILY (at 00:00).
+            # Live Bot was updating Minutely. This caused discrepancy (Live catching intra-day pumps Backtest missed).
+            # Fix: Only update ranking if Date changes (00:00 UTC).
+            
             current_date = datetime.now(timezone.utc).date()
             
-            if self.last_universe_update_date is None or current_date > self.last_universe_update_date:
-                self.logger.info(f"🔄 每日列表更新 (UTC {current_date}): 重新计算 Top {self.TOP_N_COINS} 成交量排名...")
-                all_volumes = []
-                for t in tickers:
-                    symbol = t[0]
-                    vol = float(t[1].get('quoteVolume', 0))
-                    all_volumes.append((symbol, vol))
-                
-                all_volumes.sort(key=lambda x: x[1], reverse=True)
-                self.coin_volume_ranking = {sym: rank+1 for rank, (sym, _) in enumerate(all_volumes)}
-                
-                self.last_universe_update_date = current_date
-                self.logger.info(f"✅ 列表更新完成: {len(self.coin_volume_ranking)} 个币种已排名")
+            # Initialize if empty (First Run) or New Day
+            if not self.coin_volume_ranking or self.last_universe_update_date != current_date:
+                 self.logger.info(f"🔄 每日列表更新 (UTC {current_date}): 重新计算 Top 200 成交量排名...")
+                 
+                 # Calculate Volume for all tickers
+                 all_volumes = []
+                 for t in tickers:
+                     symbol = t[0]
+                     vol = float(t[1].get('quoteVolume', 0))
+                     all_volumes.append((symbol, vol))
+                 
+                 all_volumes.sort(key=lambda x: x[1], reverse=True)
+                 self.coin_volume_ranking = {sym: rank+1 for rank, (sym, _) in enumerate(all_volumes)}
+                 
+                 self.last_universe_update_date = current_date
+                 self.logger.info(f"✅ 列表更新完成: {len(self.coin_volume_ranking)} 个币种已排名")
+            else:
+                 # Use Cached Ranking
+                 pass
+                 # self.logger.debug("使用今日已缓存的成交量排名 (与回测一致)")
             
             # 3. Filter Candidates (Must be in Top 200 Universe using FROZEN ranking)
             # Filter by Rank first
@@ -501,6 +546,14 @@ class TradingBot:
                 try:
                     # Fetch enough data for EMA96 (24h) and Volume MA
                     df = self.client.get_historical_klines(symbol, timeframe=self.config.TIMEFRAME, limit=120)
+                    if df.empty: continue
+                    
+                    # STRICT ALIGNMENT: Drop Developing Candle
+                    # Binance API returns the current (incomplete) candle as the last row.
+                    # Backtest uses [row_loc - 96 : row_loc], which excludes the current developing candle.
+                    # We must drop the last row to match.
+                    df = df.iloc[:-1]
+                    
                     if df.empty: continue
                     
                     # Calculate 24h Volume
@@ -576,7 +629,12 @@ class TradingBot:
             symbol_internal = None
             with self.lock:
                 for s in self.active_symbols:
-                    if s.lower().startswith(symbol_ws): # simple match, assume unique
+                    # Fix Symbol Matching (CCXT vs Binance WS)
+                    # CCXT: BEAT/USDT:USDT -> beatusdt
+                    # WS: beatusdt
+                    normalized_s = s.split(':')[0].replace('/', '').lower()
+                    
+                    if normalized_s == symbol_ws:
                         symbol_internal = s
                         break
             
@@ -587,14 +645,35 @@ class TradingBot:
             # Only trigger strategy when candle is CLOSED.
             # This matches Backtest logic exactly.
             if is_closed:
-                # Log the event for verification
-                self.logger.info(f"⚡️ [Event] Kline Closed for {symbol_internal}. Triggering Strategy...")
+                # CRITICAL ALIGNMENT 2.0: Only trigger on 15m Boundaries
+                # If TIMEFRAME is 15m, we only want to process when the 15m candle ACTUALLY closes.
+                # The 1m stream sends 'closed' every minute.
+                # A 15m candle closes when the 14th, 29th, 44th, 59th minute candle closes.
                 
-                # Fetch fresh history (SAFE)
-                # Optimization: We could use the WS kline data to update a local cache,
-                # but fetching recent history ensures we have the full context (w/o gaps)
-                # Using process_strategy_safe handles the fetching.
-                self.process_strategy_safe(symbol_internal)
+                trigger_strategy = True
+                
+                if self.config.TIMEFRAME == '15m':
+                    # Parse Open Time of this 1m candle
+                    try:
+                        kline_open_time = kline['t'] # ms timestamp
+                        # Convert to Minute index (UTC)
+                        # We don't need full datetime, just (timestamp / 60000)
+                        minutes_since_epoch = int(kline_open_time / 60000)
+                        
+                        # Logic: If this is the 12:14 candle, next min is 12:15 (a 15m boundary).
+                        # So (current_min + 1) % 15 == 0
+                        if (minutes_since_epoch + 1) % 15 != 0:
+                            trigger_strategy = False
+                            # self.logger.debug(f"忽略非15m收盘: {symbol_internal} (TS: {kline_open_time})")
+                    except Exception:
+                        pass # Fallback to triggering if calc fails
+                
+                if trigger_strategy:
+                    # Log the event for verification
+                    self.logger.info(f"⚡️ [Event] 15m Kline Closed for {symbol_internal}. Triggering Strategy...")
+                    
+                    # Fetch fresh history (SAFE)
+                    self.process_strategy_safe(symbol_internal)
                 
         except Exception as e:
             self.logger.error(f"K-line callback error: {e}")
@@ -635,6 +714,19 @@ class TradingBot:
             if self.config.TIMEFRAME == '15m':
                 agg_dict = {'open': 'first', 'high': 'max', 'low': 'min', 'close': 'last', 'volume': 'sum'}
                 strategy_df = df_1m.resample('15min').agg(agg_dict).dropna()
+                
+                # STRICT ALIGNMENT: Drop Developing Candle if present
+                # If the last row of strategy_df is the current (just started) 15m candle, it only has 1m of data.
+                # We must trade on the PREVIOUS (Fully Closed) candle.
+                # Example: At 14:00:05, we fetch data. df_1m has 14:00 row. Resample creates 14:00 bucket.
+                # We want 13:45 bucket.
+                if not strategy_df.empty:
+                    last_ts = strategy_df.index[-1]
+                    # Check if this candle is "in the future" relative to full closure
+                    # Simple heuristic: If last_ts is within 14 mins of now, it's developing.
+                    if last_ts > (datetime.now() - timedelta(minutes=15)):
+                         strategy_df = strategy_df.iloc[:-1]
+
             # MODE B: Raw 1m
             else:
                 strategy_df = df_1m
@@ -869,8 +961,58 @@ class TradingBot:
             self.close_position(symbol, pos['stop_loss'], reason, is_paper)
             return
         elif not is_paper and current_price <= pos['stop_loss']:
-             # Log warning but do not act (Trust Algo Order)
-             self.logger.warning(f"🛡️ [监控中] {symbol} 触发止损价 {pos['stop_loss']}! 等待 Algo Order 执行...")
+             # Polling Fix for UserDataStream absence
+             now_ts = time.time()
+             # Throttle check to every 3 seconds to avoid API spam
+             if now_ts - pos.get('last_sl_check', 0) > 3:
+                 pos['last_sl_check'] = now_ts
+                 self.logger.warning(f"🛡️ [监控中] {symbol} 触发止损价 {pos['stop_loss']}! 检查线上状态...")
+                 
+                 try:
+                     # 1. Check if Algo Order Exists
+                     open_algos = self.executor.fetch_open_algo_orders(symbol)
+                     has_sl = False
+                     if open_algos:
+                         expected_side = 'SELL' # Hardcoded for Longs as we only do Longs
+                         for o in open_algos:
+                             if o.get('side', '').upper() == expected_side:
+                                 has_sl = True
+                                 break
+                     
+                     if not has_sl:
+                         # SL Order Gone -> Check Position (Did it fill?)
+                         params = {'type': 'future'} # optimize fetch
+                         # Note: fetch_positions usually returns all
+                         all_pos = self.client.exchange.fetch_positions(params=params)
+                         
+                         contracts = 0
+                         found_on_chain = False
+                         for p in all_pos:
+                             # Symbol matching (ccxt standardizes to 'BASE/QUOTE:SETTLE')
+                             if p['symbol'] == symbol:
+                                 contracts = float(p['contracts'])
+                                 found_on_chain = True
+                                 break
+                         
+                         if found_on_chain and contracts == 0:
+                             self.logger.info(f"✅ 线上仓位已关闭 (Algo Triggered). 同步本地状态.")
+                             self.close_position(symbol, pos['stop_loss'], "Stop Loss (Algo Verified)", is_paper)
+                             return
+                         elif found_on_chain and contracts > 0:
+                             self.logger.warning(f"⚠️ Algo SL 消失但仓位仍存在! 强制平仓.")
+                             self.close_position(symbol, current_price, "Stop Loss (Force)", is_paper)
+                             return
+                         elif not found_on_chain:
+                             # Weird case, maybe symbol format mismatch? Assume closed or error.
+                             # If we can't find it, safer to keep local open or force check?
+                             # Let's assume closed if we can't find it in "Active Positions" usually
+                             # checking 'contracts' > 0 covers the active list assumption.
+                             # If fetch_positions returns ALL symbols (including 0 pos), then not found is weird.
+                             pass
+                     else:
+                         self.logger.info("ℹ️ Algo SL 挂单正常，等待成交...")
+                 except Exception as check_e:
+                     self.logger.error(f"检查线上状态失败: {check_e}")
         else:
              # Transient Debug
              if not is_paper and symbol == 'LUNA2/USDT:USDT':

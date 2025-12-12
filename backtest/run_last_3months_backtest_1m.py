@@ -53,10 +53,27 @@ class Last3MonthsBacktestEngine1m(RealBacktestEngine):
                 df_subset = df_1m.loc[mask].copy()
                 
                 if not df_subset.empty:
-                    # NO RESAMPLING
-                    # Ensure column names are lower case
-                    df_subset.columns = [c.lower() for c in df_subset.columns]
-                    self.data_feed[symbol] = df_subset
+                    # FIX: Resample 1m to 15m to match Live Bot TIMEFRAME
+                    agg_dict = {
+                        'open': 'first',
+                        'high': 'max',
+                        'low': 'min',
+                        'close': 'last',
+                        'volume': 'sum'
+                    }
+                    # Handle capitalized columns if needed (engine standardizes to lower, but raw might be different)
+                    final_agg = {}
+                    available_cols = df_subset.columns.tolist()
+                    for col, func in agg_dict.items():
+                        if col in available_cols:
+                            final_agg[col] = func
+                        elif col.capitalize() in available_cols:
+                            final_agg[col.capitalize()] = func
+                            
+                    df_15m = df_subset.resample('15min').agg(final_agg).dropna()
+                    df_15m.columns = [c.lower() for c in df_15m.columns]
+                    
+                    self.data_feed[symbol] = df_15m
                     count += 1
                     
             except Exception as e:

@@ -1,7 +1,0 @@
-Traceback (most recent call last):
-  File "/Users/muce/PycharmProjects/github/eth/run_30day_backtest.py", line 6, in <module>
-    from backtest.hybrid_engine import HybridBacktestEngine
-  File "/Users/muce/PycharmProjects/github/eth/backtest/hybrid_engine.py", line 219
-    }
-    ^
-SyntaxError: unmatched '}'

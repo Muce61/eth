@@ -21,7 +21,7 @@ class RealBacktestEngine:
         self.positions = {} # {symbol: {entry_price, quantity, stop_loss, ...}}
         self.paper_positions = {} # Virtual positions for circuit breaker recovery
         self.trades = []
-        self.pending_signal = None  # For realistic entry price simulation
+        self.pending_signals = []  # List of pending signals for realistic entry
         self.strategy = MomentumStrategy()
         self.risk_manager = RiskManager()
         self.config = Config()
@@ -185,14 +185,23 @@ class RealBacktestEngine:
             current_time = sorted_timestamps[i]
             
             # 1. Execute pending signal (if entry time matches)
-            if self.pending_signal and self.pending_signal['entry_time'] == current_time:
-                symbol = self.pending_signal['symbol']
-                entry_price = self.pending_signal['entry_price']
-                metrics = self.pending_signal['metrics']
-                
-                # Execute the entry at next open price
-                self._open_position(symbol, entry_price, current_time, None, metrics)
-                self.pending_signal = None  # Clear after execution
+            # 1. Execute pending signals (if entry time matches)
+            # Process all pending signals that are due for execution
+            # Iterate copy to allow modification if needed (though we clear all)
+            for signal in self.pending_signals[:]:
+                if signal['entry_time'] == current_time:
+                    symbol = signal['symbol']
+                    entry_price = signal['entry_price']
+                    metrics = signal['metrics']
+                    
+                    # Execute the entry at next open price
+                    self._open_position(symbol, entry_price, current_time, None, metrics)
+            
+            # Clear executed or expired signals (Simple logic: Clear all pending after checking match)
+            # Since backtest steps are aligned, if entry_time != current_time, it might be stale or future.
+            # But our logic sets entry_time = next_time (which IS current_time in next loop).
+            # So clearing all is safe IF we assume 1-step lookahead.
+            self.pending_signals = []
             
             # 2. Manage Existing Positions
             self._manage_positions(current_time)
@@ -370,9 +379,11 @@ class RealBacktestEngine:
             start_loc = max(0, row_loc - 250) 
             # slice... 
             
-            # Calculate 24h change
-            current_close = df.iloc[row_loc]['close']
-            prev_close = df.iloc[row_loc - 96]['close']
+            # Calculate 24h change (Fix Look-Ahead Bias: Use Closed Candle row_loc - 1)
+            # row_loc is the "Current Developing Candle" (Open Time). We cannot trade on its Close.
+            # So we look at the candle that JUST closed: row_loc - 1.
+            current_close = df.iloc[row_loc - 1]['close']
+            prev_close = df.iloc[row_loc - 1 - 96]['close']
             
             if prev_close == 0:
                 continue
@@ -380,7 +391,10 @@ class RealBacktestEngine:
             change_pct = (current_close - prev_close) / prev_close * 100
                 
             # QUALITY FILTER 1: Volume Check
-            volume_24h_slice = df.iloc[row_loc - 96 : row_loc + 1]
+            # Slice: [Start (inclusive) : End (exclusive)]
+            # We want updated [-96 ... -1].
+            # End should be row_loc (so it stops at row_loc - 1).
+            volume_24h_slice = df.iloc[row_loc - 96 : row_loc]
             volume_24h_usd = (volume_24h_slice['close'] * volume_24h_slice['volume']).sum()
             
             # === QUALITY FILTER MODULE CHECK ===
@@ -479,14 +493,19 @@ class RealBacktestEngine:
                 # Store signal for execution at next time step
                 # We'll open the position at the BEGINNING of the next iteration
                 # For now, mark this as a pending signal
-                self.pending_signal = {
+                # APP pending signal
+                self.pending_signals.append({
                     'symbol': symbol,
                     'entry_price': next_open_price,
                     'entry_time': next_time,
                     'metrics': signal.get('metrics', {}),
                     'is_paper_trade': is_paused # Pass the paused status to the signal
-                }
-                break # Only open 1 position per scan
+                })
+                
+                # Check if we have filled all slots
+                # Current positions + Pending signals
+                if len(self.positions) + len(self.pending_signals) >= self.config.MAX_OPEN_POSITIONS:
+                    break
 
     def _open_position(self, symbol, price, timestamp, history_slice, metrics=None, is_paper_trade=False):
         # DYNAMIC LEVERAGE: Tier-based leverage assignment
