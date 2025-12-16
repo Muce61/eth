@@ -159,7 +159,7 @@ class MarketMonitor:
                 self._reconnect_delay = min(self._reconnect_delay * 2, 60) # Exponential backoff
 
     def _on_open(self, ws):
-        self.logger.info("✅ WebSocket 已连接")
+        self.logger.info("[OK] WebSocket 已连接")
         self.connected = True
         self._reconnect_delay = 1
         

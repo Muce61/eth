@@ -1,0 +1,111 @@
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\U0001f4ca' in position 47: illegal multibyte sequence
+Call stack:
+  File "e:\dikong\eth\main.py", line 1133, in <module>
+    bot = TradingBot()
+  File "e:\dikong\eth\main.py", line 37, in __init__
+    self.logger.info("\U0001f4ca 已启用: 信号置信度驱动动态杠杆策略")
+Message: '\U0001f4ca 已启用: 信号置信度驱动动态杠杆策略'
+Arguments: ()
+2025-12-13 06:57:29,211 - trading_bot - INFO - \U0001f4ca 已启用: 信号置信度驱动动态杠杆策略
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\U0001f6e1' in position 47: illegal multibyte sequence
+Call stack:
+  File "e:\dikong\eth\main.py", line 1133, in <module>
+    bot = TradingBot()
+  File "e:\dikong\eth\main.py", line 42, in __init__
+    self.logger.info("\U0001f6e1\ufe0f 已启用: 趋势反转熔断机制 (三层防御)")
+Message: '\U0001f6e1\ufe0f 已启用: 趋势反转熔断机制 (三层防御)'
+Arguments: ()
+2025-12-13 06:57:29,212 - trading_bot - INFO - \U0001f6e1\ufe0f 已启用: 趋势反转熔断机制 (三层防御)
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\U0001f9e0' in position 47: illegal multibyte sequence
+Call stack:
+  File "e:\dikong\eth\main.py", line 1133, in <module>
+    bot = TradingBot()
+  File "e:\dikong\eth\main.py", line 46, in __init__
+    self.logger.info("\U0001f9e0 已启用: 智能离场模块 (动态追踪 + 保本止损)")
+Message: '\U0001f9e0 已启用: 智能离场模块 (动态追踪 + 保本止损)'
+Arguments: ()
+2025-12-13 06:57:29,212 - trading_bot - INFO - \U0001f9e0 已启用: 智能离场模块 (动态追踪 + 保本止损)
+2025-12-13 06:57:29,212 - trading_bot - INFO - 正在启动交易机器人...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\U0001f9ea' in position 47: illegal multibyte sequence
+Call stack:
+  File "e:\dikong\eth\main.py", line 1134, in <module>
+    bot.start()
+  File "e:\dikong\eth\main.py", line 73, in start
+    self.run_self_diagnostic()
+  File "e:\dikong\eth\main.py", line 88, in run_self_diagnostic
+    self.logger.info(f"\U0001f9ea [自检程序] 启动: 尝试使用最小单位做多 {symbol_internal} 测试止损...")
+Message: '\U0001f9ea [自检程序] 启动: 尝试使用最小单位做多 ETH/USDT:USDT 测试止损...'
+Arguments: ()
+2025-12-13 06:57:29,212 - trading_bot - INFO - \U0001f9ea [自检程序] 启动: 尝试使用最小单位做多 ETH/USDT:USDT 测试止损...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\ccxt\base\exchange.py", line 611, in fetch
+    response.raise_for_status()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error:  for url: https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1765580249212&recvWindow=10000&signature=dabb0e1536f0510950d1f608ad52276fe4a241405d83167097f44c690ea85ce5
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\dikong\eth\main.py", line 95, in run_self_diagnostic
+    self.executor.set_leverage(symbol_internal, 20)
+  File "e:\dikong\eth\execution\executor.py", line 41, in set_leverage
+    self.exchange.set_leverage(leverage, symbol)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\ccxt\binance.py", line 10748, in set_leverage
+    self.load_markets()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\ccxt\base\exchange.py", line 1714, in load_markets
+    currencies = self.fetch_currencies()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\ccxt\binance.py", line 2867, in fetch_currencies
+    promises = [self.sapiGetCapitalConfigGetall(params)]
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\ccxt\base\types.py", line 35, in unbound_method
+    return _self.request(self.path, self.api, self.method, params, config=self.config)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\ccxt\binance.py", line 11578, in request
+    response = self.fetch2(path, api, method, params, headers, body, config)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\ccxt\base\exchange.py", line 4985, in fetch2
+    raise e
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\ccxt\base\exchange.py", line 4975, in fetch2
+    return self.fetch(request['url'], request['method'], request['headers'], request['body'])
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\ccxt\base\exchange.py", line 627, in fetch
+    skip_further_error_handling = self.handle_errors(http_status_code, http_status_text, url, method, headers, http_response, json_response, request_headers, request_body)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\ccxt\binance.py", line 11546, in handle_errors
+    self.throw_exactly_matched_exception(self.exceptions['exact'], error, feedback)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\ccxt\base\exchange.py", line 5392, in throw_exactly_matched_exception
+    raise exact[string](message)
+ccxt.base.errors.InvalidNonce: binance {"code":-1021,"msg":"Timestamp for this request was 1000ms ahead of the server's time."}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u274c' in position 48: illegal multibyte sequence
+Call stack:
+  File "e:\dikong\eth\main.py", line 1134, in <module>
+    bot.start()
+  File "e:\dikong\eth\main.py", line 73, in start
+    self.run_self_diagnostic()
+  File "e:\dikong\eth\main.py", line 210, in run_self_diagnostic
+    self.logger.error(f"\u274c [自检异常] {e}")
+Message: '\u274c [自检异常] binance {"code":-1021,"msg":"Timestamp for this request was 1000ms ahead of the server\'s time."}'
+Arguments: ()
+2025-12-13 06:57:29,299 - trading_bot - ERROR - \u274c [自检异常] binance {"code":-1021,"msg":"Timestamp for this request was 1000ms ahead of the server's time."}
+2025-12-13 06:57:29,302 - trading_bot - INFO - 正在提交 SELL MARKET 订单: 0.01 ETH/USDT:USDT...
+Warning: Failed to load markets on init: binance {"code":-1021,"msg":"Timestamp for this request was 1000ms ahead of the server's time."}
+Warning: Failed to load markets on init: binance {"code":-1021,"msg":"Timestamp for this request was 1000ms ahead of the server's time."}

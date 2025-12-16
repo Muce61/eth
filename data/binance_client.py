@@ -19,10 +19,16 @@ class BinanceClient:
             'enableRateLimit': True,
             'options': {
                 'defaultType': 'future',
-                'adjustForTimeDifference': True,
+                'adjustForTimeDifference': False, # Disabled to use manual offset
                 'recvWindow': 60000 
             }
         })
+        
+        # FIX: Force clock rewind by 5 seconds to prevent "Timestamp ahead of server" error
+        # Binance allows requests from the past (up to recvWindow), but NOT from the future (>1000ms).
+        # If local clock is ahead, we MUST subtract time.
+        original_milliseconds = self.exchange.milliseconds
+        self.exchange.milliseconds = lambda: original_milliseconds() - 40000
         
         # Testnet check
         if os.getenv('USE_TESTNET') == 'true':
@@ -44,7 +50,7 @@ class BinanceClient:
                 for symbol, brackets in tiers.items():
                     if brackets and len(brackets) > 0:
                         self.leverage_cache[symbol] = int(brackets[0]['maxLeverage'])
-                print(f"✅ Loaded leverage limits for {len(self.leverage_cache)} symbols")
+                print(f"[OK] Loaded leverage limits for {len(self.leverage_cache)} symbols")
         except Exception as e:
             print(f"Warning: Failed to load leverage brackets: {e}")
 

@@ -29,17 +29,7 @@ class RealBacktestEngine:
         # Initialize New Modules
         self.smart_exit = SmartExitModule()
         self.quality_filter = QualityFilterModule()
-        
-        # FIX: Ensure fresh Trend Detector state for Backtest
-        state_file = Path("logs/backtest_trend_state.json")
-        if state_file.exists():
-            try:
-                state_file.unlink() # Delete old state
-                print(f"🗑️ Deleted old trend state file: {state_file}")
-            except Exception as e:
-                print(f"⚠️ Failed to delete old trend state: {e}")
-                
-        self.trend_detector = TrendReversalDetector(state_file=str(state_file))
+        self.trend_detector = TrendReversalDetector(state_file="logs/backtest_trend_state.json")
         
         # Override config for backtest if needed
         self.config.MAX_OPEN_POSITIONS = 10 # Match live config
@@ -65,7 +55,7 @@ class RealBacktestEngine:
             if snapshot_path.exists():
                 with open(snapshot_path, 'r') as f:
                     self.leverage_limits = json.load(f)
-                print(f"✅ Loaded leverage limits for {len(self.leverage_limits)} symbols into backtest.")
+                print(f"[OK] Loaded leverage limits for {len(self.leverage_limits)} symbols into backtest.")
             else:
                 print("Warning: Leverage snapshot not found. Using defaults.")
         except Exception as e:
@@ -168,56 +158,29 @@ class RealBacktestEngine:
         # 2. Iterate through time
         # Need a lookback window for 24h change calculation
         # Calculate frequency dynamically
+        is_1m_data = False
         if len(sorted_timestamps) > 1:
-            diff = (sorted_timestamps[1] - sorted_timestamps[0]).total_seconds()
-            lookback_24h = int(86400 / diff)
-            print(f"Detected Timeframe: {int(diff/60)}m | 24h Lookback: {lookback_24h} candles")
+            diff_sec = (sorted_timestamps[1] - sorted_timestamps[0]).total_seconds()
+            self.lookback_24h = int(86400 / diff_sec)
+            if diff_sec < 300: # < 5 mins
+                is_1m_data = True
+            print(f"Detected Timeframe: {int(diff_sec/60)}m | 24h Lookback: {self.lookback_24h} candles")
         else:
-            lookback_24h = 96 # Fallback to 15m default
+            self.lookback_24h = 96 # Fallback to 15m default
         min_history = 50 # For strategy pattern
         
-        # If we filtered by days, we might need to load more history for indicators
-        # But for simplicity, we just start from the filtered start index
-        # In a real engine, we'd keep previous data for lookback. 
-        # Here, we assume data_feed has full history, so we can just look back.
-        
-        # Find index of first timestamp in our filtered list
-        # Actually, we are iterating by index of sorted_timestamps. 
-        # If we sliced sorted_timestamps, we need to be careful about lookups in data_feed.
-        # data_feed has full history, so looking up by timestamp is fine.
-        
         start_index = 0 
-        # But we need to ensure we have enough history BEFORE the first timestamp for indicators
-        # The strategy checks history using df.loc[:current_time]. 
-        # So as long as data_feed has data before sorted_timestamps[0], we are good.
         
         for i in range(start_index, len(sorted_timestamps)):
             current_time = sorted_timestamps[i]
             
             # CRITICAL FIX: Only execute on 15m boundaries to match Live Bot
-            # Live Bot uses: if (minutes_since_epoch + 1) % 15 != 0: skip
-            # Here current_time is the timestamp of the data point.
-            # If we are iterating 1m data, e.g. 12:00, 12:01... 
-            # We want to check signal only when the 15m candle closes.
-            # If data is 12:14 (Start), it closes at 12:15.
-            # So we check at 12:15?
-            # Actually, `real_engine` logic usually acts on "current_time" state.
-            # If we resample 12:00-12:15, the bin label is 12:00. WE know it's closed at 12:15.
-            # But the loop iterates 1m steps.
-            # We should only trigger when current_time ends a 15m block.
-            # i.e. 12:14:00 (which closes at 12:15:00) OR 12:15:00?
-            # Data timestamp in CSV is usually Open Time.
-            # 12:14:00 Open -> 12:15:00 Close.
-            # In Live Bot, we trigger at 12:15:00 (Time).
-            # Here we iterate Open Times. 
-            # The Open Time of the LAST 1m candle of a 15m block is XX:14, XX:29, XX:44, XX:59.
-            # So if (current_time.minute + 1) % 15 == 0, we are at the last 1m candle.
+            # Live Bot runs at 00, 15, 30, 45.
+            # We want to check signal "At the Open of the new 15m candle".
+            # e.g. At 12:15:00, we check the 12:00-12:15 candle.
             
-            # CRITICAL FIX: Only execute on 15m boundaries to match Live Bot (Conservative)
-            # OR execute on every 1m (Aggressive / Repainting Mode)
-            
-            if not self.config.ALLOW_DEVELOPING_SIGNALS:
-                if (current_time.minute + 1) % 15 != 0:
+            if not self.config.ALLOW_DEVELOPING_SIGNALS and is_1m_data:
+                if current_time.minute % 15 != 0:
                     continue
                 
             # 1. Execute pending signal (from previous iteration)
@@ -290,13 +253,23 @@ class RealBacktestEngine:
             self._close_position(symbol, pos['stop_loss'], current_time, 'Stop Loss')
             return
             
-        # 2. Smart Exit Checks (PESSIMISTIC EXECUTION)
-        # We pass 'low_price' to check if the wick hit the trailing stop during the candle.
-        # Note: We already updated 'highest_price' above, so the trailing line is calculated based on High.
-        # This checks: "Did the price crash to Low AFTER hitting High?" (Worst case within the bar)
+        # 2. Smart Exit Checks (1m Granularity)
+        # Assuming df contains 1m candles:
+        # We check if the 1m candle's Low hit the Stop Loss.
+        # This is much more accurate than checking 15m Low.
+        
+        # NOTE: self.smart_exit.check_exit technically expects a closed candle to update trailing logic,
+        # but for simple "Hit SL?" checks, using current Low is correct.
+        # However, for UPDATING the trailing stop level, typically we act on Close or High.
+        # Our `smart_exit` class might be designed for signal-level, but here we use it for execution.
+        
+        # CRITICAL: We pass the full candle to check_exit if needed, or just price.
+        # check_exit(position, current_price, current_time)
+        # If we want to simulate "INTRADAY" stop, we should check Low against SL.
+        
         should_exit, reason, exit_price = self.smart_exit.check_exit(
             pos, 
-            low_price,  # USE LOW PRICE for Validation
+            low_price,  # Check Low against SL
             current_time
         )
         
@@ -363,7 +336,7 @@ class RealBacktestEngine:
             # Check if we can recover
             if not self.trend_detector.check_recovery():
                 is_paused = True
-                print(f"[{current_time}] 🛑 Trading Paused: Circuit Breaker Active")
+                # print(f"[{current_time}] 🛑 Trading Paused: Circuit Breaker Active (Paper Trading Mode)")
         
         # 2. Market Regime Filter (BTC Trend)
         # DISABLED PER USER REQUEST (2025-12-07) - Backtest showed removing this yields 7x profit
@@ -410,8 +383,13 @@ class RealBacktestEngine:
 
             row_loc = df.index.get_loc(current_time)
             
-            # Need at least 200 candles for EMA200
-            if row_loc < 200:
+            # Need at least enough candles for:
+            # 1. 24h lookback (self.lookback_24h) for Change% and Volume
+            # 2. EMA200 warmup if strategy uses it (200 candles on RESAMPLED data)
+            # For 1m data, 200 * 15 = 3000 + 1440 lookback = 4440.
+            # But we resample for strategy, so direct check of lookback_24h + 1 is sufficient here.
+            min_rows_needed = self.lookback_24h + 2  # +2 for row_loc-1 and prev_close indexing
+            if row_loc < min_rows_needed:
                 continue
                 
             # Slice strictly up to current time (no lookahead)
@@ -422,7 +400,7 @@ class RealBacktestEngine:
             # row_loc is the "Current Developing Candle" (Open Time). We cannot trade on its Close.
             # So we look at the candle that JUST closed: row_loc - 1.
             current_close = df.iloc[row_loc - 1]['close']
-            prev_close = df.iloc[row_loc - 1 - 96]['close']
+            prev_close = df.iloc[row_loc - 1 - self.lookback_24h]['close']
             
             if prev_close == 0:
                 continue
@@ -431,15 +409,14 @@ class RealBacktestEngine:
                 
             # QUALITY FILTER 1: Volume Check
             # Slice: [Start (inclusive) : End (exclusive)]
-            # We want updated [-96 ... -1].
+            # We want updated [-self.lookback_24h ... -1].
             # End should be row_loc (so it stops at row_loc - 1).
-            volume_24h_slice = df.iloc[row_loc - 96 : row_loc]
+            volume_24h_slice = df.iloc[row_loc - self.lookback_24h : row_loc]
             volume_24h_usd = (volume_24h_slice['close'] * volume_24h_slice['volume']).sum()
             
             # === QUALITY FILTER MODULE CHECK ===
             is_good, reason = self.quality_filter.check_quality(symbol, volume_24h_slice, volume_24h_usd)
             if not is_good:
-                # print(f"[DEBUG] {symbol} Quality Rejected: {reason}")
                 continue
             
             # QUALITY FILTER 2: Top 200 Ranking Check
@@ -502,6 +479,13 @@ class RealBacktestEngine:
                 # This perfectly mimics developing candle logic
                 history_df = df_slice_1m.resample('15min').agg(agg_dict).dropna()
                 
+                # If the last candle is the SAME timestamp as current_time, it means it's the 
+                # JUST STARTED candle (e.g. 12:15 row created 12:15 candle).
+                # We cannot trade on 12:15 candle properties yet. We want 12:00 candle.
+                # So we drop the last one.
+                if not history_df.empty and history_df.index[-1] == df.index[row_loc]:
+                     history_df = history_df.iloc[:-1]
+
                 # Check if we have enough 15m history
                 if len(history_df) < 50:
                     continue

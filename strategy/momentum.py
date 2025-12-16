@@ -205,4 +205,4 @@ class MomentumStrategy:
         shape_bonus = (0.3 - wick_ratio) * 33  # 0.3->0, 0.0->10
         score += max(0, shape_bonus)
         
-        return {'status': '🔥 信号触发 (等待收盘确认) 🔥', 'score': int(score)}
+        return {'status': '[FIRE] 信号触发 (等待收盘确认) [FIRE]', 'score': int(score)}

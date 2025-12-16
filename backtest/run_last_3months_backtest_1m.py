@@ -9,27 +9,6 @@ import pytz
 project_root = Path(__file__).parent.parent
 sys.path.append(str(project_root))
 
-# Redirect Output to File (User Request: No Console Output)
-# Also solves Windows UnicodeEncodeError by forcing UTF-8 file write
-log_dir = project_root / "logs"
-log_dir.mkdir(exist_ok=True)
-log_path = log_dir / "backtest_3m_pessimistic.log"
-
-print(f"Redirecting all output to {log_path} ...")
-
-class DualLogger:
-    def __init__(self, filepath):
-        self.file = open(filepath, "w", encoding="utf-8", buffering=1) # Line buffered
-    
-    def write(self, message):
-        self.file.write(message)
-    
-    def flush(self):
-        self.file.flush()
-
-sys.stdout = DualLogger(log_path)
-sys.stderr = sys.stdout
-
 from backtest.real_engine import RealBacktestEngine
 
 class Last3MonthsBacktestEngine1m(RealBacktestEngine):
@@ -103,6 +82,7 @@ class Last3MonthsBacktestEngine1m(RealBacktestEngine):
                         elif col.capitalize() in available_cols:
                             final_agg[col.capitalize()] = func
                             
+                    # Resample to 15m for strategy signal consistency
                     df_15m = df_subset.resample('15min').agg(final_agg).dropna()
                     df_15m.columns = [c.lower() for c in df_15m.columns]
                     

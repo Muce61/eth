@@ -686,7 +686,7 @@ class TradingBot:
                 if trigger_strategy:
                     # Log the event for verification
                     event_type = "15m Kline Closed" if (self.config.TIMEFRAME=='15m' and not self.config.ALLOW_DEVELOPING_SIGNALS) else "1m Update (Aggressive)"
-                    self.logger.info(f"⚡️ [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+                    self.logger.info(f"[Event] {event_type} for {symbol_internal}. Triggering Strategy...")
                     
                     # Fetch fresh history (SAFE)
                     self.process_strategy_safe(symbol_internal)
@@ -764,9 +764,9 @@ class TradingBot:
         # === EXECUTION LOGIC ===
         if signal:
             if signal.get('status') == 'REJECTED':
-                self.logger.info(f"✗ 信号拒绝: {symbol} | {signal['reason']}")
+                self.logger.info(f"[Refuse] 信号拒绝: {symbol} | {signal['reason']}")
             elif signal.get('side') == 'LONG':
-                self.logger.info(f"✓ 信号检测: {symbol} 满足条件")
+                self.logger.info(f"[Accept] 信号检测: {symbol} 满足条件")
                 
                 # Check Max Positions (Real only)
                 if not is_paper_trade:

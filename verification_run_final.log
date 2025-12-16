@@ -1,0 +1,2079 @@
+2025-12-13 07:07:25,604 - trading_bot - INFO - 已启用: 信号置信度驱动动态杠杆策略
+2025-12-13 07:07:25,604 - trading_bot - INFO - 已启用: 趋势反转熔断机制 (三层防御)
+2025-12-13 07:07:25,604 - trading_bot - INFO - 已启用: 智能离场模块 (动态追踪 + 保本止损)
+2025-12-13 07:07:25,605 - trading_bot - INFO - 正在启动交易机器人...
+2025-12-13 07:07:25,605 - trading_bot - INFO - [自检程序] 启动: 尝试使用最小单位做多 ETH/USDT:USDT 测试止损...
+2025-12-13 07:07:25,684 - trading_bot - INFO - ETH/USDT:USDT 杠杆设置为 20x
+2025-12-13 07:07:25,684 - trading_bot - INFO - [自检程序] 1. 开仓 (Market Buy 0.01 ETH)...
+2025-12-13 07:07:25,684 - trading_bot - INFO - 正在提交 BUY MARKET 订单: 0.01 ETH/USDT:USDT...
+2025-12-13 07:07:26,434 - trading_bot - INFO - 订单已提交: 8389766049060947504
+2025-12-13 07:07:26,434 - trading_bot - INFO - [自检程序] 1.1 设置止损 (Algo) @ 3031.38...
+2025-12-13 07:07:26,434 - trading_bot - INFO - 设置强力链上止损 (Algo Endpoint): 触发价 3031.38 (侧: sell)
+2025-12-13 07:07:26,434 - trading_bot - INFO - 发送 Algo Order (Manual Sign): ETH/USDT:USDT sell 0.01
+2025-12-13 07:07:26,682 - trading_bot - INFO - Algo Order 成功: ID A5Mldz1CQ8CFaUY9jlPh2h
+2025-12-13 07:07:29,273 - trading_bot - INFO - [自检程序] 2. 验证止损单 (Algo/Standard)...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2705' in position 50: illegal multibyte sequence
+Call stack:
+  File "e:\dikong\eth\main.py", line 1139, in <module>
+    bot.start()
+  File "e:\dikong\eth\main.py", line 75, in start
+    self.run_self_diagnostic()
+  File "e:\dikong\eth\main.py", line 145, in run_self_diagnostic
+    self.logger.info(f"   \u2705 [Algo接口] 发现止损单: ID {o.get('clientAlgoId') or o.get('algoId')} @ {o.get('triggerPrice')}")
+Message: '   \u2705 [Algo接口] 发现止损单: ID A5Mldz1CQ8CFaUY9jlPh2h @ 3031.38'
+Arguments: ()
+2025-12-13 07:07:29,582 - trading_bot - INFO -    \u2705 [Algo接口] 发现止损单: ID A5Mldz1CQ8CFaUY9jlPh2h @ 3031.38
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2705' in position 47: illegal multibyte sequence
+Call stack:
+  File "e:\dikong\eth\main.py", line 1139, in <module>
+    bot.start()
+  File "e:\dikong\eth\main.py", line 75, in start
+    self.run_self_diagnostic()
+  File "e:\dikong\eth\main.py", line 164, in run_self_diagnostic
+    self.logger.info("\u2705 [自检成功] 止损功能正常")
+Message: '\u2705 [自检成功] 止损功能正常'
+Arguments: ()
+2025-12-13 07:07:29,583 - trading_bot - INFO - \u2705 [自检成功] 止损功能正常
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\U0001f9ea' in position 47: illegal multibyte sequence
+Call stack:
+  File "e:\dikong\eth\main.py", line 1139, in <module>
+    bot.start()
+  File "e:\dikong\eth\main.py", line 75, in start
+    self.run_self_diagnostic()
+  File "e:\dikong\eth\main.py", line 167, in run_self_diagnostic
+    self.logger.info(f"\U0001f9ea [自检程序] 3. 模拟移动止盈逻辑 (Code Logic Verification)...")
+Message: '\U0001f9ea [自检程序] 3. 模拟移动止盈逻辑 (Code Logic Verification)...'
+Arguments: ()
+2025-12-13 07:07:29,583 - trading_bot - INFO - \U0001f9ea [自检程序] 3. 模拟移动止盈逻辑 (Code Logic Verification)...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2705' in position 50: illegal multibyte sequence
+Call stack:
+  File "e:\dikong\eth\main.py", line 1139, in <module>
+    bot.start()
+  File "e:\dikong\eth\main.py", line 75, in start
+    self.run_self_diagnostic()
+  File "e:\dikong\eth\main.py", line 185, in run_self_diagnostic
+    self.logger.info("   \u2705 逻辑验证 A: 最高价更新正常 (2000 -> 3000)")
+Message: '   \u2705 逻辑验证 A: 最高价更新正常 (2000 -> 3000)'
+Arguments: ()
+2025-12-13 07:07:29,583 - trading_bot - INFO -    \u2705 逻辑验证 A: 最高价更新正常 (2000 -> 3000)
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2705' in position 50: illegal multibyte sequence
+Call stack:
+  File "e:\dikong\eth\main.py", line 1139, in <module>
+    bot.start()
+  File "e:\dikong\eth\main.py", line 75, in start
+    self.run_self_diagnostic()
+  File "e:\dikong\eth\main.py", line 196, in run_self_diagnostic
+    self.logger.info(f"   \u2705 逻辑验证 B: 移动止盈触发正常 ({reason})")
+Message: '   \u2705 逻辑验证 B: 移动止盈触发正常 (Smart Trailing (Max 1000%))'
+Arguments: ()
+2025-12-13 07:07:29,583 - trading_bot - INFO -    \u2705 逻辑验证 B: 移动止盈触发正常 (Smart Trailing (Max 1000%))
+2025-12-13 07:07:29,583 - trading_bot - INFO - [自检程序] 4. 平仓清理 (Closing Real Trade)...
+2025-12-13 07:07:29,927 - trading_bot - INFO - 正在撤销 1 个 Algo 订单...
+2025-12-13 07:07:30,231 - trading_bot - INFO - 撤销 Algo Order 1000000041342352 成功
+2025-12-13 07:07:30,232 - trading_bot - INFO - 已撤销 ETH/USDT:USDT 所有挂单 (Standard + Algo)
+2025-12-13 07:07:30,232 - trading_bot - INFO - 正在提交 SELL MARKET 订单: 0.01 ETH/USDT:USDT...
+2025-12-13 07:07:30,309 - trading_bot - INFO - 订单已提交: 8389766049061015318
+2025-12-13 07:07:30,540 - trading_bot - INFO - [自检完成] 交易功能 & 核心逻辑验证通过
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\U0001f504' in position 47: illegal multibyte sequence
+Call stack:
+  File "e:\dikong\eth\main.py", line 1139, in <module>
+    bot.start()
+  File "e:\dikong\eth\main.py", line 75, in start
+    self.run_self_diagnostic()
+  File "e:\dikong\eth\main.py", line 225, in run_self_diagnostic
+    self.scan_top_gainers()
+  File "e:\dikong\eth\main.py", line 504, in scan_top_gainers
+    self.logger.info(f"\U0001f504 每日列表更新 (UTC {current_date}): 重新计算 Top 200 成交量排名...")
+Message: '\U0001f504 每日列表更新 (UTC 2025-12-12): 重新计算 Top 200 成交量排名...'
+Arguments: ()
+2025-12-13 07:07:31,412 - trading_bot - INFO - \U0001f504 每日列表更新 (UTC 2025-12-12): 重新计算 Top 200 成交量排名...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2705' in position 47: illegal multibyte sequence
+Call stack:
+  File "e:\dikong\eth\main.py", line 1139, in <module>
+    bot.start()
+  File "e:\dikong\eth\main.py", line 75, in start
+    self.run_self_diagnostic()
+  File "e:\dikong\eth\main.py", line 225, in run_self_diagnostic
+    self.scan_top_gainers()
+  File "e:\dikong\eth\main.py", line 517, in scan_top_gainers
+    self.logger.info(f"\u2705 列表更新完成: {len(self.coin_volume_ranking)} 个币种已排名")
+Message: '\u2705 列表更新完成: 600 个币种已排名'
+Arguments: ()
+2025-12-13 07:07:31,412 - trading_bot - INFO - \u2705 列表更新完成: 600 个币种已排名
+2025-12-13 07:07:35,729 - trading_bot - INFO - 新增监控: WET/USDT:USDT (Price + Kline 1m)
+2025-12-13 07:07:35,729 - trading_bot - INFO - 新增监控: MMT/USDT:USDT (Price + Kline 1m)
+2025-12-13 07:07:35,729 - trading_bot - INFO - 新增监控: FARTCOIN/USDT:USDT (Price + Kline 1m)
+2025-12-13 07:07:35,729 - trading_bot - INFO - 新增监控: AXL/USDT:USDT (Price + Kline 1m)
+2025-12-13 07:07:35,729 - trading_bot - INFO - 新增监控: RIVER/USDT:USDT (Price + Kline 1m)
+2025-12-13 07:07:35,729 - trading_bot - INFO - 新增监控: MERL/USDT:USDT (Price + Kline 1m)
+2025-12-13 07:07:35,729 - trading_bot - INFO - 新增监控: NIGHT/USDT:USDT (Price + Kline 1m)
+2025-12-13 07:07:35,729 - trading_bot - INFO - 新增监控: ZEC/USDT:USDT (Price + Kline 1m)
+2025-12-13 07:07:35,729 - trading_bot - INFO - 新增监控: AIOT/USDT:USDT (Price + Kline 1m)
+2025-12-13 07:07:35,729 - trading_bot - INFO - 新增监控: LRC/USDT:USDT (Price + Kline 1m)
+2025-12-13 07:07:35,729 - trading_bot - INFO - 新增监控: ICNT/USDT:USDT (Price + Kline 1m)
+2025-12-13 07:07:35,729 - trading_bot - INFO - 新增监控: USUAL/USDT:USDT (Price + Kline 1m)
+2025-12-13 07:07:35,729 - trading_bot - INFO - 新增监控: PIPPIN/USDT:USDT (Price + Kline 1m)
+2025-12-13 07:07:35,729 - trading_bot - INFO - 新增监控: JELLYJELLY/USDT:USDT (Price + Kline 1m)
+2025-12-13 07:07:35,729 - trading_bot - INFO - 当前监控列表 (14): ['WET/USDT:USDT', 'MMT/USDT:USDT', 'FARTCOIN/USDT:USDT', 'AXL/USDT:USDT', 'RIVER/USDT:USDT', 'MERL/USDT:USDT', 'NIGHT/USDT:USDT', 'ZEC/USDT:USDT', 'AIOT/USDT:USDT', 'LRC/USDT:USDT', 'ICNT/USDT:USDT', 'USUAL/USDT:USDT', 'PIPPIN/USDT:USDT', 'JELLYJELLY/USDT:USDT']
+2025-12-13 07:07:35,730 - market_monitor - INFO - 启动 WebSocket 监控模块 (Real-Time)...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\U0001f504' in position 47: illegal multibyte sequence
+Call stack:
+  File "e:\dikong\eth\main.py", line 1139, in <module>
+    bot.start()
+  File "e:\dikong\eth\main.py", line 75, in start
+    self.run_self_diagnostic()
+  File "e:\dikong\eth\main.py", line 250, in run_self_diagnostic
+    self.logger.info(f"\U0001f504 [周期扫描] 执行分钟级扫描任务...")
+Message: '\U0001f504 [周期扫描] 执行分钟级扫描任务...'
+Arguments: ()
+2025-12-13 07:07:35,730 - trading_bot - INFO - \U0001f504 [周期扫描] 执行分钟级扫描任务...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2705' in position 50: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 430, in initialize_socket
+    self._callback(self.on_open)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 162, in _on_open
+    self.logger.info("\u2705 WebSocket 已连接")
+Message: '\u2705 WebSocket 已连接'
+Arguments: ()
+2025-12-13 07:07:35,982 - market_monitor - INFO - \u2705 WebSocket 已连接
+2025-12-13 07:07:35,983 - market_monitor - INFO - WebSocket SUBSCRIBE: 14 streams (bookTicker)
+2025-12-13 07:07:35,985 - market_monitor - INFO - WebSocket SUBSCRIBE: 14 streams (kline_1m)
+2025-12-13 07:07:42,634 - trading_bot - INFO - 当前监控列表 (14): ['WET/USDT:USDT', 'MMT/USDT:USDT', 'FARTCOIN/USDT:USDT', 'AXL/USDT:USDT', 'RIVER/USDT:USDT', 'MERL/USDT:USDT', 'NIGHT/USDT:USDT', 'ZEC/USDT:USDT', 'AIOT/USDT:USDT', 'LRC/USDT:USDT', 'ICNT/USDT:USDT', 'USUAL/USDT:USDT', 'PIPPIN/USDT:USDT', 'JELLYJELLY/USDT:USDT']
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for ZEC/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:08:23,115 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for ZEC/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: ZEC/USDT:USDT | RSI 62.7 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:08:23,830 - trading_bot - INFO - \u2717 信号拒绝: ZEC/USDT:USDT | RSI 62.7 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for USUAL/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:08:23,831 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for USUAL/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: USUAL/USDT:USDT | RSI 48.3 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:08:24,542 - trading_bot - INFO - \u2717 信号拒绝: USUAL/USDT:USDT | RSI 48.3 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for JELLYJELLY/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:08:24,543 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for JELLYJELLY/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: JELLYJELLY/USDT:USDT | RSI 54.6 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:08:25,270 - trading_bot - INFO - \u2717 信号拒绝: JELLYJELLY/USDT:USDT | RSI 54.6 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for LRC/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:08:25,271 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for LRC/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: LRC/USDT:USDT | VolRatio 0.5 not in [2.5, 12]'
+Arguments: ()
+2025-12-13 07:08:25,972 - trading_bot - INFO - \u2717 信号拒绝: LRC/USDT:USDT | VolRatio 0.5 not in [2.5, 12]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for PIPPIN/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:08:25,974 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for PIPPIN/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: PIPPIN/USDT:USDT | RSI 41.8 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:08:26,692 - trading_bot - INFO - \u2717 信号拒绝: PIPPIN/USDT:USDT | RSI 41.8 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for WET/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:08:26,694 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for WET/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: WET/USDT:USDT | RSI 49.7 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:08:27,393 - trading_bot - INFO - \u2717 信号拒绝: WET/USDT:USDT | RSI 49.7 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for ICNT/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:08:27,394 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for ICNT/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: ICNT/USDT:USDT | RSI 45.7 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:08:28,102 - trading_bot - INFO - \u2717 信号拒绝: ICNT/USDT:USDT | RSI 45.7 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for MMT/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:08:28,104 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for MMT/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: MMT/USDT:USDT | RSI 45.3 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:08:28,823 - trading_bot - INFO - \u2717 信号拒绝: MMT/USDT:USDT | RSI 45.3 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for FARTCOIN/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:08:28,824 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for FARTCOIN/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: FARTCOIN/USDT:USDT | RSI 54.8 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:08:29,540 - trading_bot - INFO - \u2717 信号拒绝: FARTCOIN/USDT:USDT | RSI 54.8 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for NIGHT/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:08:29,543 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for NIGHT/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: NIGHT/USDT:USDT | RSI 55.8 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:08:30,551 - trading_bot - INFO - \u2717 信号拒绝: NIGHT/USDT:USDT | RSI 55.8 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for RIVER/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:08:30,552 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for RIVER/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: RIVER/USDT:USDT | RSI 54.2 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:08:31,507 - trading_bot - INFO - \u2717 信号拒绝: RIVER/USDT:USDT | RSI 54.2 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for MERL/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:08:31,508 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for MERL/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: MERL/USDT:USDT | RSI 51.6 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:08:32,617 - trading_bot - INFO - \u2717 信号拒绝: MERL/USDT:USDT | RSI 51.6 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for AIOT/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:08:32,628 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for AIOT/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: AIOT/USDT:USDT | RSI 42.9 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:08:33,327 - trading_bot - INFO - \u2717 信号拒绝: AIOT/USDT:USDT | RSI 42.9 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for AXL/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:08:33,329 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for AXL/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: AXL/USDT:USDT | RSI 54.8 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:08:34,066 - trading_bot - INFO - \u2717 信号拒绝: AXL/USDT:USDT | RSI 54.8 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\U0001f504' in position 47: illegal multibyte sequence
+Call stack:
+  File "e:\dikong\eth\main.py", line 1139, in <module>
+    bot.start()
+  File "e:\dikong\eth\main.py", line 75, in start
+    self.run_self_diagnostic()
+  File "e:\dikong\eth\main.py", line 250, in run_self_diagnostic
+    self.logger.info(f"\U0001f504 [周期扫描] 执行分钟级扫描任务...")
+Message: '\U0001f504 [周期扫描] 执行分钟级扫描任务...'
+Arguments: ()
+2025-12-13 07:08:35,744 - trading_bot - INFO - \U0001f504 [周期扫描] 执行分钟级扫描任务...
+2025-12-13 07:08:40,971 - trading_bot - INFO - 当前监控列表 (14): ['WET/USDT:USDT', 'MMT/USDT:USDT', 'FARTCOIN/USDT:USDT', 'AXL/USDT:USDT', 'RIVER/USDT:USDT', 'MERL/USDT:USDT', 'NIGHT/USDT:USDT', 'ZEC/USDT:USDT', 'AIOT/USDT:USDT', 'LRC/USDT:USDT', 'ICNT/USDT:USDT', 'USUAL/USDT:USDT', 'PIPPIN/USDT:USDT', 'JELLYJELLY/USDT:USDT']
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for JELLYJELLY/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:09:23,108 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for JELLYJELLY/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: JELLYJELLY/USDT:USDT | RSI 52.3 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:09:23,808 - trading_bot - INFO - \u2717 信号拒绝: JELLYJELLY/USDT:USDT | RSI 52.3 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for PIPPIN/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:09:23,810 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for PIPPIN/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: PIPPIN/USDT:USDT | RSI 41.4 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:09:24,544 - trading_bot - INFO - \u2717 信号拒绝: PIPPIN/USDT:USDT | RSI 41.4 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for ZEC/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:09:24,546 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for ZEC/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: ZEC/USDT:USDT | RSI 58.4 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:09:25,245 - trading_bot - INFO - \u2717 信号拒绝: ZEC/USDT:USDT | RSI 58.4 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for FARTCOIN/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:09:25,246 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for FARTCOIN/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: FARTCOIN/USDT:USDT | RSI 54.0 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:09:25,944 - trading_bot - INFO - \u2717 信号拒绝: FARTCOIN/USDT:USDT | RSI 54.0 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for MERL/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:09:25,951 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for MERL/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: MERL/USDT:USDT | RSI 51.8 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:09:26,657 - trading_bot - INFO - \u2717 信号拒绝: MERL/USDT:USDT | RSI 51.8 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for LRC/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:09:26,658 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for LRC/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: LRC/USDT:USDT | VolRatio 0.5 not in [2.5, 12]'
+Arguments: ()
+2025-12-13 07:09:27,358 - trading_bot - INFO - \u2717 信号拒绝: LRC/USDT:USDT | VolRatio 0.5 not in [2.5, 12]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for MMT/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:09:27,360 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for MMT/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: MMT/USDT:USDT | RSI 44.4 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:09:28,070 - trading_bot - INFO - \u2717 信号拒绝: MMT/USDT:USDT | RSI 44.4 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for ICNT/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:09:28,072 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for ICNT/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: ICNT/USDT:USDT | RSI 45.4 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:09:29,009 - trading_bot - INFO - \u2717 信号拒绝: ICNT/USDT:USDT | RSI 45.4 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for WET/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:09:29,014 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for WET/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: WET/USDT:USDT | RSI 49.9 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:09:29,711 - trading_bot - INFO - \u2717 信号拒绝: WET/USDT:USDT | RSI 49.9 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for NIGHT/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:09:29,727 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for NIGHT/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: NIGHT/USDT:USDT | RSI 56.1 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:09:30,424 - trading_bot - INFO - \u2717 信号拒绝: NIGHT/USDT:USDT | RSI 56.1 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for AXL/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:09:30,425 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for AXL/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: AXL/USDT:USDT | RSI 56.5 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:09:31,120 - trading_bot - INFO - \u2717 信号拒绝: AXL/USDT:USDT | RSI 56.5 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for AIOT/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:09:31,121 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for AIOT/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: AIOT/USDT:USDT | RSI 41.4 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:09:31,819 - trading_bot - INFO - \u2717 信号拒绝: AIOT/USDT:USDT | RSI 41.4 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for USUAL/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:09:31,820 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for USUAL/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: USUAL/USDT:USDT | RSI 47.1 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:09:32,555 - trading_bot - INFO - \u2717 信号拒绝: USUAL/USDT:USDT | RSI 47.1 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a1' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 688, in on_kline_update
+    self.logger.info(f"\u26a1\ufe0f [Event] {event_type} for {symbol_internal}. Triggering Strategy...")
+Message: '\u26a1\ufe0f [Event] 1m Update (Aggressive) for RIVER/USDT:USDT. Triggering Strategy...'
+Arguments: ()
+2025-12-13 07:09:32,563 - trading_bot - INFO - \u26a1\ufe0f [Event] 1m Update (Aggressive) for RIVER/USDT:USDT. Triggering Strategy...
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u2717' in position 47: illegal multibyte sequence
+Call stack:
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 937, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 152, in _run_websocket_loop
+    self.ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_interval=30, ping_timeout=10)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 556, in run_forever
+    initialize_socket()
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 432, in initialize_socket
+    dispatcher.read(self.sock.sock, read, check)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_dispatcher.py", line 106, in read
+    if not read_callback():
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 477, in read
+    self._callback(self.on_message, data)
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\site-packages\websocket\_app.py", line 613, in _callback
+    callback(self, *args)
+  File "e:\dikong\eth\data\websocket_monitor.py", line 211, in _on_message
+    self.kline_callback(data)
+  File "e:\dikong\eth\main.py", line 691, in on_kline_update
+    self.process_strategy_safe(symbol_internal)
+  File "e:\dikong\eth\main.py", line 381, in process_strategy_safe
+    self.process_strategy(symbol, df)
+  File "e:\dikong\eth\main.py", line 766, in process_strategy
+    self.logger.info(f"\u2717 信号拒绝: {symbol} | {signal['reason']}")
+Message: '\u2717 信号拒绝: RIVER/USDT:USDT | RSI 53.7 not in [65, 90]'
+Arguments: ()
+2025-12-13 07:09:33,265 - trading_bot - INFO - \u2717 信号拒绝: RIVER/USDT:USDT | RSI 53.7 not in [65, 90]
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Users\admin\AppData\Local\Programs\Python\Python39\lib\logging\__init__.py", line 1086, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\U0001f504' in position 47: illegal multibyte sequence
+Call stack:
+  File "e:\dikong\eth\main.py", line 1139, in <module>
+    bot.start()
+  File "e:\dikong\eth\main.py", line 75, in start
+    self.run_self_diagnostic()
+  File "e:\dikong\eth\main.py", line 250, in run_self_diagnostic
+    self.logger.info(f"\U0001f504 [周期扫描] 执行分钟级扫描任务...")
+Message: '\U0001f504 [周期扫描] 执行分钟级扫描任务...'
+Arguments: ()
+2025-12-13 07:09:35,790 - trading_bot - INFO - \U0001f504 [周期扫描] 执行分钟级扫描任务...
+2025-12-13 07:09:40,678 - market_monitor - INFO - WebSocket SUBSCRIBE: 1 streams (bookTicker)
+2025-12-13 07:09:40,679 - market_monitor - INFO - WebSocket SUBSCRIBE: 1 streams (kline_1m)
+2025-12-13 07:09:40,679 - trading_bot - INFO - 新增监控: STABLE/USDT:USDT (Price + Kline 1m)
+2025-12-13 07:09:40,679 - market_monitor - INFO - WebSocket SUBSCRIBE: 1 streams (bookTicker)
+2025-12-13 07:09:40,679 - market_monitor - INFO - WebSocket SUBSCRIBE: 1 streams (kline_1m)
+2025-12-13 07:09:40,680 - trading_bot - INFO - 新增监控: SOMI/USDT:USDT (Price + Kline 1m)
+2025-12-13 07:09:40,680 - market_monitor - INFO - WebSocket UNSUBSCRIBE: 1 streams (bookTicker)
+2025-12-13 07:09:40,680 - market_monitor - INFO - WebSocket UNSUBSCRIBE: 1 streams (kline_1m)
+2025-12-13 07:09:40,680 - trading_bot - INFO - 移除监控: ZEC/USDT:USDT
+2025-12-13 07:09:40,680 - trading_bot - INFO - 当前监控列表 (15): ['WET/USDT:USDT', 'MMT/USDT:USDT', 'FARTCOIN/USDT:USDT', 'AXL/USDT:USDT', 'RIVER/USDT:USDT', 'MERL/USDT:USDT', 'NIGHT/USDT:USDT', 'AIOT/USDT:USDT', 'LRC/USDT:USDT', 'ICNT/USDT:USDT', 'STABLE/USDT:USDT', 'USUAL/USDT:USDT', 'PIPPIN/USDT:USDT', 'SOMI/USDT:USDT', 'JELLYJELLY/USDT:USDT']
+2025-12-13 07:10:19,309 - trading_bot - INFO - 正在停止交易机器人...

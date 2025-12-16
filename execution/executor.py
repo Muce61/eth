@@ -64,7 +64,7 @@ class Executor(BinanceClient):
         
         # Directly use Algo Order (The "Power Mode")
         # Standard Order failed with -4120, so we MUST use this.
-        self.logger.info(f"🛡️ 设置强力链上止损 (Algo Endpoint): 触发价 {stop_price} (侧: {sl_side})")
+        self.logger.info(f"[Shield] 设置强力链上止损 (Algo Endpoint): 触发价 {stop_price} (侧: {sl_side})")
         return self.place_algo_order(symbol, sl_side, quantity, stop_price)
 
     def fetch_open_algo_orders(self, symbol=None):
@@ -98,10 +98,10 @@ class Executor(BinanceClient):
                     return data
                 return data.get('orders', [])
             else:
-                self.logger.error(f"❌ 获取 Algo Orders 失败: {response.text}")
+                self.logger.error(f"[X] 获取 Algo Orders 失败: {response.text}")
                 return []
         except Exception as e:
-            self.logger.error(f"❌ 获取 Algo Orders 异常: {e}")
+            self.logger.error(f"[X] 获取 Algo Orders 异常: {e}")
             return []
 
     def place_algo_order(self, symbol, side, quantity, stop_price):
@@ -152,7 +152,7 @@ class Executor(BinanceClient):
             }
             
             # 4. Execute Request
-            self.logger.info(f"🚀 发送 Algo Order (Manual Sign): {symbol} {side} {quantity}")
+            self.logger.info(f"[SEND] 发送 Algo Order (Manual Sign): {symbol} {side} {quantity}")
             
             # We use a fresh requests call to avoid any middleware interference
             response = requests.post(full_url, headers=headers)
@@ -160,14 +160,14 @@ class Executor(BinanceClient):
             # 5. Handle Response
             if response.status_code == 200:
                 data = response.json()
-                self.logger.info(f"✅ Algo Order 成功: ID {data.get('clientAlgoId', 'Unknown')}")
+                self.logger.info(f"[OK] Algo Order 成功: ID {data.get('clientAlgoId', 'Unknown')}")
                 return data
             else:
-                self.logger.error(f"❌ Algo Order 失败 (HTTP {response.status_code}): {response.text}")
+                self.logger.error(f"[X] Algo Order 失败 (HTTP {response.status_code}): {response.text}")
                 return None
                 
         except Exception as e:
-            self.logger.error(f"❌ Algo Order 异常: {e}")
+            self.logger.error(f"[X] Algo Order 异常: {e}")
             return None
     def cancel_all_orders(self, symbol):
         try:
@@ -216,19 +216,19 @@ class Executor(BinanceClient):
                     
                     resp = requests.delete(full_url, headers=headers)
                     if resp.status_code == 200:
-                        self.logger.info(f"✅ 撤销 Algo Order {o['algoId']} 成功")
+                        self.logger.info(f"[OK] 撤销 Algo Order {o['algoId']} 成功")
                     else:
                         # Handle -2011 Unknown order sent (Already cancelled/filled)
                         try:
                             err_data = resp.json()
                             if err_data.get('code') == -2011:
-                                self.logger.info(f"ℹ️ 撤销 Algo Order {o['algoId']} 跳过 (已不存在/已成交)")
+                                self.logger.info(f"[Info] 撤销 Algo Order {o['algoId']} 跳过 (已不存在/已成交)")
                             else:
-                                self.logger.warning(f"⚠️ 撤销 Algo Order {o['algoId']} 失败: {resp.text}")
+                                self.logger.warning(f"[Warn] 撤销 Algo Order {o['algoId']} 失败: {resp.text}")
                         except:
-                            self.logger.warning(f"⚠️ 撤销 Algo Order {o['algoId']} 失败: {resp.text}")
+                            self.logger.warning(f"[Warn] 撤销 Algo Order {o['algoId']} 失败: {resp.text}")
                 except Exception as inner_e:
                     self.logger.error(f"撤销单个 Algo 订单异常: {inner_e}")
                     
         except Exception as e:
-            self.logger.error(f"❌ 批量撤销 Algo 订单异常: {e}")
+            self.logger.error(f"[X] 批量撤销 Algo 订单异常: {e}")
