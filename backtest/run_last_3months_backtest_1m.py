@@ -82,7 +82,6 @@ class Last3MonthsBacktestEngine1m(RealBacktestEngine):
                         elif col.capitalize() in available_cols:
                             final_agg[col.capitalize()] = func
                             
-                    # Resample to 15m for strategy signal consistency
                     df_15m = df_subset.resample('15min').agg(final_agg).dropna()
                     df_15m.columns = [c.lower() for c in df_15m.columns]
                     
