@@ -207,8 +207,11 @@ class RealBacktestEngine:
             # OR execute on every 1m (Aggressive / Repainting Mode)
             
             if not self.config.ALLOW_DEVELOPING_SIGNALS:
-                if (current_time.minute + 1) % 15 != 0:
-                    continue
+                # ONLY enforce alignment if data is finer than 15m (e.g. 1m data)
+                # diff is in seconds. 15m = 900s.
+                if diff < 900: 
+                    if (current_time.minute + 1) % 15 != 0:
+                        continue
                 
             # 1. Execute pending signal (from previous iteration)
             # 1. Execute pending signals (if entry time matches)
@@ -336,7 +339,8 @@ class RealBacktestEngine:
         self.coin_volume_ranking = {coin: rank+1 for rank, (coin, vol) in enumerate(sorted_coins)}
         
         self.last_universe_update = current_time.date()
-        # print(f"[{current_time}] ✅ Universe Updated: {len(self.active_universe)} coins active.")
+        self.last_universe_update = current_time.date()
+        print(f"[{current_time}] ✅ Universe Updated: {len(self.active_universe)} coins active.")
 
     # def _rank_coins_by_volume(self): 
     # REMOVED due to Look-Ahead Bias
@@ -502,6 +506,10 @@ class RealBacktestEngine:
                 history_slice = df.iloc[start_loc : row_loc + 1]
             
             signal = self.strategy.check_signal(symbol, history_slice)
+            if signal and 'reason' in signal:
+                 # Limit debug prints to once per day or specifically 00:00
+                 if current_time.hour == 0 and current_time.minute == 0:
+                     print(f"[{current_time}] {symbol} Rejected: {signal['reason']}")
             
             # MATCH MAIN.PY LOGIC: Handle new rejection format
             if signal and signal.get('side') == 'LONG':

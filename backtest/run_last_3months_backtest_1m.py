@@ -17,7 +17,7 @@ class Last3MonthsBacktestEngine1m(RealBacktestEngine):
         Load data from the 1-year 1m dataset (updated incrementally).
         NO RESAMPLING - Uses raw 1m data.
         """
-        data_dir = Path("E:/ALIXZ/new_backtest_data_1year_1m")
+        data_dir = Path("/Users/muce/1m_data/new_backtest_data_1year_1m")
         self.data_feed = {}
         
         # Target Period: 3 Months Back from 2025-12-13
