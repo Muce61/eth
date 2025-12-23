@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from datetime import datetime
 
 class BinanceClient:
-    def __init__(self):
+    def __init__(self, load_markets=True):
         load_dotenv(override=True)
         self.api_key = os.getenv('BINANCE_API_KEY')
         self.secret = os.getenv('BINANCE_SECRET')
@@ -36,11 +36,12 @@ class BinanceClient:
 
         # Load markets early to cache instrument info (including max leverage)
         self.leverage_cache = {}
-        try:
-            self.exchange.load_markets()
-            self._load_leverage_brackets()
-        except Exception as e:
-            print(f"Warning: Failed to load markets on init: {e}")
+        if load_markets:
+            try:
+                self.exchange.load_markets()
+                self._load_leverage_brackets()
+            except Exception as e:
+                print(f"Warning: Failed to load markets on init: {e}")
 
     def _load_leverage_brackets(self):
         """Load all leverage brackets efficiently"""

@@ -5,6 +5,8 @@ from pathlib import Path
 from datetime import datetime, timedelta
 import logging
 from strategy.momentum import MomentumStrategy
+from bot.live_logger import LiveTradeLogger
+from bot.signal_logger import SignalLogger
 from risk.manager import RiskManager
 from config.settings import Config
 
@@ -29,6 +31,7 @@ class RealBacktestEngine:
         # Initialize New Modules
         self.smart_exit = SmartExitModule()
         self.quality_filter = QualityFilterModule()
+        self.signal_logger = SignalLogger(log_dir=self.config.LOG_DIR if hasattr(self.config, 'LOG_DIR') else 'logs', filename='backtest_signals.csv')
         self.trend_detector = TrendReversalDetector(state_file="logs/backtest_trend_state.json")
         
         # Override config for backtest if needed
@@ -69,8 +72,11 @@ class RealBacktestEngine:
         data_dir = Path("/Users/muce/1m_data/new_backtest_data_1year_1m")
         self.data_feed = {}
         
+        self.data_dir_1s = Path("/Users/muce/1m_data/klines_data_usdm_1s_agg")
+        self.symbol_map_1s = {} # Map 1m symbol -> 1s symbol
+        
         print(f"Loading data from {data_dir}...")
-        print("Applying 1m -> 15m resampling...")
+        print("Applying 1m -> 15m resampling... (and mapping to 1s data)")
         
         # Check if directory exists
         if not data_dir.exists():
@@ -78,7 +84,36 @@ class RealBacktestEngine:
             return
 
         for file_path in data_dir.glob("*.csv"):
-            symbol = file_path.stem # e.g. BTCUSDT
+            symbol_1m = file_path.stem # e.g. BTCUSDTUSDT
+            
+            # 1. Filter Delivery/Quarterly Contracts
+            if '-' in symbol_1m:
+                continue
+                
+            # 2. Map to 1s Symbol
+            # 1m: BTCUSDTUSDT -> 1s: BTCUSDT
+            # Logic: Remove last 'USDT' if it ends with 'USDTUSDT'
+            if symbol_1m.endswith("USDTUSDT"):
+                 symbol_1s = symbol_1m.replace("USDTUSDT", "USDT")
+            else:
+                 symbol_1s = symbol_1m # Fallback
+            
+            # Check if 1s data exists for this symbol (Directory check)
+            # 1s path: data_dir_1s / f"{symbol_1s}_1s_agg"
+            # Optimization: Check existence later to avoid IO storm? 
+            # User said: "If 1m has it but 1s doesn't, skip it".
+            path_1s = self.data_dir_1s / f"{symbol_1s}_1s_agg"
+            if not path_1s.exists():
+                 # checking 'mark' variant just in case?
+                 path_1s_mark = self.data_dir_1s / f"{symbol_1s}_1s_mark"
+                 if not path_1s_mark.exists():
+                      # print(f"Skipping {symbol_1m}: No 1s data found ({symbol_1s})")
+                      continue
+                 else:
+                      self.symbol_map_1s[symbol_1m] = path_1s_mark
+            else:
+                 self.symbol_map_1s[symbol_1m] = path_1s
+
             try:
                 df = pd.read_csv(file_path, parse_dates=['timestamp'], index_col='timestamp')
                 
@@ -101,7 +136,7 @@ class RealBacktestEngine:
                         final_agg[col.capitalize()] = func
                         
                 if not final_agg:
-                    print(f"Skipping {symbol}: No OHLCV columns found")
+                    print(f"Skipping {symbol_1m}: No OHLCV columns found")
                     continue
                     
                 df_15m = df.resample('15min').agg(final_agg).dropna()
@@ -109,9 +144,9 @@ class RealBacktestEngine:
                 # Normalize column names to lowercase
                 df_15m.columns = [c.lower() for c in df_15m.columns]
                 
-                self.data_feed[symbol] = df_15m
+                self.data_feed[symbol_1m] = df_15m
             except Exception as e:
-                print(f"Error loading {symbol}: {e}")
+                print(f"Error loading {symbol_1m}: {e}")
             
         print(f"Loaded {len(self.data_feed)} symbols (Resampled to 15m).")
         
@@ -126,6 +161,9 @@ class RealBacktestEngine:
             
         sorted_timestamps = sorted(list(all_timestamps))
         
+        if sorted_timestamps and sorted_timestamps[0].tzinfo is None:
+             sorted_timestamps = [t.tz_localize('UTC') for t in sorted_timestamps]
+
         # Filter by Date Range
         if start_date:
             start_ts = pd.Timestamp(start_date)
@@ -171,11 +209,6 @@ class RealBacktestEngine:
         # In a real engine, we'd keep previous data for lookback. 
         # Here, we assume data_feed has full history, so we can just look back.
         
-        # Find index of first timestamp in our filtered list
-        # Actually, we are iterating by index of sorted_timestamps. 
-        # If we sliced sorted_timestamps, we need to be careful about lookups in data_feed.
-        # data_feed has full history, so looking up by timestamp is fine.
-        
         start_index = 0 
         # But we need to ensure we have enough history BEFORE the first timestamp for indicators
         # The strategy checks history using df.loc[:current_time]. 
@@ -205,10 +238,16 @@ class RealBacktestEngine:
             
             # CRITICAL FIX: Only execute on 15m boundaries to match Live Bot (Conservative)
             # OR execute on every 1m (Aggressive / Repainting Mode)
-            
+            # UPGRADE: User requested 1m Logic. We run every loop (1m).
+            pass 
+            '''
             if not self.config.ALLOW_DEVELOPING_SIGNALS:
-                if (current_time.minute + 1) % 15 != 0:
-                    continue
+                # ONLY enforce alignment if data is finer than 15m (e.g. 1m data)
+                # diff is in seconds. 15m = 900s.
+                if diff < 900: 
+                    if (current_time.minute + 1) % 15 != 0:
+                        continue
+            '''
                 
             # 1. Execute pending signal (from previous iteration)
             # 1. Execute pending signals (if entry time matches)
@@ -258,7 +297,7 @@ class RealBacktestEngine:
         else:
             pos = self.positions[symbol]
             
-        # Get current price
+        # Get current price from 15m feed (for fallback and general status)
         if symbol not in self.data_feed:
             return
             
@@ -267,30 +306,133 @@ class RealBacktestEngine:
             return
             
         current_candle = df.loc[current_time]
-        current_price = current_candle['close']
-        high_price = current_candle['high']
-        low_price = current_candle['low']
+        current_close = current_candle['close']
         
-        # Update highest price for trailing stop
-        if high_price > pos['highest_price']:
-            pos['highest_price'] = high_price
+        # ==============================================================================
+        # UPGRADE: 1s Precision Check (Stop Loss & High Water Mark)
+        # ==============================================================================
+        sl_triggered = False
+        
+        # 1. Try to load 1s data for this specific minute
+        path_1s_dir = self.symbol_map_1s.get(symbol)
+        
+        # We need to find the specific CSV file for this DATE
+        # Format hypothesis: "SYMBOL-1s-2025-09-13.csv" inside the folder
+        # We can construct the path. current_time is Timestamp.
+        if path_1s_dir:
+            date_str = current_time.strftime("%Y%m%d")
+            # Pattern: ARPAUSDT_1s_20241212.parquet
+            # Symbol 1s name: 'ARPAUSDT' derived from dir name or map
+            symbol_1s_name = path_1s_dir.stem.replace('_1s_agg', '').replace('_1s_mark', '')
             
-        # 1. Check Stop Loss (Always First)
-        if low_price <= pos['stop_loss']:
-            self._close_position(symbol, pos['stop_loss'], current_time, 'Stop Loss')
+            file_name = f"{symbol_1s_name}_1s_{date_str}.parquet"
+            file_path = path_1s_dir / file_name
+            
+            if file_path.exists():
+                try:
+                    if not hasattr(self, 'active_1s_cache'):
+                        self.active_1s_cache = {}
+                        
+                    cache_date, df_1s_day = self.active_1s_cache.get(symbol, (None, None))
+                    
+                    if cache_date != date_str:
+                        # Load new day (Parquet)
+                        # print(f"Loading 1s data for {symbol} - {date_str} (Parquet)")
+                        try:
+                            df_1s_day = pd.read_parquet(file_path)
+                        except Exception as e:
+                            # Fallback or error handling
+                            # print(f"Parquet load error: {e}")
+                            pass
+                        
+                        if df_1s_day is not None and not df_1s_day.empty:
+                            # Standardize column names
+                            # Parquet should have headers. Assume: open, high, low, close, volume...
+                            # Map columns if needed. 
+                            # If columns are upper case?
+                            df_1s_day.columns = [c.lower() for c in df_1s_day.columns]
+                            
+                            # Ensure timestamp index
+                            if 'timestamp' in df_1s_day.columns:
+                                # Check unit. Usually ms in crypto parquet.
+                                first_ts = df_1s_day['timestamp'].iloc[0]
+                                unit = 'ms' # Default assumption
+                                # If parquet stores as datetime object already?
+                                if not pd.api.types.is_datetime64_any_dtype(df_1s_day['timestamp']):
+                                     if first_ts < 2000000000: # Seconds
+                                         unit = 's'
+                                     df_1s_day['timestamp'] = pd.to_datetime(df_1s_day['timestamp'], unit=unit, utc=True)
+                                     
+                                df_1s_day.set_index('timestamp', inplace=True)
+                            
+                            # Check TZ again
+                            if df_1s_day.index.tz is None:
+                                df_1s_day.index = df_1s_day.index.tz_localize('UTC')
+                                
+                            self.active_1s_cache[symbol] = (date_str, df_1s_day)
+                        
+                    # Slice the specific minute (OR full 15m block if Step is 15m)
+                    # current_time is e.g. 12:00:00. 
+                    # If we are iterating 15m candles, we must check 12:00:00 -> 12:14:59.
+                    # Currently we only check 12:00:00 -> 12:00:59.
+                    
+                    start_slice = current_time
+                    # FIX: Match 1m window (User Upgrade)
+                    end_slice = current_time + timedelta(seconds=59)
+                    
+                    # Slicing
+                    slice_1s = df_1s_day.loc[start_slice:end_slice]
+                    
+                    if not slice_1s.empty:
+                        # ITERATE SECONDS (Precision Check)
+                        for ts, row in slice_1s.iterrows():
+                            # Update HWM
+                            if row['high'] > pos['highest_price']:
+                                pos['highest_price'] = row['high']
+                                
+                            # Check SL (Strict)
+                            if row['low'] <= pos['stop_loss']:
+                                self._close_position(symbol, pos['stop_loss'], ts, 'Stop Loss (1s Trigger)')
+                                sl_triggered = True
+                                break
+                except Exception as e:
+                    pass # print(f"Error reading 1s data for {symbol}: {e}")
+
+        # If 1s data missing or didn't trigger, use 1m Low as backup (Safety Net)
+        if not sl_triggered:
+            # Update HWM with 1m High (if 1s didn't update it to something higher)
+            if current_candle['high'] > pos['highest_price']:
+                pos['highest_price'] = current_candle['high']
+                
+            if current_candle['low'] <= pos['stop_loss']:
+                 self._close_position(symbol, pos['stop_loss'], current_time, 'Stop Loss (1m Fallback)')
+                 return
+
+        if sl_triggered:
             return
-            
-        # 2. Smart Exit Checks
-        should_exit, reason, exit_price = self.smart_exit.check_exit(
-            pos, 
-            current_price, 
-            current_time
-        )
+
+        # 2. Smart Exit Checks (Only on 15m Boundaries)
+        # Check if current_time aligns with 15m close
+        # If iterating 15m steps, minutes are 0, 15, 30, 45. (minute % 15 == 0)
+        # If iterating 1m steps, we want minute 14, 29, 44, 59. ((minute + 1) % 15 == 0)
         
-        if should_exit:
-            self._close_position(symbol, exit_price, current_time, reason)
+        is_1m_boundary = True # 1m Upgrade
+        
+        if is_1m_boundary:
+            should_exit, reason, exit_price = self.smart_exit.check_exit(
+                pos, 
+                current_close, 
+                current_time
+            )
+            
+            if should_exit:
+                # FIX LOOK-AHEAD: The 'current_close' price happens at the END of the 15m period.
+                # So the exit timestamp should be current_time + 15m.
+                # UPGRADE: 1m
+                exit_time = current_time + timedelta(minutes=1)
+                self._close_position(symbol, exit_price, exit_time, reason)
     
-    def _update_rolling_universe(self, current_time):
+    def _update_daily_universe(self, current_time):
         """
         Dynamically update the Top 200 coin universe based on PREVIOUS 24h volume.
         Eliminates Look-Ahead Bias.
@@ -336,7 +478,8 @@ class RealBacktestEngine:
         self.coin_volume_ranking = {coin: rank+1 for rank, (coin, vol) in enumerate(sorted_coins)}
         
         self.last_universe_update = current_time.date()
-        # print(f"[{current_time}] ✅ Universe Updated: {len(self.active_universe)} coins active.")
+        self.last_universe_update = current_time.date()
+        print(f"[{current_time}] ✅ Universe Updated: {len(self.active_universe)} coins active.")
 
     # def _rank_coins_by_volume(self): 
     # REMOVED due to Look-Ahead Bias
@@ -379,7 +522,7 @@ class RealBacktestEngine:
         # Or if it's the very first run (self.last_universe_update is None)
         # Note: current_time is Timestamp object
         if self.last_universe_update is None or current_time.date() > self.last_universe_update:
-             self._update_rolling_universe(current_time)
+             self._update_daily_universe(current_time)
             
         # Scan all symbols
         for symbol, df in self.data_feed.items():
@@ -425,8 +568,31 @@ class RealBacktestEngine:
             
             # === QUALITY FILTER MODULE CHECK ===
             is_good, reason = self.quality_filter.check_quality(symbol, volume_24h_slice, volume_24h_usd)
+            
+            last_close = df.iloc[row_loc - 1]['close']
+            last_vol = df.iloc[row_loc - 1]['volume']
+
             if not is_good:
+                # Log Rejection
+                self.signal_logger.log_signal(
+                    timestamp=current_time,
+                    symbol=symbol,
+                    stage='QUALITY',
+                    status='REJECT',
+                    reason=reason,
+                    metrics={'volume': last_vol},
+                    price=last_close
+                )
                 continue
+
+            self.signal_logger.log_signal(
+                timestamp=current_time,
+                symbol=symbol,
+                stage='QUALITY',
+                status='PASS',
+                metrics={'volume': last_vol},
+                price=last_close
+            )
             
             # QUALITY FILTER 2: Top 200 Ranking Check
             # Handled by loop condition (symbol in active_universe)
@@ -468,7 +634,12 @@ class RealBacktestEngine:
             if is_1m_data and self.config.TIMEFRAME != '1m':
                 # Take last ~1000 minutes to ensure we have enough 15m candles (need 50 15m = 750m)
                 # Slice logic: Get data up to current row_loc inclusive
-                lookback_mins = 1500 # Safe margin
+                # Resample to 15m
+                # ...
+                # Use Config.WARMUP_CANDLES (usually 1000)
+                # Since we are slicing 1m data to produce 15m candles:
+                # We need roughly (WARMUP_CANDLES * 15) minutes of 1m data.
+                lookback_mins = self.config.WARMUP_CANDLES * 15 
                 start_resample_loc = max(0, row_loc - lookback_mins)
                 
                 # Create slice copy
@@ -492,16 +663,43 @@ class RealBacktestEngine:
                 if len(history_df) < 50:
                     continue
                     
-                # Take last 50 for strategy
-                history_slice = history_df.tail(50)
+                # Take last N for strategy (WARMUP_CANDLES)
+                history_slice = history_df.tail(self.config.WARMUP_CANDLES)
             else:
                 # Already 15m data (Standard Backtest)
-                # FIX (Indicator Warmup): Live bot uses 300 candles. Backtest used 50.
-                # ADX/EMA needs sufficient warmup. Raising to 300 (start >= 0).
-                start_loc = max(0, row_loc - 300)
+                # FIX (Indicator Warmup): Live bot uses 300 candles. Backtest should use standard config.
+                # ADX/EMA needs sufficient warmup. Raising to WARMUP_CANDLES.
+                start_loc = max(0, row_loc - self.config.WARMUP_CANDLES)
                 history_slice = df.iloc[start_loc : row_loc + 1]
             
             signal = self.strategy.check_signal(symbol, history_slice)
+            
+            if signal:
+                if signal.get('status') == 'REJECTED':
+                    self.signal_logger.log_signal(
+                        timestamp=current_time,
+                        symbol=symbol,
+                        stage='STRATEGY',
+                        status='REJECT',
+                        reason=signal.get('reason'),
+                        metrics=signal.get('metrics', {}),
+                        price=last_close
+                    )
+                else:
+                    self.signal_logger.log_signal(
+                        timestamp=current_time,
+                        symbol=symbol,
+                        stage='STRATEGY',
+                        status='SIGNAL',
+                        metrics=signal.get('metrics', {}),
+                        price=last_close
+                    )
+            else:
+                 pass
+            if signal and 'reason' in signal:
+                 # Limit debug prints to once per day or specifically 00:00
+                 if current_time.hour == 0 and current_time.minute == 0:
+                     print(f"[{current_time}] {symbol} Rejected: {signal['reason']}")
             
             # MATCH MAIN.PY LOGIC: Handle new rejection format
             if signal and signal.get('side') == 'LONG':
@@ -683,7 +881,10 @@ class RealBacktestEngine:
                 trade_record.update(pos['metrics'])
                 
             self.trades.append(trade_record)
-            print(f"[{timestamp}] CLOSE {symbol} @ {exit_price:.4f} | PnL: ${net_pnl:.2f} | Reason: {reason}")
+            
+            # ROI Calculation
+            roi_pct = (exit_price_with_slippage - pos['entry_price']) / pos['entry_price'] * pos['leverage'] * 100
+            print(f"[{timestamp}] CLOSE {symbol} @ {exit_price:.4f} | PnL: ${net_pnl:.2f} ({roi_pct:.2f}%) | Reason: {reason}")
             
             del self.positions[symbol]
             

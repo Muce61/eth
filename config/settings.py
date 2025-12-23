@@ -2,9 +2,9 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Explicitly find and load .env file
+# Explicitly find and load .env file with OVERRIDE to ignore system env vars
 env_path = Path(__file__).parent.parent / '.env'
-load_dotenv(dotenv_path=env_path)
+load_dotenv(dotenv_path=env_path, override=True)
 
 class Config:
     # API Configuration
@@ -14,6 +14,12 @@ class Config:
     
     TIMEFRAME = '15m'  # Signal timeframe (Optimized: 15m Signal + 1m Execution)
     LOOKBACK_WINDOW = 50 # For indicators
+    
+    # Warmup Configuration
+    # 200 EMA needs ~3x length to stabilize. 200 * 3 = 600.
+    # Safe margin: 1000 candles (approx 10 days on 15m)
+    WARMUP_CANDLES = 1000 
+    WARMUP_DAYS = 11 # 1000 * 15m / 60 / 24 = ~10.4 days
     TOP_GAINER_COUNT = 50
     CHANGE_THRESHOLD_MIN = 2.0   # Min 2% 24h change (widened from 5%)
     CHANGE_THRESHOLD_MAX = 200.0 # Max 200% 24h change (widened from 20%)
@@ -21,6 +27,8 @@ class Config:
     BULLISH_CANDLES_COUNT = 2    # Reduced to 2 for faster entry
     
     # Execution Mode
+    PAPER_MODE = False # Disable Paper Trading (Real Money ON)
+    
     # If True: Executes trades on ANY 1m candle close (Intra-bar for 15m). "Repainting" risk but faster entry.
     # If False: Executes only on confirmed 15m candle close. Safer but slower.
     ALLOW_DEVELOPING_SIGNALS = False 

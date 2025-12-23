@@ -117,21 +117,28 @@ class MomentumStrategy:
         adx = ta.adx(df['high'], df['low'], df['close'], length=14)['ADX_14'].iloc[-1]
         upper_wick_ratio = upper_wick / current['close']
         
+        metrics = {
+             'rsi': rsi,
+             'adx': adx,
+             'volume_ratio': vol_ratio,
+             'upper_wick_ratio': upper_wick_ratio
+        }
+
         # FILTER 1: RSI Range (65-90) - RELAXED from 70-85
         if not (65 <= rsi <= 90):
-            return {'status': 'REJECTED', 'reason': f'RSI {rsi:.1f} not in [65, 90]'}
+            return {'status': 'REJECTED', 'reason': f'RSI {rsi:.1f} not in [65, 90]', 'metrics': metrics}
         
         # FILTER 2: ADX Range (25-60) - RELAXED from 30-50
         if not (25 <= adx <= 60):
-            return {'status': 'REJECTED', 'reason': f'ADX {adx:.1f} not in [25, 60]'}
+            return {'status': 'REJECTED', 'reason': f'ADX {adx:.1f} not in [25, 60]', 'metrics': metrics}
         
         # FILTER 3: Volume Ratio (2.5-12x) - RELAXED from 3-8x
         if not (2.5 <= vol_ratio <= 12):
-            return {'status': 'REJECTED', 'reason': f'VolRatio {vol_ratio:.1f} not in [2.5, 12]'}
+            return {'status': 'REJECTED', 'reason': f'VolRatio {vol_ratio:.1f} not in [2.5, 12]', 'metrics': metrics}
         
         # FILTER 4: Upper Wick Ratio (< 20%) - RELAXED from 15%
         if upper_wick_ratio > 0.20:
-             return {'status': 'REJECTED', 'reason': f'WickRatio {upper_wick_ratio:.1%} > 20%'}
+             return {'status': 'REJECTED', 'reason': f'WickRatio {upper_wick_ratio:.1%} > 20%', 'metrics': metrics}
             
         # Signal Generated
         timestamp = df['timestamp'].iloc[-1] if 'timestamp' in df.columns else df.index[-1]
@@ -142,13 +149,9 @@ class MomentumStrategy:
             'side': 'LONG',
             'entry_price': current['close'],
             'timestamp': timestamp,
-            'metrics': {
-                'rsi': rsi,
-                'adx': adx,
-                'volume_ratio': vol_ratio,
-                'upper_wick_ratio': upper_wick_ratio
-            }
+            'metrics': metrics
         }
+
 
     def calculate_signal_score(self, df):
         """

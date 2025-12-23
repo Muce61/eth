@@ -58,7 +58,10 @@ class SmartExitModule:
             stop_price = highest_price * (1 - (dynamic_callback / leverage))
             
             if current_price <= stop_price:
-                return True, f"Smart Trailing (Max {max_roe*100:.0f}%)", stop_price
+                # CRITICAL FIX: Use current_price for exit, NOT stop_price.
+                # Since we only update stops every 15m, we likely missed the drop.
+                # We must exit at Market (current_price), usually worse than stop_price.
+                return True, f"Smart Trailing (Max {max_roe*100:.0f}%)", current_price
                 
         # 3. 时间止损 (Time Stop)
         # 如果持仓超过N小时且处于亏损状态

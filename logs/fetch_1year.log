@@ -1,0 +1,842 @@
+============================================================
+🚀 FAST Fetch Global 1m Data (3 Threads)
+============================================================
+[OK] Loaded leverage limits for 652 symbols
+Total Symbols Found: 604
+------------------------------------------------------------
+🔍 Scanning local data for progress...
+✅ Already Completed: 190 symbols
+⏳ Remaining to Fetch: 414 symbols
+------------------------------------------------------------
+Remaining List (First 50):
+['ENJ/USDT:USDT', 'LSK/USDT:USDT', 'SYN/USDT:USDT', 'TRU/USDT:USDT', 'SOON/USDT:USDT', 'MEW/USDT:USDT', 'TAG/USDT:USDT', 'B2/USDT:USDT', 'IOST/USDT:USDT', 'ENSO/USDT:USDT', 'STMX/USDT:USDT', 'AVAAI/USDT:USDT', 'GMX/USDT:USDT', 'BDXN/USDT:USDT', 'ESPORTS/USDT:USDT', 'WET/USDT:USDT', 'RVV/USDT:USDT', 'STRK/USDT:USDT', 'PTB/USDT:USDT', 'CVC/USDT:USDT', 'PNUT/USDT:USDT', 'EIGEN/USDT:USDT', 'CHR/USDT:USDT', 'OCEAN/USDT:USDT', 'FLOCK/USDT:USDT', 'DEFI/USDT:USDT', 'BAT/USDT:USDT', 'TOWNS/USDT:USDT', 'BNB/USDT:USDT', 'ORCA/USDT:USDT', 'MET/USDT:USDT', 'SAFE/USDT:USDT', 'GRIFFAIN/USDT:USDT', 'NEAR/USDT:USDT', 'PUNDIX/USDT:USDT', 'STORJ/USDT:USDT', 'FIDA/USDT:USDT', 'FET/USDT:USDT', 'BLUAI/USDT:USDT', 'NULS/USDT:USDT', 'COMMON/USDT:USDT', 'FIL/USDT:USDT', 'MANA/USDT:USDT', 'RESOLV/USDT:USDT', 'BIGTIME/USDT:USDT', 'SNT/USDT:USDT', 'CYS/USDT:USDT', 'PERP/USDT:USDT', 'GTC/USDT:USDT', 'GLM/USDT:USDT']
+... and 364 more.
+------------------------------------------------------------
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[191/604] DONE LSK/USDT:USDT (537960 rows) | Remaining: 413
+[192/604] DONE SYN/USDT:USDT (537960 rows) | Remaining: 412
+[193/604] DONE ENJ/USDT:USDT (537960 rows) | Remaining: 411
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[194/604] DONE SOON/USDT:USDT (310500 rows) | Remaining: 410
+[OK] Loaded leverage limits for 652 symbols
+[195/604] DONE TRU/USDT:USDT (537965 rows) | Remaining: 409
+[196/604] DONE MEW/USDT:USDT (537965 rows) | Remaining: 408
+[197/604] DONE TAG/USDT:USDT (220010 rows) | Remaining: 407
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[198/604] DONE ENSO/USDT:USDT (103500 rows) | Remaining: 406
+[OK] Loaded leverage limits for 652 symbols
+[199/604] DONE B2/USDT:USDT (334500 rows) | Remaining: 405
+[OK] Loaded leverage limits for 652 symbols
+[200/604] DONE IOST/USDT:USDT (537969 rows) | Remaining: 404
+[OK] Loaded leverage limits for 652 symbols
+[201/604] DONE STMX/USDT:USDT (537970 rows) | Remaining: 403
+[OK] Loaded leverage limits for 652 symbols
+[202/604] DONE AVAAI/USDT:USDT (492000 rows) | Remaining: 402
+[OK] Loaded leverage limits for 652 symbols
+[203/604] DONE BDXN/USDT:USDT (294942 rows) | Remaining: 401
+[OK] Loaded leverage limits for 652 symbols
+[204/604] DONE WET/USDT:USDT (21000 rows) | Remaining: 400
+[OK] Loaded leverage limits for 652 symbols
+[205/604] DONE ESPORTS/USDT:USDT (214333 rows) | Remaining: 399
+[OK] Loaded leverage limits for 652 symbols
+[206/604] DONE RVV/USDT:USDT (97483 rows) | Remaining: 398
+[OK] Loaded leverage limits for 652 symbols
+[207/604] DONE GMX/USDT:USDT (537974 rows) | Remaining: 397
+[OK] Loaded leverage limits for 652 symbols
+[208/604] DONE PTB/USDT:USDT (162000 rows) | Remaining: 396
+[OK] Loaded leverage limits for 652 symbols
+[209/604] DONE CVC/USDT:USDT (320987 rows) | Remaining: 395
+[OK] Loaded leverage limits for 652 symbols
+[210/604] DONE STRK/USDT:USDT (537978 rows) | Remaining: 394
+[OK] Loaded leverage limits for 652 symbols
+[211/604] DONE PNUT/USDT:USDT (537979 rows) | Remaining: 393
+[OK] Loaded leverage limits for 652 symbols
+[212/604] DONE EIGEN/USDT:USDT (537981 rows) | Remaining: 392
+[OK] Loaded leverage limits for 652 symbols
+[213/604] DONE CHR/USDT:USDT (537982 rows) | Remaining: 391
+[214/604] DONE FLOCK/USDT:USDT (154054 rows) | Remaining: 390
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[215/604] DONE OCEAN/USDT:USDT (537984 rows) | Remaining: 389
+[OK] Loaded leverage limits for 652 symbols
+[216/604] DONE TOWNS/USDT:USDT (203996 rows) | Remaining: 388
+[OK] Loaded leverage limits for 652 symbols
+[217/604] DONE DEFI/USDT:USDT (537987 rows) | Remaining: 387
+[218/604] DONE BAT/USDT:USDT (537987 rows) | Remaining: 386
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[219/604] DONE MET/USDT:USDT (107638 rows) | Remaining: 385
+[OK] Loaded leverage limits for 652 symbols
+[220/604] DONE BNB/USDT:USDT (537990 rows) | Remaining: 384
+[OK] Loaded leverage limits for 652 symbols
+[221/604] DONE ORCA/USDT:USDT (537991 rows) | Remaining: 383
+[OK] Loaded leverage limits for 652 symbols
+[222/604] DONE SAFE/USDT:USDT (537992 rows) | Remaining: 382
+[OK] Loaded leverage limits for 652 symbols
+[223/604] DONE GRIFFAIN/USDT:USDT (513000 rows) | Remaining: 381
+[OK] Loaded leverage limits for 652 symbols
+[224/604] DONE PUNDIX/USDT:USDT (343500 rows) | Remaining: 380
+[OK] Loaded leverage limits for 652 symbols
+[225/604] DONE NEAR/USDT:USDT (537996 rows) | Remaining: 379
+[OK] Loaded leverage limits for 652 symbols
+[226/604] DONE STORJ/USDT:USDT (537998 rows) | Remaining: 378
+Warning: Failed to load markets on init: binance 429 Too Many Requests {"code":-1003,"msg":"Too many requests; current limit of IP(172.104.42.114) is 2400 requests per minute. Please use the websocket for live updates to avoid polling the API."}
+[227/604] DONE BLUAI/USDT:USDT (93000 rows) | Remaining: 377
+[OK] Loaded leverage limits for 652 symbols
+[228/604] DONE FIDA/USDT:USDT (538000 rows) | Remaining: 376
+[OK] Loaded leverage limits for 652 symbols
+[229/604] DONE FET/USDT:USDT (538001 rows) | Remaining: 375
+[OK] Loaded leverage limits for 652 symbols
+[230/604] DONE COMMON/USDT:USDT (84000 rows) | Remaining: 374
+[OK] Loaded leverage limits for 652 symbols
+[231/604] DONE NULS/USDT:USDT (538004 rows) | Remaining: 373
+[OK] Loaded leverage limits for 652 symbols
+[232/604] DONE FIL/USDT:USDT (538005 rows) | Remaining: 372
+[OK] Loaded leverage limits for 652 symbols
+[233/604] DONE MANA/USDT:USDT (538005 rows) | Remaining: 371
+[OK] Loaded leverage limits for 652 symbols
+[234/604] DONE RESOLV/USDT:USDT (284716 rows) | Remaining: 370
+[OK] Loaded leverage limits for 652 symbols
+[235/604] DONE CYS/USDT:USDT (18000 rows) | Remaining: 369
+[OK] Loaded leverage limits for 652 symbols
+[236/604] DONE BIGTIME/USDT:USDT (538010 rows) | Remaining: 368
+[237/604] DONE SNT/USDT:USDT (538010 rows) | Remaining: 367
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[238/604] DONE PERP/USDT:USDT (538011 rows) | Remaining: 366
+[OK] Loaded leverage limits for 652 symbols
+[239/604] DONE GLM/USDT:USDT (538014 rows) | Remaining: 365
+[240/604] DONE GTC/USDT:USDT (538014 rows) | Remaining: 364
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[241/604] DONE PYTH/USDT:USDT (538016 rows) | Remaining: 363
+[OK] Loaded leverage limits for 652 symbols
+[242/604] DONE LIT/USDT:USDT (1500 rows) | Remaining: 362
+[OK] Loaded leverage limits for 652 symbols
+[243/604] DONE TOSHI/USDT:USDT (142500 rows) | Remaining: 361
+[OK] Loaded leverage limits for 652 symbols
+[244/604] DONE QUICK/USDT:USDT (538018 rows) | Remaining: 360
+[OK] Loaded leverage limits for 652 symbols
+[245/604] DONE JUP/USDT:USDT (538020 rows) | Remaining: 359
+[OK] Loaded leverage limits for 652 symbols
+[246/604] DONE DOOD/USDT:USDT (330000 rows) | Remaining: 358
+[OK] Loaded leverage limits for 652 symbols
+[247/604] DONE XPIN/USDT:USDT (149702 rows) | Remaining: 357
+[OK] Loaded leverage limits for 652 symbols
+[248/604] DONE USDC/USDT:USDT (538023 rows) | Remaining: 356
+[OK] Loaded leverage limits for 652 symbols
+[249/604] DONE VTHO/USDT:USDT (484500 rows) | Remaining: 355
+[OK] Loaded leverage limits for 652 symbols
+[250/604] DONE STEEM/USDT:USDT (538025 rows) | Remaining: 354
+[OK] Loaded leverage limits for 652 symbols
+[251/604] DONE JCT/USDT:USDT (64500 rows) | Remaining: 353
+[OK] Loaded leverage limits for 652 symbols
+[252/604] DONE ZKJ/USDT:USDT (325296 rows) | Remaining: 352
+[OK] Loaded leverage limits for 652 symbols
+[253/604] DONE USELESS/USDT:USDT (189000 rows) | Remaining: 351
+Warning: Failed to load leverage brackets: binance 429 Too Many Requests {"code":-1003,"msg":"Too many requests; current limit of IP(172.104.42.114) is 2400 requests per minute. Please use the websocket for live updates to avoid polling the API."}
+[254/604] DONE JELLYJELLY/USDT:USDT (394029 rows) | Remaining: 350
+[OK] Loaded leverage limits for 652 symbols
+[255/604] DONE LOKA/USDT:USDT (538030 rows) | Remaining: 349
+[OK] Loaded leverage limits for 652 symbols
+[256/604] DONE FXS/USDT:USDT (538032 rows) | Remaining: 348
+[OK] Loaded leverage limits for 652 symbols
+[257/604] DONE HOLO/USDT:USDT (150000 rows) | Remaining: 347
+[OK] Loaded leverage limits for 652 symbols
+[258/604] DONE ZRO/USDT:USDT (538034 rows) | Remaining: 346
+[OK] Loaded leverage limits for 652 symbols
+[259/604] DONE ILV/USDT:USDT (538034 rows) | Remaining: 345
+[OK] Loaded leverage limits for 652 symbols
+[260/604] DONE IDOL/USDT:USDT (250441 rows) | Remaining: 344
+[OK] Loaded leverage limits for 652 symbols
+[261/604] DONE BSV/USDT:USDT (538037 rows) | Remaining: 343
+[OK] Loaded leverage limits for 652 symbols
+[262/604] DONE CRV/USDT:USDT (538040 rows) | Remaining: 342
+[263/604] DONE THE/USDT:USDT (538040 rows) | Remaining: 341
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[264/604] DONE AVNT/USDT:USDT (153000 rows) | Remaining: 340
+[OK] Loaded leverage limits for 652 symbols
+[265/604] DONE ZRC/USDT:USDT (214416 rows) | Remaining: 339
+[OK] Loaded leverage limits for 652 symbols
+[266/604] DONE ZEN/USDT:USDT (538044 rows) | Remaining: 338
+[OK] Loaded leverage limits for 652 symbols
+[267/604] DONE IMX/USDT:USDT (538045 rows) | Remaining: 337
+[OK] Loaded leverage limits for 652 symbols
+[268/604] DONE SWARMS/USDT:USDT (506590 rows) | Remaining: 336
+[OK] Loaded leverage limits for 652 symbols
+[269/604] DONE GAS/USDT:USDT (538049 rows) | Remaining: 335
+[OK] Loaded leverage limits for 652 symbols
+[270/604] DONE OMNI/USDT:USDT (538049 rows) | Remaining: 334
+[OK] Loaded leverage limits for 652 symbols
+[271/604] DONE SUI/USDT:USDT (538050 rows) | Remaining: 333
+[OK] Loaded leverage limits for 652 symbols
+[272/604] DONE DENT/USDT:USDT (538053 rows) | Remaining: 332
+[OK] Loaded leverage limits for 652 symbols
+[273/604] DONE PORTAL/USDT:USDT (538054 rows) | Remaining: 331
+[OK] Loaded leverage limits for 652 symbols
+[274/604] DONE KSM/USDT:USDT (538055 rows) | Remaining: 330
+[OK] Loaded leverage limits for 652 symbols
+[275/604] DONE SYRUP/USDT:USDT (334026 rows) | Remaining: 329
+[OK] Loaded leverage limits for 652 symbols
+[276/604] DONE BEL/USDT:USDT (538059 rows) | Remaining: 328
+[OK] Loaded leverage limits for 652 symbols
+[277/604] DONE XRP/USDT:USDT (538060 rows) | Remaining: 327
+[OK] Loaded leverage limits for 652 symbols
+[278/604] DONE MASK/USDT:USDT (538062 rows) | Remaining: 326
+[OK] Loaded leverage limits for 652 symbols
+[279/604] DONE VIC/USDT:USDT (414000 rows) | Remaining: 325
+[OK] Loaded leverage limits for 652 symbols
+[280/604] DONE VFY/USDT:USDT (123000 rows) | Remaining: 324
+[281/604] DONE SKYAI/USDT:USDT (325318 rows) | Remaining: 323
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[282/604] DONE ZORA/USDT:USDT (220125 rows) | Remaining: 322
+[OK] Loaded leverage limits for 652 symbols
+[283/604] DONE SSV/USDT:USDT (538067 rows) | Remaining: 321
+[OK] Loaded leverage limits for 652 symbols
+[284/604] DONE C98/USDT:USDT (538067 rows) | Remaining: 320
+[OK] Loaded leverage limits for 652 symbols
+[285/604] DONE A/USDT:USDT (303000 rows) | Remaining: 319
+[OK] Loaded leverage limits for 652 symbols
+[286/604] DONE ZIL/USDT:USDT (538070 rows) | Remaining: 318
+[OK] Loaded leverage limits for 652 symbols
+[287/604] DONE ZRX/USDT:USDT (538073 rows) | Remaining: 317
+[OK] Loaded leverage limits for 652 symbols
+[288/604] DONE BTC/USDT:USDT (538075 rows) | Remaining: 316
+[289/604] DONE HIVE/USDT:USDT (528000 rows) | Remaining: 315
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[290/604] DONE TA/USDT:USDT (226106 rows) | Remaining: 314
+[OK] Loaded leverage limits for 652 symbols
+[291/604] DONE EPIC/USDT:USDT (412500 rows) | Remaining: 313
+[OK] Loaded leverage limits for 652 symbols
+[292/604] DONE PROM/USDT:USDT (495000 rows) | Remaining: 312
+[OK] Loaded leverage limits for 652 symbols
+[293/604] DONE GUN/USDT:USDT (387000 rows) | Remaining: 311
+[OK] Loaded leverage limits for 652 symbols
+[294/604] DONE SOL/USDT:USDT (538082 rows) | Remaining: 310
+[OK] Loaded leverage limits for 652 symbols
+[295/604] DONE B3/USDT:USDT (453000 rows) | Remaining: 309
+[OK] Loaded leverage limits for 652 symbols
+[296/604] DONE RENDER/USDT:USDT (538084 rows) | Remaining: 308
+[OK] Loaded leverage limits for 652 symbols
+[297/604] DONE YFI/USDT:USDT (538086 rows) | Remaining: 307
+[OK] Loaded leverage limits for 652 symbols
+[298/604] DONE KLAY/USDT:USDT (538088 rows) | Remaining: 306
+[OK] Loaded leverage limits for 652 symbols
+[299/604] DONE USTC/USDT:USDT (538089 rows) | Remaining: 305
+[OK] Loaded leverage limits for 652 symbols
+[300/604] DONE JOE/USDT:USDT (538090 rows) | Remaining: 304
+[OK] Loaded leverage limits for 652 symbols
+[301/604] DONE PAXG/USDT:USDT (392981 rows) | Remaining: 303
+[OK] Loaded leverage limits for 652 symbols
+[302/604] DONE MTL/USDT:USDT (538094 rows) | Remaining: 302
+[OK] Loaded leverage limits for 652 symbols
+[303/604] DONE XMR/USDT:USDT (538095 rows) | Remaining: 301
+[OK] Loaded leverage limits for 652 symbols
+[304/604] DONE TNSR/USDT:USDT (538095 rows) | Remaining: 300
+[OK] Loaded leverage limits for 652 symbols
+[305/604] DONE CC/USDT:USDT (78000 rows) | Remaining: 299
+[OK] Loaded leverage limits for 652 symbols
+[306/604] DONE HEMI/USDT:USDT (169500 rows) | Remaining: 298
+[OK] Loaded leverage limits for 652 symbols
+[307/604] DONE BB/USDT:USDT (538098 rows) | Remaining: 297
+[OK] Loaded leverage limits for 652 symbols
+[308/604] DONE RUNE/USDT:USDT (538101 rows) | Remaining: 296
+[OK] Loaded leverage limits for 652 symbols
+[309/604] DONE DEGEN/USDT:USDT (538102 rows) | Remaining: 295
+[OK] Loaded leverage limits for 652 symbols
+[310/604] DONE BMT/USDT:USDT (406500 rows) | Remaining: 294
+[311/604] DONE NOM/USDT:USDT (121500 rows) | Remaining: 293
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[312/604] DONE LINEA/USDT:USDT (165000 rows) | Remaining: 292
+[OK] Loaded leverage limits for 652 symbols
+[313/604] DONE BLESS/USDT:USDT (133500 rows) | Remaining: 291
+Warning: Failed to load markets on init: binance 429 Too Many Requests {"code":-1003,"msg":"Too many requests; current limit of IP(172.104.42.114) is 2400 requests per minute. Please use the websocket for live updates to avoid polling the API."}
+[314/604] DONE ACT/USDT:USDT (538105 rows) | Remaining: 290
+Warning: Failed to load leverage brackets: binance 429 Too Many Requests {"code":-1003,"msg":"Too many requests; current limit of IP(172.104.42.114) is 2400 requests per minute. Please use the websocket for live updates to avoid polling the API."}
+[315/604] DONE REN/USDT:USDT (538108 rows) | Remaining: 289
+[OK] Loaded leverage limits for 652 symbols
+[316/604] DONE ETH/USDT:USDT (538108 rows) | Remaining: 288
+[OK] Loaded leverage limits for 652 symbols
+[317/604] DONE AVAX/USDT:USDT (538109 rows) | Remaining: 287
+Warning: Failed to load markets on init: binance 429 Too Many Requests {"code":-1003,"msg":"Too many requests; current limit of IP(172.104.42.114) is 2400 requests per minute. Please use the websocket for live updates to avoid polling the API."}
+[318/604] DONE ICX/USDT:USDT (538112 rows) | Remaining: 286
+[OK] Loaded leverage limits for 652 symbols
+[319/604] DONE ATA/USDT:USDT (538113 rows) | Remaining: 285
+Warning: Failed to load leverage brackets: binance 429 Too Many Requests {"code":-1003,"msg":"Too many requests; current limit of IP(172.104.42.114) is 2400 requests per minute. Please use the websocket for live updates to avoid polling the API."}
+[320/604] DONE TUT/USDT:USDT (403173 rows) | Remaining: 284
+[OK] Loaded leverage limits for 652 symbols
+[321/604] DONE VELVET/USDT:USDT (234000 rows) | Remaining: 283
+[OK] Loaded leverage limits for 652 symbols
+[322/604] DONE 1000RATS/USDT:USDT (538116 rows) | Remaining: 282
+[OK] Loaded leverage limits for 652 symbols
+[323/604] DONE FOLKS/USDT:USDT (70326 rows) | Remaining: 281
+[OK] Loaded leverage limits for 652 symbols
+[324/604] DONE SAPIEN/USDT:USDT (181500 rows) | Remaining: 280
+[325/604] DONE EPT/USDT:USDT (356858 rows) | Remaining: 279
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[326/604] DONE SENT/USDT:USDT (58500 rows) | Remaining: 278
+[327/604] DONE ENS/USDT:USDT (538119 rows) | Remaining: 277
+[OK] Loaded leverage limits for 652 symbols
+[328/604] DONE ZKP/USDT:USDT (5679 rows) | Remaining: 276
+[OK] Loaded leverage limits for 652 symbols
+[329/604] DONE 4/USDT:USDT (112149 rows) | Remaining: 275
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[330/604] DONE MANTA/USDT:USDT (538123 rows) | Remaining: 274
+[OK] Loaded leverage limits for 652 symbols
+[331/604] DONE DOGE/USDT:USDT (538124 rows) | Remaining: 273
+[332/604] DONE DRIFT/USDT:USDT (538124 rows) | Remaining: 272
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[333/604] DONE NEIROETH/USDT:USDT (538128 rows) | Remaining: 271
+[OK] Loaded leverage limits for 652 symbols
+[334/604] DONE NTRN/USDT:USDT (538128 rows) | Remaining: 270
+[OK] Loaded leverage limits for 652 symbols
+[335/604] DONE RVN/USDT:USDT (538130 rows) | Remaining: 269
+[OK] Loaded leverage limits for 652 symbols
+[336/604] DONE TON/USDT:USDT (538132 rows) | Remaining: 268
+[OK] Loaded leverage limits for 652 symbols
+[337/604] DONE BAL/USDT:USDT (538133 rows) | Remaining: 267
+[OK] Loaded leverage limits for 652 symbols
+[338/604] DONE KAIA/USDT:USDT (538135 rows) | Remaining: 266
+[OK] Loaded leverage limits for 652 symbols
+[339/604] DONE TAKE/USDT:USDT (162000 rows) | Remaining: 265
+[OK] Loaded leverage limits for 652 symbols
+[340/604] DONE NEIRO/USDT:USDT (538137 rows) | Remaining: 264
+[OK] Loaded leverage limits for 652 symbols
+[341/604] DONE OMG/USDT:USDT (538139 rows) | Remaining: 263
+[OK] Loaded leverage limits for 652 symbols
+[342/604] DONE BANANA/USDT:USDT (538140 rows) | Remaining: 262
+[OK] Loaded leverage limits for 652 symbols
+[343/604] DONE DAR/USDT:USDT (538141 rows) | Remaining: 261
+[OK] Loaded leverage limits for 652 symbols
+[344/604] DONE YALA/USDT:USDT (201000 rows) | Remaining: 260
+[OK] Loaded leverage limits for 652 symbols
+[345/604] DONE NFP/USDT:USDT (538145 rows) | Remaining: 259
+[OK] Loaded leverage limits for 652 symbols
+[346/604] DONE IDEX/USDT:USDT (538145 rows) | Remaining: 258
+[OK] Loaded leverage limits for 652 symbols
+[347/604] DONE MYRO/USDT:USDT (538146 rows) | Remaining: 257
+[OK] Loaded leverage limits for 652 symbols
+[348/604] DONE ONG/USDT:USDT (538149 rows) | Remaining: 256
+[OK] Loaded leverage limits for 652 symbols
+[349/604] DONE WAXP/USDT:USDT (538149 rows) | Remaining: 255
+[OK] Loaded leverage limits for 652 symbols
+[350/604] DONE KAITO/USDT:USDT (442500 rows) | Remaining: 254
+[OK] Loaded leverage limits for 652 symbols
+[351/604] DONE SLP/USDT:USDT (223047 rows) | Remaining: 253
+[OK] Loaded leverage limits for 652 symbols
+[352/604] DONE NEWT/USDT:USDT (271500 rows) | Remaining: 252
+[OK] Loaded leverage limits for 652 symbols
+[353/604] DONE IRYS/USDT:USDT (40500 rows) | Remaining: 251
+[OK] Loaded leverage limits for 652 symbols
+[354/604] DONE FLUX/USDT:USDT (538154 rows) | Remaining: 250
+[355/604] DONE DOLO/USDT:USDT (343094 rows) | Remaining: 249
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[356/604] DONE DIA/USDT:USDT (219000 rows) | Remaining: 248
+[357/604] DONE FHE/USDT:USDT (177000 rows) | Remaining: 247
+[358/604] DONE REI/USDT:USDT (220500 rows) | Remaining: 246
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654152482&recvWindow=60000&signature=3317a0ec21e5f02e9ce940080319a2c6c128c0f504fb9747006ae054983a739a
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654152603&recvWindow=60000&signature=abb5f47a824ca593f5e3de4711f71b4be997603e2e718b70afd485defc17f06a
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654152665&recvWindow=60000&signature=b24807553918e84d08f61a2cccb93888d5c8ae63c053a74dee22f84e1ba8df13
+[359/604] EMPTY BICO/USDT:USDT | Remaining: 245
+[360/604] EMPTY WCT/USDT:USDT | Remaining: 244
+[361/604] EMPTY C/USDT:USDT | Remaining: 243
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654217580&recvWindow=60000&signature=6a9482e6ee0f380e6f3563e4eb44de3302c741fa883744b3c8fc2fd9a887fea8
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654217665&recvWindow=60000&signature=e7626175e7d66b1ba4ea7479335b9ea8165834e7e00abaeddceb435c9156484d
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654217737&recvWindow=60000&signature=c11528d471b071602360da1e35d0ec36554ed7ca76546e0dce12f710a34ffdf7
+[362/604] EMPTY KOMA/USDT:USDT | Remaining: 242
+[363/604] EMPTY FLM/USDT:USDT | Remaining: 241
+[364/604] EMPTY GUA/USDT:USDT | Remaining: 240
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654282639&recvWindow=60000&signature=75de032db50698c21d40c4a5b6c75536ec7d6eef2063d8f4dcd83edeb2646a6d
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654282708&recvWindow=60000&signature=1e5a0f419bd299657eea70931d9e74c8804c690b1fdc74e0124185857969f2a0
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654282817&recvWindow=60000&signature=11dfaea4dddc39401b703edc20d0baae5daacc88938937f6639725495c972db7
+[365/604] EMPTY UNI/USDT:USDT | Remaining: 239
+[366/604] EMPTY MAGIC/USDT:USDT | Remaining: 238
+[367/604] EMPTY H/USDT:USDT | Remaining: 237
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654356732&recvWindow=60000&signature=dedf222e40078704183dcf51f86228acea333e3c40dd9ec3fe42ca29c66f288d
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654356746&recvWindow=60000&signature=3be8ddb8fcfc6b31ef6502803f93d3b675bc1ad6997877fd24b5f07b0cd83339
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654356858&recvWindow=60000&signature=ad994210c3c9ecb53754e23d77cafd8b0d4b3bf27309cb7fc0da96df040541c7
+[368/604] EMPTY HOOK/USDT:USDT | Remaining: 236
+[369/604] EMPTY GIGGLE/USDT:USDT | Remaining: 235
+[370/604] EMPTY HOME/USDT:USDT | Remaining: 234
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654421821&recvWindow=60000&signature=c64a7ac700dfa3be8e056ac85539c5a342457194e44911220c0e527e65a24fd3
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654421823&recvWindow=60000&signature=355f70b8aeef73ec0838129810be63d135b99450c48bc45c96087647882bedd9
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654421895&recvWindow=60000&signature=d66905defafd9e6b741f0dac20d6204eec7d5740554adb4271766d6c6ac4e686
+[371/604] EMPTY MEMEFI/USDT:USDT | Remaining: 233
+[372/604] EMPTY SXT/USDT:USDT | Remaining: 232
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654486866&recvWindow=60000&signature=964c245cddd23e23bb20cd46480c489bf65b1948bc001f55a6cce63fbd0776c2
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654486901&recvWindow=60000&signature=48b2d16b638789f2eb88e84e787530e90e9485644f76da3ad7eb95f81c6f71ab
+[373/604] EMPTY COMP/USDT:USDT | Remaining: 231
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654505948&recvWindow=60000&signature=794fd6c1876f41e5c5c99620b2fda6d4df2321773fee57426c75f31b206f9494
+[374/604] EMPTY DYDX/USDT:USDT | Remaining: 230
+[375/604] EMPTY IR/USDT:USDT | Remaining: 229
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654551931&recvWindow=60000&signature=54a39872013186a219c853d5019d8b97ebbc0643ca3579e30752239997612c8f
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654551954&recvWindow=60000&signature=0b8e2d6881d492653a73b602c98ba2a76c69099b9e6c28f189b96c4ad5d69df5
+[376/604] EMPTY SOLV/USDT:USDT | Remaining: 228
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654571645&recvWindow=60000&signature=25bf1abadb85d3af0300abae7d267b4e1e659bc95310878d9cabcd67f9bc169f
+[377/604] EMPTY BABY/USDT:USDT | Remaining: 227
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654617014&recvWindow=60000&signature=106df95e07f0cb6421897c73cb453d90ef8b3875f845603a10da8b8588e5e60c
+[378/604] EMPTY MKR/USDT:USDT | Remaining: 226
+[379/604] EMPTY PLAY/USDT:USDT | Remaining: 225
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654636001&recvWindow=60000&signature=496a99b73d77515c890eb3336c1326c30fad7a8b616e1da82dc8c863e6a8513f
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654636713&recvWindow=60000&signature=e997bd91584fa8fc7e5ff8d7e2008a04d76432591a57e3b8e921d75af5dbc1a6
+[380/604] EMPTY FORTH/USDT:USDT | Remaining: 224
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654682422&recvWindow=60000&signature=a67d76694d20c01291ea557dbbd3afbdb61a0d17c4a69a7ac6b7d9c3258004bf
+[381/604] EMPTY DEEP/USDT:USDT | Remaining: 223
+[382/604] EMPTY ICNT/USDT:USDT | Remaining: 222
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654701387&recvWindow=60000&signature=986c6874c8077ab2efe3abe1bd9c307c908b2c3f8a18f74b5c6401c0c07b3144
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654702101&recvWindow=60000&signature=1a8cb9e8ed67fe8c4992ffb9035db1de1234c7da740cfe7a61a40f2d4e03831d
+[383/604] EMPTY ATOM/USDT:USDT | Remaining: 221
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654747568&recvWindow=60000&signature=da0171fe5e159ce7c2789d3bae093ab018d6459a1043653fdf8e28fdc83cfcb4
+[384/604] EMPTY RARE/USDT:USDT | Remaining: 220
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654767198&recvWindow=60000&signature=46db137f5880cc8e983d41c3c30e4f54d3a9e4eddd1b5f4d5c3c9faeac69e129
+[385/604] EMPTY CUDIS/USDT:USDT | Remaining: 219
+[386/604] EMPTY RLS/USDT:USDT | Remaining: 218
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654805462&recvWindow=60000&signature=03557f192f68e2806c26a872ca3743048c616763a099e149a73287f2e5f63631
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654812650&recvWindow=60000&signature=95f0c0e9721e512113e45dea23a289ba00423f955294bc0445790299024b7376
+[387/604] EMPTY XTZ/USDT:USDT | Remaining: 217
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654832270&recvWindow=60000&signature=4b53d30825cd110e33841b7a6c26262a9279f4b4191805961aa1be7da80f923b
+[388/604] EMPTY ACX/USDT:USDT | Remaining: 216
+[389/604] EMPTY XAI/USDT:USDT | Remaining: 215
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654870536&recvWindow=60000&signature=c212a3d48e3724b8700f95b50fc51f9e9d93fd150eddef861116b46ff2c24b74
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654877700&recvWindow=60000&signature=21766d01d2b4c3261663454968e543816f82e717c23895c54cfccabf28c26bcf
+[390/604] EMPTY REEF/USDT:USDT | Remaining: 214
+[391/604] EMPTY AWE/USDT:USDT | Remaining: 213
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654926372&recvWindow=60000&signature=6dfe377934b2246f068e537ad4c73129e17fe593a054da84eb569b28ca9ac1e7
+[392/604] EMPTY POL/USDT:USDT | Remaining: 212
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654935586&recvWindow=60000&signature=4f750ce2c7f43d5960900d01da7cf49815d9cf57970afa82cc019ff46d2e3a7b
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654942768&recvWindow=60000&signature=b033d9cfe30fae8160c0d0611dd74bffe27e70bdbd565ccd0ed92afb4ae6c077
+[393/604] EMPTY QNT/USDT:USDT | Remaining: 211
+[394/604] EMPTY COAI/USDT:USDT | Remaining: 210
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766654991430&recvWindow=60000&signature=2f926d5698607a581b39fa0d3967ced85a934b421c492ef05982d4c762593074
+[395/604] EMPTY XEM/USDT:USDT | Remaining: 209
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766655000637&recvWindow=60000&signature=050bab24e98d35a761565d00320ae7881541414c71393cba3218c8198af652b9
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766655007818&recvWindow=60000&signature=9e9874e553c6460652ef8c50513ecc0f97caa9e405d62fceff045d2136081f72
+[396/604] EMPTY WOO/USDT:USDT | Remaining: 208
+[397/604] EMPTY BOB/USDT:USDT | Remaining: 207
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766655056494&recvWindow=60000&signature=6878d1e562505368f19b19367ec1c9df8653f1d3cbc72de8f62b0de7b898a0b2
+[398/604] EMPTY AMB/USDT:USDT | Remaining: 206
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766655065691&recvWindow=60000&signature=6ba17f5164ebfbcaf20cfeedce932e9e65cbd9996fb9fd4368dae7f76c5abacc
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766655072901&recvWindow=60000&signature=135c04a5dec2a716c502252b34e87344486627e01dd544fc03b9fb7fc066220c
+[399/604] EMPTY SONIC/USDT:USDT | Remaining: 205
+[400/604] EMPTY CETUS/USDT:USDT | Remaining: 204
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766655121553&recvWindow=60000&signature=8a44a3389787aaa5cad6980ae0e2bd81d5207e3c7053016a73062dc632936ede
+[401/604] EMPTY BTCDOM/USDT:USDT | Remaining: 203
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766655130770&recvWindow=60000&signature=aec91e6747740ca3a731d3059aa216fcfb8420baf24b7f1e13d00777690846d6
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766655132972&recvWindow=60000&signature=f2bc946e95634a3f8c5f9ba15819bf6f22065e524af5a2389ea22a02d2805af6
+[402/604] EMPTY LEVER/USDT:USDT | Remaining: 202
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766655161639&recvWindow=60000&signature=2ef84e7f7a7b47142845fd76389f2e0da8685d295bb62ad6591e9e5f8d8115f4
+[403/604] EMPTY QTUM/USDT:USDT | Remaining: 201
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766655168044&recvWindow=60000&signature=ca72edccb06c0966977f80caa9e5526f03551620d5835839f5450afaf5145cb4
+[404/604] DONE STBL/USDT:USDT (142500 rows) | Remaining: 200
+[OK] Loaded leverage limits for 652 symbols
+[405/604] DONE ALPHA/USDT:USDT (538178 rows) | Remaining: 199
+[406/604] DONE AKT/USDT:USDT (538178 rows) | Remaining: 198
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[407/604] DONE MORPHO/USDT:USDT (538182 rows) | Remaining: 197
+[OK] Loaded leverage limits for 652 symbols
+[408/604] DONE TLM/USDT:USDT (538182 rows) | Remaining: 196
+[OK] Loaded leverage limits for 652 symbols
+[409/604] DONE SUSHI/USDT:USDT (538183 rows) | Remaining: 195
+[OK] Loaded leverage limits for 652 symbols
+[410/604] DONE TRUST/USDT:USDT (72000 rows) | Remaining: 194
+[OK] Loaded leverage limits for 652 symbols
+[411/604] DONE BSW/USDT:USDT (538186 rows) | Remaining: 193
+[OK] Loaded leverage limits for 652 symbols
+[412/604] DONE SLERF/USDT:USDT (538187 rows) | Remaining: 192
+[OK] Loaded leverage limits for 652 symbols
+[413/604] DONE AI16Z/USDT:USDT (513000 rows) | Remaining: 191
+[414/604] DONE AIA/USDT:USDT (141000 rows) | Remaining: 190
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[415/604] DONE PIEVERSE/USDT:USDT (58500 rows) | Remaining: 189
+[OK] Loaded leverage limits for 652 symbols
+[416/604] DONE LDO/USDT:USDT (150000 rows) | Remaining: 188
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656229689&recvWindow=60000&signature=615d85afc98396967e9347edb67a540530bfe51cc0a101c4b1dd4f7df1b89221
+[417/604] EMPTY TRADOOR/USDT:USDT | Remaining: 187
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656235110&recvWindow=60000&signature=273362cf58961fac108ce868638cce617d25f18088eadc970100dc34360f4bfb
+[418/604] DONE MAV/USDT:USDT (382500 rows) | Remaining: 186
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656242211&recvWindow=60000&signature=45ab1b88a962656b032de5a09475d5329862c77fddeaa3a85067a90f35ed4f42
+[419/604] DONE ROSE/USDT:USDT (537000 rows) | Remaining: 185
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656242550&recvWindow=60000&signature=b89d2a94eafb10cd8db8efee5a098e6fad68c2cfd0e128c81a7149d58f49e43c
+[420/604] EMPTY XNY/USDT:USDT | Remaining: 184
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656247628&recvWindow=60000&signature=65d897ed2065991c4e81813a3072c4cdfcdf14ddf2b40a13e705e7fc1a63c58c
+[421/604] EMPTY MOODENG/USDT:USDT | Remaining: 183
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656247899&recvWindow=60000&signature=6409e66e866dfed234db38594b7d902da407482e1049714ca7402f6307b10a6d
+[422/604] EMPTY ALPACA/USDT:USDT | Remaining: 182
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656252983&recvWindow=60000&signature=186e6f4145e7e9b52a8a6f23a0271707346e136aa5f8cb43d357ed4b17f79508
+[423/604] EMPTY CTK/USDT:USDT | Remaining: 181
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656253303&recvWindow=60000&signature=fb45082692e948537746bba1822dab9e3944b8d7ded284dac161c6166d481eb6
+[424/604] EMPTY KMNO/USDT:USDT | Remaining: 180
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656259656&recvWindow=60000&signature=c1c0069f5dd1cfb8c40282709995f3a491d81c82e0224eab39e8061c017462d6
+[425/604] EMPTY VOXEL/USDT:USDT | Remaining: 179
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656265019&recvWindow=60000&signature=2759adfb4675bea36ac529f2107acf956bad5a8a9e80125897455cd2abcd299b
+[426/604] EMPTY KERNEL/USDT:USDT | Remaining: 178
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656270382&recvWindow=60000&signature=ae5bbf0960396c0e3b700a89e422f502cc91b2ab485953c31ba7def80bc1db02
+[427/604] EMPTY HAEDAL/USDT:USDT | Remaining: 177
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656275767&recvWindow=60000&signature=ca1a18ef7a04bcd216e76dc176c1d9499fe03f68b40c08dc0a2fc0dcaaa8f49b
+[428/604] EMPTY DOGS/USDT:USDT | Remaining: 176
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656281178&recvWindow=60000&signature=4b7e9c7d5f2dcd97ccc314482d1dfbf920a7bb1596b95ec04b764ef6b0954cc2
+[429/604] EMPTY IP/USDT:USDT | Remaining: 175
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656286321&recvWindow=60000&signature=5ded0206f73884bb746b74e328733481a9e4dee80aec8b017c7032aa527885ec
+[430/604] EMPTY F/USDT:USDT | Remaining: 174
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656286592&recvWindow=60000&signature=c6b96aaa8f509dc569198173ca5c24109b41e62dc32c40df1e284f4607deae24
+[431/604] EMPTY 1000XEC/USDT:USDT | Remaining: 173
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656290576&recvWindow=60000&signature=e9e5d566d6fb3fc29cf7ba6c3eff2024f815b364b21d4fca0b75380cbeeb6a8a
+[432/604] EMPTY EDU/USDT:USDT | Remaining: 172
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656291695&recvWindow=60000&signature=29f8631cc2e3f3d69a25f1add90f27270b80865ac5f70aa2bb28eb2a2484575f
+[433/604] EMPTY NAORIS/USDT:USDT | Remaining: 171
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656291946&recvWindow=60000&signature=23829056695edbf31d1d4f92bdc3b22a48911ea996e996e74b5ea54d2c7fa1e8
+[434/604] EMPTY MYX/USDT:USDT | Remaining: 170
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656295920&recvWindow=60000&signature=3bb04d116b7f076b87d9c30baa9b8694f979e10c804ca3192959dc2281012c10
+[435/604] EMPTY MMT/USDT:USDT | Remaining: 169
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656297033&recvWindow=60000&signature=92b629753ebb189c68fa693f5a19b939138894f03471275f2b320f5b9d3b1323
+[436/604] EMPTY ETC/USDT:USDT | Remaining: 168
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656297312&recvWindow=60000&signature=744cca36afd47a7aae2a3c91063c480effcf555fbd70f0c5f4ffa96aef4fd99a
+[437/604] EMPTY FIS/USDT:USDT | Remaining: 167
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656301278&recvWindow=60000&signature=9a46cfa2504ae6233732b86a42c01d0134c73b961bb1e311ac5efcaf8ebd3a9a
+[438/604] EMPTY UXLINK/USDT:USDT | Remaining: 166
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656312627&recvWindow=60000&signature=79b3acb9a0180976e5edb1e3c5f230438bb4f1c10330f727b4ddd912030317bd
+[439/604] EMPTY T/USDT:USDT | Remaining: 165
+[440/604] EMPTY METIS/USDT:USDT | Remaining: 164
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656351375&recvWindow=60000&signature=f7ba34722fec16fae64ea3f12a6eb79a11a999fe48d915d0eb78433560917e57
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656356387&recvWindow=60000&signature=13c24265c1adfa85d9aa5015237d7a5d9d35a5a1746c179c0fcc5c9cba695635
+[441/604] EMPTY ACE/USDT:USDT | Remaining: 163
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656377686&recvWindow=60000&signature=1db01a55f045d479d6e4be2098894ba30051c0261d0768bca470a4b0e6ccc723
+[442/604] EMPTY TRX/USDT:USDT | Remaining: 162
+[443/604] EMPTY AXL/USDT:USDT | Remaining: 161
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656416440&recvWindow=60000&signature=a294868ec433d941a0faa81a1058b1c6f9c58a999d694c063cfef19affeb2f9f
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656421452&recvWindow=60000&signature=09fa3e181e3f1a410a86a5ea13324db1d4d6b5dbcaf764d408e8810cae90c5a1
+[444/604] EMPTY OGN/USDT:USDT | Remaining: 160
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656442744&recvWindow=60000&signature=a9bee846da77b020241424163b10bac75abd25fa25f96353ab49420678691cb7
+[445/604] EMPTY TOKEN/USDT:USDT | Remaining: 159
+[446/604] EMPTY OM/USDT:USDT | Remaining: 158
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656481569&recvWindow=60000&signature=2acc06bbf4784155b6d0066d72579798cebdd9e93c215ed2c5b97843a7d5fd6f
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656486577&recvWindow=60000&signature=b874c2c9a69a1ce46c439fc824ce4cd26d1ef88e2b829bd18401f6a2e7d0d754
+[447/604] EMPTY GLMR/USDT:USDT | Remaining: 157
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656507879&recvWindow=60000&signature=c3eb5496a31c44f3fc3216d0e961c02cbb18971fac41b4409a0438a86908bcee
+[448/604] EMPTY CVX/USDT:USDT | Remaining: 156
+[449/604] EMPTY TAIKO/USDT:USDT | Remaining: 155
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656546640&recvWindow=60000&signature=6e50cfbb8096f7972dbe71933838958b070c03d6506a9e4133693d5e3b1e7490
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766656551644&recvWindow=60000&signature=6dad5ffed770b3793bfd6aef9c6ed51b623e14850eef2a8f8df8b6b02bb50c0a
+[450/604] DONE UAI/USDT:USDT (70468 rows) | Remaining: 154
+[OK] Loaded leverage limits for 652 symbols
+[451/604] DONE BULLA/USDT:USDT (250500 rows) | Remaining: 153
+[OK] Loaded leverage limits for 652 symbols
+[452/604] DONE RONIN/USDT:USDT (538201 rows) | Remaining: 152
+[OK] Loaded leverage limits for 652 symbols
+[453/604] DONE VIRTUAL/USDT:USDT (538203 rows) | Remaining: 151
+[OK] Loaded leverage limits for 652 symbols
+[454/604] DONE SKL/USDT:USDT (538204 rows) | Remaining: 150
+[OK] Loaded leverage limits for 652 symbols
+[455/604] DONE BOME/USDT:USDT (538206 rows) | Remaining: 149
+[OK] Loaded leverage limits for 652 symbols
+[456/604] DONE CTSI/USDT:USDT (538208 rows) | Remaining: 148
+[OK] Loaded leverage limits for 652 symbols
+[457/604] DONE HOT/USDT:USDT (538208 rows) | Remaining: 147
+[OK] Loaded leverage limits for 652 symbols
+[458/604] DONE ZKC/USDT:USDT (145209 rows) | Remaining: 146
+[OK] Loaded leverage limits for 652 symbols
+[459/604] DONE LYN/USDT:USDT (115359 rows) | Remaining: 145
+[OK] Loaded leverage limits for 652 symbols
+[460/604] DONE AGIX/USDT:USDT (538210 rows) | Remaining: 144
+[OK] Loaded leverage limits for 652 symbols
+[461/604] DONE SAGA/USDT:USDT (538213 rows) | Remaining: 143
+Warning: Failed to load leverage brackets: binance 429 Too Many Requests {"code":-1003,"msg":"Too many requests; current limit of IP(172.104.42.114) is 2400 requests per minute. Please use the websocket for live updates to avoid polling the API."}
+[462/604] DONE STG/USDT:USDT (538214 rows) | Remaining: 142
+[OK] Loaded leverage limits for 652 symbols
+[463/604] DONE NOT/USDT:USDT (538215 rows) | Remaining: 141
+[OK] Loaded leverage limits for 652 symbols
+[464/604] DONE PROVE/USDT:USDT (204000 rows) | Remaining: 140
+[OK] Loaded leverage limits for 652 symbols
+[465/604] DONE NXPC/USDT:USDT (322500 rows) | Remaining: 139
+[OK] Loaded leverage limits for 652 symbols
+[466/604] DONE LRC/USDT:USDT (538218 rows) | Remaining: 138
+[OK] Loaded leverage limits for 652 symbols
+[467/604] DONE JASMY/USDT:USDT (538219 rows) | Remaining: 137
+[OK] Loaded leverage limits for 652 symbols
+[468/604] DONE SCR/USDT:USDT (538222 rows) | Remaining: 136
+[OK] Loaded leverage limits for 652 symbols
+[469/604] DONE SAND/USDT:USDT (538222 rows) | Remaining: 135
+Warning: Failed to load markets on init: binance 429 Too Many Requests {"code":-1003,"msg":"Too many requests; current limit of IP(172.104.42.114) is 2400 requests per minute. Please use the websocket for live updates to avoid polling the API."}
+[470/604] DONE ARPA/USDT:USDT (538224 rows) | Remaining: 134
+[OK] Loaded leverage limits for 652 symbols
+[471/604] DONE PROMPT/USDT:USDT (371755 rows) | Remaining: 133
+[OK] Loaded leverage limits for 652 symbols
+[472/604] DONE LISTA/USDT:USDT (538227 rows) | Remaining: 132
+[OK] Loaded leverage limits for 652 symbols
+[473/604] DONE ZK/USDT:USDT (538228 rows) | Remaining: 131
+Warning: Failed to load markets on init: binance 429 Too Many Requests {"code":-1003,"msg":"Too many requests; current limit of IP(172.104.42.114) is 2400 requests per minute. Please use the websocket for live updates to avoid polling the API."}
+[474/604] DONE NMR/USDT:USDT (193500 rows) | Remaining: 130
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766658787557&recvWindow=60000&signature=14a72d1a3f7334b6372adaa1da4cb4406eb7f8564d675599562d5feff408952f
+[475/604] DONE MBOX/USDT:USDT (396000 rows) | Remaining: 129
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766658788796&recvWindow=60000&signature=f2e903cb14c26eefd586b2cbf1ce6eb9f12336b9665558565d8190fc1686bc27
+[476/604] EMPTY SKY/USDT:USDT | Remaining: 128
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766658792085&recvWindow=60000&signature=c71b9e4368887d2219b8d57afcbd0dd135ec2d861defd88bd575eecfacbd453c
+[477/604] EMPTY VET/USDT:USDT | Remaining: 127
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766658792704&recvWindow=60000&signature=f131350d3b6e47183354bdd6b1afdc7aae3f6020b25b431acb97d9cb28b5def5
+[478/604] EMPTY RAYSOL/USDT:USDT | Remaining: 126
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766658797815&recvWindow=60000&signature=4a93aa79abcacdd5c9f2849c5360365cf87cdc1ed12022400f2dd1f18e708858
+[479/604] EMPTY FLOW/USDT:USDT | Remaining: 125
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766658802908&recvWindow=60000&signature=cb793270d3ca953e01c4413964fc40190c5a1e90a2e53bd1848f3205342922c8
+[480/604] EMPTY GMT/USDT:USDT | Remaining: 124
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766658802920&recvWindow=60000&signature=1ce95aeb8618225ab4e69bbce705d1dbf974e11334762b958893770d1503053d
+[481/604] EMPTY 1000X/USDT:USDT | Remaining: 123
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766658806185&recvWindow=60000&signature=ea46590a451c1441de7dfb364a0423c36c93758ff5038e1d087668c807c0d0af
+[482/604] EMPTY WAL/USDT:USDT | Remaining: 122
+[483/604] EMPTY HYPER/USDT:USDT | Remaining: 121
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766658808017&recvWindow=60000&signature=d5266c679254baef170de4b1da43a0dfc944ef09bd1e7062df02af655ddf5a24
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766658808023&recvWindow=60000&signature=05f6c7e9e23ab44344184c1ff0a1a415ee6c6266de11c215653780291629664f
+[484/604] EMPTY COTI/USDT:USDT | Remaining: 120
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766658811303&recvWindow=60000&signature=ff6cadd729107345962b5fdb6689e1b7fe048d4e74d4592e149d3383d1d50632
+[485/604] EMPTY LINK/USDT:USDT | Remaining: 119
+[486/604] EMPTY BEAMX/USDT:USDT | Remaining: 118
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766658813121&recvWindow=60000&signature=22166e54d44d3bf59391d82e0032bac8a2dc908a9c3cba368f4d385e0af286b4
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766658813127&recvWindow=60000&signature=c3178be2309e832f8cf252a39fcfe28689d6625801be2413b184dcff766848e2
+[487/604] EMPTY STO/USDT:USDT | Remaining: 117
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766658816412&recvWindow=60000&signature=064f10eeb8dc54ff8a4d14cbbe0a0ed00712c7cb1201e6516ce85bc7868538e0
+[488/604] EMPTY TIA/USDT:USDT | Remaining: 116
+[489/604] EMPTY RPL/USDT:USDT | Remaining: 115
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766659590901&recvWindow=60000&signature=ace175304366dced030fae91154aabaf670e0a39ab858c7ec6c4835843f5feca
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766659590906&recvWindow=60000&signature=d681f969f0c0af93c08e366b5e2dc505da7a0b6232c78842fb70f8874f1e0a25
+[490/604] EMPTY HYPE/USDT:USDT | Remaining: 114
+[491/604] EMPTY TAO/USDT:USDT | Remaining: 113
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766659596023&recvWindow=60000&signature=5d3caaed3050dff821080994a264da2c8c1b1297cc70a544df78a19ecbecae8c
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766659596040&recvWindow=60000&signature=40be41cd3b80c954145aa41ebf4854aa339c5b4d5fc78e19642dba0898a1f3cf
+[492/604] EMPTY BEAT/USDT:USDT | Remaining: 112
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766659601113&recvWindow=60000&signature=ec094db3d8d49c700a5ba0e4c391dd783914c3147ee4a5aa6fa45f789192a43b
+[493/604] EMPTY ANIME/USDT:USDT | Remaining: 111
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766659601134&recvWindow=60000&signature=dc559c582298d0a952234ace90aaac446af3c0c7ee0843c011b74a0efae3a6c7
+[494/604] EMPTY KAVA/USDT:USDT | Remaining: 110
+[495/604] EMPTY OBOL/USDT:USDT | Remaining: 109
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766659609609&recvWindow=60000&signature=4b6ca05bce41ff9b61fcecd8787fb3f7611e7b1378a68e32149649b5d32c5f59
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766659608957&recvWindow=60000&signature=042ba6e87a4af8ab929c93b687d141fc0788ade0a73608e273bc7328af7a5dee
+[496/604] EMPTY PUMP/USDT:USDT | Remaining: 108
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766659624583&recvWindow=60000&signature=8c05096720ce22722b574911fd9d418a5a39a4e55e0dfd33f7ba6f64268a09f0
+[497/604] EMPTY TRB/USDT:USDT | Remaining: 107
+[498/604] EMPTY MITO/USDT:USDT | Remaining: 106
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766659631967&recvWindow=60000&signature=4fa663d18a1c775f08c59254a9112e47ec3233cb62f2e641514c967c7ae031b1
+Warning: Failed to load markets on init: binance GET https://api.binance.com/sapi/v1/capital/config/getall?timestamp=1766659632780&recvWindow=60000&signature=e171fba0e26efffbd62eeaae27a32c11b5ce23f89a0765e0e9401d60037f77c0
+[499/604] DONE STPT/USDT:USDT (538273 rows) | Remaining: 105
+[OK] Loaded leverage limits for 652 symbols
+[500/604] DONE POWR/USDT:USDT (538274 rows) | Remaining: 104
+Warning: Failed to load markets on init: binance GET https://dapi.binance.com/dapi/v1/exchangeInfo
+[501/604] DONE FF/USDT:USDT (124500 rows) | Remaining: 103
+[OK] Loaded leverage limits for 652 symbols
+[502/604] DONE KNC/USDT:USDT (538276 rows) | Remaining: 102
+[OK] Loaded leverage limits for 652 symbols
+[503/604] DONE BAKE/USDT:USDT (538279 rows) | Remaining: 101
+[OK] Loaded leverage limits for 652 symbols
+[504/604] DONE MILK/USDT:USDT (334500 rows) | Remaining: 100
+[OK] Loaded leverage limits for 652 symbols
+[505/604] DONE WLD/USDT:USDT (538282 rows) | Remaining: 99
+[OK] Loaded leverage limits for 652 symbols
+[506/604] DONE CFX/USDT:USDT (538284 rows) | Remaining: 98
+[OK] Loaded leverage limits for 652 symbols
+[507/604] DONE RLC/USDT:USDT (538284 rows) | Remaining: 97
+[OK] Loaded leverage limits for 652 symbols
+[508/604] DONE BLUR/USDT:USDT (538286 rows) | Remaining: 96
+[OK] Loaded leverage limits for 652 symbols
+[509/604] DONE PIPPIN/USDT:USDT (481500 rows) | Remaining: 95
+[OK] Loaded leverage limits for 652 symbols
+[510/604] DONE SQD/USDT:USDT (283500 rows) | Remaining: 94
+[OK] Loaded leverage limits for 652 symbols
+[511/604] DONE ON/USDT:USDT (88500 rows) | Remaining: 93
+[OK] Loaded leverage limits for 652 symbols
+[512/604] DONE XVG/USDT:USDT (538289 rows) | Remaining: 92
+[OK] Loaded leverage limits for 652 symbols
+[513/604] DONE JST/USDT:USDT (346500 rows) | Remaining: 91
+[OK] Loaded leverage limits for 652 symbols
+[514/604] DONE HEI/USDT:USDT (453000 rows) | Remaining: 90
+[OK] Loaded leverage limits for 652 symbols
+[515/604] DONE ORDI/USDT:USDT (538293 rows) | Remaining: 89
+[OK] Loaded leverage limits for 652 symbols
+[516/604] DONE BROCCOLI714/USDT:USDT (401915 rows) | Remaining: 88
+[OK] Loaded leverage limits for 652 symbols
+[517/604] DONE MAVIA/USDT:USDT (394236 rows) | Remaining: 87
+[OK] Loaded leverage limits for 652 symbols
+[518/604] DONE XVS/USDT:USDT (538297 rows) | Remaining: 86
+Warning: Failed to load markets on init: binance 429 Too Many Requests {"code":-1003,"msg":"Too many requests; current limit of IP(103.127.218.184) is 2400 requests per minute. Please use the websocket for live updates to avoid polling the API."}
+[519/604] DONE ATH/USDT:USDT (384000 rows) | Remaining: 85
+[OK] Loaded leverage limits for 652 symbols
+[520/604] DONE IO/USDT:USDT (538301 rows) | Remaining: 84
+[OK] Loaded leverage limits for 652 symbols
+[521/604] DONE S/USDT:USDT (493500 rows) | Remaining: 83
+[OK] Loaded leverage limits for 652 symbols
+[522/604] DONE SANTOS/USDT:USDT (538303 rows) | Remaining: 82
+[OK] Loaded leverage limits for 652 symbols
+[523/604] DONE INIT/USDT:USDT (364500 rows) | Remaining: 81
+[OK] Loaded leverage limits for 652 symbols
+[524/604] DONE KAS/USDT:USDT (538305 rows) | Remaining: 80
+[OK] Loaded leverage limits for 652 symbols
+[525/604] DONE RAVE/USDT:USDT (15000 rows) | Remaining: 79
+[OK] Loaded leverage limits for 652 symbols
+[526/604] DONE VANRY/USDT:USDT (538308 rows) | Remaining: 78
+[OK] Loaded leverage limits for 652 symbols
+[527/604] DONE RSR/USDT:USDT (538309 rows) | Remaining: 77
+[OK] Loaded leverage limits for 652 symbols
+[528/604] DONE API3/USDT:USDT (538310 rows) | Remaining: 76
+[OK] Loaded leverage limits for 652 symbols
+[529/604] DONE MEME/USDT:USDT (538312 rows) | Remaining: 75
+[OK] Loaded leverage limits for 652 symbols
+[530/604] DONE ORBS/USDT:USDT (538314 rows) | Remaining: 74
+[OK] Loaded leverage limits for 652 symbols
+[531/604] DONE PHA/USDT:USDT (517500 rows) | Remaining: 73
+[OK] Loaded leverage limits for 652 symbols
+[532/604] DONE 币安人生/USDT:USDT (94500 rows) | Remaining: 72
+[OK] Loaded leverage limits for 652 symbols
+[533/604] DONE STRAX/USDT:USDT (538317 rows) | Remaining: 71
+[OK] Loaded leverage limits for 652 symbols
+[534/604] DONE VINE/USDT:USDT (481500 rows) | Remaining: 70
+[OK] Loaded leverage limits for 652 symbols
+[535/604] DONE W/USDT:USDT (538319 rows) | Remaining: 69
+[OK] Loaded leverage limits for 652 symbols
+[536/604] DONE FIO/USDT:USDT (538321 rows) | Remaining: 68
+Warning: Failed to load markets on init: binance 429 Too Many Requests {"code":-1003,"msg":"Too many requests; current limit of IP(103.127.218.184) is 2400 requests per minute. Please use the websocket for live updates to avoid polling the API."}
+[537/604] DONE US/USDT:USDT (18000 rows) | Remaining: 67
+[OK] Loaded leverage limits for 652 symbols
+[538/604] DONE DODOX/USDT:USDT (538323 rows) | Remaining: 66
+[OK] Loaded leverage limits for 652 symbols
+[539/604] DONE SHELL/USDT:USDT (447000 rows) | Remaining: 65
+[OK] Loaded leverage limits for 652 symbols
+[540/604] DONE SAHARA/USDT:USDT (261000 rows) | Remaining: 64
+[OK] Loaded leverage limits for 652 symbols
+[541/604] DONE EVAA/USDT:USDT (118500 rows) | Remaining: 63
+[OK] Loaded leverage limits for 652 symbols
+[542/604] DONE XAN/USDT:USDT (124500 rows) | Remaining: 62
+[OK] Loaded leverage limits for 652 symbols
+[543/604] DONE MLN/USDT:USDT (387000 rows) | Remaining: 61
+[OK] Loaded leverage limits for 652 symbols
+[544/604] DONE TWT/USDT:USDT (538329 rows) | Remaining: 60
+[545/604] DONE KEY/USDT:USDT (538329 rows) | Remaining: 59
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[546/604] DONE ID/USDT:USDT (538331 rows) | Remaining: 58
+[OK] Loaded leverage limits for 652 symbols
+[547/604] DONE BERA/USDT:USDT (463500 rows) | Remaining: 57
+[OK] Loaded leverage limits for 652 symbols
+[548/604] DONE MERL/USDT:USDT (301500 rows) | Remaining: 56
+[OK] Loaded leverage limits for 652 symbols
+[549/604] DONE CGPT/USDT:USDT (532384 rows) | Remaining: 55
+[OK] Loaded leverage limits for 652 symbols
+[550/604] DONE SCRT/USDT:USDT (538340 rows) | Remaining: 54
+[OK] Loaded leverage limits for 652 symbols
+[551/604] DONE IOTX/USDT:USDT (538344 rows) | Remaining: 53
+[OK] Loaded leverage limits for 652 symbols
+[552/604] DONE SNX/USDT:USDT (538345 rows) | Remaining: 52
+[OK] Loaded leverage limits for 652 symbols
+[553/604] DONE G/USDT:USDT (538347 rows) | Remaining: 51
+[OK] Loaded leverage limits for 652 symbols
+[554/604] DONE ZETA/USDT:USDT (538349 rows) | Remaining: 50
+[OK] Loaded leverage limits for 652 symbols
+[555/604] DONE OXT/USDT:USDT (538350 rows) | Remaining: 49
+[OK] Loaded leverage limits for 652 symbols
+[556/604] DONE SOPH/USDT:USDT (303000 rows) | Remaining: 48
+[OK] Loaded leverage limits for 652 symbols
+[557/604] DONE GALA/USDT:USDT (538351 rows) | Remaining: 47
+[OK] Loaded leverage limits for 652 symbols
+[558/604] DONE PUFFER/USDT:USDT (294000 rows) | Remaining: 46
+[OK] Loaded leverage limits for 652 symbols
+[559/604] DONE DAM/USDT:USDT (185765 rows) | Remaining: 45
+[OK] Loaded leverage limits for 652 symbols
+[560/604] DONE WIF/USDT:USDT (538356 rows) | Remaining: 44
+[OK] Loaded leverage limits for 652 symbols
+[561/604] DONE ZEC/USDT:USDT (538356 rows) | Remaining: 43
+[OK] Loaded leverage limits for 652 symbols
+[562/604] DONE PORT3/USDT:USDT (293993 rows) | Remaining: 42
+[OK] Loaded leverage limits for 652 symbols
+[563/604] DONE EGLD/USDT:USDT (538359 rows) | Remaining: 41
+[OK] Loaded leverage limits for 652 symbols
+[564/604] DONE THETA/USDT:USDT (538360 rows) | Remaining: 40
+[OK] Loaded leverage limits for 652 symbols
+[565/604] DONE AT/USDT:USDT (81000 rows) | Remaining: 39
+[OK] Loaded leverage limits for 652 symbols
+[566/604] DONE MDT/USDT:USDT (538363 rows) | Remaining: 38
+[OK] Loaded leverage limits for 652 symbols
+[567/604] DONE ETHW/USDT:USDT (538364 rows) | Remaining: 37
+[OK] Loaded leverage limits for 652 symbols
+[568/604] DONE B/USDT:USDT (312000 rows) | Remaining: 36
+[569/604] DONE ORDER/USDT:USDT (129000 rows) | Remaining: 35
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[570/604] DONE NEO/USDT:USDT (538365 rows) | Remaining: 34
+[OK] Loaded leverage limits for 652 symbols
+[571/604] DONE FLUID/USDT:USDT (132000 rows) | Remaining: 33
+[OK] Loaded leverage limits for 652 symbols
+[572/604] DONE BANANAS31/USDT:USDT (400500 rows) | Remaining: 32
+[OK] Loaded leverage limits for 652 symbols
+[573/604] DONE INJ/USDT:USDT (538370 rows) | Remaining: 31
+[OK] Loaded leverage limits for 652 symbols
+[574/604] DONE UNFI/USDT:USDT (538371 rows) | Remaining: 30
+[OK] Loaded leverage limits for 652 symbols
+[575/604] DONE ADA/USDT:USDT (538373 rows) | Remaining: 29
+[OK] Loaded leverage limits for 652 symbols
+[576/604] DONE COOKIE/USDT:USDT (506964 rows) | Remaining: 28
+[OK] Loaded leverage limits for 652 symbols
+[577/604] DONE OP/USDT:USDT (538376 rows) | Remaining: 27
+[OK] Loaded leverage limits for 652 symbols
+[578/604] DONE NIGHT/USDT:USDT (21000 rows) | Remaining: 26
+[OK] Loaded leverage limits for 652 symbols
+[579/604] DONE CARV/USDT:USDT (201000 rows) | Remaining: 25
+[580/604] DONE CATI/USDT:USDT (538378 rows) | Remaining: 24
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[581/604] DONE FTM/USDT:USDT (538379 rows) | Remaining: 23
+[OK] Loaded leverage limits for 652 symbols
+[582/604] DONE CLANKER/USDT:USDT (61500 rows) | Remaining: 22
+[OK] Loaded leverage limits for 652 symbols
+[583/604] DONE AUCTION/USDT:USDT (538382 rows) | Remaining: 21
+[OK] Loaded leverage limits for 652 symbols
+[584/604] DONE BOND/USDT:USDT (538382 rows) | Remaining: 20
+[OK] Loaded leverage limits for 652 symbols
+[585/604] DONE HBAR/USDT:USDT (538384 rows) | Remaining: 19
+[OK] Loaded leverage limits for 652 symbols
+[586/604] DONE ZBT/USDT:USDT (99000 rows) | Remaining: 18
+[OK] Loaded leverage limits for 652 symbols
+[587/604] DONE RIF/USDT:USDT (538387 rows) | Remaining: 17
+[588/604] DONE LUNA2/USDT:USDT (538387 rows) | Remaining: 16
+[OK] Loaded leverage limits for 652 symbols
+[OK] Loaded leverage limits for 652 symbols
+[589/604] DONE LIGHT/USDT:USDT (127500 rows) | Remaining: 15
+[OK] Loaded leverage limits for 652 symbols
+[590/604] DONE EDEN/USDT:USDT (123000 rows) | Remaining: 14
+[OK] Loaded leverage limits for 652 symbols
+[591/604] DONE IOTA/USDT:USDT (538389 rows) | Remaining: 13
+[OK] Loaded leverage limits for 652 symbols
+[592/604] DONE ERA/USDT:USDT (231000 rows) | Remaining: 12
+[OK] Loaded leverage limits for 652 symbols
+[593/604] DONE BIO/USDT:USDT (511500 rows) | Remaining: 11
+[OK] Loaded leverage limits for 652 symbols
+[594/604] DONE CAKE/USDT:USDT (538394 rows) | Remaining: 10
+[OK] Loaded leverage limits for 652 symbols
+[595/604] DONE SEI/USDT:USDT (538396 rows) | Remaining: 9
+[OK] Loaded leverage limits for 652 symbols
+[596/604] DONE SFP/USDT:USDT (538396 rows) | Remaining: 8
+[OK] Loaded leverage limits for 652 symbols
+[597/604] DONE DUSK/USDT:USDT (538398 rows) | Remaining: 7
+[OK] Loaded leverage limits for 652 symbols
+[598/604] DONE PONKE/USDT:USDT (538400 rows) | Remaining: 6
+[OK] Loaded leverage limits for 652 symbols
+[599/604] DONE BAN/USDT:USDT (538400 rows) | Remaining: 5
+[OK] Loaded leverage limits for 652 symbols
+[600/604] DONE BNX/USDT:USDT (538403 rows) | Remaining: 4
+[OK] Loaded leverage limits for 652 symbols
+[601/604] DONE SIREN/USDT:USDT (400500 rows) | Remaining: 3
+[OK] Loaded leverage limits for 652 symbols
+[602/604] DONE SWELL/USDT:USDT (538405 rows) | Remaining: 2
+[603/604] DONE LA/USDT:USDT (292500 rows) | Remaining: 1
+[604/604] DONE GRASS/USDT:USDT (538407 rows) | Remaining: 0

@@ -1,9 +1,10 @@
-import pandas_ta as ta
 from config.settings import Config
+from bot.live_logger import LiveTradeLogger
 
 class RiskManager:
     def __init__(self):
         self.config = Config()
+        self.live_logger = LiveTradeLogger()
 
     def calculate_position_size(self, account_balance, entry_price, stop_loss_price, leverage=None):
         """
@@ -37,9 +38,15 @@ class RiskManager:
         current_position_value = quantity * entry_price
         
         if current_position_value > max_position_value:
-            quantity = max_position_value / entry_price
-            print(f"⚠️ Position capped by leverage {max_leverage}x")
-            
+            # FIX: Add 1% buffer for fees/margin logic to prevent "Insufficient Balance"
+            # Binance requires InitMargin + Fee
+            buffer = 0.99
+            quantity = (max_position_value * buffer) / entry_price
+            print(f"⚠️ Position capped by leverage {max_leverage}x (with 1% fee buffer)")
+        
+        # Log to strict backtest format
+        self.live_logger.log_position_calc(account_balance, risk_pct, risk_amount, quantity)
+        
         print(f"仓位计算: 余额={account_balance:.2f}, 风险等级={risk_pct*100}%, 风险金额=${risk_amount:.2f}, 数量={quantity:.6f}")
         
         return quantity

@@ -1,0 +1,7 @@
+{
+  "data_dir": "/Users/muce/1m_data/new_backtest_data_1year_1m",
+  "api_fallback_enabled": true,
+  "max_workers": 1,
+  "request_delay_seconds": 1.0,
+  "target_timezone": "UTC"
+}

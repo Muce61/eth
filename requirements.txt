@@ -5,3 +5,5 @@ python-dotenv
 numpy
 requests
 websocket-client
+python-binance
+aiohttp
